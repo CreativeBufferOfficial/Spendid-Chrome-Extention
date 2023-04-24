@@ -1,0 +1,133 @@
+.mainContainer {
+  height: auto;
+  min-width: 400px;
+  max-width: 400px;
+  width: 400px;
+  /* padding: 0px 60px; */
+}
+.header_color {
+  height: 20vh;
+  background: linear-gradient(50deg, #297a6e 35%, #59dac6 100%);
+}
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  height: 80vh;
+}
+.logo_header {
+  height: 20vh;
+  width: 300px;
+  margin-top: -70px;
+  padding: 5px 15px;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  /* border: 3px solid black; */
+}
+.fail_message {
+  margin-top: 10px;
+  height: 8vh;
+  width: 300px;
+  font-size: 12px;
+  background: pink;
+  border: 1px solid rgb(192, 121, 133);
+  border-radius: 3px;
+  text-align: center;
+  padding-top: 14px;
+  color: rgb(163, 30, 50);
+}
+.login_form {
+  height: 100vh;
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+.form_title {
+  height: 6vh;
+  width: 130px;
+  font-size: 20px;
+  font-weight: 600;
+  margin-top: 10px;
+  text-align: center;
+  border-bottom: 2px solid black;
+  font-family: 'Poppins', sans-serif;
+}
+
+.user_input_wrp {
+  position: relative;
+  width: 300px;
+  height: 9vh;
+  border: 1px solid lightgrey;
+  border-radius: 3px;
+  margin-top: 25px;
+}
+.user_input_wrp .inputText {
+  position: relative;
+  width: 280px;
+  height: 3vh;
+  outline: none;
+  border: none;
+  font-size: 15px;
+  /* border-bottom: 1px solid #777; */
+  box-shadow: none !important;
+}
+
+/* .user_input_wrp .inputText:focus {
+  border-color: blue;
+  border-width: medium medium 2px;
+} */
+.user_input_wrp .floating_label {
+  position: absolute;
+  pointer-events: none;
+  top: 18px;
+  left: 10px;
+  transition: 0.2s ease all;
+}
+.user_input_wrp input:focus ~ .floating_label,
+.user_input_wrp input:not(:focus):valid ~ .floating_label {
+  top: 3px;
+  left: 10px;
+  font-size: 12px;
+  opacity: 1;
+}
+.inputText::placeholder {
+  color: rgb(160, 160, 160);
+  opacity: 1;
+}
+.floating_label {
+  color: rgb(160, 160, 160);
+  font-size: 14px;
+  margin-top: -1px;
+}
+.openEye {
+  position: absolute;
+  margin-left: -30px;
+}
+.closeEye {
+  position: absolute;
+  margin-left: -30px;
+  margin-top: -2px;
+}
+
+.login_btn {
+  width: 300px;
+  margin-top: 20px;
+  padding: 10px 5px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  color: white;
+  border-radius: 3px;
+  background-color: #31bfaa;
+  border: none;
+}
+
+.login_form > p {
+  margin-top: 10px;
+  font-size: 15px;
+}
