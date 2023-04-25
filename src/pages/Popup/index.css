@@ -4,6 +4,10 @@
   margin: 0;
   padding: 0;
 }
+
+*::-webkit-scrollbar {
+  display: none;
+}
 body {
   width: 400px;
   height: 600px;

@@ -3,8 +3,9 @@ import React from 'react';
 // import Greetings from '../../containers/Greetings/Greetings';
 import { Routes, Route } from 'react-router-dom';
 import Login from '../Login/Login';
-import Dashboard from '../Dashboard/Dashboard';
+import Dashboard from '../Dashboard/HomePage/Dashboard';
 import classes from './Popup.module.css';
+import Form from '../Dashboard/FormPage/Form';
 
 const Popup = () => {
   return (
@@ -12,6 +13,7 @@ const Popup = () => {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/form" element={<Form />} />
       </Routes>
     </div>
   );

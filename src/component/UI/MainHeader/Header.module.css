@@ -1,0 +1,28 @@
+.mainContainer {
+  height: auto;
+  min-width: 400px;
+  max-width: 400px;
+  width: 400px;
+}
+.header_color {
+  height: 20vh;
+  background: linear-gradient(50deg, #297a6e 35%, #59dac6 100%);
+}
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  /* height: 10vh; */
+}
+.logo_header {
+  height: 20vh;
+  width: 300px;
+  margin-top: -70px;
+  padding: 5px 15px;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
