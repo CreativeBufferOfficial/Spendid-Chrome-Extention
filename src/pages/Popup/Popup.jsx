@@ -5,16 +5,19 @@ import { Routes, Route } from 'react-router-dom';
 import Login from '../Login/Login';
 import Dashboard from '../Dashboard/HomePage/Dashboard';
 import classes from './Popup.module.css';
-import Form from '../Dashboard/FormPage/Form';
+import Form from '../Dashboard/Form/Form';
+import { FormProvider } from '../../context/FormContext';
 
 const Popup = () => {
   return (
     <div className={classes.App}>
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/form" element={<Form />} />
-      </Routes>
+      <FormProvider>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/form" element={<Form />} />
+        </Routes>
+      </FormProvider>
     </div>
   );
 };

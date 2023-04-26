@@ -156,3 +156,13 @@
 .add_source :last-child {
   margin-top: 15px;
 }
+
+.source_feild {
+  margin-top: 12px;
+}
+
+/***************************Form Context ******************************/
+
+.removeButton {
+  display: hidden;
+}
