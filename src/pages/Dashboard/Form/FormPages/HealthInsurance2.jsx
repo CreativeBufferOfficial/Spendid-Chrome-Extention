@@ -3,6 +3,7 @@ import useFormContext from '../../../../hooks/useFormContext';
 import classes from '../Form.module.css';
 const HealthInsurance2 = () => {
   const { data, handleChange } = useFormContext();
+  const { health_insurance } = data.apiReq.budget;
 
   const content = (
     <div className={classes.questions}>
@@ -16,6 +17,9 @@ const HealthInsurance2 = () => {
           type="number"
           maxLength="5"
           placeholder="Type your answer here..."
+          name="health_insurance"
+          value={health_insurance}
+          onChange={handleChange}
         />
       </div>
       <div className={classes.text_btn}>

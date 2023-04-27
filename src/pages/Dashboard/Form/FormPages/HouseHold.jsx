@@ -3,6 +3,16 @@ import useFormContext from '../../../../hooks/useFormContext';
 import classes from '../Form.module.css';
 const HouseHold = () => {
   const { data, handleChange } = useFormContext();
+
+  const options = [
+    { name: 'A', value: '1' },
+    { name: 'B', value: '2' },
+    { name: 'C', value: '3' },
+    { name: 'D', value: '4' },
+    { name: 'E', value: '5 or more' },
+  ];
+  let { household_members } = data.apiReq.demographics;
+  console.log(data);
   const content = (
     <div className={classes.questions}>
       <div className={classes.question}>
@@ -10,30 +20,16 @@ const HouseHold = () => {
         <p>Number of People in Household</p>
       </div>
       <div className={classes.select_option}>
-        <div className={classes.option} onClick={handleChange}>
-          <p>A</p>
-          <p>1</p>
-        </div>
-        <div className={classes.option} onClick={handleChange}>
-          <p>B</p>
-          <p>2</p>
-        </div>
-        <div
-          className={classes.option}
-          onClick={handleChange}
-          htmlFor="houseHold"
-        >
-          <p>C</p>
-          <p>3</p>
-        </div>
-        <div className={classes.option} onClick={handleChange}>
-          <p>D</p>
-          <p>4</p>
-        </div>
-        <div className={classes.option} onClick={handleChange}>
-          <p>E</p>
-          <p>5 or more</p>
-        </div>
+        {options.map((item, index) => (
+          <div key={index} className={classes.option} onClick={handleChange}>
+            <p name={'household_members'} value={item.value}>
+              {item.name}
+            </p>
+            <p name={'household_members'} value={item.value}>
+              {item.value}
+            </p>
+          </div>
+        ))}
       </div>
     </div>
   );

@@ -44,7 +44,6 @@ export const FormProvider = ({ children }) => {
       3: 'HomeType ',
       imageSrc: homeTypeIcon,
     },
-
     {
       4: 'Rent ',
       imageSrc: rentIcon,
@@ -78,42 +77,117 @@ export const FormProvider = ({ children }) => {
   const [page, setPage] = useState(0);
 
   const [data, setData] = useState({
-    zip: '',
-    age: '',
-    household: '',
-    homeType: '',
-    rent: '',
-    vechicles: '',
-    obligations: {
-      valid: '',
-      value: {
-        pastCreditCardDebt: '',
-        studentLoans: '',
-        homeEquityLineCredit: '',
-        Alimony: '',
-        childSupport: '',
-        otherDebtPayments: '',
-        Total: '',
+    apiReq: {
+      demographics: {
+        zip: '',
+        age: '',
+        household_members: '',
+        is_homeowner: '',
+        net_annual_income: '',
       },
-    },
-    healthInsurance: {
-      valid: '',
-      value: {
-        InsuranceAnount: '',
+
+      budget: {
+        other_debt_payments: '',
+        mortgage_and_rent: '',
+        vehicle_purchase_and_lease: '',
+        health_insurance: '',
       },
     },
 
-    takeHome: {
-      0: {
-        frequency: '',
-        amount: '',
-      },
-      1: {
-        frequency: '',
-        amount: '',
-      },
-    },
+    // zip: '',
+    // age: '',
+    // household: '',
+    // homeType: '',
+    // rent: '',
+    // vechicles: '',
+    // obligations: {
+    //   valid: '',
+    //   value: {
+    //     pastCreditCardDebt: '',
+    //     studentLoans: '',
+    //     homeEquityLineCredit: '',
+    //     Alimony: '',
+    //     childSupport: '',
+    //     otherDebtPayments: '',
+    //     total: '',
+    //   },
+    // },
+    // healthInsurance: {
+    //   valid: '',
+    //   value: {
+    //     insuranceAmount: '',
+    //   },
+    // },
+
+    // takeHome: [
+    //   { frequency: '', amount: '' },
+    //   { frequency: '', amount: '' },
+    // ],
+
+    // {
+    //   0: {
+    //     frequency: '',
+    //     amount: '',
+    //   },
+    //   1: {
+    //     frequency: '',
+    //     amount: '',
+    //   },
+    // },
   });
+
+  const handleChange = (e) => {
+    console.log(e.target.name);
+    console.log(e.target.getAttribute('name'));
+    console.log(e.target.value);
+    console.log('value', e.target.getAttribute('value'));
+
+    const name = e.target.getAttribute('name');
+    const value =
+      e.target.value === undefined
+        ? e.target.getAttribute('value')
+        : e.target.value;
+
+    // console.log(name);
+    // console.log(value);
+    switch (name) {
+      case 'zip':
+      case 'age':
+      case 'household_members':
+      case 'is_homeowner':
+      case 'net_annual_income':
+        setData((data) => ({
+          apiReq: {
+            ...data.apiReq,
+            demographics: {
+              ...data.apiReq.demographics,
+              [name]: value,
+            },
+          },
+        }));
+        break;
+
+      case 'other_debt_payments':
+      case 'mortgage_and_rent':
+      case 'vehicle_purchase_and_lease':
+      case 'health_insurance':
+        setData((data) => ({
+          apiReq: {
+            ...data.apiReq,
+            budget: {
+              ...data.apiReq.budget,
+              [name]: value,
+            },
+          },
+        }));
+        break;
+
+      default:
+      // ignore
+    }
+  };
+
+  console.log('data>>>', data);
 
   //   useEffect(() => {
   //     if (data.sameAsBilling) {
@@ -154,17 +228,17 @@ export const FormProvider = ({ children }) => {
   //   }));
   // };
 
-  const handleChange = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    console.log(e.target.innerText);
-    console.log(e.target.name, e.target.value);
+  // const handleChange = (e) => {
+  //   const name = e.target.name;
+  //   const value = e.target.value;
+  //   console.log(e.target.innerText);
+  //   console.log(e.target.name, e.target.value);
 
-    setData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
+  //   setData((prevData) => ({
+  //     ...prevData,
+  //     [name]: value,
+  //   }));
+  // };
 
   const { takeHome, ...requiredInputs } = data;
 

@@ -4,6 +4,8 @@ import classes from '../Form.module.css';
 
 const Age = () => {
   const { data, handleChange } = useFormContext();
+  console.log('data>>>Age ', data);
+  // const { age } = data.apiReq.demographics;
 
   const content = (
     <div className={classes.questions}>
@@ -18,8 +20,9 @@ const Age = () => {
         <input
           className={classes.input}
           type="number"
-          maxLength="5"
-          value={data.age}
+          maxLength="3"
+          name="age"
+          // value={age}
           onChange={handleChange}
           placeholder="Type your answer here..."
         />

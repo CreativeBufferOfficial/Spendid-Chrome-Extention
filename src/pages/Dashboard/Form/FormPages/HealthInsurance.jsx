@@ -2,7 +2,12 @@ import React from 'react';
 import useFormContext from '../../../../hooks/useFormContext';
 import classes from '../Form.module.css';
 const HealthInsurance = () => {
-  const { data, handleChange } = useFormContext();
+  const { page, setPage, data, handleChange } = useFormContext();
+
+  const options = [
+    { name: 'A', value: 'Yes' },
+    { name: 'B', value: 'No' },
+  ];
 
   const content = (
     <div className={classes.questions}>
@@ -14,14 +19,12 @@ const HealthInsurance = () => {
         <span>(from your take-home income)</span>
       </div>
       <div className={classes.select_option}>
-        <div className={classes.option}>
-          <p>A</p>
-          <p>Yes</p>
-        </div>
-        <div className={classes.option}>
-          <p>B</p>
-          <p>No</p>
-        </div>
+        {options.map((item, index) => (
+          <div key={index} className={classes.option}>
+            <p value={item.value}>{item.name}</p>
+            <p value={item.value}>{item.value}</p>
+          </div>
+        ))}
       </div>
     </div>
   );

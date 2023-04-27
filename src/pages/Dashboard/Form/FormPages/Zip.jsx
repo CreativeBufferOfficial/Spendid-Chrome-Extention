@@ -4,6 +4,7 @@ import classes from '../Form.module.css';
 const Zip = () => {
   const { data, handleChange } = useFormContext();
 
+  // const { zip } = data.apiReq.demographics;
   const content = (
     <div className={classes.questions}>
       <div className={classes.question}>
@@ -16,7 +17,7 @@ const Zip = () => {
           type="number"
           maxLength="5"
           name="zip"
-          // value={data.zip}
+          // value={zip}
           onChange={handleChange}
           placeholder="Type your answer here..."
         />

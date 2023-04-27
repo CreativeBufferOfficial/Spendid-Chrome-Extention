@@ -4,6 +4,8 @@ import classes from '../Form.module.css';
 const Vechicles = () => {
   const { data, handleChange } = useFormContext();
 
+  const { vehicle_purchase_and_lease } = data.apiReq.budget;
+
   const content = (
     <div className={classes.questions}>
       <div className={classes.question}>
@@ -16,6 +18,9 @@ const Vechicles = () => {
           type="number"
           maxLength="5"
           placeholder="Type your answer here..."
+          name="vehicle_purchase_and_lease"
+          // value={data.vechicles}
+          onChange={handleChange}
         />
       </div>
       <div className={classes.text_btn}>

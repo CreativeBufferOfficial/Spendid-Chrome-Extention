@@ -31,6 +31,8 @@ const Form = () => {
   console.log('nextHide', nextHide);
   console.log('cll>>>>', prevHide ? classes.removeButton : '');
 
+  console.log('data>>>>>>', data);
+
   return (
     <>
       <Header />

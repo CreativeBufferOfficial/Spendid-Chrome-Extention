@@ -1,8 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import useFormContext from '../../../../hooks/useFormContext';
 import classes from '../Form.module.css';
 const Obligations2 = () => {
   const { data, handleChange } = useFormContext();
+
+  const [debt, setDebt] = useState({
+    pastCreditCardDebt: '',
+    studentLoans: '',
+    homeEquityLineCredit: '',
+    Alimony: '',
+    childSupport: '',
+    otherDebt: '',
+  });
+
+  const deptHandler = (e) => {
+    const { name, value } = e.target;
+
+    setDebt((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+  const values = Object.values(debt);
+  // console.log('values', values);
+  const totalDeptvalue = values.reduce((accumulator, value) => {
+    return +accumulator + +value;
+  }, 0);
+  console.log('dept>>>>>', debt);
+  console.log('totalDeptvalue>>>>>', totalDeptvalue);
 
   const content = (
     <div className={classes.questions}>
@@ -28,7 +53,10 @@ const Obligations2 = () => {
             className={classes.input}
             type="number"
             maxLength="5"
+            name="pastCreditCardDebt"
             placeholder="$ 0"
+            value={debt.pastCreditCardDebt}
+            onChange={deptHandler}
           />
         </div>
         <div>
@@ -38,6 +66,9 @@ const Obligations2 = () => {
             type="number"
             maxLength="5"
             placeholder="$ 0"
+            name="studentLoans"
+            value={debt.studentLoans}
+            onChange={deptHandler}
           />
         </div>
         <div>
@@ -47,6 +78,9 @@ const Obligations2 = () => {
             type="number"
             maxLength="5"
             placeholder="$ 0"
+            name="homeEquityLineCredit"
+            value={debt.homeEquityLineCredit}
+            onChange={deptHandler}
           />
         </div>
         <div>
@@ -56,8 +90,12 @@ const Obligations2 = () => {
             type="number"
             maxLength="5"
             placeholder="$ 0"
+            name="Alimony"
+            value={debt.Alimony}
+            onChange={deptHandler}
           />
         </div>
+
         <div>
           <label>Child Support</label>
           <input
@@ -65,6 +103,22 @@ const Obligations2 = () => {
             type="number"
             maxLength="5"
             placeholder="$ 0"
+            name="childSupport"
+            value={debt.childSupport}
+            onChange={deptHandler}
+          />
+        </div>
+
+        <div>
+          <label>Other Debt Payments</label>
+          <input
+            className={classes.input}
+            type="number"
+            maxLength="5"
+            placeholder="$ 0"
+            name="otherDebt"
+            value={debt.otherDebt}
+            onChange={deptHandler}
           />
         </div>
 
@@ -75,6 +129,9 @@ const Obligations2 = () => {
             type="number"
             maxLength="5"
             placeholder="$ 0"
+            name="other_debt_payments"
+            value={totalDeptvalue}
+            onChange={handleChange}
           />
         </div>
       </div>

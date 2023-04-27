@@ -4,6 +4,12 @@ import classes from '../Form.module.css';
 
 const HomeType = () => {
   const { data, handleChange } = useFormContext();
+  const { is_homeowner } = data.apiReq.demographics;
+
+  const options = [
+    { name: 'A', value: false, text: 'Rent' },
+    { name: 'B', value: true, text: 'Own' },
+  ];
 
   const content = (
     <div className={classes.questions}>
@@ -12,14 +18,16 @@ const HomeType = () => {
         <p>Rent or Own Your Home?</p>
       </div>
       <div className={classes.select_option}>
-        <div className={classes.option}>
-          <p>A</p>
-          <p>Rent</p>
-        </div>
-        <div className={classes.option}>
-          <p>B</p>
-          <p>Own</p>
-        </div>
+        {options.map((item, index) => (
+          <div className={classes.option} key={index} onClick={handleChange}>
+            <p name={'is_homeowner'} value={item.value}>
+              {item.name}
+            </p>
+            <p name={'is_homeowner'} value={item.value}>
+              {item.text}
+            </p>
+          </div>
+        ))}
       </div>
     </div>
   );

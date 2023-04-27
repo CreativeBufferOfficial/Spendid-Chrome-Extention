@@ -1,10 +1,49 @@
-import React from 'react';
+import React, { useState } from 'react';
 import useFormContext from '../../../../hooks/useFormContext';
 import classes from '../Form.module.css';
 import addIcon from '../../../../assets/form/addSource.png';
 
 const TakeHome = () => {
   const { data, handleChange } = useFormContext();
+  // const { net_annual_income } = data.apiReq.demographics;
+  const [netIncome, setNetIncome] = useState([{ frequency: '', amount: 0 }]);
+
+  const options = [
+    { name: 'A', value: 'Weekly' },
+    { name: 'B', value: 'Every 2 Weeks' },
+    { name: 'C', value: 'Twice per Month' },
+    { name: 'D', value: 'Monthly' },
+    { name: 'E', value: 'Quarterly' },
+    { name: 'F', value: 'Semi-Annually' },
+    { name: 'G', value: 'Annually' },
+  ];
+
+  const clickHandler = (item) => {
+    setNetIncome([...netIncome, item]);
+  };
+  console.log(netIncome);
+
+  // const Income = [
+  //   { frequency: 'weekly', amount: 10 },
+  //   { frequency: 'monthly', amount: 20 },
+  // ];
+
+  // const arr = Income.map((item) => {
+  //   if (item.frequency === 'weekly') {
+  //     return item.amount * 4;
+  //   } else {
+  //     return item.amount * 1;
+  //   }
+  // });
+  // const sumWithInitial = arr.reduce(
+  //   (accumulator, currentValue) => accumulator + currentValue,
+  //   0
+  // );
+
+  // console.log(arr);
+  // console.log(sumWithInitial);
+
+  console.log('netIncome>>>>>>>>>>>>>>', netIncome);
 
   const content = (
     <div className={classes.questions}>
@@ -12,108 +51,57 @@ const TakeHome = () => {
         <span>9.</span>
         <p>Take-Home Income</p>
       </div>
-      <div className={classes.source_feild}>
-        <div className={classes.description}>
-          <span>
-            Source #1 <br /> Frequency
-          </span>
-        </div>
-        <div className={classes.select_option}>
-          <div className={classes.option}>
-            <p>A</p>
-            <p>Weekly</p>
-          </div>
-          <div className={classes.option}>
-            <p>B</p>
-            <p>Every 2 Weeks</p>
-          </div>
-          <div className={classes.option}>
-            <p>C</p>
-            <p>Twice per Month</p>
-          </div>
-          <div className={classes.option}>
-            <p>D</p>
-            <p>Monthly</p>
-          </div>
-          <div className={classes.option}>
-            <p>E</p>
-            <p>Quarterly</p>
-          </div>
-          <div className={classes.option}>
-            <p>E</p>
-            <p>Semi-Annually</p>
-          </div>
-          <div className={classes.option}>
-            <p>E</p>
-            <p>Annually</p>
-          </div>
-        </div>
+      {netIncome.map((item, index) => {
+        index += 1;
+        return (
+          <div key={index} className={classes.source_feild}>
+            <div className={classes.description}>
+              <span>
+                Source #{index} <br /> Frequency
+              </span>
+            </div>
+            <div className={classes.select_option}>
+              {options.map((option, i) => (
+                <div
+                  key={i}
+                  className={classes.option}
+                  onClick={() =>
+                    setNetIncome(netIncome.frequency === option.value)
+                  }
+                >
+                  <p name={'frequency'} value={option.value}>
+                    {option.name}
+                  </p>
+                  <p name={'frequency'} value={option.value}>
+                    {option.value}
+                  </p>
+                </div>
+              ))}
+            </div>
 
-        <div className={classes.input_field}>
-          <div>
-            <label>Amount</label>
-            <input
-              className={classes.input}
-              type="number"
-              maxLength="5"
-              placeholder="Type your amount here"
-            />
+            <div className={classes.input_field}>
+              <div>
+                <label>Amount</label>
+                <input
+                  className={classes.input}
+                  type="number"
+                  maxLength="5"
+                  onChange={() => setNetIncome(netIncome.amount)}
+                  placeholder="Type your amount here"
+                />
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        );
+      })}
 
-      <div className={classes.source_feild}>
-        <div className={classes.description}>
-          <span>
-            Source #2 <br /> Frequency
-          </span>
-        </div>
-        <div className={classes.select_option}>
-          <div className={classes.option}>
-            <p>A</p>
-            <p>Weekly</p>
-          </div>
-          <div className={classes.option}>
-            <p>B</p>
-            <p>Every 2 Weeks</p>
-          </div>
-          <div className={classes.option}>
-            <p>C</p>
-            <p>Twice per Month</p>
-          </div>
-          <div className={classes.option}>
-            <p>D</p>
-            <p>Monthly</p>
-          </div>
-          <div className={classes.option}>
-            <p>E</p>
-            <p>Quarterly</p>
-          </div>
-          <div className={classes.option}>
-            <p>E</p>
-            <p>Semi-Annually</p>
-          </div>
-          <div className={classes.option}>
-            <p>E</p>
-            <p>Annually</p>
-          </div>
-        </div>
-
-        <div className={classes.input_field}>
-          <div>
-            <label>Amount</label>
-            <input
-              className={classes.input}
-              type="number"
-              maxLength="5"
-              placeholder="Type your amount here"
-            />
-          </div>
-        </div>
-      </div>
       <div className={classes.add_source}>
         <p>Add Income Source</p>
-        <img src={addIcon} alt="add source" />
+        <img
+          src={addIcon}
+          alt="add source"
+          onClick={() => clickHandler({ frequency: '', amount: 0 })}
+        />
         <p>Total Monthly Take-Home Income $0</p>
       </div>
       <div className={classes.text_btn}>
