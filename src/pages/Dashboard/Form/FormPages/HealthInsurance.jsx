@@ -20,9 +20,13 @@ const HealthInsurance = () => {
       </div>
       <div className={classes.select_option}>
         {options.map((item, index) => (
-          <div key={index} className={classes.option}>
-            <p value={item.value}>{item.name}</p>
-            <p value={item.value}>{item.value}</p>
+          <div key={index} className={classes.option} onClick={handleChange}>
+            <p name={'isHealthInsured'} value={item.value}>
+              {item.name}
+            </p>
+            <p name={'isHealthInsured'} value={item.value}>
+              {item.value}
+            </p>
           </div>
         ))}
       </div>

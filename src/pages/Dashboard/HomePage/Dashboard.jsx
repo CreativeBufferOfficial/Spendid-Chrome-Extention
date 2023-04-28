@@ -1,14 +1,16 @@
 import React from 'react';
 import Header from '../../../component/UI/MainHeader/Header';
 import classes from './Dashboard.module.css';
-import { useSelector } from 'react-redux';
-import { setSession } from '../../../utlis/auth';
+// import { useSelector } from 'react-redux';
+// import { setSession } from '../../../utlis/auth';
 import { useNavigate } from 'react-router-dom';
 const Dashboard = () => {
-  const { user } = useSelector((state) => state.user);
+  // const { user } = useSelector((state) => state.user);
   const navigate = useNavigate();
-  const token = user?.access_token;
-  setSession(token);
+  // console.log(user);
+  // const token = user?.access_token;
+  // console.log(token);
+  // setSession(token);
 
   const startFormHandler = () => {
     navigate('/form');

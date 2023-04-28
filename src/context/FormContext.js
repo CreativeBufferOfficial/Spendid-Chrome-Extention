@@ -13,20 +13,6 @@ import classes from '../pages/Dashboard/Form/Form.module.css';
 const FormContext = createContext({});
 
 export const FormProvider = ({ children }) => {
-  // const title = {
-  //   0: 'ZipCode',
-  //   1: 'Age',
-  //   2: 'HouseHold',
-  //   3: 'HomeType',
-  //   4: 'Rent',
-  //   5: 'Vechicles',
-  //   6: 'Obligations',
-  //   7: 'Obligations',
-  //   8: 'Health Insurance',
-  //   9: 'Health Insurance',
-  //   10: 'Take Home',
-  // };
-
   const title = [
     {
       0: 'ZipCode',
@@ -85,7 +71,6 @@ export const FormProvider = ({ children }) => {
         is_homeowner: '',
         net_annual_income: '',
       },
-
       budget: {
         other_debt_payments: '',
         mortgage_and_rent: '',
@@ -93,47 +78,6 @@ export const FormProvider = ({ children }) => {
         health_insurance: '',
       },
     },
-
-    // zip: '',
-    // age: '',
-    // household: '',
-    // homeType: '',
-    // rent: '',
-    // vechicles: '',
-    // obligations: {
-    //   valid: '',
-    //   value: {
-    //     pastCreditCardDebt: '',
-    //     studentLoans: '',
-    //     homeEquityLineCredit: '',
-    //     Alimony: '',
-    //     childSupport: '',
-    //     otherDebtPayments: '',
-    //     total: '',
-    //   },
-    // },
-    // healthInsurance: {
-    //   valid: '',
-    //   value: {
-    //     insuranceAmount: '',
-    //   },
-    // },
-
-    // takeHome: [
-    //   { frequency: '', amount: '' },
-    //   { frequency: '', amount: '' },
-    // ],
-
-    // {
-    //   0: {
-    //     frequency: '',
-    //     amount: '',
-    //   },
-    //   1: {
-    //     frequency: '',
-    //     amount: '',
-    //   },
-    // },
   });
 
   const handleChange = (e) => {
@@ -151,10 +95,10 @@ export const FormProvider = ({ children }) => {
     // console.log(name);
     // console.log(value);
     switch (name) {
+      // case 'household_members':
+      // case 'is_homeowner':
       case 'zip':
       case 'age':
-      case 'household_members':
-      case 'is_homeowner':
       case 'net_annual_income':
         setData((data) => ({
           apiReq: {
@@ -165,6 +109,20 @@ export const FormProvider = ({ children }) => {
             },
           },
         }));
+        break;
+
+      case 'household_members':
+      case 'is_homeowner':
+        setData((data) => ({
+          apiReq: {
+            ...data.apiReq,
+            demographics: {
+              ...data.apiReq.demographics,
+              [name]: value,
+            },
+          },
+        }));
+        setPage((prev) => prev + 1);
         break;
 
       case 'other_debt_payments':
@@ -182,63 +140,22 @@ export const FormProvider = ({ children }) => {
         }));
         break;
 
+      case 'isHealthInsured':
+      case 'isOtherDept':
+        if (value === 'Yes') {
+          setPage((prev) => prev + 1);
+        } else if (value === 'No') {
+          setPage((prev) => prev + 2);
+        }
+
+        break;
+
       default:
       // ignore
     }
   };
 
   console.log('data>>>', data);
-
-  //   useEffect(() => {
-  //     if (data.sameAsBilling) {
-  //       setData((prevData) => ({
-  //         ...prevData,
-  //         shipFirstName: prevData.billFirstName,
-  //         shipLastName: prevData.billLastName,
-  //         shipAddress1: prevData.billAddress1,
-  //         shipAddress2: prevData.billAddress2,
-  //         shipCity: prevData.billCity,
-  //         shipState: prevData.billState,
-  //         shipZipCode: prevData.billZipCode,
-  //       }));
-  //     } else {
-  //       setData((prevData) => ({
-  //         ...prevData,
-  //         shipFirstName: '',
-  //         shipLastName: '',
-  //         shipAddress1: '',
-  //         shipAddress2: '',
-  //         shipCity: '',
-  //         shipState: '',
-  //         shipZipCode: '',
-  //       }));
-  //     }
-  //   }, [data.sameAsBilling]);
-
-  // const handleChange = (e) => {
-  //   const type = e.target.type;
-
-  //   const name = e.target.name;
-
-  //   const value = type === 'checkbox' ? e.target.checked : e.target.value;
-
-  //   setData((prevData) => ({
-  //     ...prevData,
-  //     [name]: value,
-  //   }));
-  // };
-
-  // const handleChange = (e) => {
-  //   const name = e.target.name;
-  //   const value = e.target.value;
-  //   console.log(e.target.innerText);
-  //   console.log(e.target.name, e.target.value);
-
-  //   setData((prevData) => ({
-  //     ...prevData,
-  //     [name]: value,
-  //   }));
-  // };
 
   const { takeHome, ...requiredInputs } = data;
 
@@ -264,11 +181,14 @@ export const FormProvider = ({ children }) => {
     (page === 0 && !canNextPage1) ||
     (page === 1 && !canNextPage2);
 
-  const prevHide = page === 0 && classes.removeButton;
+  const prevRedirectHome = page === 0;
 
-  const nextHide = page === title.length - 1 && classes.removeButton;
+  const nextHide = page === title.length - 1;
 
-  const submitHide = page !== title.length - 1 && classes.removeButton;
+  const submitHide = page !== title.length - 1;
+
+  const okayNextHandler = () => setPage((prev) => prev + 1);
+  const okayCurrentHander = () => setPage((prev) => prev);
 
   return (
     <FormContext.Provider
@@ -282,9 +202,11 @@ export const FormProvider = ({ children }) => {
         handleChange,
         disablePrev,
         disableNext,
-        prevHide,
+        prevRedirectHome,
         nextHide,
         submitHide,
+        okayNextHandler,
+        okayCurrentHander,
       }}
     >
       {children}

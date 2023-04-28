@@ -6,6 +6,7 @@ import { login } from '../../action/actions';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Header from '../../component/UI/MainHeader/Header';
+import { setSession } from '../../utlis/auth';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -13,6 +14,10 @@ const Login = () => {
 
   const { error, user } = useSelector((state) => state.user);
 
+  console.log(user);
+  const token = user?.access_token;
+  console.log(token);
+  setSession(token);
   //TODO:  Take it form ap response on fail error and isAuthenticated
   // const error = 'error';
   // const isAuthenticated = 'false';

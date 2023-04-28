@@ -2,9 +2,11 @@ import React from 'react';
 import useFormContext from '../../../../hooks/useFormContext';
 import classes from '../Form.module.css';
 const Vechicles = () => {
-  const { data, handleChange } = useFormContext();
+  const { data, handleChange, okayNextHandler, okayCurrentHander } =
+    useFormContext();
 
   const { vehicle_purchase_and_lease } = data.apiReq.budget;
+  const vehicle_input = vehicle_purchase_and_lease.length > 0;
 
   const content = (
     <div className={classes.questions}>
@@ -24,7 +26,12 @@ const Vechicles = () => {
         />
       </div>
       <div className={classes.text_btn}>
-        <button className={classes.btn}>Ok</button>
+        <button
+          onClick={vehicle_input ? okayNextHandler : okayCurrentHander}
+          className={vehicle_input ? classes.btn : classes.btn_disable}
+        >
+          Ok
+        </button>
         <p>Press Enter </p>
       </div>
     </div>

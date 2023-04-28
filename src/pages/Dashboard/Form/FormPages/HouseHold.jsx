@@ -12,7 +12,7 @@ const HouseHold = () => {
     { name: 'E', value: '5 or more' },
   ];
   let { household_members } = data.apiReq.demographics;
-  console.log(data);
+  // console.log(data);
   const content = (
     <div className={classes.questions}>
       <div className={classes.question}>

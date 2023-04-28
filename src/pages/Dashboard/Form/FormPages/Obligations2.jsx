@@ -131,7 +131,8 @@ const Obligations2 = () => {
             placeholder="$ 0"
             name="other_debt_payments"
             value={totalDeptvalue}
-            onChange={handleChange}
+            on
+            // onChange={handleChange}
           />
         </div>
       </div>

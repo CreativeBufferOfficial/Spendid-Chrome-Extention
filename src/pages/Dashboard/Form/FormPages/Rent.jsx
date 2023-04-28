@@ -3,9 +3,11 @@ import useFormContext from '../../../../hooks/useFormContext';
 import classes from '../Form.module.css';
 
 const Rent = () => {
-  const { data, handleChange } = useFormContext();
+  const { data, handleChange, okayNextHandler, okayCurrentHander } =
+    useFormContext();
 
   const { mortgage_and_rent } = data.apiReq.budget;
+  const rent_input = mortgage_and_rent.length > 0;
 
   const content = (
     <div className={classes.questions}>
@@ -30,7 +32,12 @@ const Rent = () => {
         />
       </div>
       <div className={classes.text_btn}>
-        <button className={classes.btn}>Ok</button>
+        <button
+          className={rent_input ? classes.btn : classes.btn_disable}
+          onClick={rent_input ? okayNextHandler : okayCurrentHander}
+        >
+          Ok
+        </button>
         <p>Press Enter </p>
       </div>
     </div>

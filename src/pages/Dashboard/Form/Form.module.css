@@ -54,12 +54,26 @@
   background-color: #31bfaa;
   border: none;
 }
+.btn_disable,
+.next_disable,
+.prev_disable {
+  padding: 8px 5px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  color: white;
+  border-radius: 3px;
+  background-color: rgb(179, 176, 176);
+  border: none;
+}
 
-.btn {
+.btn,
+.btn_disable {
   width: 50px;
 }
 .next,
-.prev {
+.next_disable,
+.prev,
+.prev_disable {
   width: 40px;
   margin: 20px 5px;
 }
@@ -94,6 +108,7 @@
   justify-content: flex-start;
   align-items: center;
 }
+
 .option {
   display: flex;
   flex-direction: row;
@@ -104,6 +119,11 @@
   margin-top: 5px;
   border-radius: 5px;
 }
+/* .option:focus {
+  outline-color: black;
+  border: 1px solid black;
+
+} */
 .option > p {
   height: 30px;
   text-align: center;
@@ -153,16 +173,30 @@
   justify-content: space-evenly;
   margin-top: 15px;
 }
-.add_source :last-child {
-  margin-top: 15px;
-}
 
 .source_feild {
   margin-top: 12px;
 }
+.amount_text {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: start;
+}
+.amount_text > p {
+  width: 300px;
+}
+.amount_text > input {
+  width: 50px;
+  background: rgba(0, 0, 0, 0);
+  border: none;
+  outline: 0;
+  cursor: text;
+}
 
 /***************************Form Context ******************************/
 
-.removeButton {
-  display: hidden;
+.hideButton {
+  display: none;
 }

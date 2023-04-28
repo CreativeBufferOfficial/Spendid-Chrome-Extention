@@ -3,6 +3,10 @@ import useFormContext from '../../../../hooks/useFormContext';
 import classes from '../Form.module.css';
 const Obligations = () => {
   const { data, handleChange } = useFormContext();
+  const options = [
+    { name: 'A', value: 'Yes' },
+    { name: 'B', value: 'No' },
+  ];
 
   const content = (
     <div className={classes.questions}>
@@ -17,14 +21,16 @@ const Obligations = () => {
         </span>
       </div>
       <div className={classes.select_option}>
-        <div className={classes.option}>
-          <p>A</p>
-          <p>Yes</p>
-        </div>
-        <div className={classes.option}>
-          <p>B</p>
-          <p>No</p>
-        </div>
+        {options.map((item, index) => (
+          <div key={index} className={classes.option} onClick={handleChange}>
+            <p name={'isOtherDept'} value={item.value}>
+              {item.name}
+            </p>
+            <p name={'isOtherDept'} value={item.value}>
+              {item.value}
+            </p>
+          </div>
+        ))}
       </div>
     </div>
   );

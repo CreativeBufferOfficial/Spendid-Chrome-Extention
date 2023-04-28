@@ -17,33 +17,52 @@ const TakeHome = () => {
     { name: 'F', value: 'Semi-Annually' },
     { name: 'G', value: 'Annually' },
   ];
-
   const clickHandler = (item) => {
     setNetIncome([...netIncome, item]);
   };
   console.log(netIncome);
+  const sourceHandleChange = (index) => (e) => {
+    const name = e.target.getAttribute('name');
+    const value =
+      e.target.value === undefined
+        ? e.target.getAttribute('value')
+        : e.target.value;
+    let newArry = [...netIncome];
+    console.log('arrayIndex>>>>>', newArry[index]);
+    console.log('arrayIndex>>>>>', newArry);
+    newArry[index][name] = value;
+    setNetIncome(newArry);
+  };
 
-  // const Income = [
-  //   { frequency: 'weekly', amount: 10 },
-  //   { frequency: 'monthly', amount: 20 },
-  // ];
+  const calculateAmount = netIncome.map((item) => {
+    if (item.frequency === 'Weekly') {
+      return item.amount * 4;
+    } else if (item.frequency === 'Every 2 Weeks') {
+      return item.amount * 2;
+    } else if (item.frequency === 'Twice per Month') {
+      return item.amount * 2;
+    } else if (item.frequency === 'Quarterly') {
+      return item.amount / 3;
+    } else if (item.frequency === 'Semi-Annually') {
+      return item.amount / 6;
+    } else if (item.frequency === 'Annually') {
+      return item.amount / 12;
+    } else {
+      return item.amount * 1;
+    }
+  });
+  const sumWithInitial = Math.round(
+    calculateAmount.reduce(
+      (accumulator, currentValue) => accumulator + currentValue,
+      0
+    )
+  );
 
-  // const arr = Income.map((item) => {
-  //   if (item.frequency === 'weekly') {
-  //     return item.amount * 4;
-  //   } else {
-  //     return item.amount * 1;
-  //   }
-  // });
-  // const sumWithInitial = arr.reduce(
-  //   (accumulator, currentValue) => accumulator + currentValue,
-  //   0
-  // );
-
-  // console.log(arr);
-  // console.log(sumWithInitial);
+  console.log(calculateAmount);
+  console.log(sumWithInitial);
 
   console.log('netIncome>>>>>>>>>>>>>>', netIncome);
+  console.log('data>>>>>>>>>>>>>>', data);
 
   const content = (
     <div className={classes.questions}>
@@ -52,12 +71,11 @@ const TakeHome = () => {
         <p>Take-Home Income</p>
       </div>
       {netIncome.map((item, index) => {
-        index += 1;
         return (
           <div key={index} className={classes.source_feild}>
             <div className={classes.description}>
               <span>
-                Source #{index} <br /> Frequency
+                Source #{index + 1} <br /> Frequency
               </span>
             </div>
             <div className={classes.select_option}>
@@ -65,9 +83,8 @@ const TakeHome = () => {
                 <div
                   key={i}
                   className={classes.option}
-                  onClick={() =>
-                    setNetIncome(netIncome.frequency === option.value)
-                  }
+                  name={'frequency'}
+                  onClick={sourceHandleChange(index)}
                 >
                   <p name={'frequency'} value={option.value}>
                     {option.name}
@@ -86,7 +103,8 @@ const TakeHome = () => {
                   className={classes.input}
                   type="number"
                   maxLength="5"
-                  onChange={() => setNetIncome(netIncome.amount)}
+                  name="amount"
+                  onChange={sourceHandleChange(index)}
                   placeholder="Type your amount here"
                 />
               </div>
@@ -102,10 +120,26 @@ const TakeHome = () => {
           alt="add source"
           onClick={() => clickHandler({ frequency: '', amount: 0 })}
         />
-        <p>Total Monthly Take-Home Income $0</p>
+        <div className={classes.amount_text}>
+          <p> Total Monthly Take-Home Income $</p>
+          <input
+            type="text"
+            name="net_annual_income"
+            value={sumWithInitial}
+            onChange={handleChange}
+          />
+        </div>
       </div>
       <div className={classes.text_btn}>
-        <button className={classes.btn}>Ok</button>
+        <button
+          className={
+            netIncome[0].frequency.length > 0 && netIncome[0].amount.length > 0
+              ? classes.btn
+              : classes.btn_disable
+          }
+        >
+          Ok
+        </button>
         <p>Press Enter </p>
       </div>
     </div>

@@ -2,9 +2,11 @@ import React from 'react';
 import useFormContext from '../../../../hooks/useFormContext';
 import classes from '../Form.module.css';
 const Zip = () => {
-  const { data, handleChange } = useFormContext();
+  const { data, handleChange, okayNextHandler, okayCurrentHander } =
+    useFormContext();
 
-  // const { zip } = data.apiReq.demographics;
+  const { zip } = data.apiReq.demographics;
+  const zip_input = zip.length > 4;
   const content = (
     <div className={classes.questions}>
       <div className={classes.question}>
@@ -23,7 +25,12 @@ const Zip = () => {
         />
       </div>
       <div className={classes.text_btn}>
-        <button className={classes.btn}>Ok</button>
+        <button
+          className={zip_input ? classes.btn : classes.btn_disable}
+          onClick={zip_input ? okayNextHandler : okayCurrentHander}
+        >
+          Ok
+        </button>
         <p>Press Enter </p>
       </div>
     </div>
