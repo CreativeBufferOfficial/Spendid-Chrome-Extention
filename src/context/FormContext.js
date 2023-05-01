@@ -91,6 +91,7 @@ export const FormProvider = ({ children }) => {
       e.target.value === undefined
         ? e.target.getAttribute('value')
         : e.target.value;
+    const selected = e.target;
 
     // console.log(name);
     // console.log(value);
@@ -109,6 +110,7 @@ export const FormProvider = ({ children }) => {
             },
           },
         }));
+
         break;
 
       case 'household_members':
@@ -122,7 +124,10 @@ export const FormProvider = ({ children }) => {
             },
           },
         }));
-        setPage((prev) => prev + 1);
+        selected.parentElement.style.border = '1px solid #31bfaa';
+        setTimeout(() => {
+          setPage((prev) => prev + 1);
+        }, 1000);
         break;
 
       case 'other_debt_payments':
@@ -143,9 +148,16 @@ export const FormProvider = ({ children }) => {
       case 'isHealthInsured':
       case 'isOtherDept':
         if (value === 'Yes') {
-          setPage((prev) => prev + 1);
+          selected.parentElement.style.border = '1px solid #31bfaa';
+
+          setTimeout(() => {
+            setPage((prev) => prev + 1);
+          }, 1000);
         } else if (value === 'No') {
-          setPage((prev) => prev + 2);
+          selected.parentElement.style.border = '1px solid #31bfaa';
+          setTimeout(() => {
+            setPage((prev) => prev + 2);
+          }, 1000);
         }
 
         break;

@@ -22,6 +22,9 @@ const TakeHome = () => {
   };
   console.log(netIncome);
   const sourceHandleChange = (index) => (e) => {
+    // const selected = e.target;
+    // selected.parentElement.style.border = '1px solid #31bfaa';
+    // console.log('selected>>>>>>', selected);
     const name = e.target.getAttribute('name');
     const value =
       e.target.value === undefined
