@@ -1,6 +1,8 @@
 import React from 'react';
 import useFormContext from '../../../../hooks/useFormContext';
 import classes from '../Form.module.css';
+import selected from '../../../../assets/form/select.png';
+
 const Obligations = () => {
   const { data, handleChange } = useFormContext();
   const options = [
@@ -28,6 +30,11 @@ const Obligations = () => {
             </p>
             <p name={'isOtherDept'} value={item.value}>
               {item.value}
+              <img
+                className={classes.not_select}
+                src={selected}
+                alt="selected"
+              />
             </p>
           </div>
         ))}

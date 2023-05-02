@@ -125,9 +125,12 @@ export const FormProvider = ({ children }) => {
           },
         }));
         selected.parentElement.style.border = '1px solid #31bfaa';
+        // console.log(selected.children);
+        // console.log(selected.children.style);
+        selected.children[0].style.display = 'block';
         setTimeout(() => {
           setPage((prev) => prev + 1);
-        }, 1000);
+        }, 300);
         break;
 
       case 'other_debt_payments':
@@ -149,15 +152,18 @@ export const FormProvider = ({ children }) => {
       case 'isOtherDept':
         if (value === 'Yes') {
           selected.parentElement.style.border = '1px solid #31bfaa';
+          selected.children[0].style.display = 'block';
 
           setTimeout(() => {
             setPage((prev) => prev + 1);
-          }, 1000);
+          }, 300);
         } else if (value === 'No') {
           selected.parentElement.style.border = '1px solid #31bfaa';
+          selected.children[0].style.display = 'block';
+
           setTimeout(() => {
             setPage((prev) => prev + 2);
-          }, 1000);
+          }, 300);
         }
 
         break;

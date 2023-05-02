@@ -1,6 +1,7 @@
 import React from 'react';
 import useFormContext from '../../../../hooks/useFormContext';
 import classes from '../Form.module.css';
+import selected from '../../../../assets/form/select.png';
 const HouseHold = () => {
   const { data, handleChange } = useFormContext();
 
@@ -27,6 +28,11 @@ const HouseHold = () => {
             </p>
             <p name={'household_members'} value={item.value}>
               {item.value}
+              <img
+                className={classes.not_select}
+                src={selected}
+                alt="selected"
+              />
             </p>
           </div>
         ))}

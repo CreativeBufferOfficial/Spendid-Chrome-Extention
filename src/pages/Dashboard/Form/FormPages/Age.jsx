@@ -24,7 +24,7 @@ const Age = () => {
           type="number"
           maxLength="3"
           name="age"
-          // value={age}
+          value={age}
           onChange={handleChange}
           placeholder="Type your answer here..."
         />

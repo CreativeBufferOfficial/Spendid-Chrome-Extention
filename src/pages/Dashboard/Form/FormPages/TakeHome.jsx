@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import useFormContext from '../../../../hooks/useFormContext';
 import classes from '../Form.module.css';
 import addIcon from '../../../../assets/form/addSource.png';
+import selected from '../../../../assets/form/select.png';
 
 const TakeHome = () => {
   const { data, handleChange } = useFormContext();
@@ -20,11 +21,18 @@ const TakeHome = () => {
   const clickHandler = (item) => {
     setNetIncome([...netIncome, item]);
   };
-  console.log(netIncome);
-  const sourceHandleChange = (index) => (e) => {
-    // const selected = e.target;
-    // selected.parentElement.style.border = '1px solid #31bfaa';
+
+  const frequencyHandler = (i) => (e) => {
+    const selected = e.currentTarget;
+    console.log('selected>>>>>>>>', i, selected);
+    selected.style.border = '1px solid #31bfaa';
+    selected.children[1].children[0].style.display = 'block';
+
     // console.log('selected>>>>>>', selected);
+  };
+
+  console.log(netIncome);
+  const sourceChangeHandle = (index) => (e) => {
     const name = e.target.getAttribute('name');
     const value =
       e.target.value === undefined
@@ -87,13 +95,18 @@ const TakeHome = () => {
                   key={i}
                   className={classes.option}
                   name={'frequency'}
-                  onClick={sourceHandleChange(index)}
+                  onClick={frequencyHandler(index, i)}
                 >
                   <p name={'frequency'} value={option.value}>
                     {option.name}
                   </p>
                   <p name={'frequency'} value={option.value}>
                     {option.value}
+                    <img
+                      className={classes.not_select}
+                      src={selected}
+                      alt="selected"
+                    />
                   </p>
                 </div>
               ))}
@@ -107,7 +120,7 @@ const TakeHome = () => {
                   type="number"
                   maxLength="5"
                   name="amount"
-                  onChange={sourceHandleChange(index)}
+                  onChange={sourceChangeHandle(index)}
                   placeholder="Type your amount here"
                 />
               </div>

@@ -19,7 +19,7 @@ const Zip = () => {
           type="number"
           maxLength="5"
           name="zip"
-          // value={zip}
+          value={zip}
           onChange={handleChange}
           placeholder="Type your answer here..."
         />

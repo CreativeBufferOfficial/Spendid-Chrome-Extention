@@ -1,6 +1,7 @@
 import React from 'react';
 import useFormContext from '../../../../hooks/useFormContext';
 import classes from '../Form.module.css';
+import selected from '../../../../assets/form/select.png';
 
 const HomeType = () => {
   const { data, handleChange } = useFormContext();
@@ -25,6 +26,11 @@ const HomeType = () => {
             </p>
             <p name={'is_homeowner'} value={item.value}>
               {item.text}
+              <img
+                className={classes.not_select}
+                src={selected}
+                alt="selected"
+              />
             </p>
           </div>
         ))}

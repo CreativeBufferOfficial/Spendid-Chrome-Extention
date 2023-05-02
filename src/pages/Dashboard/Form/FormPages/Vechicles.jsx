@@ -21,7 +21,7 @@ const Vechicles = () => {
           maxLength="5"
           placeholder="Type your answer here..."
           name="vehicle_purchase_and_lease"
-          // value={data.vechicles}
+          value={vehicle_purchase_and_lease}
           onChange={handleChange}
         />
       </div>

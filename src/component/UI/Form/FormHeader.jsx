@@ -7,7 +7,7 @@ import tick from '../../../assets/form/tick.png';
 import useFormContext from '../../../hooks/useFormContext';
 const FormHeader = () => {
   const { page, title } = useFormContext();
-  const now = 60;
+  const now = (page + 1) * 10;
   console.log('title>>>>>>>>>>>', +Object.keys(title[page])[0]);
 
   return (

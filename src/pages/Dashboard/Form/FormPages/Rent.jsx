@@ -26,7 +26,7 @@ const Rent = () => {
           type="number"
           maxLength="5"
           name="mortgage_and_rent"
-          // value={data.rent}
+          value={mortgage_and_rent}
           onChange={handleChange}
           placeholder="Type your answer here..."
         />

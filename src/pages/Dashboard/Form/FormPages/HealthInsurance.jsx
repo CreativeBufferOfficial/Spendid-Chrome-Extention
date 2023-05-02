@@ -1,6 +1,8 @@
 import React from 'react';
 import useFormContext from '../../../../hooks/useFormContext';
 import classes from '../Form.module.css';
+import selected from '../../../../assets/form/select.png';
+
 const HealthInsurance = () => {
   const { page, setPage, data, handleChange } = useFormContext();
 
@@ -26,6 +28,11 @@ const HealthInsurance = () => {
             </p>
             <p name={'isHealthInsured'} value={item.value}>
               {item.value}
+              <img
+                className={classes.not_select}
+                src={selected}
+                alt="selected"
+              />
             </p>
           </div>
         ))}
