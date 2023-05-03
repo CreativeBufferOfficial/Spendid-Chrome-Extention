@@ -11,19 +11,19 @@ export const callAPI = async (
   options = {},
   headersObj = {}
 ) => {
-  const API_ROOT = defaultConfig.baseAPIUrl + 'api/';
+  const API_ROOT = defaultConfig.baseAPIUrl2 + 'v1.0/';
   const url = API_ROOT + path;
   // console.log(`inside API utiles ${localStorage.getItem('accessToken')}`);
 
   const headers = {
-    'Content-Type': 'application/json',
-    Accept: 'application/json',
-    Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+    'Content-Type': 'text/plain;charset=UTF-8',
+    Accept: '*/*',
+    'x-api-key': 'HTDzMgEntXaBYVFZ6SSth2iosFRjVe7F8QtM4HBr',
+    // Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
 
     // AuthKey: await localStorage.getItem('authkey'),
     ...headersObj,
   };
-
   return axios({
     method,
     url,
@@ -33,6 +33,29 @@ export const callAPI = async (
     headers,
     ...options,
   });
+
+  // const API_ROOT = defaultConfig.baseAPIUrl + 'api/';
+  // const url = API_ROOT + path;
+  // // console.log(`inside API utiles ${localStorage.getItem('accessToken')}`);
+
+  // const headers = {
+  //   'Content-Type': 'application/json',
+  //   Accept: 'application/json',
+  //   Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+
+  //   // AuthKey: await localStorage.getItem('authkey'),
+  //   ...headersObj,
+  // };
+
+  // return axios({
+  //   method,
+  //   url,
+  //   // params,
+  //   // paramsSerializer: (paramObject) => Qs.stringify(paramObject, serializerConfig),
+  //   data,
+  //   headers,
+  //   ...options,
+  // });
 };
 
 export const callAPIWithoutAuth = async (

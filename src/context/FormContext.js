@@ -69,10 +69,11 @@ export const FormProvider = ({ children }) => {
         age: '',
         household_members: '',
         is_homeowner: '',
-        net_annual_income: '',
+        net_annual_income: 100000,
       },
       budget: {
-        other_debt_payments: '',
+        savings: null,
+        other_debt_payments: null,
         mortgage_and_rent: '',
         vehicle_purchase_and_lease: '',
         health_insurance: '',
@@ -205,8 +206,9 @@ export const FormProvider = ({ children }) => {
 
   const submitHide = page !== title.length - 1;
 
-  const okayNextHandler = () => setPage((prev) => prev + 1);
-  const okayCurrentHander = () => setPage((prev) => prev);
+  const nextHandler = () => setPage((prev) => prev + 1);
+  const prevHandler = () => setPage((prev) => prev - 1);
+  const currentHandler = () => setPage((prev) => prev);
 
   return (
     <FormContext.Provider
@@ -223,8 +225,9 @@ export const FormProvider = ({ children }) => {
         prevRedirectHome,
         nextHide,
         submitHide,
-        okayNextHandler,
-        okayCurrentHander,
+        nextHandler,
+        prevHandler,
+        currentHandler,
       }}
     >
       {children}

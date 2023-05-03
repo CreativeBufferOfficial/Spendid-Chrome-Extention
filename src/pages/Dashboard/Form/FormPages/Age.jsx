@@ -3,8 +3,7 @@ import useFormContext from '../../../../hooks/useFormContext';
 import classes from '../Form.module.css';
 
 const Age = () => {
-  const { data, handleChange, okayNextHandler, okayCurrentHander } =
-    useFormContext();
+  const { data, handleChange, nextHandler, currentHandler } = useFormContext();
   console.log('data>>>Age ', data);
   const { age } = data.apiReq.demographics;
   const age_input = age.length > 1 && age >= 18;
@@ -31,7 +30,7 @@ const Age = () => {
       </div>
       <div className={classes.text_btn}>
         <button
-          onClick={age_input ? okayNextHandler : okayCurrentHander}
+          onClick={age_input ? nextHandler : currentHandler}
           className={age_input ? classes.btn : classes.btn_disable}
         >
           Ok

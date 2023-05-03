@@ -1,0 +1,13 @@
+.text {
+  height: 8vh;
+  width: 350px;
+  background-color: #180f4f;
+  color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: start;
+  border-radius: 5px;
+  padding-top: 10px;
+  margin-top: 10px;
+}

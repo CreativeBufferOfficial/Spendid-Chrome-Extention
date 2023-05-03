@@ -16,6 +16,9 @@ const Form = () => {
     prevRedirectHome,
     nextHide,
     submitHide,
+    nextHandler,
+    prevHandler,
+    currentHandler,
   } = useFormContext();
 
   const { zip, age, household_members, is_homeowner, net_annual_income } =
@@ -28,23 +31,24 @@ const Form = () => {
   } = data.apiReq.budget;
 
   const condition = {
-    isZipValid: zip.length > 4,
-    isAgeValid: age.length > 1 && age >= 18,
-    isHousehold_membersValid: household_members.length > 0,
-    isHomeownerValid: is_homeowner.length === ' ',
-    isNet_annual_incomeValid: net_annual_income.length > 0,
-    isMortgage_and_rentValid: mortgage_and_rent.length > 0,
-    isVehicle_purchase_and_leaseValid: vehicle_purchase_and_lease.length > 0,
-    isHealth_insuranceValid: health_insurance.length > 0,
+    isZipValid: page === 0 && zip.length > 4,
+    isAgeValid: page === 1 && age.length > 1 && age >= 18,
+    isHousehold_membersValid: page === 2 && household_members.length > 0,
+    isHomeownerValid: page === 3 && is_homeowner === (true || false),
+    isMortgage_and_rentValid: page === 4 && mortgage_and_rent.length > 0,
+    isVehicle_purchase_and_leaseValid:
+      page === 5 && vehicle_purchase_and_lease.length > 0,
+    isHealth_insuranceValid: page === 9 && health_insurance.length > 0,
+    isNet_annual_incomeValid: page === 10 && net_annual_income.length > 0,
   };
-  // console.log('condition', condition.isZipValid);
-  // console.log('condition', condition.isAgeValid);
-  // console.log('condition', condition.isHealth_insuranceValid);
-  // console.log('condition', condition.isHomeownerValid);
-  // console.log('condition', condition.isHousehold_membersValid);
-  // console.log('condition', condition.isMortgage_and_rentValid);
-  // console.log('condition', condition.isNet_annual_incomeValid);
-  // console.log('condition', condition.isVehicle_purchase_and_leaseValid);
+  console.log('condition', condition.isZipValid);
+  console.log('condition', condition.isAgeValid);
+  console.log('condition', condition.isHealth_insuranceValid);
+  console.log('condition', condition.isHomeownerValid);
+  console.log('condition', condition.isHousehold_membersValid);
+  console.log('condition', condition.isMortgage_and_rentValid);
+  console.log('condition', condition.isNet_annual_incomeValid);
+  console.log('condition', condition.isVehicle_purchase_and_leaseValid);
 
   const allValidation =
     condition.isZipValid ||
@@ -58,9 +62,9 @@ const Form = () => {
 
   console.log('isValid', allValidation);
 
-  const handlePrev = () => setPage((prev) => prev - 1);
+  // const handlePrev = () => setPage((prev) => prev - 1);
 
-  const handleNext = () => setPage((prev) => prev + 1);
+  // const handleNext = () => setPage((prev) => prev + 1);
 
   // const handleSubmit = e => {
   //     e.preventDefault()
@@ -82,7 +86,7 @@ const Form = () => {
       <div className={classes.button_group}>
         <button
           className={classes.prev}
-          onClick={handlePrev}
+          onClick={prevHandler}
           disabled={disablePrev}
         >
           {'<'}
@@ -95,7 +99,7 @@ const Form = () => {
                 : classes.next
               : classes.next_disable
           }
-          onClick={handleNext}
+          onClick={allValidation ? nextHandler : currentHandler}
           // disabled={disableNext}
         >
           {'>'}

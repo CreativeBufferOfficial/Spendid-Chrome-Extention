@@ -2,8 +2,7 @@ import React from 'react';
 import useFormContext from '../../../../hooks/useFormContext';
 import classes from '../Form.module.css';
 const HealthInsurance2 = () => {
-  const { data, handleChange, okayNextHandler, okayCurrentHander } =
-    useFormContext();
+  const { data, handleChange, nextHandler, currentHandler } = useFormContext();
   const { health_insurance } = data.apiReq.budget;
   const health_input = health_insurance.length > 0;
   const content = (
@@ -25,7 +24,7 @@ const HealthInsurance2 = () => {
       </div>
       <div className={classes.text_btn}>
         <button
-          onClick={health_input ? okayNextHandler : okayCurrentHander}
+          onClick={health_input ? nextHandler : currentHandler}
           className={health_input ? classes.btn : classes.btn_disable}
         >
           Ok

@@ -2,12 +2,12 @@ import {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
-  //     LOAD_USER_REQUEST_TODO,
-  //     LOAD_USER_SUCCESS_TODO,
-  //     LOAD_USER_FAIL_TODO,
-  //     LOAD_USER_REQUEST_INPROCCESS,
-  //     LOAD_USER_SUCCESS_INPROCCESS,
-  //     LOAD_USER_FAIL_INPROCCESS,
+  BUDGET_GENERATE_REQUEST,
+  BUDGET_GENERATE_SUCCESS,
+  BUDGET_GENERATE_FAIL,
+  SCORES_GENERATE_REQUEST,
+  SCORES_GENERATE_SUCCESS,
+  SCORES_GENERATE_FAIL,
   LOGOUT_SUCCESS,
   LOGOUT_FAIL,
   //     // UPDATE_PROFILE_REQUEST,
@@ -18,7 +18,7 @@ import {
   //     UPDATE_TICKET_FAIL,
   CLEAR_ERRORS,
 } from '../constant/constants';
-//   // import axios from 'axios';
+import axios from 'axios';
 import { callAPI, callAPIWithoutAuth } from '../utlis/Apiutils';
 import { apiUrls } from '../utlis/ApiUrl';
 
@@ -37,42 +37,56 @@ export const login = (email, password) => async (dispatch) => {
     dispatch({ type: LOGIN_FAIL, payload: error.response.data.message });
   }
 };
+// export const budgetsGenerate = (body) => async (dispatch) => {
+//   try {
+//     dispatch({
+//       type: BUDGET_GENERATE_REQUEST,
+//     });
+//     const { data } = await axios.post(
+//       `https://api2.spendid.io/v1.0/budgets/generate`,
+//       body
+//     );
 
-//   //Load User --  userDetails
-//   export const loadUser =
-//     (status, today, fromDate, toDate) => async (dispatch) => {
-//       try {
-//         dispatch({
-//           type:
-//             status === 1 ? LOAD_USER_REQUEST_TODO : LOAD_USER_REQUEST_INPROCCESS,
-//         });
+//     // const { data } = await callAPIWithoutAuth(apiUrls.login, 'post', {
+//     // body,
+//     // });
+//     console.log('todo>>>>>>>>>>>>>', data);
+//     dispatch({
+//       type: BUDGET_GENERATE_SUCCESS,
+//       payload: data.data.projectTasks,
+//     });
+//   } catch (error) {
+//     dispatch({
+//       BUDGET_GENERATE_FAIL,
+//       payload: error.response.data.message,
+//     });
+//   }
+// };
 
-//         let data;
-//         // const { data } = await axios.get(`/api/v1/me`);
-//         if (status && today) {
-//           data = await callAPI(
-//             `${apiUrls.ticketStatus}${status}?todayDate=${today}`,
-//             'get'
-//           );
-//         } else if (status && fromDate && toDate) {
-//           data = await callAPI(
-//             `${apiUrls.ticketStatus}${status}?fromDate=${fromDate}&toDate=${toDate}`,
-//             'get'
-//           );
-//         }
-//         console.log('todo>>>>>>>>>>>>>', data.data.projectTasks);
-//         dispatch({
-//           type:
-//             status === 1 ? LOAD_USER_SUCCESS_TODO : LOAD_USER_SUCCESS_INPROCCESS,
-//           payload: data.data.projectTasks,
-//         });
-//       } catch (error) {
-//         dispatch({
-//           type: status === 1 ? LOAD_USER_FAIL_TODO : LOAD_USER_FAIL_INPROCCESS,
-//           payload: error.response.data.message,
-//         });
-//       }
-//     };
+export const scoresGenerate = (body) => async (dispatch) => {
+  try {
+    dispatch({
+      type: SCORES_GENERATE_REQUEST,
+    });
+    // const { data } = await axios.post(
+    //   `https://api2.spendid.io/v1.0/scores/generate`,
+    //   body
+    // );
+    console.log(body);
+    const { data } = await callAPI(apiUrls.scores, 'post', body);
+    dispatch({
+      type: SCORES_GENERATE_SUCCESS,
+      payload: data,
+    });
+    console.log('data>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', data);
+  } catch (error) {
+    dispatch({
+      type: SCORES_GENERATE_FAIL,
+      payload: error.response.data.message,
+    });
+    console.log(error.response.data.message);
+  }
+};
 
 //   //Logout User
 //   export const logout = () => async (dispatch) => {

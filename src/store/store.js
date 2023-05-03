@@ -6,11 +6,12 @@ import {
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from '@redux-devtools/extension';
 
-import { userReducer } from '../reducer/reducers';
+import { userReducer, scoresGenerateReducer } from '../reducer/reducers';
 
 let initialState = {};
 const reducer = combineReducers({
   user: userReducer,
+  scores: scoresGenerateReducer,
 });
 
 const middleware = [thunk];

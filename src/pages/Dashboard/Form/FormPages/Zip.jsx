@@ -2,8 +2,7 @@ import React from 'react';
 import useFormContext from '../../../../hooks/useFormContext';
 import classes from '../Form.module.css';
 const Zip = () => {
-  const { data, handleChange, okayNextHandler, okayCurrentHander } =
-    useFormContext();
+  const { data, handleChange, nextHandler, currentHandler } = useFormContext();
 
   const { zip } = data.apiReq.demographics;
   const zip_input = zip.length > 4;
@@ -27,7 +26,7 @@ const Zip = () => {
       <div className={classes.text_btn}>
         <button
           className={zip_input ? classes.btn : classes.btn_disable}
-          onClick={zip_input ? okayNextHandler : okayCurrentHander}
+          onClick={zip_input ? nextHandler : currentHandler}
         >
           Ok
         </button>

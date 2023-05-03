@@ -7,7 +7,7 @@ import tick from '../../../assets/form/tick.png';
 import useFormContext from '../../../hooks/useFormContext';
 const FormHeader = () => {
   const { page, title } = useFormContext();
-  const now = (page + 1) * 10;
+  const now = page * 10;
   console.log('title>>>>>>>>>>>', +Object.keys(title[page])[0]);
 
   return (
@@ -38,6 +38,12 @@ const FormHeader = () => {
           label={`${now}%`}
           variant="bar_color"
           visuallyHidden
+          height="1px"
+          style={{
+            height: '10px',
+            margin: '10px 0px 10px 0px',
+            backgroundColour: 'green',
+          }}
         />
       </div>
     </>

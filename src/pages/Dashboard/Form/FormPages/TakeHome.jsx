@@ -3,8 +3,13 @@ import useFormContext from '../../../../hooks/useFormContext';
 import classes from '../Form.module.css';
 import addIcon from '../../../../assets/form/addSource.png';
 import selected from '../../../../assets/form/select.png';
-
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { scoresGenerate } from '../../../../action/actions';
 const TakeHome = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const { data, handleChange } = useFormContext();
   // const { net_annual_income } = data.apiReq.demographics;
   const [netIncome, setNetIncome] = useState([{ frequency: '', amount: 0 }]);
@@ -22,17 +27,16 @@ const TakeHome = () => {
     setNetIncome([...netIncome, item]);
   };
 
-  const frequencyHandler = (i) => (e) => {
-    const selected = e.currentTarget;
-    console.log('selected>>>>>>>>', i, selected);
-    selected.style.border = '1px solid #31bfaa';
-    selected.children[1].children[0].style.display = 'block';
-
-    // console.log('selected>>>>>>', selected);
-  };
-
   console.log(netIncome);
-  const sourceChangeHandle = (index) => (e) => {
+  const sourceChangeHandle = (index, i) => (e) => {
+    if (i) {
+      const selected = e.currentTarget;
+      console.log('selected>>>>>>>>', i, selected);
+      // console.log('selected>>>>>>', selected);
+      selected.style.border = '1px solid #31bfaa';
+      selected.children[1].children[0].style.display = 'block';
+    }
+
     const name = e.target.getAttribute('name');
     const value =
       e.target.value === undefined
@@ -68,6 +72,16 @@ const TakeHome = () => {
       0
     )
   );
+  const sendBody = { ...data.apiReq };
+
+  console.log('body>>>>>>>>>>', sendBody);
+  console.log(JSON.stringify(sendBody));
+  const body = JSON.stringify(sendBody);
+
+  const formSubmitHandler = () => {
+    navigate('/result');
+    dispatch(scoresGenerate(body));
+  };
 
   console.log(calculateAmount);
   console.log(sumWithInitial);
@@ -95,7 +109,7 @@ const TakeHome = () => {
                   key={i}
                   className={classes.option}
                   name={'frequency'}
-                  onClick={frequencyHandler(index, i)}
+                  onClick={sourceChangeHandle(index, i)}
                 >
                   <p name={'frequency'} value={option.value}>
                     {option.name}
@@ -148,6 +162,7 @@ const TakeHome = () => {
       </div>
       <div className={classes.text_btn}>
         <button
+          onClick={formSubmitHandler}
           className={
             netIncome[0].frequency.length > 0 && netIncome[0].amount.length > 0
               ? classes.btn
