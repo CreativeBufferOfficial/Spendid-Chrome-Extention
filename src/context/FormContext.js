@@ -69,7 +69,7 @@ export const FormProvider = ({ children }) => {
         age: '',
         household_members: '',
         is_homeowner: '',
-        net_annual_income: 100000,
+        net_annual_income: 40000,
       },
       budget: {
         savings: null,
@@ -81,7 +81,7 @@ export const FormProvider = ({ children }) => {
     },
   });
 
-  const handleChange = (e) => {
+  const handleChange = (e, name2, value2) => {
     console.log(e.target.name);
     console.log(e.target.getAttribute('name'));
     console.log(e.target.value);
@@ -94,11 +94,7 @@ export const FormProvider = ({ children }) => {
         : e.target.value;
     const selected = e.target;
 
-    // console.log(name);
-    // console.log(value);
-    switch (name) {
-      // case 'household_members':
-      // case 'is_homeowner':
+    switch (name || name2) {
       case 'zip':
       case 'age':
       case 'net_annual_income':
@@ -107,7 +103,7 @@ export const FormProvider = ({ children }) => {
             ...data.apiReq,
             demographics: {
               ...data.apiReq.demographics,
-              [name]: value,
+              [name]: +value || +value2,
             },
           },
         }));
@@ -121,13 +117,11 @@ export const FormProvider = ({ children }) => {
             ...data.apiReq,
             demographics: {
               ...data.apiReq.demographics,
-              [name]: value,
+              [name]: name === 'household_members' ? +value : JSON.parse(value),
             },
           },
         }));
         selected.parentElement.style.border = '1px solid #31bfaa';
-        // console.log(selected.children);
-        // console.log(selected.children.style);
         selected.children[0].style.display = 'block';
         setTimeout(() => {
           setPage((prev) => prev + 1);
@@ -143,7 +137,7 @@ export const FormProvider = ({ children }) => {
             ...data.apiReq,
             budget: {
               ...data.apiReq.budget,
-              [name]: value,
+              [name]: +value,
             },
           },
         }));
@@ -183,22 +177,22 @@ export const FormProvider = ({ children }) => {
     page === title.length - 1;
 
   //TODO: When input is filled to required length and other condition when all input value is set for all page condition
-  const canNextPage1 = Object.keys(data)
-    .filter((key) => key.startsWith('bill') && key !== 'billAddress2')
-    .map((key) => data[key])
-    .every(Boolean);
+  // const canNextPage1 = Object.keys(data)
+  //   .filter((key) => key.startsWith('bill') && key !== 'billAddress2')
+  //   .map((key) => data[key])
+  //   .every(Boolean);
 
-  const canNextPage2 = Object.keys(data)
-    .filter((key) => key.startsWith('ship') && key !== 'shipAddress2')
-    .map((key) => data[key])
-    .every(Boolean);
+  // const canNextPage2 = Object.keys(data)
+  //   .filter((key) => key.startsWith('ship') && key !== 'shipAddress2')
+  //   .map((key) => data[key])
+  //   .every(Boolean);
 
-  const disablePrev = page === 0;
+  // const disablePrev = page === 0;
 
-  const disableNext =
-    page === title.length - 1 ||
-    (page === 0 && !canNextPage1) ||
-    (page === 1 && !canNextPage2);
+  // const disableNext =
+  //   page === title.length - 1 ||
+  //   (page === 0 && !canNextPage1) ||
+  //   (page === 1 && !canNextPage2);
 
   const prevRedirectHome = page === 0;
 
@@ -220,8 +214,8 @@ export const FormProvider = ({ children }) => {
         setData,
         canSubmit,
         handleChange,
-        disablePrev,
-        disableNext,
+        // disablePrev,
+        // disableNext,
         prevRedirectHome,
         nextHide,
         submitHide,

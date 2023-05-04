@@ -17,7 +17,7 @@ const styles = {
   },
 };
 
-const Speedometer = ({ id, value, title }) => {
+const Speedometer = ({ value }) => {
   return (
     <>
       <div style={styles.dial}>
@@ -26,7 +26,7 @@ const Speedometer = ({ id, value, title }) => {
           minValue={0}
           height={190}
           width={290}
-          value={0}
+          value={value}
           needleTransition="easeQuadIn"
           needleTransitionDuration={1000}
           needleColor="#A7FF83"

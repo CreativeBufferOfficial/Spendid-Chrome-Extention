@@ -1,10 +1,8 @@
 import React from 'react';
-
 import classes from './FormHeader.module.css';
-
-import ProgressBar from 'react-bootstrap/ProgressBar';
 import tick from '../../../assets/form/tick.png';
 import useFormContext from '../../../hooks/useFormContext';
+import Progressbar from './Progress';
 const FormHeader = () => {
   const { page, title } = useFormContext();
   const now = page * 10;
@@ -33,18 +31,7 @@ const FormHeader = () => {
         ))}
       </div>
       <div className={classes.progress}>
-        <ProgressBar
-          now={now}
-          label={`${now}%`}
-          variant="bar_color"
-          visuallyHidden
-          height="1px"
-          style={{
-            height: '10px',
-            margin: '10px 0px 10px 0px',
-            backgroundColour: 'green',
-          }}
-        />
+        <Progressbar bgcolor="#30BDA9" progress={now} height={10} />
       </div>
     </>
   );

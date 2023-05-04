@@ -85,6 +85,7 @@ export const scoresGenerate = (body) => async (dispatch) => {
       payload: error.response.data.message,
     });
     console.log(error.response.data.message);
+    console.log('error>>>>>>>>>>', error);
   }
 };
 

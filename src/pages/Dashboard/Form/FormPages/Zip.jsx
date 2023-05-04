@@ -5,7 +5,7 @@ const Zip = () => {
   const { data, handleChange, nextHandler, currentHandler } = useFormContext();
 
   const { zip } = data.apiReq.demographics;
-  const zip_input = zip.length > 4;
+  const zip_input = zip.toString().length > 4;
   const content = (
     <div className={classes.questions}>
       <div className={classes.question}>

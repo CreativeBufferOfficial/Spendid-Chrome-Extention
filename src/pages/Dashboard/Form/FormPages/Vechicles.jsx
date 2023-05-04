@@ -5,7 +5,7 @@ const Vechicles = () => {
   const { data, handleChange, nextHandler, currentHandler } = useFormContext();
 
   const { vehicle_purchase_and_lease } = data.apiReq.budget;
-  const vehicle_input = vehicle_purchase_and_lease.length > 0;
+  const vehicle_input = vehicle_purchase_and_lease.toString().length > 0;
 
   const content = (
     <div className={classes.questions}>

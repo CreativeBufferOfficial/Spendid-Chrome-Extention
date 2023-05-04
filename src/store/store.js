@@ -11,7 +11,7 @@ import { userReducer, scoresGenerateReducer } from '../reducer/reducers';
 let initialState = {};
 const reducer = combineReducers({
   user: userReducer,
-  scores: scoresGenerateReducer,
+  score: scoresGenerateReducer,
 });
 
 const middleware = [thunk];

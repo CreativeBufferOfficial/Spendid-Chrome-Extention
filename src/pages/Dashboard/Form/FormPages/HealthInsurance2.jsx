@@ -4,7 +4,7 @@ import classes from '../Form.module.css';
 const HealthInsurance2 = () => {
   const { data, handleChange, nextHandler, currentHandler } = useFormContext();
   const { health_insurance } = data.apiReq.budget;
-  const health_input = health_insurance.length > 0;
+  const health_input = health_insurance.toString().length > 0;
   const content = (
     <div className={classes.questions}>
       <div className={classes.question}>

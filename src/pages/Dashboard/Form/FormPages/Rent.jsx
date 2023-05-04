@@ -6,7 +6,7 @@ const Rent = () => {
   const { data, handleChange, nextHandler, currentHandler } = useFormContext();
 
   const { mortgage_and_rent } = data.apiReq.budget;
-  const rent_input = mortgage_and_rent.length > 0;
+  const rent_input = mortgage_and_rent.toString().length > 0;
 
   const content = (
     <div className={classes.questions}>

@@ -31,15 +31,19 @@ const Form = () => {
   } = data.apiReq.budget;
 
   const condition = {
-    isZipValid: page === 0 && zip.length > 4,
-    isAgeValid: page === 1 && age.length > 1 && age >= 18,
-    isHousehold_membersValid: page === 2 && household_members.length > 0,
+    isZipValid: page === 0 && zip.toString().length > 4,
+    isAgeValid: page === 1 && age.toString().length > 1 && age >= 18,
+    isHousehold_membersValid:
+      page === 2 && household_members.toString().length > 0,
     isHomeownerValid: page === 3 && is_homeowner === (true || false),
-    isMortgage_and_rentValid: page === 4 && mortgage_and_rent.length > 0,
+    isMortgage_and_rentValid:
+      page === 4 && mortgage_and_rent.toString().length > 0,
     isVehicle_purchase_and_leaseValid:
-      page === 5 && vehicle_purchase_and_lease.length > 0,
-    isHealth_insuranceValid: page === 9 && health_insurance.length > 0,
-    isNet_annual_incomeValid: page === 10 && net_annual_income.length > 0,
+      page === 5 && vehicle_purchase_and_lease.toString().length > 0,
+    isHealth_insuranceValid:
+      page === 9 && health_insurance.toString().length > 0,
+    isNet_annual_incomeValid:
+      page === 10 && net_annual_income.toString().length > 0,
   };
   console.log('condition', condition.isZipValid);
   console.log('condition', condition.isAgeValid);
@@ -74,8 +78,6 @@ const Form = () => {
   // console.log('prevHide', prevHide);
   // console.log('nextHide', nextHide);
   // console.log('cll>>>>', prevHide ? classes.removeButton : '');
-
-  console.log('data>>>>>>', data);
 
   return (
     <>

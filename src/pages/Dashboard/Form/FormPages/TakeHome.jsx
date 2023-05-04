@@ -74,12 +74,13 @@ const TakeHome = () => {
   );
   const sendBody = { ...data.apiReq };
 
-  console.log('body>>>>>>>>>>', sendBody);
-  console.log(JSON.stringify(sendBody));
-  const body = JSON.stringify(sendBody);
+  // console.log('body>>>>>>>>>>', sendBody);
+  // console.log(JSON.stringify(sendBody));
 
   const formSubmitHandler = () => {
     navigate('/result');
+    const body = JSON.parse(JSON.stringify(sendBody));
+    console.log('inside>>>>>>>>>>>', body);
     dispatch(scoresGenerate(body));
   };
 
@@ -156,7 +157,9 @@ const TakeHome = () => {
             type="text"
             name="net_annual_income"
             value={sumWithInitial}
-            onChange={handleChange}
+            onChange={(event) =>
+              handleChange(event, 'net_annual_income', sumWithInitial)
+            }
           />
         </div>
       </div>
