@@ -42,7 +42,11 @@
 .slide > img,
 .slide_active > img {
   height: 25px;
-  margin-top: 8px;
+  margin: 5px 0px 5px 0px;
+}
+.slide_done > img {
+  height: 22px;
+  margin: 5px 0px 5px 0px;
 }
 .slide,
 .slide_active,

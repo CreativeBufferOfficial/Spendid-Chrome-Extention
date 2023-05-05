@@ -69,7 +69,7 @@ export const FormProvider = ({ children }) => {
         age: '',
         household_members: '',
         is_homeowner: '',
-        net_annual_income: 40000,
+        net_annual_income: '',
       },
       budget: {
         savings: null,
@@ -80,6 +80,42 @@ export const FormProvider = ({ children }) => {
       },
     },
   });
+
+  const updateState = (name, value) => {
+    const keyname = name;
+
+    switch (keyname) {
+      case 'net_annual_income':
+        setData({
+          ...data,
+          apiReq: {
+            ...data.apiReq,
+            demographics: {
+              ...data.apiReq.demographics,
+              [keyname]: +value,
+            },
+          },
+        });
+
+        break;
+
+      case 'other_debt_payments':
+        setData({
+          ...data,
+          apiReq: {
+            ...data.apiReq,
+            budget: {
+              ...data.apiReq.budget,
+              [keyname]: +value || null,
+            },
+          },
+        });
+
+        break;
+
+      default:
+    }
+  };
 
   const handleChange = (e, name2, value2) => {
     console.log(e.target.name);
@@ -222,6 +258,7 @@ export const FormProvider = ({ children }) => {
         nextHandler,
         prevHandler,
         currentHandler,
+        updateState,
       }}
     >
       {children}

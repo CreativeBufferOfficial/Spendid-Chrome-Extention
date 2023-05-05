@@ -28,7 +28,7 @@ const Result = () => {
           <p>Your result</p>
         </div>
         <ResultTitle title="SPENDiD Budget Health Score" />
-        <GaugeChart score={+score} />
+        <GaugeChart score={score && +score} />
         <ResultTitle title="Monthly Predicted Saving Ability" />
       </div>
     </>

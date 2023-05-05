@@ -167,9 +167,9 @@
   font-size: 16px;
   font-weight: 600;
 }
-.other_description > label > span {
+/* .other_description > label > span {
   font-size: 10px;
-}
+} */
 .input_field > div {
   display: flex;
   flex-direction: column;
@@ -179,6 +179,12 @@
 }
 .input_field > div > label {
   font-weight: 600;
+}
+.input_field > div > p {
+  font-weight: 600;
+  width: 300px;
+  border-bottom: 2px solid lightgray;
+  text-align: start;
 }
 
 /*************************** Question-9 ******************************/

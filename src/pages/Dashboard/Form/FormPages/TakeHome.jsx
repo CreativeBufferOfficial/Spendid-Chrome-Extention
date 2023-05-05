@@ -10,7 +10,7 @@ const TakeHome = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { data, handleChange } = useFormContext();
+  const { data, updateState } = useFormContext();
   // const { net_annual_income } = data.apiReq.demographics;
   const [netIncome, setNetIncome] = useState([{ frequency: '', amount: 0 }]);
 
@@ -29,14 +29,8 @@ const TakeHome = () => {
 
   console.log(netIncome);
   const sourceChangeHandle = (index, i) => (e) => {
-    if (i) {
-      const selected = e.currentTarget;
-      console.log('selected>>>>>>>>', i, selected);
-      // console.log('selected>>>>>>', selected);
-      selected.style.border = '1px solid #31bfaa';
-      selected.children[1].children[0].style.display = 'block';
-    }
-
+    let selectedIndex = -1;
+    selectedIndex = i;
     const name = e.target.getAttribute('name');
     const value =
       e.target.value === undefined
@@ -47,46 +41,52 @@ const TakeHome = () => {
     console.log('arrayIndex>>>>>', newArry);
     newArry[index][name] = value;
     setNetIncome(newArry);
+
+    if (selectedIndex) {
+      const selected = e.currentTarget;
+      console.log('selected>>>>>>>>', i, selected);
+      // console.log('selected>>>>>>', selected);
+      selected.style.border = '1px solid #31bfaa';
+      selected.children[1].children[0].style.display = 'block';
+    } else if (selectedIndex !== i) {
+      selected.style.border = '1px solid lightgrey';
+      selected.children[1].children[0].style.display = 'none';
+    }
+    const calculateAmount = newArry.map((item) => {
+      if (item.frequency === 'Weekly') {
+        return item.amount * 4;
+      } else if (item.frequency === 'Every 2 Weeks') {
+        return item.amount * 2;
+      } else if (item.frequency === 'Twice per Month') {
+        return item.amount * 2;
+      } else if (item.frequency === 'Quarterly') {
+        return item.amount / 3;
+      } else if (item.frequency === 'Semi-Annually') {
+        return item.amount / 6;
+      } else if (item.frequency === 'Annually') {
+        return item.amount / 12;
+      } else {
+        return item.amount * 1;
+      }
+    });
+    console.log('calculateAmount >>', calculateAmount);
+    const sumWithInitial = Math.round(
+      calculateAmount.reduce(
+        (accumulator, currentValue) => accumulator + currentValue,
+        0
+      )
+    );
+    console.log('sumWithInitial >', sumWithInitial);
+    updateState('net_annual_income', sumWithInitial);
   };
 
-  const calculateAmount = netIncome.map((item) => {
-    if (item.frequency === 'Weekly') {
-      return item.amount * 4;
-    } else if (item.frequency === 'Every 2 Weeks') {
-      return item.amount * 2;
-    } else if (item.frequency === 'Twice per Month') {
-      return item.amount * 2;
-    } else if (item.frequency === 'Quarterly') {
-      return item.amount / 3;
-    } else if (item.frequency === 'Semi-Annually') {
-      return item.amount / 6;
-    } else if (item.frequency === 'Annually') {
-      return item.amount / 12;
-    } else {
-      return item.amount * 1;
-    }
-  });
-  const sumWithInitial = Math.round(
-    calculateAmount.reduce(
-      (accumulator, currentValue) => accumulator + currentValue,
-      0
-    )
-  );
   const sendBody = { ...data.apiReq };
-
-  // console.log('body>>>>>>>>>>', sendBody);
-  // console.log(JSON.stringify(sendBody));
-
   const formSubmitHandler = () => {
     navigate('/result');
     const body = JSON.parse(JSON.stringify(sendBody));
     console.log('inside>>>>>>>>>>>', body);
     dispatch(scoresGenerate(body));
   };
-
-  console.log(calculateAmount);
-  console.log(sumWithInitial);
-
   console.log('netIncome>>>>>>>>>>>>>>', netIncome);
   console.log('data>>>>>>>>>>>>>>', data);
 
@@ -107,10 +107,11 @@ const TakeHome = () => {
             <div className={classes.select_option}>
               {options.map((option, i) => (
                 <div
-                  key={i}
+                  key={i + 1}
                   className={classes.option}
                   name={'frequency'}
-                  onClick={sourceChangeHandle(index, i)}
+                  value={option.value}
+                  onClick={sourceChangeHandle(index, i + 1)}
                 >
                   <p name={'frequency'} value={option.value}>
                     {option.name}
@@ -153,21 +154,17 @@ const TakeHome = () => {
         />
         <div className={classes.amount_text}>
           <p> Total Monthly Take-Home Income $</p>
-          <input
-            type="text"
-            name="net_annual_income"
-            value={sumWithInitial}
-            onChange={(event) =>
-              handleChange(event, 'net_annual_income', sumWithInitial)
-            }
-          />
+          <span name="net_annual_income">
+            {data?.apiReq?.demographics?.net_annual_income}
+          </span>
         </div>
       </div>
       <div className={classes.text_btn}>
         <button
           onClick={formSubmitHandler}
           className={
-            netIncome[0].frequency.length > 0 && netIncome[0].amount.length > 0
+            netIncome[0].frequency.length > 0 &&
+            netIncome[0].amount.toString().length > 0
               ? classes.btn
               : classes.btn_disable
           }

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import useFormContext from '../../../../hooks/useFormContext';
 import classes from '../Form.module.css';
 const Obligations2 = () => {
-  const { data, handleChange } = useFormContext();
+  const { data, handleChange, nextHandler, updateState } = useFormContext();
 
   const [debt, setDebt] = useState({
     pastCreditCardDebt: '',
@@ -15,19 +15,23 @@ const Obligations2 = () => {
 
   const deptHandler = (e) => {
     const { name, value } = e.target;
+    console.log(name, value);
+    setTimeout(() => {
+      setDebt((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    }, 0);
+    console.log(debt);
+    const values = Object.values(debt);
+    console.log('values', values);
+    const totalDeptvalue = values.reduce((accumulator, value) => {
+      return +accumulator + +value;
+    }, 0);
+    console.log('totalDeptvalue', totalDeptvalue);
 
-    setDebt((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+    updateState('other_debt_payments', totalDeptvalue);
   };
-  const values = Object.values(debt);
-  // console.log('values', values);
-  const totalDeptvalue = values.reduce((accumulator, value) => {
-    return +accumulator + +value;
-  }, 0);
-  console.log('dept>>>>>', debt);
-  console.log('totalDeptvalue>>>>>', totalDeptvalue);
 
   const content = (
     <div className={classes.questions}>
@@ -123,21 +127,14 @@ const Obligations2 = () => {
         </div>
 
         <div>
-          <label>Total</label>
-          <input
-            className={classes.input}
-            type="number"
-            maxLength="5"
-            placeholder="$ 0"
-            name="other_debt_payments"
-            value={totalDeptvalue}
-            on
-            // onChange={handleChange}
-          />
+          <label> Total </label>
+          <p>$ {data?.apiReq?.budget?.other_debt_payments}</p>
         </div>
       </div>
       <div className={classes.text_btn}>
-        <button className={classes.btn}>Ok</button>
+        <button onClick={nextHandler} className={classes.btn}>
+          Ok
+        </button>
         <p>Press Enter </p>
       </div>
     </div>
