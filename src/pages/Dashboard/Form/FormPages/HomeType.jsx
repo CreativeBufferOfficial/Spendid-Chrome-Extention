@@ -4,8 +4,7 @@ import classes from '../Form.module.css';
 import selected from '../../../../assets/form/select.png';
 
 const HomeType = () => {
-  const { data, handleChange } = useFormContext();
-  const { is_homeowner } = data.apiReq.demographics;
+  const { page, handleChange, globalSelectedIndex } = useFormContext();
 
   const options = [
     { name: 'A', value: false, text: 'Rent' },
@@ -19,8 +18,18 @@ const HomeType = () => {
         <p>Rent or Own Your Home?</p>
       </div>
       <div className={classes.select_option}>
-        {options.map((item, index) => (
-          <div className={classes.option} key={index} onClick={handleChange}>
+        {options.map((item, i) => (
+          <div
+            className={classes.option}
+            key={i}
+            onClick={(e) => handleChange(e, i)}
+            style={{
+              border:
+                globalSelectedIndex[page] === i
+                  ? '1px solid #31bfaa'
+                  : ' 1px solid lightgrey',
+            }}
+          >
             <p name={'is_homeowner'} value={item.value}>
               {item.name}
             </p>
@@ -30,6 +39,9 @@ const HomeType = () => {
                 className={classes.not_select}
                 src={selected}
                 alt="selected"
+                style={{
+                  display: globalSelectedIndex[page] === i ? 'block ' : 'none',
+                }}
               />
             </p>
           </div>

@@ -14,11 +14,9 @@ const Login = () => {
 
   const { error, user } = useSelector((state) => state.user);
 
-  console.log(user);
   const token = user?.access_token;
-  console.log(token);
   setSession(token);
-  //TODO:  Take it form ap response on fail error and isAuthenticated
+  //TODO:  Take it form api response on fail error and isAuthenticated
   // const error = 'error';
   // const isAuthenticated = 'false';
 
@@ -54,7 +52,6 @@ const Login = () => {
     setLoginPassword('');
   };
 
-  // console.log('user >>>>>>>>>>>>>', user);
   return (
     <>
       <Header />

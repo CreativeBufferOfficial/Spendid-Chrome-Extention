@@ -8,7 +8,6 @@
   overflow-y: hidden;
 }
 .slide {
-  /* position: relative; */
   height: 60px;
   min-width: 80px;
   margin: 0px 3px;
@@ -21,7 +20,6 @@
   text-align: center;
 }
 .slide_done {
-  /* position: relative; */
   height: 60px;
   min-width: 80px;
   margin: 0px 3px;
@@ -33,12 +31,8 @@
   background-color: #4b4a4a;
   padding: 5px;
   text-align: center;
-
-  /* transform: translateX(-100%) translateX(-100vmax); */
 }
 
-/* .monthTab {
-} */
 .slide > img,
 .slide_active > img {
   height: 25px;

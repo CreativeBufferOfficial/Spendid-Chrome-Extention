@@ -3,7 +3,7 @@ import useFormContext from '../../../../hooks/useFormContext';
 import classes from '../Form.module.css';
 import selected from '../../../../assets/form/select.png';
 const HouseHold = () => {
-  const { data, handleChange } = useFormContext();
+  const { page, handleChange, globalSelectedIndex } = useFormContext();
 
   const options = [
     { name: 'A', value: '1' },
@@ -12,8 +12,6 @@ const HouseHold = () => {
     { name: 'D', value: '4' },
     { name: 'E', value: '5 or more' },
   ];
-  let { household_members } = data.apiReq.demographics;
-  // console.log(data);
   const content = (
     <div className={classes.questions}>
       <div className={classes.question}>
@@ -21,8 +19,18 @@ const HouseHold = () => {
         <p>Number of People in Household</p>
       </div>
       <div className={classes.select_option}>
-        {options.map((item, index) => (
-          <div key={index} className={classes.option} onClick={handleChange}>
+        {options.map((item, i) => (
+          <div
+            key={i}
+            className={classes.option}
+            onClick={(e) => handleChange(e, i)}
+            style={{
+              border:
+                globalSelectedIndex[page] === i
+                  ? '1px solid #31bfaa'
+                  : ' 1px solid lightgrey',
+            }}
+          >
             <p name={'household_members'} value={item.value}>
               {item.name}
             </p>
@@ -32,6 +40,9 @@ const HouseHold = () => {
                 className={classes.not_select}
                 src={selected}
                 alt="selected"
+                style={{
+                  display: globalSelectedIndex[page] === i ? 'block ' : 'none',
+                }}
               />
             </p>
           </div>

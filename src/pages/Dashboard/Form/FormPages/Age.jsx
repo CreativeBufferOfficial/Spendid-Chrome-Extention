@@ -4,7 +4,6 @@ import classes from '../Form.module.css';
 
 const Age = () => {
   const { data, handleChange, nextHandler, currentHandler } = useFormContext();
-  console.log('data>>>Age ', data);
   const { age } = data.apiReq.demographics;
   const age_input = age.toString().length > 1 && age >= 18;
 

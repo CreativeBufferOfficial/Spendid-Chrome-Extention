@@ -7,8 +7,8 @@ import { useSelector } from 'react-redux';
 const Result = () => {
   const { scores } = useSelector((state) => state.score);
   const breakeven = scores && scores?.breakeven;
-  console.log('scores', scores);
-  console.log('breakeven', breakeven);
+  // console.log('scores', scores);
+  // console.log('breakeven', breakeven);
 
   let score;
   if (breakeven > 100) {
@@ -18,7 +18,6 @@ const Result = () => {
   } else {
     score = breakeven;
   }
-  console.log('final>>>>>>>>>Score>>>>>>>>>', +score);
   return (
     <>
       <Header />

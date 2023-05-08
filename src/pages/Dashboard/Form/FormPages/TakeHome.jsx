@@ -13,6 +13,7 @@ const TakeHome = () => {
   const { data, updateState } = useFormContext();
   // const { net_annual_income } = data.apiReq.demographics;
   const [netIncome, setNetIncome] = useState([{ frequency: '', amount: 0 }]);
+  const [selectedIndex, setSelectedIndex] = useState([-1]);
 
   const options = [
     { name: 'A', value: 'Weekly' },
@@ -25,34 +26,25 @@ const TakeHome = () => {
   ];
   const clickHandler = (item) => {
     setNetIncome([...netIncome, item]);
+    setSelectedIndex([...selectedIndex, -1]);
   };
 
-  console.log(netIncome);
   const sourceChangeHandle = (index, i) => (e) => {
-    let selectedIndex = -1;
-    selectedIndex = i;
     const name = e.target.getAttribute('name');
     const value =
       e.target.value === undefined
         ? e.target.getAttribute('value')
         : e.target.value;
-    let newArry = [...netIncome];
-    console.log('arrayIndex>>>>>', newArry[index]);
-    console.log('arrayIndex>>>>>', newArry);
-    newArry[index][name] = value;
-    setNetIncome(newArry);
 
-    if (selectedIndex) {
-      const selected = e.currentTarget;
-      console.log('selected>>>>>>>>', i, selected);
-      // console.log('selected>>>>>>', selected);
-      selected.style.border = '1px solid #31bfaa';
-      selected.children[1].children[0].style.display = 'block';
-    } else if (selectedIndex !== i) {
-      selected.style.border = '1px solid lightgrey';
-      selected.children[1].children[0].style.display = 'none';
+    netIncome[index][name] = value;
+    setNetIncome(netIncome);
+
+    if (i !== undefined) {
+      selectedIndex[index] = i;
+      setSelectedIndex(selectedIndex);
+      // console.log('selected>>>>>>>>', i, selectedIndex);
     }
-    const calculateAmount = newArry.map((item) => {
+    const calculateAmount = netIncome.map((item) => {
       if (item.frequency === 'Weekly') {
         return item.amount * 4;
       } else if (item.frequency === 'Every 2 Weeks') {
@@ -69,14 +61,12 @@ const TakeHome = () => {
         return item.amount * 1;
       }
     });
-    console.log('calculateAmount >>', calculateAmount);
     const sumWithInitial = Math.round(
       calculateAmount.reduce(
         (accumulator, currentValue) => accumulator + currentValue,
         0
       )
     );
-    console.log('sumWithInitial >', sumWithInitial);
     updateState('net_annual_income', sumWithInitial);
   };
 
@@ -84,11 +74,8 @@ const TakeHome = () => {
   const formSubmitHandler = () => {
     navigate('/result');
     const body = JSON.parse(JSON.stringify(sendBody));
-    console.log('inside>>>>>>>>>>>', body);
     dispatch(scoresGenerate(body));
   };
-  console.log('netIncome>>>>>>>>>>>>>>', netIncome);
-  console.log('data>>>>>>>>>>>>>>', data);
 
   const content = (
     <div className={classes.questions}>
@@ -107,11 +94,17 @@ const TakeHome = () => {
             <div className={classes.select_option}>
               {options.map((option, i) => (
                 <div
-                  key={i + 1}
+                  key={i}
                   className={classes.option}
                   name={'frequency'}
                   value={option.value}
-                  onClick={sourceChangeHandle(index, i + 1)}
+                  onClick={sourceChangeHandle(index, i)}
+                  style={{
+                    border:
+                      selectedIndex[index] === i
+                        ? '1px solid #31bfaa'
+                        : ' 1px solid lightgrey',
+                  }}
                 >
                   <p name={'frequency'} value={option.value}>
                     {option.name}
@@ -122,6 +115,9 @@ const TakeHome = () => {
                       className={classes.not_select}
                       src={selected}
                       alt="selected"
+                      style={{
+                        display: selectedIndex[index] === i ? 'block ' : 'none',
+                      }}
                     />
                   </p>
                 </div>

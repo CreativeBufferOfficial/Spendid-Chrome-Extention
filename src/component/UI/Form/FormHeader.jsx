@@ -6,13 +6,21 @@ import Progressbar from './Progress';
 const FormHeader = () => {
   const { page, title } = useFormContext();
   const now = page * 10;
-  console.log('title>>>>>>>>>>>', +Object.keys(title[page])[0]);
+  // console.log('title>>>>>>>>>>>', title[page]);
+  // console.log('title>>>>>>>>>>>', title[page - 1]);
 
   return (
     <>
       <div className={classes.slider_row}>
         {title.map((card, index) => (
           <div
+            style={{
+              display:
+                index < title.length - 1 &&
+                title[index].imageSrc === title[index + 1].imageSrc
+                  ? 'none'
+                  : 'block',
+            }}
             className={
               +Object.keys(title[page])[0] !== index
                 ? +Object.keys(title[page])[0] > index

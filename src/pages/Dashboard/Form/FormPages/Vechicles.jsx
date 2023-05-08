@@ -20,7 +20,7 @@ const Vechicles = () => {
           maxLength="5"
           placeholder="Type your answer here..."
           name="vehicle_purchase_and_lease"
-          value={vehicle_purchase_and_lease}
+          value={vehicle_purchase_and_lease.toString().replace(/^0+/, '')}
           onChange={handleChange}
         />
       </div>

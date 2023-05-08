@@ -13,7 +13,6 @@ export const callAPI = async (
 ) => {
   const API_ROOT = defaultConfig.baseAPIUrl2 + 'v1.0/';
   const url = API_ROOT + path;
-  // console.log(`inside API utiles ${localStorage.getItem('accessToken')}`);
 
   const headers = {
     'Content-Type': 'text/plain;charset=UTF-8',
@@ -36,7 +35,6 @@ export const callAPI = async (
 
   // const API_ROOT = defaultConfig.baseAPIUrl + 'api/';
   // const url = API_ROOT + path;
-  // // console.log(`inside API utiles ${localStorage.getItem('accessToken')}`);
 
   // const headers = {
   //   'Content-Type': 'application/json',

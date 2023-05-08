@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import useFormContext from '../../../../hooks/useFormContext';
 import classes from '../Form.module.css';
 const Obligations2 = () => {
-  const { data, handleChange, nextHandler, updateState } = useFormContext();
+  const { data, nextHandler, updateState } = useFormContext();
 
   const [debt, setDebt] = useState({
     pastCreditCardDebt: '',
@@ -15,20 +15,12 @@ const Obligations2 = () => {
 
   const deptHandler = (e) => {
     const { name, value } = e.target;
-    console.log(name, value);
-    setTimeout(() => {
-      setDebt((prevData) => ({
-        ...prevData,
-        [name]: value,
-      }));
-    }, 0);
-    console.log(debt);
+    debt[name] = value;
+    setDebt(debt);
     const values = Object.values(debt);
-    console.log('values', values);
     const totalDeptvalue = values.reduce((accumulator, value) => {
       return +accumulator + +value;
     }, 0);
-    console.log('totalDeptvalue', totalDeptvalue);
 
     updateState('other_debt_payments', totalDeptvalue);
   };

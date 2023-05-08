@@ -18,7 +18,7 @@ const HealthInsurance2 = () => {
           maxLength="5"
           placeholder="Type your answer here..."
           name="health_insurance"
-          value={health_insurance}
+          value={health_insurance.toString().replace(/^0+/, '')}
           onChange={handleChange}
         />
       </div>

@@ -4,7 +4,7 @@ import classes from '../Form.module.css';
 import selected from '../../../../assets/form/select.png';
 
 const HealthInsurance = () => {
-  const { page, setPage, data, handleChange } = useFormContext();
+  const { page, handleChange, globalSelectedIndex } = useFormContext();
 
   const options = [
     { name: 'A', value: 'Yes' },
@@ -21,8 +21,18 @@ const HealthInsurance = () => {
         <span>(from your take-home income)</span>
       </div>
       <div className={classes.select_option}>
-        {options.map((item, index) => (
-          <div key={index} className={classes.option} onClick={handleChange}>
+        {options.map((item, i) => (
+          <div
+            key={i}
+            className={classes.option}
+            onClick={(e) => handleChange(e, i)}
+            style={{
+              border:
+                globalSelectedIndex[page] === i
+                  ? '1px solid #31bfaa'
+                  : ' 1px solid lightgrey',
+            }}
+          >
             <p name={'isHealthInsured'} value={item.value}>
               {item.name}
             </p>
@@ -32,6 +42,9 @@ const HealthInsurance = () => {
                 className={classes.not_select}
                 src={selected}
                 alt="selected"
+                style={{
+                  display: globalSelectedIndex[page] === i ? 'block ' : 'none',
+                }}
               />
             </p>
           </div>

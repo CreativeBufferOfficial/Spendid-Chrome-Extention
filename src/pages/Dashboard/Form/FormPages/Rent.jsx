@@ -25,7 +25,7 @@ const Rent = () => {
           type="number"
           maxLength="5"
           name="mortgage_and_rent"
-          value={mortgage_and_rent}
+          value={mortgage_and_rent.toString().replace(/^0+/, '')}
           onChange={handleChange}
           placeholder="Type your answer here..."
         />
