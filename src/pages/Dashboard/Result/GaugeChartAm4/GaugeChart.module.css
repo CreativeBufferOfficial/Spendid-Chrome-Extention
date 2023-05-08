@@ -1,0 +1,9 @@
+.gauge_parent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.gauge {
+  width: 130%;
+  height: 300px;
+}

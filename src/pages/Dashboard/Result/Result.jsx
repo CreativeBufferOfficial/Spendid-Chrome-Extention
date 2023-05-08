@@ -1,35 +1,31 @@
 import React from 'react';
 import Header from '../../../component/UI/MainHeader/Header';
-import GaugeChart from './GaugeChart/GaugeChart';
 import ResultTitle from '../../../component/UI/Result/ResultTitle';
 import classes from './Result.module.css';
+import GaugeChart from './GaugeChartAm4/GaugeChart';
 import { useSelector } from 'react-redux';
+import Loader from '../../../component/Loader/Loader';
 const Result = () => {
-  const { scores } = useSelector((state) => state.score);
-  const breakeven = scores && scores?.breakeven;
-  // console.log('scores', scores);
-  // console.log('breakeven', breakeven);
+  const { loadingScore, scores } = useSelector((state) => state.score);
 
-  let score;
-  if (breakeven > 100) {
-    score = 100;
-  } else if (breakeven < 0) {
-    score = 0;
-  } else {
-    score = breakeven;
-  }
   return (
     <>
-      <Header />
-      <div className={classes.content}>
-        <div className={classes.headtitle}>
-          <div className={classes.designBox}></div>
-          <p>Your result</p>
-        </div>
-        <ResultTitle title="SPENDiD Budget Health Score" />
-        <GaugeChart score={score && +score} />
-        <ResultTitle title="Monthly Predicted Saving Ability" />
-      </div>
+      {loadingScore ? (
+        <Loader />
+      ) : (
+        <>
+          <Header />
+          <div className={classes.content}>
+            <div className={classes.headtitle}>
+              <div className={classes.designBox}></div>
+              <p>Your result</p>
+            </div>
+            <ResultTitle title="SPENDiD Budget Health Score" />
+            <GaugeChart scores={scores && scores} />
+            <ResultTitle title="Monthly Predicted Saving Ability" />
+          </div>
+        </>
+      )}
     </>
   );
 };

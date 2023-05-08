@@ -5,7 +5,10 @@ const Zip = () => {
   const { data, handleChange, nextHandler, currentHandler } = useFormContext();
 
   const { zip } = data.apiReq.demographics;
+  console.log(zip);
+  console.log(data);
   const zip_input = zip.toString().length > 4;
+
   const content = (
     <div className={classes.questions}>
       <div className={classes.question}>
@@ -16,11 +19,15 @@ const Zip = () => {
         <input
           className={classes.input}
           type="number"
-          maxLength="5"
           name="zip"
-          value={zip}
+          value={
+            zip.toString().replace(/^0+/, '')
+            // .replace(/\D/g, '')
+            // .slice(0, 5)
+          }
           onChange={handleChange}
           placeholder="Type your answer here..."
+          pattern="\d{1,2}"
         />
       </div>
       <div className={classes.text_btn}>
