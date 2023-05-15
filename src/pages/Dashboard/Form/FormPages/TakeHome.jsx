@@ -11,7 +11,6 @@ const TakeHome = () => {
   const dispatch = useDispatch();
 
   const { data, updateState } = useFormContext();
-  // const { net_annual_income } = data.apiReq.demographics;
   const [netIncome, setNetIncome] = useState([{ frequency: '', amount: 0 }]);
   const [selectedIndex, setSelectedIndex] = useState([-1]);
 
@@ -42,7 +41,6 @@ const TakeHome = () => {
     if (i !== undefined) {
       selectedIndex[index] = i;
       setSelectedIndex(selectedIndex);
-      // console.log('selected>>>>>>>>', i, selectedIndex);
     }
     const calculateAmount = netIncome.map((item) => {
       if (item.frequency === 'Weekly') {
@@ -160,7 +158,7 @@ const TakeHome = () => {
           onClick={formSubmitHandler}
           className={
             netIncome[0].frequency.length > 0 &&
-            netIncome[0].amount.toString().length > 0
+              netIncome[0].amount.toString().length > 0
               ? classes.btn
               : classes.btn_disable
           }

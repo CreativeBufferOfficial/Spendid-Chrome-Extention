@@ -123,7 +123,6 @@ export const FormProvider = ({ children }) => {
     if (i !== -1) {
       globalSelectedIndex[page] = i;
       setGlobalSelectedIndex(globalSelectedIndex);
-      // console.log('selected>>>>>>>>', i, globalSelectedIndex);
     } else {
       globalSelectedIndex[page] = 0;
       setGlobalSelectedIndex(globalSelectedIndex);

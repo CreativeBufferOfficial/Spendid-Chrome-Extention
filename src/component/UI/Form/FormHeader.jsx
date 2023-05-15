@@ -6,8 +6,6 @@ import Progressbar from './Progress';
 const FormHeader = () => {
   const { page, title } = useFormContext();
   const now = page * 10;
-  // console.log('title>>>>>>>>>>>', title[page]);
-  // console.log('title>>>>>>>>>>>', title[page - 1]);
 
   return (
     <>
@@ -17,7 +15,7 @@ const FormHeader = () => {
             style={{
               display:
                 index < title.length - 1 &&
-                title[index].imageSrc === title[index + 1].imageSrc
+                  title[index].imageSrc === title[index + 1].imageSrc
                   ? 'none'
                   : 'block',
             }}

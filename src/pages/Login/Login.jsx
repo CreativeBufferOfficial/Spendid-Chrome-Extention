@@ -47,7 +47,6 @@ const Login = () => {
   const loginSubmitHandler = (e) => {
     e.preventDefault();
     dispatch(login(loginEmail, loginPassword));
-    console.log('user>>>', loginEmail, 'pass>>>>', loginPassword);
     setLoginEmail('');
     setLoginPassword('');
   };

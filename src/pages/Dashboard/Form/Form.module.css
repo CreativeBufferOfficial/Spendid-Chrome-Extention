@@ -10,11 +10,12 @@
   flex-direction: row;
 }
 
-.question > span {
+.question>span {
   font-weight: 600;
   margin: 10px 10px 10px 30px;
 }
-.question > p {
+
+.question>p {
   margin: 10px 0px;
   font-weight: 600;
   font-family: 'poppin', sans-serif;
@@ -31,6 +32,7 @@
   justify-content: flex-start;
   align-items: center;
 }
+
 .input {
   width: 300px;
   height: 40px;
@@ -38,6 +40,7 @@
   border: none;
   border-bottom: 2px solid lightgray;
 }
+
 .input::-webkit-outer-spin-button,
 .input::-webkit-inner-spin-button {
   display: none;
@@ -54,6 +57,7 @@
   background-color: #31bfaa;
   border: none;
 }
+
 .btn_disable,
 .next_disable,
 .prev_disable {
@@ -70,6 +74,7 @@
 .btn_disable {
   width: 50px;
 }
+
 .next,
 .next_disable,
 .prev,
@@ -77,11 +82,13 @@
   width: 40px;
   margin: 20px 5px;
 }
+
 .button_group {
   display: flex;
   flex-direction: row;
   justify-content: center;
 }
+
 .text_btn {
   margin: 10px 0px 0px 50px;
   width: 300px;
@@ -91,7 +98,6 @@
 }
 
 /*************************** Question-2 ******************************/
-
 .description {
   margin: -5px 0px 10px 50px;
   font-weight: 600;
@@ -119,29 +125,21 @@
   margin-top: 5px;
   border-radius: 5px;
 }
-/* .option {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  width: 300px;
-  height: 40px;
-  border: 1px solid #31bfaa;
-  margin-top: 5px;
-  border-radius: 5px;
-} */
 
-.option > p {
+.option>p {
   height: 30px;
   text-align: center;
   padding-top: 3px;
 }
-.option > p:nth-child(1) {
+
+.option>p:nth-child(1) {
   margin: 4px 0px 0px 4px;
   width: 40px;
   border-radius: 5px;
   background-color: lightgrey;
 }
-.option > p:nth-child(2) {
+
+.option>p:nth-child(2) {
   width: 250px;
   margin: 4px 0px 0px 10px;
   text-align: start;
@@ -151,9 +149,10 @@
   align-items: center;
 }
 
-.option > p:nth-child(2) > img {
+.option>p:nth-child(2)>img {
   margin-right: 10px;
 }
+
 .not_select {
   display: none;
 }
@@ -163,24 +162,25 @@
   text-align: justify;
   padding: 0px 20px 0px 50px;
 }
-.other_description > label {
+
+.other_description>label {
   font-size: 16px;
   font-weight: 600;
 }
-/* .other_description > label > span {
-  font-size: 10px;
-} */
-.input_field > div {
+
+.input_field>div {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
   margin-top: 10px;
 }
-.input_field > div > label {
+
+.input_field>div>label {
   font-weight: 600;
 }
-.input_field > div > p {
+
+.input_field>div>p {
   font-weight: 600;
   width: 300px;
   border-bottom: 2px solid lightgray;
@@ -188,7 +188,6 @@
 }
 
 /*************************** Question-9 ******************************/
-
 .add_source {
   display: flex;
   flex-direction: column;
@@ -200,6 +199,7 @@
 .source_feild {
   margin-top: 12px;
 }
+
 .amount_text {
   margin-top: 15px;
   display: flex;
@@ -207,10 +207,12 @@
   justify-content: center;
   align-items: start;
 }
-.amount_text > p {
+
+.amount_text>p {
   width: 300px;
 }
-.amount_text > input {
+
+.amount_text>input {
   width: 50px;
   background: rgba(0, 0, 0, 0);
   border: none;
@@ -219,7 +221,6 @@
 }
 
 /***************************Form Context ******************************/
-
 .hideButton {
   display: none;
 }
