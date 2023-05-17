@@ -21,3 +21,15 @@
   align-items: flex-start;
   width: 350px;
 }
+
+.clearInput {
+  height: 30px;
+  width: 100px;
+  color: white;
+  border-radius: 5px;
+  border: #68aca5;
+  font-size: 14px;
+  background-color: #68aca5;
+  margin-right: 10px;
+
+}

@@ -3,8 +3,11 @@ import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
 import iBtn from '../../../../assets/result/i_btn.png';
 import classes from './GaugeChart.module.css';
+import { useSelector } from 'react-redux';
 
-function GaugeChart({ scores }) {
+
+function GaugeChart() {
+  const { scores } = useSelector((state) => state.score);
   const breakeven = scores && scores?.breakeven;
 
   const chartRef = useRef(null);

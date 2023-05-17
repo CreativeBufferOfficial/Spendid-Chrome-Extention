@@ -8,6 +8,7 @@ import classes from './Popup.module.css';
 import Form from '../Dashboard/Form/Form';
 import { FormProvider } from '../../context/FormContext';
 import Result from '../Dashboard/Result/Result';
+import AllResult from '../Dashboard/Result/AllResults';
 
 const Popup = () => {
   return (
@@ -15,9 +16,10 @@ const Popup = () => {
       <FormProvider>
         <Routes>
           <Route path="/" element={<Login />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          {/* <Route path="/dashboard" element={<Dashboard />} /> */}
           <Route path="/form" element={<Form />} />
           <Route path="/result" element={<Result />} />
+          <Route path="/dashboard" element={<AllResult />} />
         </Routes>
       </FormProvider>
     </div>

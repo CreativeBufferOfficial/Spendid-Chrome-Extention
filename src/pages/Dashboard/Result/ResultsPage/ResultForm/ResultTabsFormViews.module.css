@@ -1,0 +1,24 @@
+.input_area {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    text-align: left;
+    margin-top: 10px;
+
+}
+
+.input_area label {
+    text-align: left;
+    padding-left: 20px;
+    font-weight: 500;
+    font-size: 14px;
+
+}
+
+.input_field {
+    border-radius: 50px;
+    border: 2px solid #68aca5;
+    margin: 5px 20px;
+    height: 35px;
+    padding: 0px 20px;
+}
