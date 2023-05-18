@@ -5,9 +5,9 @@
   color: #ffffff;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: start;
   border-radius: 5px;
-  padding-top: 10px;
+  padding: 10px 10px;
   margin-top: 10px;
 }

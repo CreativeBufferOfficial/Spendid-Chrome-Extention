@@ -1,25 +1,6 @@
-import ResultTitle from '../../../../../component/UI/Result/ResultTitle';
-import classes from '../../Result.module.css'
-import GaugeChart from '../../GaugeChartAm4/GaugeChart';
+import ResultChartAm4 from "./ResultChartAm4"
 
-
-
-// export const ResultChart = () => {
-// const { scores } = useSelector((state) => state.score);
-const TabA = () => (
-    <div>
-        <div className={classes.content}>
-            <div className={classes.headtitle}>
-                <div className={classes.designBox}></div>
-                <p>Your result</p>
-            </div>
-            <ResultTitle title="SPENDiD Budget Health Score" />
-            <GaugeChart
-            />
-            <ResultTitle title="Monthly Predicted Saving Ability" />
-        </div>
-    </div>
-);
+const Result = () => <ResultChartAm4 />
 const TabB = () => (
     <div>
         <h2>Tab B</h2>
@@ -59,14 +40,12 @@ const TabC = () => (
 );
 export const ChartTabs =
     [
-        { label: 'Tab 1', content: <TabA /> },
-        { label: 'Tab 2', content: <TabB /> },
-        { label: 'Tab 3', content: <TabC /> },
+        { label: 'Your Result', content: <Result /> },
+        { label: 'Your Opportunities', content: <TabB /> },
+        { label: 'Your Budget Modal', content: <TabC /> },
     ]
 
-    // return <ChartTabs />
 
-// }
 
 
 

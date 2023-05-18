@@ -2,7 +2,7 @@ import React from 'react';
 import Header from '../../../component/UI/MainHeader/Header';
 import ResultTitle from '../../../component/UI/Result/ResultTitle';
 import classes from './Result.module.css';
-import GaugeChart from './GaugeChartAm4/GaugeChart';
+import GaugeChart from './ResultsPage/ResultChart/GaugeChartAm4/GaugeChart';
 import { useSelector } from 'react-redux';
 import Loader from '../../../component/Loader/Loader';
 const Result = () => {
