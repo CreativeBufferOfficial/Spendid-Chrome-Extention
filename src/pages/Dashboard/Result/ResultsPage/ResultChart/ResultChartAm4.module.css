@@ -82,3 +82,36 @@
     margin: 10px 0px;
     padding: 5px 10px;
 }
+
+.chart_labels,
+.chart_label {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.chart_label>img {
+    aspect-ratio: 3/2;
+    object-fit: contain;
+}
+
+.chart_label>p {
+    margin: 0px 10px;
+}
+
+.chart_header_label {
+    height: 40px;
+    width: 350px;
+    margin-top: 10px;
+    border-radius: 5px;
+    text-align: center;
+    background-color: #DDDDDD;
+    padding: 10px 10px;
+    font-weight: 600;
+
+}
+
+.headtitle>img {
+    margin-left: 40px;
+}

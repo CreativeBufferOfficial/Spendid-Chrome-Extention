@@ -6,11 +6,12 @@
 
 .tab {
     height: 30px;
-    width: 100px;
+    width: auto;
     text-align: center;
     padding: 0px 5px;
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 600;
+    cursor: pointer;
 }
 
 .active {

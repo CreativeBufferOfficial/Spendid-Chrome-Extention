@@ -10,18 +10,11 @@ const DonutChart = () => {
         // Create chart instance
         const chart = am4core.create("chartdiv", am4charts.PieChart);
 
-
         // Add data
         chart.data = [
-            { category: "Category 1", value: 6 },
-            { category: "Category 2", value: 2 },
-            { category: "Category 3", value: 1 },
-            { category: "Category 4", value: 1 },
-            { category: "Category 5", value: 20 },
-            { category: "Category 6", value: 1 },
-            { category: "Category 7", value: 2 },
-            { category: "Category 8", value: 1 },
-            { category: "Category 9", value: 20 },
+            { category: "Category 1", value: 20 },
+            { category: "Category 2", value: 10 },
+            { category: "Category 3", value: 20 },
         ];
 
         // Set inner radius

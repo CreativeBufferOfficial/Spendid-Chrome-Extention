@@ -2,10 +2,12 @@ import React from 'react'
 import classes from "./ResultTabsFormViews.module.css"
 
 
-const MajorExpense = () => {
+const MonthlyBills = () => {
     return (
-        <div>MajorExpense</div>
+        <>
+
+        </>
     )
 }
 
-export default MajorExpense
+export default MonthlyBills
