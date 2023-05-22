@@ -1,0 +1,19 @@
+.label,
+.label_icon {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    font-weight: 500;
+}
+
+.label_icon {
+    font-size: 12px;
+}
+
+.label>p,
+.label>p>img,
+.label_icon>p,
+.label_icon>p>img {
+    padding: 0px 5px;
+
+}

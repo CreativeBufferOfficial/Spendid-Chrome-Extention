@@ -5,10 +5,10 @@ import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 
 am4core.useTheme(am4themes_animated);
 
-const DonutChart = () => {
+const DonutChart = ({ id }) => {
     useEffect(() => {
         // Create chart instance
-        const chart = am4core.create("chartdiv", am4charts.PieChart);
+        const chart = am4core.create(id, am4charts.PieChart);
 
 
         // Add data
@@ -61,7 +61,7 @@ const DonutChart = () => {
         };
     }, []);
 
-    return <div id="chartdiv" style={{ width: "100%", height: "400px" }}></div>;
+    return <div id={id} style={{ width: "100%", height: "400px" }}></div>;
 };
 
 export default DonutChart;

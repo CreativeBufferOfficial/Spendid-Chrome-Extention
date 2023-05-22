@@ -5,7 +5,7 @@ import classes from './ResultChartAm4.module.css'
 import GaugeChart from './GaugeChartAm4/GaugeChart';
 import DonutChart from './DonutChart/DonutChart';
 import report from "../../../../../assets/result/report.png"
-const Result = () => {
+const Result = ({ id }) => {
     const { scores } = useSelector((state) => state.score);
 
     return (
@@ -34,7 +34,7 @@ const Result = () => {
                     <button className={classes.clear} type="button" >Clear</button>
                 </div>
                 <ResultTitle title="Budget By Category" />
-                <DonutChart />
+                <DonutChart id={id} />
                 <div><button className={classes.save_report} >Save Report <img src={report} alt='report_icon' /></button></div>
 
 

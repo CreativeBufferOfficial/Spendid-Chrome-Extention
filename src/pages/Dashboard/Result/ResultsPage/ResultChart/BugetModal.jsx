@@ -5,9 +5,9 @@ import markGreenIcon from "../../../../../assets/result/Ellipse_green.png"
 import markRedIcon from "../../../../../assets/result/Ellipse_red.png"
 import markPurpleIcon from "../../../../../assets/result/Ellipse_purple.png"
 import BugetChart from './DonutChart/BugetChart'
-import DonutChart from './DonutChart/DonutChart'
+// import DonutChart from './DonutChart/DonutChart'
 
-const BugetModal = () => {
+const BugetModal = ({ id }) => {
     return (
         <>
             <div className={classes.content}>
@@ -24,15 +24,15 @@ const BugetModal = () => {
 
                 <div>
                     <div className={classes.chart_header_label} >50-30-20 Model</div>
-                    <BugetChart />
+                    <BugetChart id={id ? id.chart1 : "chartdiv1"} />
                 </div>
                 <div>
                     <div className={classes.chart_header_label} >Your Peers</div>
-                    <DonutChart />
+                    <BugetChart id={id ? id.chart2 : "chartdiv2"} />
                 </div>
                 <div>
                     <div className={classes.chart_header_label} >You</div>
-                    <BugetChart />
+                    <BugetChart id={id ? id.chart3 : "chartdiv3"} />
                 </div>
             </div>
         </>

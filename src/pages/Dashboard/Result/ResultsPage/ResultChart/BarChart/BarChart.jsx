@@ -6,10 +6,10 @@ import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 // Apply the animated theme
 am4core.useTheme(am4themes_animated);
 
-const BarChart = () => {
+const BarChart = ({ id }) => {
     useEffect(() => {
         // Create chart instance
-        const chart = am4core.create('chartdiv', am4charts.XYChart);
+        const chart = am4core.create(id, am4charts.XYChart);
 
         // Add data
         chart.data = [
@@ -38,7 +38,6 @@ const BarChart = () => {
         series.dataFields.categoryY = 'category';
         series.name = 'Value';
         series.columns.template.tooltipText = '{categoryY}: [bold]{valueX}[/]';
-
         // Add value labels inside each bar
         series.columns.template.adapter.add('text', (text, target) => {
             const value = target.dataItem && target.dataItem.valueX;
@@ -57,7 +56,7 @@ const BarChart = () => {
         };
     }, []);
 
-    return <div id="chartdiv" style={{ width: '100%', height: '250px', padding: "0px 15px" }}></div>;
+    return <div id={id} style={{ width: '100%', height: '250px', padding: "0px 15px" }}></div>;
 };
 
 export default BarChart;

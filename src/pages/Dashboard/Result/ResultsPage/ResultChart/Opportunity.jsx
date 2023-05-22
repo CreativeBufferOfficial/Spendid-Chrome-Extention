@@ -3,7 +3,7 @@ import classes from "./ResultChartAm4.module.css"
 import BarChart from './BarChart/BarChart'
 import ResultTitle from '../../../../../component/UI/Result/ResultTitle'
 
-const Opportunity = () => {
+const Opportunity = ({ id }) => {
     return (
         <>
             <div className={classes.content}>
@@ -12,7 +12,7 @@ const Opportunity = () => {
                     <p>Your Opportunities</p>
                 </div>
                 <ResultTitle title="Focus Areas" />
-                <BarChart />
+                <BarChart id={id} />
             </div>
         </>
     )
