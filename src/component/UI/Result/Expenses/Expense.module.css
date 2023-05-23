@@ -65,7 +65,7 @@
 .payment_value>p {
     height: 40px;
     width: 170px;
-    background-color: #68ACA5;
+    /* background-color: #68ACA5; */
     border-radius: 5px;
     text-align: center;
     padding-top: 8px;
@@ -75,11 +75,20 @@
 .payment_value_grid>p {
     height: 40px;
     width: 350px;
-    background-color: #68ACA5;
     border-radius: 5px;
     text-align: center;
     padding-top: 8px;
     color: #fff;
+}
+
+.payment_value>p:first-child,
+.payment_value_grid>p :first-child {
+    background-color: #0267E8;
+}
+
+.payment_value>p:last-child,
+.payment_value_grid>p :last-child {
+    background-color: #68ACA5;
 }
 
 .Toggle_input_field {

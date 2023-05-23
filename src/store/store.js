@@ -6,12 +6,15 @@ import {
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from '@redux-devtools/extension';
 
-import { userReducer, scoresGenerateReducer } from '../reducer/reducers';
+import { userReducer, lendingReducer, demographicsGenerateReducer, budgetGenerateReducer, scoresGenerateReducer } from '../reducer/reducers';
 
 let initialState = {};
 const reducer = combineReducers({
   user: userReducer,
-  score: scoresGenerateReducer,
+  lending: lendingReducer,
+  demographics: demographicsGenerateReducer,
+  budget: budgetGenerateReducer,
+  score: scoresGenerateReducer
 });
 
 const middleware = [thunk];

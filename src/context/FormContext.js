@@ -78,6 +78,100 @@ export const FormProvider = ({ children }) => {
     },
   });
 
+
+  const lendingPayload = data.apiReq
+  const demographicsPayload = {
+    demographics: { ...data.apiReq.demographics },
+    transformer:
+    {
+      alcoholic_beverages: "Groceries",
+      cash_contributions: "Charitable Giving",
+      clothing_items_and_services: "Clothing & Jewelry",
+      education: "Education",
+      electricity: "Utilities - Power Bill",
+      fees_and_admissions: "Fun & Leisure",
+      food_home: "Groceries",
+      food_out: "Dining Out",
+      furniture_and_appliances: "Home Appliances & Furniture",
+      gasoline: "Gasoline & EV-Charging",
+      health_insurance: "Health Insurance",
+      heating_fuels_other: "Utilities - Other",
+      home_maintenance_and_repairs: "Home Maintenance & Services",
+      housekeeping_supplies: "Home Maintenance & Services",
+      life_and_personal_insurance: "Life & Other Personal Insurance",
+      media_hardware_and_services: "Cable / Internet / Streaming",
+      medical_services: "Medical Spending",
+      medical_supplies: "Medical Spending",
+      miscellaneous: "Miscellaneous",
+      mortgage_and_rent: "Rent or Mortgage Payment",
+      natural_gas: "Utilities - Other",
+      other_debt_payments: "Other Debt Payments & Obligations",
+      other_household_expenses: "Home Maintenance & Services",
+      other_lodging: "Vacation & Other Lodging",
+      personal_care: "Personal Care Products and Services",
+      personal_services: "Babysitting / Preschool / Eldercare",
+      pets: "Pets",
+      prescription_drugs: "Medical Spending",
+      public_and_other_transportation: "Transportation Fares",
+      reading: "Miscellaneous",
+      savings: "Amount to Savings Each Period",
+      telephone_services: "Phone Services",
+      tobacco_and_smoking: "Miscellaneous",
+      toys_and_hobbies: "Fun & Leisure",
+      vehicle_insurance: "Car Insurance",
+      vehicle_maintenance_and_repairs: "Car Maintenance",
+      vehicle_purchase_and_lease: "Car Payments",
+      water_and_public_services: "Utilities - Other",
+    }
+
+  }
+  const budgetPayload = {
+    budget: { ...data.apiReq.budget },
+    demographics: { ...data.apiReq.demographics },
+    transformer: {
+      alcoholic_beverages: "Groceries",
+      cash_contributions: "Charitable Giving",
+      clothing_items_and_services: "Clothing & Jewelry",
+      education: "Education",
+      electricity: "Utilities - Power Bill",
+      fees_and_admissions: "Fun & Leisure",
+      food_home: "Groceries",
+      food_out: "Dining Out",
+      furniture_and_appliances: "Home Appliances & Furniture",
+      gasoline: "Gasoline & EV-Charging",
+      health_insurance: "Health Insurance",
+      heating_fuels_other: "Utilities - Other",
+      home_maintenance_and_repairs: "Home Maintenance & Services",
+      housekeeping_supplies: "Home Maintenance & Services",
+      life_and_personal_insurance: "Life & Other Personal Insurance",
+      media_hardware_and_services: "Cable / Internet / Streaming",
+      medical_services: "Medical Spending",
+      medical_supplies: "Medical Spending",
+      miscellaneous: "Miscellaneous",
+      mortgage_and_rent: "Rent or Mortgage Payment",
+      natural_gas: "Utilities - Other",
+      other_debt_payments: "Other Debt Payments & Obligations",
+      other_household_expenses: "Home Maintenance & Services",
+      other_lodging: "Vacation & Other Lodging",
+      personal_care: "Personal Care Products and Services",
+      personal_services: "Babysitting / Preschool / Eldercare",
+      pets: "Pets",
+      prescription_drugs: "Medical Spending",
+      public_and_other_transportation: "Transportation Fares",
+      reading: "Miscellaneous",
+      savings: "Amount to Savings Each Period",
+      telephone_services: "Phone Services",
+      tobacco_and_smoking: "Miscellaneous",
+      toys_and_hobbies: "Fun & Leisure",
+      vehicle_insurance: "Car Insurance",
+      vehicle_maintenance_and_repairs: "Car Maintenance",
+      vehicle_purchase_and_lease: "Car Payments",
+      water_and_public_services: "Utilities - Other",
+    }
+
+  }
+
+
   const [globalSelectedIndex, setGlobalSelectedIndex] = useState(
     Array(10).fill(-1)
   );
@@ -226,6 +320,9 @@ export const FormProvider = ({ children }) => {
         currentHandler,
         updateState,
         globalSelectedIndex,
+        budgetPayload,
+        demographicsPayload,
+        lendingPayload
       }}
     >
       {children}
