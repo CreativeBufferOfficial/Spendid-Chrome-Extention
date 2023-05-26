@@ -8,10 +8,19 @@ import vehicleIcon from '../assets/form/vehicle.png';
 import obligationIcon from '../assets/form/obligation.png';
 import healthcareIcon from '../assets/form/healthcare.png';
 import incomeIcon from '../assets/form/income.png';
+import { useSelector } from 'react-redux';
 
 const FormContext = createContext({});
 
 export const FormProvider = ({ children }) => {
+  const { loadingDemographics, demographics } = useSelector(state => state.demographics)
+  const { loadingBudgets, budgets } = useSelector(state => state.budget)
+
+  console.log("demographics>>>", demographics)
+
+
+
+
   const title = [
     {
       0: 'ZipCode',
@@ -62,24 +71,34 @@ export const FormProvider = ({ children }) => {
   const [data, setData] = useState({
     apiReq: {
       demographics: {
-        zip: '',
-        age: '',
-        household_members: '',
-        is_homeowner: '',
-        net_annual_income: '',
+        zip: 14001,
+        age: 25,
+        household_members: 1,
+        is_homeowner: false,
+        net_annual_income: null,
       },
       budget: {
         savings: null,
         other_debt_payments: null,
-        mortgage_and_rent: '',
-        vehicle_purchase_and_lease: '',
-        health_insurance: '',
+        mortgage_and_rent: null,
+        vehicle_purchase_and_lease: null,
+        health_insurance: null,
       },
     },
   });
 
 
-  const lendingPayload = data.apiReq
+  const scorePayload = {
+    demographics: { ...data.apiReq.demographics },
+    budget: { ...data.apiReq.budget }
+  }
+
+  const lendingPayload = {
+    budget: {
+      ...data.apiReq.budget, "education": 0, "life_and_personal_insurance": 0, "personal_services": 0,
+      "public_and_other_transportation": 0,
+    }, demographics: { ...data.apiReq.demographics }
+  }
   const demographicsPayload = {
     demographics: { ...data.apiReq.demographics },
     transformer:
@@ -303,6 +322,22 @@ export const FormProvider = ({ children }) => {
   const prevHandler = () => setPage((prev) => prev - 1);
   const currentHandler = () => setPage((prev) => prev);
 
+
+  // const array = demographics && [...demographics?.budget]
+  // console.log(array)
+
+  // const MajorExpensess = array.filter((key) => key === "mortgage_and_rent" && key === "other_debt_payments" && key === "health_insurance" && key === "vehicle_purchase_and_lease")
+  // console.log(MajorExpensess)
+
+
+
+  // const MajorExpenses = {
+  //   key: {
+  //     YourAmountValue: 0,
+  //     PeersValue: 0
+  //   }
+  // }
+
   return (
     <FormContext.Provider
       value={{
@@ -320,9 +355,10 @@ export const FormProvider = ({ children }) => {
         currentHandler,
         updateState,
         globalSelectedIndex,
+        lendingPayload,
         budgetPayload,
         demographicsPayload,
-        lendingPayload
+        scorePayload
       }}
     >
       {children}

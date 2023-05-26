@@ -72,7 +72,7 @@ const TakeHome = () => {
   const formSubmitHandler = () => {
     navigate('/result');
     const body = JSON.parse(JSON.stringify(sendBody));
-    dispatch(scoresGenerate(body));
+    // dispatch(scoresGenerate(body));
   };
 
   const content = (

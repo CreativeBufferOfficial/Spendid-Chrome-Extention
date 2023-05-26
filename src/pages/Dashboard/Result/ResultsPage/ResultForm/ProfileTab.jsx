@@ -1,13 +1,41 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import classes from "./ResultTabsFormViews.module.css"
-
-
-
+import useFormContext from '../../../../../hooks/useFormContext';
+import { useDispatch, useSelector } from 'react-redux';
+import { LendingGenerate, demographicsGenerate, budgetsGenerate, scoresGenerate } from '../../../../../action/actions';
 const ProfileTab = () => {
+    const dispatch = useDispatch()
+    const { data, handleChange, lendingPayload, demographicsPayload, budgetPayload, scorePayload } = useFormContext();
+    // const { loadingLendings, lendings } = useSelector(state => state.lending)
+    // const { loadingDemographics, demographics } = useSelector(state => state.demographics)
+    // const { loadingBudgets, budgets } = useSelector(state => state.budget)
+    // const { loadingScore, scores } = useSelector(state => state.score)
+
+    // console.log("data >>", data)
+    // console.log("lendings", lendings)
+    // console.log("demographics", demographics)
+    // console.log("budgets", budgets)
+    // console.log("scorePayload", scorePayload)
+    // console.log("scores >>>", scores)
     const [value, setValue] = useState(1)
     const updateLabel = (event) => {
         setValue(event.target.value)
+        // handleChange(event, value)
     }
+
+    const apiHandler = () => {
+        // console.log("scorePayload api handlder >>", scorePayload)
+        dispatch(LendingGenerate(lendingPayload))
+        dispatch(demographicsGenerate(demographicsPayload))
+        dispatch(budgetsGenerate(budgetPayload))
+        // dispatch(scoresGenerate(scorePayload))
+
+    }
+
+    useEffect(() => {
+        apiHandler()
+    }, [data])
+
     return (
         <>
             <div>
@@ -15,7 +43,7 @@ const ProfileTab = () => {
                     <label>
                         5-Digit Zip Code
                     </label>
-                    <input type="number" className={classes.input_field} />
+                    <input type="number" name="zip" onChange={handleChange} className={classes.input_field} />
                 </div>
                 <div className={classes.input_area} >
                     <label>
@@ -33,7 +61,8 @@ const ProfileTab = () => {
                     <label>
                         Age
                     </label>
-                    <input type="text" className={classes.input_field} />
+                    <input type="text" name="age"
+                        onChange={handleChange} className={classes.input_field} />
                 </div>
 
                 <div className={classes.range_container}>
