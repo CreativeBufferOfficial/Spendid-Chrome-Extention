@@ -1,170 +1,167 @@
 .expenses {
-    border: 1px solid #DEE2E6;
-    margin: 0px 10px;
-    width: 380px;
-    padding: 10px 10px;
-    border-radius: 5px;
+  border: 1px solid #dee2e6;
+  margin: 10px 10px;
+  width: 380px;
+  padding: 10px 10px;
+  border-radius: 5px;
 }
 
 .payment_view_field {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
 }
 
 .title {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 350px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 350px;
 }
 
-.title>p {
-    text-align: start;
-    font-size: 14px;
+.title > p {
+  text-align: start;
+  font-size: 14px;
 }
 
-.title>img {
-    height: 15px;
-
+.title > img {
+  height: 15px;
 }
 
 .payment_value_grid {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-
 
 .payment_value,
 .field_label {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 350px;
-    height: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 350px;
+  height: 40px;
 }
 
 .field_label {
-    margin-top: 10px;
-    border: 2px solid #DEE2E6;
-    background-color: #F8F9FA;
-    justify-content: space-around;
-    align-items: center;
-    border-radius: 5px;
+  margin-top: 10px;
+  border: 2px solid #dee2e6;
+  background-color: #f8f9fa;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 5px;
 }
 
-.field_label>p {
-    margin: 0;
-    font-size: 14px;
-    font-weight: 600;
-
+.field_label > p {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
 }
 
-.payment_value>p {
-    height: 40px;
-    width: 170px;
-    /* background-color: #68ACA5; */
-    border-radius: 5px;
-    text-align: center;
-    padding-top: 8px;
-    color: #fff;
+.payment_value > p {
+  height: 40px;
+  width: 170px;
+  /* background-color: #68aca5; */
+  border-radius: 5px;
+  text-align: center;
+  padding-top: 8px;
+  color: #fff;
 }
 
-.payment_value_grid>p {
-    height: 40px;
-    width: 350px;
-    border-radius: 5px;
-    text-align: center;
-    padding-top: 8px;
-    color: #fff;
+.payment_value_grid > p {
+  height: 40px;
+  width: 350px;
+  border-radius: 5px;
+  text-align: center;
+  padding-top: 8px;
+  color: #fff;
 }
 
-.payment_value>p:first-child,
-.payment_value_grid>p :first-child {
-    background-color: #0267E8;
+.payment_value > p:first-child,
+.payment_value_grid :first-child {
+  background-color: #0267e8;
 }
 
-.payment_value>p:last-child,
-.payment_value_grid>p :last-child {
-    background-color: #68ACA5;
+.payment_value > p:last-child,
+.payment_value_grid :last-child {
+  background-color: #68aca5;
 }
 
 .Toggle_input_field {
-    border: 2px solid #DEE2E6;
-    padding: 10px 10px;
-    margin-top: 10px;
-    background-color: #F8F9FA;
-    border-radius: 5px;
-    display: block;
+  border: 2px solid #dee2e6;
+  padding: 10px 10px;
+  margin-top: 10px;
+  background-color: #f8f9fa;
+  border-radius: 5px;
+  display: block;
 }
 
 .hide_Toggle_input_field {
-    display: none;
+  display: none;
 }
 
 .toggle_input_header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
-.input_area>div>button,
-.toggle_input_header>button {
-    height: 25px;
-    width: auto;
-    color: white;
-    border-radius: 5px;
-    border: #DC3545;
-    font-size: 12px;
-    margin-right: 10px;
-    padding: 0px 10px;
+.input_area > div > button,
+.toggle_input_header > button {
+  height: 25px;
+  width: auto;
+  color: white;
+  border-radius: 5px;
+  border: #dc3545;
+  font-size: 12px;
+  margin-right: 10px;
+  padding: 0px 10px;
 }
 
 .toggle_input_header :nth-child(2) {
-    background-color: #DC3545;
+  background-color: #dc3545;
 }
 
 .toggle_input_header :nth-child(3) {
-    background-color: #6C757D;
+  background-color: #6c757d;
 }
 
-.input_area>div>button {
-    background-color: #6C757D;
-    margin-left: 5px;
+.input_area > div > button {
+  background-color: #6c757d;
+  margin-left: 5px;
 }
 
-.toggle_input_header>img {
-    height: 15px;
+.toggle_input_header > img {
+  height: 15px;
 }
 
 .input_area {
-    display: flex;
-    flex-direction: column;
-    height: auto;
-    margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  margin-top: 10px;
 }
 
-.input_area>div {
-    display: flex;
-    flex-direction: row;
-    height: auto;
-    margin-top: 10px;
+.input_area > div {
+  display: flex;
+  flex-direction: row;
+  height: auto;
+  margin-top: 10px;
 }
 
 .input_area label {
-    text-align: left;
-    padding-left: 5px;
-    font-weight: 600;
-    font-size: 14px;
+  text-align: left;
+  padding-left: 5px;
+  font-weight: 600;
+  font-size: 14px;
 }
 
 .input_field {
-    width: 330px;
-    border-radius: 50px;
-    border: 2px solid #68aca5;
-    margin: 5px 0px;
-    height: 35px;
-    padding: 0px 10px;
+  width: 330px;
+  border-radius: 50px;
+  border: 2px solid #68aca5;
+  margin: 5px 0px;
+  height: 35px;
+  padding: 0px 10px;
 }
