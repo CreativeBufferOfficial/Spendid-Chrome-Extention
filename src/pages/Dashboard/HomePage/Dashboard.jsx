@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from '../../../component/UI/MainHeader/Header';
+import { Header } from '../../../utlis/Imports';
 import classes from './Dashboard.module.css';
 import { useNavigate } from 'react-router-dom';
 const Dashboard = () => {

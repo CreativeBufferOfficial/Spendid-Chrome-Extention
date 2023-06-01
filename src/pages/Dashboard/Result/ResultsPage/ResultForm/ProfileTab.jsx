@@ -12,12 +12,16 @@ const ProfileTab = () => {
   const dispatch = useDispatch();
   const {
     data,
+    updateState,
     handleChange,
     lendingPayload,
     demographicsPayload,
     budgetPayload,
     scorePayload,
   } = useFormContext();
+  const { zip, age, household_members, is_homeowner, net_annual_income } =
+    data.apiReq.demographics;
+  const [netIncome, setNetIncome] = useState([{ frequency: '', amount: 0 }]);
 
   const [value, setValue] = useState(1);
   const updateLabel = (event) => {
@@ -37,6 +41,47 @@ const ProfileTab = () => {
     apiHandler();
   }, []);
 
+  const sourceChangeHandle = (index, i) => (e) => {
+    const name = e.target.getAttribute('name');
+    const value =
+      e.target.value === undefined
+        ? e.target.getAttribute('value')
+        : e.target.value;
+
+    console.log('name', name);
+    console.log('value', value);
+
+    netIncome[index][name] = value;
+    setNetIncome(netIncome);
+
+    const calculateAmount = netIncome.map((item) => {
+      if (item.frequency === 'Weekly') {
+        return item.amount * 4;
+      } else if (item.frequency === 'Quarterly') {
+        return item.amount / 3;
+      } else if (item.frequency === 'Semi-Annually') {
+        return item.amount / 6;
+      } else if (item.frequency === 'Annually') {
+        return item.amount / 12;
+      } else {
+        return item.amount * 1;
+      }
+    });
+
+    console.log('calculateAmount', calculateAmount);
+    const sumWithInitial = Math.round(
+      calculateAmount.reduce(
+        (accumulator, currentValue) => accumulator + currentValue,
+        0
+      )
+    );
+    updateState('net_annual_income', sumWithInitial);
+  };
+  const clickHandler = (item) => {
+    setNetIncome([...netIncome, item]);
+  };
+  console.log(data);
+
   return (
     <>
       <div>
@@ -45,6 +90,7 @@ const ProfileTab = () => {
           <input
             type="number"
             name="zip"
+            value={zip.toString().replace(/^0+/, '')}
             onChange={handleChange}
             className={classes.input_field}
           />
@@ -62,6 +108,7 @@ const ProfileTab = () => {
           <input
             type="text"
             name="age"
+            value={age.toString().replace(/^0+/, '')}
             onChange={handleChange}
             className={classes.input_field}
           />
@@ -74,6 +121,8 @@ const ProfileTab = () => {
             min={1}
             max={5}
             step={1}
+            name="household_members"
+            onClick={handleChange}
             value={value}
             onChange={updateLabel}
           />
@@ -96,8 +145,9 @@ const ProfileTab = () => {
             <div className={classes.radio_input}>
               <input
                 type="radio"
-                name="Renter"
-                value="Renter"
+                name="is_homeowner"
+                value="false"
+                onChange={handleChange}
                 className={classes.input_field}
               />
               <label>Renter</label>
@@ -105,8 +155,9 @@ const ProfileTab = () => {
             <div className={classes.radio_input}>
               <input
                 type="radio"
-                name="Owner"
-                value="Owner"
+                name="is_homeowner"
+                value="true"
+                onChange={handleChange}
                 className={classes.input_field}
               />
               <label>Owner</label>
@@ -114,21 +165,64 @@ const ProfileTab = () => {
           </div>
         </div>
 
-        <div className={classes.input_area}>
-          <label>Net Take Home Pay - Source 1</label>
-          <input type="text" className={classes.input_field} />
-        </div>
-        <div className={classes.input_area}>
-          <label>Frequency</label>
-          <input type="text" className={classes.input_field} />
-        </div>
+        {netIncome.map((item, index) => {
+          return (
+            <div key={index}>
+              <div className={classes.input_area}>
+                <label>Net Take Home Pay - Source {index + 1}</label>
+                <input
+                  type="text"
+                  className={classes.input_field}
+                  name="amount"
+                  onChange={sourceChangeHandle(index)}
+                  placeholder="Enter a value"
+                />
+              </div>
+              <div className={classes.input_area}>
+                <label>Frequency</label>
+
+                <select
+                  name="frequency"
+                  onChange={sourceChangeHandle(index)}
+                  className={classes.input_field}
+                >
+                  <option name="frequency" value="Monthly">
+                    Monthly
+                  </option>
+                  <option name="frequency" value="Weekly">
+                    Weekly
+                  </option>
+                  <option name="frequency" value="Quarterly">
+                    Quarterly
+                  </option>
+                  <option name="frequency" value="Semi-Annually">
+                    Semi-Annually
+                  </option>
+                  <option name="frequency" value="Annually">
+                    Annually
+                  </option>
+                </select>
+              </div>
+            </div>
+          );
+        })}
+
         <div className={classes.net_source}>
-          <button className={classes.addSource_btn} type="button">
-            + Add Income Source{' '}
+          <button
+            className={classes.addSource_btn}
+            type="button"
+            onClick={() => clickHandler({ frequency: '', amount: 0 })}
+          >
+            + Add Income Source
           </button>
         </div>
         <div className={classes.amount_text}>
-          <p>Monthly amount to work with = $8,000</p>
+          <p>
+            Monthly amount to work with = $
+            {data?.apiReq?.demographics?.net_annual_income
+              ? data?.apiReq?.demographics?.net_annual_income
+              : 0}
+          </p>
         </div>
       </div>
     </>

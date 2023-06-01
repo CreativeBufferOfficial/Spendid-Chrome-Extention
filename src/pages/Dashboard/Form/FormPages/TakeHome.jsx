@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import useFormContext from '../../../../hooks/useFormContext';
 import classes from '../Form.module.css';
-import addIcon from '../../../../assets/form/addSource.png';
-import selected from '../../../../assets/form/select.png';
+import { selected, addIcon } from '../../../../utlis/Imports';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { scoresGenerate } from '../../../../action/actions';
@@ -158,7 +157,7 @@ const TakeHome = () => {
           onClick={formSubmitHandler}
           className={
             netIncome[0].frequency.length > 0 &&
-              netIncome[0].amount.toString().length > 0
+            netIncome[0].amount.toString().length > 0
               ? classes.btn
               : classes.btn_disable
           }

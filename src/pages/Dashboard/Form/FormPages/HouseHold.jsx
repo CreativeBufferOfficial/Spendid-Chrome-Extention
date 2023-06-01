@@ -1,7 +1,7 @@
 import React from 'react';
 import useFormContext from '../../../../hooks/useFormContext';
 import classes from '../Form.module.css';
-import selected from '../../../../assets/form/select.png';
+import { selected } from '../../../../utlis/Imports';
 const HouseHold = () => {
   const { page, handleChange, globalSelectedIndex } = useFormContext();
 

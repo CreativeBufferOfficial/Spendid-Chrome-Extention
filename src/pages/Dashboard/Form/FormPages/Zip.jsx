@@ -18,11 +18,7 @@ const Zip = () => {
           className={classes.input}
           type="number"
           name="zip"
-          value={
-            zip.toString().replace(/^0+/, '')
-            // .replace(/\D/g, '')
-            // .slice(0, 5)
-          }
+          value={zip.toString().replace(/^0+/, '')}
           onChange={handleChange}
           placeholder="Type your answer here..."
           pattern="\d{1,2}"

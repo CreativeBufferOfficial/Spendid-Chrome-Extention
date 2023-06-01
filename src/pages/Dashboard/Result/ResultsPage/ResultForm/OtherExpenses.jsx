@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import classes from './ResultTabsFormViews.module.css';
-import aseIcon from '../../../../../assets/result/az.png';
-import decIcon from '../../../../../assets/result/za.png';
-import Expense from '../../../../../component/UI/Result/Expenses/Expense';
-import RemoveIcon from '../../../../../assets/result/close.png';
-import EditIcon from '../../../../../assets/result/edit_sm.png';
-import Label from '../../../../../component/UI/Result/Labels/Label';
-import GridEnable from '../../../../../assets/result/grid_enable.png';
-import GridDisable from '../../../../../assets/result/grid_disable.png';
-import BlockDisable from '../../../../../assets/result/block_disable.png';
-import BlockEnable from '../../../../../assets/result/block_enable.png';
-import ResultTitle from '../../../../../component/UI/Result/ResultTitle';
+import {
+  Expense,
+  Label,
+  RemoveCategory,
+  ResultTitle,
+  EditIcon,
+  RemoveIcon,
+  BlockEnable,
+  BlockDisable,
+  GridDisable,
+  GridEnable,
+  decIcon,
+  aseIcon,
+} from '../../../../../utlis/Imports';
 import {
   getStructureObject,
   filterOtherExpenses,
@@ -28,7 +31,6 @@ const OtherExpenses = () => {
   const [gridView, setGridView] = useState(false);
   const [sortedData, setSortedData] = useState([]);
   const [removeCategory, setRemoveCategory] = useState([]);
-  let filterDemographicsOtherExpensesData;
   const init = () => {
     const demographicsOtherExpensesObject = getStructureObject(demographics);
     const budgetsOtherExpensesObject = getStructureObject(budgets);
@@ -36,7 +38,7 @@ const OtherExpenses = () => {
     //   console.log(demographicsOtherExpensesObject);
     //   console.log(budgetsOtherExpensesObject);
 
-    filterDemographicsOtherExpensesData = filterOtherExpenses(
+    const filterDemographicsOtherExpensesData = filterOtherExpenses(
       demographicsOtherExpensesObject
     ).sort(sortdecending);
 
@@ -69,14 +71,13 @@ const OtherExpenses = () => {
 
   const removeCategoryHandler = (i) => {
     const removeCategoryData = sortedData.splice(i, 1);
-    setRemoveCategory([...removeCategory, removeCategoryData]);
+    setRemoveCategory([...removeCategory, ...removeCategoryData]);
   };
 
   const restoreCategoryHandler = (i) => {
     const restoreCategoryData = removeCategory.splice(i, 1);
-    setSortedData([...sortedData, restoreCategoryData]);
+    setSortedData([...sortedData, ...restoreCategoryData]);
   };
-
   const changeViewHandler = () => {
     setGridView((prev) => !prev);
   };
@@ -133,12 +134,21 @@ const OtherExpenses = () => {
               toggle_title="Fixed amount"
               gridView={gridView}
               onRemoveCategory={removeCategoryHandler}
-              onRestoreCategory={restoreCategoryHandler}
             />
           ))}
 
         <div className={classes.remove_category}>
           <ResultTitle title="Removed Categories" />
+          {removeCategory.map((removeCategory, index) => (
+            <RemoveCategory
+              index={index}
+              key={removeCategory.name}
+              title={removeCategory.name}
+              amount1={removeCategory.Amount}
+              amount2={removeCategory.value}
+              onRestoreCategory={restoreCategoryHandler}
+            />
+          ))}
         </div>
       </div>
     </>

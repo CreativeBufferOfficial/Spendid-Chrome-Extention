@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import classes from './ResultTabsFormViews.module.css';
-import Expense from '../../../../../component/UI/Result/Expenses/Expense';
-import RemoveIcon from '../../../../../assets/result/close.png';
-import EditIcon from '../../../../../assets/result/edit_sm.png';
-import Label from '../../../../../component/UI/Result/Labels/Label';
+import {
+  Expense,
+  Label,
+  RemoveCategory,
+  RemoveIcon,
+  EditIcon,
+  ResultTitle,
+} from '../../../../../utlis/Imports';
+// import Expense from '../../../../../component/UI/Result/Expenses/Expense';
+// import RemoveIcon from '../../../../../assets/result/close.png';
+// import EditIcon from '../../../../../assets/result/edit_sm.png';
+// import Label from '../../../../../component/UI/Result/Labels/Label';
+// import RemoveCategory from '../../../../../component/UI/Result/RemoveCategory/RemoveCategory';
 import { useSelector } from 'react-redux';
 import {
   getStructureObject,
@@ -16,20 +25,39 @@ const MonthlyBills = () => {
     (state) => state.demographics
   );
   const { loadingBudgets, budgets } = useSelector((state) => state.budget);
+  const [removeCategory, setRemoveCategory] = useState([]);
+  const [sortedData, setSortedData] = useState([]);
 
-  const demographicsMonthlyBillObject = getStructureObject(demographics);
-  const budgetsMonthlyBillObject = getStructureObject(budgets);
+  const init = () => {
+    const demographicsMonthlyBillObject = getStructureObject(demographics);
+    const budgetsMonthlyBillObject = getStructureObject(budgets);
 
-  // console.log(demographicsMonthlyBillObject);
-  // console.log(budgetsMonthlyBillObject);
+    // console.log(demographicsMonthlyBillObject);
+    // console.log(budgetsMonthlyBillObject);
 
-  const filterdemographicsMonthlyBill = filterMonthlyBillExpenses(
-    demographicsMonthlyBillObject
-  );
-  const filterBudgetMonthlyBill = filterMonthlyBillExpenses(
-    budgetsMonthlyBillObject
-  );
-  getTabData(filterdemographicsMonthlyBill, filterBudgetMonthlyBill);
+    const filterdemographicsMonthlyBill = filterMonthlyBillExpenses(
+      demographicsMonthlyBillObject
+    );
+    const filterBudgetMonthlyBill = filterMonthlyBillExpenses(
+      budgetsMonthlyBillObject
+    );
+    getTabData(filterdemographicsMonthlyBill, filterBudgetMonthlyBill);
+    setSortedData(filterdemographicsMonthlyBill);
+  };
+
+  useEffect(() => {
+    init();
+  }, []);
+
+  const removeCategoryHandler = (i) => {
+    const removeCategoryData = sortedData.splice(i, 1);
+    setRemoveCategory([...removeCategory, ...removeCategoryData]);
+  };
+
+  const restoreCategoryHandler = (i) => {
+    const restoreCategoryData = removeCategory.splice(i, 1);
+    setSortedData([...sortedData, ...restoreCategoryData]);
+  };
 
   return (
     <>
@@ -46,15 +74,29 @@ const MonthlyBills = () => {
           </div>
         </div>
         <Label />
-        {filterdemographicsMonthlyBill.map((monthlybillExpense) => (
+        {sortedData.map((monthlybillExpense) => (
           <Expense
             key={monthlybillExpense.name}
             title={monthlybillExpense.name}
             amount1={monthlybillExpense.Amount}
             amount2={monthlybillExpense.value}
             toggle_title="Fixed amount"
+            onRemoveCategory={removeCategoryHandler}
           />
         ))}
+        <div className={classes.remove_category}>
+          <ResultTitle title="Removed Categories" />
+          {removeCategory.map((removeCategory, index) => (
+            <RemoveCategory
+              index={index}
+              key={removeCategory.name}
+              title={removeCategory.name}
+              amount1={removeCategory.Amount}
+              amount2={removeCategory.value}
+              onRestoreCategory={restoreCategoryHandler}
+            />
+          ))}
+        </div>
       </div>
     </>
   );

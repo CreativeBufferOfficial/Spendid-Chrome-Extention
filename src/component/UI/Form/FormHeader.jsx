@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './FormHeader.module.css';
-import tick from '../../../assets/form/tick.png';
+import { tick } from '../../../utlis/Imports';
 import useFormContext from '../../../hooks/useFormContext';
 import Progressbar from './Progress';
 const FormHeader = () => {
@@ -15,7 +15,7 @@ const FormHeader = () => {
             style={{
               display:
                 index < title.length - 1 &&
-                  title[index].imageSrc === title[index + 1].imageSrc
+                title[index].imageSrc === title[index + 1].imageSrc
                   ? 'none'
                   : 'block',
             }}

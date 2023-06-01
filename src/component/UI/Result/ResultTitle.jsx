@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './ResultTitle.module.css';
-import questionIcon from '../../../assets/result/question.png';
+import { questionIcon } from '../../../utlis/Imports';
 const ResultTitle = ({ title }) => {
   return (
     <>

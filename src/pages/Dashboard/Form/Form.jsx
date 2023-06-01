@@ -1,6 +1,5 @@
 import React from 'react';
-import Header from '../../../component/UI/MainHeader/Header';
-import FormHeader from '../../../component/UI/Form/FormHeader';
+import { Header, FormHeader } from '../../../utlis/Imports';
 import classes from './Form.module.css';
 import useFormContext from '../../../hooks/useFormContext';
 import FormInput from './FormInput';

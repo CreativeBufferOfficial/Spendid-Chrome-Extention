@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import classes from './Expense.module.css';
-import close from '../../../../assets/result/close.png';
-import edit from '../../../../assets/result/edit.png';
+import { edit, close } from '../../../../utlis/Imports';
 
 const Expense = ({
   index,
@@ -12,12 +11,23 @@ const Expense = ({
   gridView,
   isMajorExpensesTab,
   onRemoveCategory,
-  onRestoreCategory,
 }) => {
   const [showAmount, setShowAmount] = useState(false);
+  const [selectedOption, setSelectedOption] = useState('');
+  const [amount, setAmount] = useState('');
   const showAmountHandler = () => {
     setShowAmount((prev) => !prev);
   };
+  const handleClick = () => {
+    setSelectedOption('default value');
+  };
+  const handleChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
+  const clearAmountInput = () => {
+    setAmount(' ');
+  };
+
   return (
     <>
       <div className={classes.expenses}>
@@ -59,19 +69,42 @@ const Expense = ({
           <div className={classes.toggle_input_header}>
             <label>{toggle_title}</label>
             <button> Get Advice</button>
-            <button className={classes.clear_btn} type="button">
+            <button
+              className={classes.clear_btn}
+              type="button"
+              onClick={clearAmountInput}
+            >
               Clear
             </button>
           </div>
           <div className={classes.input_area}>
-            <input type="text" className={classes.input_field} />
+            <input
+              type="text"
+              className={classes.input_field}
+              placeholder="Enter a Value"
+              onChange={(e) => setAmount(e.target.value)}
+              value={amount}
+            />
           </div>
           <div className={classes.input_area}>
             <div>
               <label>Frequency</label>
-              <button type="button">Clear</button>
+              <button type="button" onClick={handleClick}>
+                Clear
+              </button>
             </div>
-            <input type="text" className={classes.input_field} />
+            {/* <input type="text" className={classes.input_field} /> */}
+            <select
+              className={classes.input_field}
+              value={selectedOption}
+              onChange={handleChange}
+            >
+              <option>Monthly</option>
+              <option>Weekly</option>
+              <option>Quarterly</option>
+              <option>Semi-Annually</option>
+              <option>Annually</option>
+            </select>
           </div>
         </div>
       </div>

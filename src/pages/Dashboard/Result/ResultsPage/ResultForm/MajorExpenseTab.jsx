@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import Expense from '../../../../../component/UI/Result/Expenses/Expense';
+import { Expense } from '../../../../../utlis/Imports';
 import {
   getStructureObject,
   filterMajorExpenses,
@@ -9,18 +9,27 @@ import {
 
 const MajorExpense = () => {
   const [isMajorExpensesTab, setIsMajorExpensesTab] = useState(true);
+  const [sortedData, setSortedData] = useState([]);
   const { loadingDemographics, demographics } = useSelector(
     (state) => state.demographics
   );
   const { loadingBudgets, budgets } = useSelector((state) => state.budget);
-  const demographicsObjects = getStructureObject(demographics);
-  const budgetObjects = getStructureObject(budgets);
-  const demographicsMajorExpensess = filterMajorExpenses(demographicsObjects);
-  const budgetMajorExpensess = filterMajorExpenses(budgetObjects);
-  getTabData(demographicsMajorExpensess, budgetMajorExpensess);
+
+  const init = () => {
+    const demographicsObjects = getStructureObject(demographics);
+    const budgetObjects = getStructureObject(budgets);
+    const demographicsMajorExpensess = filterMajorExpenses(demographicsObjects);
+    const budgetMajorExpensess = filterMajorExpenses(budgetObjects);
+    getTabData(demographicsMajorExpensess, budgetMajorExpensess);
+    setSortedData(demographicsMajorExpensess);
+  };
+  useEffect(() => {
+    init();
+  }, []);
+
   return (
     <>
-      {demographicsMajorExpensess.map((majorExpense) => (
+      {sortedData.map((majorExpense) => (
         <Expense
           key={majorExpense.name}
           title={majorExpense.name}
