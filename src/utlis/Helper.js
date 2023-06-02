@@ -55,6 +55,10 @@ export const filterOtherExpenses = (data) => {
   );
 };
 
+export const filterSavings = (data) => {
+  return data.filter((obj) => obj.name === 'Amount to Savings Each Period');
+};
+
 export const getTabData = (array1, array2) => {
   // Dynamically add a key-value pair to each object in the array
   for (let i = 0; i < array1.length; i++) {

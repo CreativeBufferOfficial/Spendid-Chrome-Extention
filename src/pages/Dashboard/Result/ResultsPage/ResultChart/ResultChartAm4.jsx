@@ -1,28 +1,40 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import ResultTitle from '../../../../../component/UI/Result/ResultTitle';
 import classes from './ResultChartAm4.module.css';
 import GaugeChart from './GaugeChartAm4/GaugeChart';
 import DonutChart from './DonutChart/DonutChart';
 import report from '../../../../../assets/result/report.png';
-// import { scoresGenerate } from '../../../../../action/actions';
-// import useFormContext from '../../../../../hooks/useFormContext';
-// import { useDispatch } from 'react-redux';
+import {
+  filterSavings,
+  getStructureObject,
+  getTabData,
+} from '../../../../../utlis/Helper';
 const Result = ({ id }) => {
-  //   const dispatch = useDispatch();
-  //   const {
-  //     data,
-  //     handleChange,
-  //     lendingPayload,
-  //     demographicsPayload,
-  //     budgetPayload,
-  //     scorePayload,
-  //   } = useFormContext();
+  const [savingData, setSavingData] = useState([]);
+
+  const { loadingDemographics, demographics } = useSelector(
+    (state) => state.demographics
+  );
+  const { loadingBudgets, budgets } = useSelector((state) => state.budget);
   const { scores } = useSelector((state) => state.score);
-  console.log('scores', scores);
-  //   useEffect(() => {
-  //     dispatch(scoresGenerate(scorePayload));
-  //   }, []);
+
+  const initial = () => {
+    const demographicsObjects = getStructureObject(demographics);
+    const budgetObjects = getStructureObject(budgets);
+    console.log('demographicsObjects', demographicsObjects);
+    console.log('budgetObjects', budgetObjects);
+    const demographicsMajorExpensess = filterSavings(demographicsObjects);
+    const budgetMajorExpensess = filterSavings(budgetObjects);
+    getTabData(demographicsMajorExpensess, budgetMajorExpensess);
+
+    setSavingData(demographicsMajorExpensess);
+  };
+  console.log('savingData', savingData);
+
+  useEffect(() => {
+    initial();
+  }, []);
 
   return (
     <>
@@ -37,11 +49,15 @@ const Result = ({ id }) => {
         <div className={classes.saving}>
           <div>
             <p>You</p>
-            <p className={classes.amount_field}>$3243</p>
+            <p className={classes.amount_field}>
+              ${savingData && savingData[0]?.Amount}
+            </p>
           </div>
           <div>
             <p>Peers</p>
-            <p className={classes.amount_field}>$2593</p>
+            <p className={classes.amount_field}>
+              ${savingData && savingData[0]?.value}
+            </p>
           </div>
         </div>
         <div className={classes.monthly_save}>

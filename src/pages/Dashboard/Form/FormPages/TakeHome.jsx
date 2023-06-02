@@ -4,12 +4,24 @@ import classes from '../Form.module.css';
 import { selected, addIcon } from '../../../../utlis/Imports';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { scoresGenerate } from '../../../../action/actions';
+import {
+  LendingGenerate,
+  demographicsGenerate,
+  budgetsGenerate,
+  scoresGenerate,
+} from '../../../../action/actions';
 const TakeHome = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { data, updateState } = useFormContext();
+  const {
+    data,
+    updateState,
+    lendingPayload,
+    demographicsPayload,
+    budgetPayload,
+    scorePayload,
+  } = useFormContext();
   const [netIncome, setNetIncome] = useState([{ frequency: '', amount: 0 }]);
   const [selectedIndex, setSelectedIndex] = useState([-1]);
 
@@ -67,11 +79,14 @@ const TakeHome = () => {
     updateState('net_annual_income', sumWithInitial);
   };
 
-  const sendBody = { ...data.apiReq };
+  // const sendBody = { ...data.apiReq };
   const formSubmitHandler = () => {
     navigate('/result');
-    const body = JSON.parse(JSON.stringify(sendBody));
-    // dispatch(scoresGenerate(body));
+    // const body = JSON.parse(JSON.stringify(sendBody));
+    dispatch(LendingGenerate(lendingPayload));
+    dispatch(demographicsGenerate(demographicsPayload));
+    dispatch(budgetsGenerate(budgetPayload));
+    dispatch(scoresGenerate(scorePayload));
   };
 
   const content = (

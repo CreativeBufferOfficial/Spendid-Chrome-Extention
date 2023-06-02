@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import Loader from '../../../component/Loader/Loader';
 import ResultPageInput from './ResultsPage/ResultPageInput';
 import { inputFormTabs } from './ResultsPage/ResultForm/ResultTabsFormViews';
-import { ChartTabs } from './ResultsPage/ResultChart/ResultChart';
+import { ChartTabs } from './ResultsPage/ResultChart/ResultChartView';
 import Button from './Button';
 import useFormContext from '../../../hooks/useFormContext';
 import { useSearchParams } from 'react-router-dom';

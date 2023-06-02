@@ -13,13 +13,6 @@ import { useSelector } from 'react-redux';
 const FormContext = createContext({});
 
 export const FormProvider = ({ children }) => {
-  const { loadingDemographics, demographics } = useSelector(
-    (state) => state.demographics
-  );
-  const { loadingBudgets, budgets } = useSelector((state) => state.budget);
-
-  console.log('demographics>>>', demographics);
-
   const title = [
     {
       0: 'ZipCode',
@@ -74,14 +67,14 @@ export const FormProvider = ({ children }) => {
         age: 25,
         household_members: 1,
         is_homeowner: false,
-        net_annual_income: null,
+        net_annual_income: 40000,
       },
       budget: {
         savings: null,
         other_debt_payments: null,
-        mortgage_and_rent: null,
-        vehicle_purchase_and_lease: null,
-        health_insurance: null,
+        mortgage_and_rent: 100,
+        vehicle_purchase_and_lease: 100,
+        health_insurance: 100,
       },
     },
   });
