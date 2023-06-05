@@ -18,12 +18,15 @@ const ProfileTab = () => {
     demographicsPayload,
     budgetPayload,
     scorePayload,
+    netIncome,
+    setNetIncome,
   } = useFormContext();
   const { zip, age, household_members, is_homeowner, net_annual_income } =
     data.apiReq.demographics;
-  const [netIncome, setNetIncome] = useState([{ frequency: '', amount: 0 }]);
+  // const [netIncome, setNetIncome] = useState([{ frequency: '', amount: 0 }]);
 
-  const [value, setValue] = useState(1);
+  const [value, setValue] = useState(household_members);
+  const [houseHold, setHouseHold] = useState(is_homeowner);
   const updateLabel = (event) => {
     setValue(event.target.value);
     // handleChange(event, value)
@@ -80,7 +83,7 @@ const ProfileTab = () => {
   const clickHandler = (item) => {
     setNetIncome([...netIncome, item]);
   };
-  console.log(data);
+  console.log('is_homeowner>>>>>>>>>>>>', is_homeowner);
 
   return (
     <>
@@ -146,7 +149,9 @@ const ProfileTab = () => {
               <input
                 type="radio"
                 name="is_homeowner"
+                // value={is_homeowner === false ? 'false' : 'true'}
                 value="false"
+                checked={is_homeowner ? '' : 'checked'}
                 onChange={handleChange}
                 className={classes.input_field}
               />
@@ -157,6 +162,7 @@ const ProfileTab = () => {
                 type="radio"
                 name="is_homeowner"
                 value="true"
+                checked={is_homeowner ? 'checked' : ''}
                 onChange={handleChange}
                 className={classes.input_field}
               />
@@ -174,6 +180,7 @@ const ProfileTab = () => {
                   type="text"
                   className={classes.input_field}
                   name="amount"
+                  value={item.amount}
                   onChange={sourceChangeHandle(index)}
                   placeholder="Enter a value"
                 />
@@ -183,6 +190,7 @@ const ProfileTab = () => {
 
                 <select
                   name="frequency"
+                  value={item.frequency}
                   onChange={sourceChangeHandle(index)}
                   className={classes.input_field}
                 >

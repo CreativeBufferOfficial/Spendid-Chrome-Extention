@@ -59,13 +59,14 @@ export const FormProvider = ({ children }) => {
       imageSrc: incomeIcon,
     },
   ];
+  const [netIncome, setNetIncome] = useState([{ frequency: '', amount: 0 }]);
 
   const [data, setData] = useState({
     apiReq: {
       demographics: {
         zip: 14001,
         age: 25,
-        household_members: 1,
+        household_members: 4,
         is_homeowner: false,
         net_annual_income: 40000,
       },
@@ -332,6 +333,8 @@ export const FormProvider = ({ children }) => {
         budgetPayload,
         demographicsPayload,
         scorePayload,
+        netIncome,
+        setNetIncome,
       }}
     >
       {children}

@@ -21,8 +21,9 @@ const TakeHome = () => {
     demographicsPayload,
     budgetPayload,
     scorePayload,
+    netIncome,
+    setNetIncome,
   } = useFormContext();
-  const [netIncome, setNetIncome] = useState([{ frequency: '', amount: 0 }]);
   const [selectedIndex, setSelectedIndex] = useState([-1]);
 
   const options = [
