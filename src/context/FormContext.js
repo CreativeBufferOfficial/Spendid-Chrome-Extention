@@ -1,14 +1,15 @@
 import { createContext, useState } from 'react';
-import zipIcon from '../assets/form/zipcode.png';
-import ageIcon from '../assets/form/age.png';
-import HouseHoldIcon from '../assets/form/household.png';
-import homeTypeIcon from '../assets/form/hometype.png';
-import rentIcon from '../assets/form/rent.png';
-import vehicleIcon from '../assets/form/vehicle.png';
-import obligationIcon from '../assets/form/obligation.png';
-import healthcareIcon from '../assets/form/healthcare.png';
-import incomeIcon from '../assets/form/income.png';
-import { useSelector } from 'react-redux';
+import {
+  zipIcon,
+  ageIcon,
+  HouseHoldIcon,
+  homeTypeIcon,
+  rentIcon,
+  vehicleIcon,
+  obligationIcon,
+  healthcareIcon,
+  incomeIcon,
+} from '../utlis/Imports';
 
 const FormContext = createContext({});
 
@@ -66,16 +67,16 @@ export const FormProvider = ({ children }) => {
       demographics: {
         zip: 14001,
         age: 25,
-        household_members: 4,
+        household_members: 1,
         is_homeowner: false,
-        net_annual_income: 40000,
+        net_annual_income: 6000,
       },
       budget: {
         savings: null,
-        other_debt_payments: null,
-        mortgage_and_rent: 100,
-        vehicle_purchase_and_lease: 100,
-        health_insurance: 100,
+        other_debt_payments: 142,
+        mortgage_and_rent: 277,
+        vehicle_purchase_and_lease: 3235,
+        health_insurance: 0,
       },
     },
   });

@@ -4,11 +4,12 @@ import ResultTitle from '../../../../../component/UI/Result/ResultTitle';
 import classes from './ResultChartAm4.module.css';
 import GaugeChart from './GaugeChartAm4/GaugeChart';
 import DonutChart from './DonutChart/DonutChart';
-import report from '../../../../../assets/result/report.png';
+import { report } from '../../../../../utlis/Imports';
 import {
   filterSavings,
   getStructureObject,
   getTabData,
+  filterCategory,
 } from '../../../../../utlis/Helper';
 const Result = ({ id }) => {
   const [savingData, setSavingData] = useState([]);
@@ -22,15 +23,15 @@ const Result = ({ id }) => {
   const initial = () => {
     const demographicsObjects = getStructureObject(demographics);
     const budgetObjects = getStructureObject(budgets);
-    console.log('demographicsObjects', demographicsObjects);
-    console.log('budgetObjects', budgetObjects);
+    // console.log('demographicsObjects', demographicsObjects);
+    // console.log('budgetObjects', budgetObjects);
     const demographicsMajorExpensess = filterSavings(demographicsObjects);
     const budgetMajorExpensess = filterSavings(budgetObjects);
     getTabData(demographicsMajorExpensess, budgetMajorExpensess);
 
     setSavingData(demographicsMajorExpensess);
   };
-  console.log('savingData', savingData);
+  // console.log('savingData', savingData);
 
   useEffect(() => {
     initial();

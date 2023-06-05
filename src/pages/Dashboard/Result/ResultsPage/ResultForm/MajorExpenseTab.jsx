@@ -32,8 +32,8 @@ const MajorExpense = () => {
     <>
       {sortedData.map((majorExpense) => (
         <Expense
-          key={majorExpense.name}
-          title={majorExpense.name}
+          key={majorExpense.category}
+          title={majorExpense.category}
           amount1={majorExpense.Amount}
           amount2={majorExpense.value}
           toggle_title="Fixed amount"

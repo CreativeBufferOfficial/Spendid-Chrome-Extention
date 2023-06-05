@@ -4,7 +4,7 @@ export const getStructureObject = (obj) => {
     if (typeof obj[key] === 'object' && obj[key] !== null) {
       result.push(...getStructureObject(obj[key])); // Recursively call the function for nested objects
     } else {
-      result.push({ name: key, value: Math.round(obj[key] / 12) }); // Convert the key-value pair into an object and push it to the result array
+      result.push({ category: key, value: Math.round(obj[key] / 12) }); // Convert the key-value pair into an object and push it to the result array
     }
   }
   return result;
@@ -13,50 +13,84 @@ export const getStructureObject = (obj) => {
 export const filterMajorExpenses = (data) => {
   return data.filter(
     (obj) =>
-      obj.name === 'Rent or Mortgage Payment' ||
-      obj.name === 'Health Insurance' ||
-      obj.name === 'Car Payments' ||
-      obj.name === 'Other Debt Payments & Obligations'
+      obj.category === 'Rent or Mortgage Payment' ||
+      obj.category === 'Health Insurance' ||
+      obj.category === 'Car Payments' ||
+      obj.category === 'Other Debt Payments & Obligations'
   );
 };
 
 export const filterMonthlyBillExpenses = (data) => {
   return data.filter(
     (obj) =>
-      obj.name === 'Charitable Giving' ||
-      obj.name === 'Utilities - Power Bill' ||
-      obj.name === 'Car Insurance' ||
-      obj.name === 'Utilities - Other' ||
-      obj.name === 'Cable / Internet / Streaming' ||
-      obj.name === 'Phone Services'
+      obj.category === 'Charitable Giving' ||
+      obj.category === 'Utilities - Power Bill' ||
+      obj.category === 'Car Insurance' ||
+      obj.category === 'Utilities - Other' ||
+      obj.category === 'Cable / Internet / Streaming' ||
+      obj.category === 'Phone Services'
   );
 };
 
 export const filterOtherExpenses = (data) => {
   return data.filter(
     (obj) =>
-      obj.name === 'Groceries' ||
-      obj.name === 'Dining Out' ||
-      obj.name === 'Gasoline & EV-Charging' ||
-      obj.name === 'Fun & Leisure' ||
-      obj.name === 'Clothing & Jewelry' ||
-      obj.name === 'Medical Spending' ||
-      obj.name === 'Home Maintenance & Services' ||
-      obj.name === 'Medical Spending' ||
-      obj.name === 'Miscellaneous' ||
-      obj.name === 'Education' ||
-      obj.name === 'Vacation & Other Lodging' ||
-      obj.name === 'Car Maintenance' ||
-      obj.name === 'Personal Care Products and Services' ||
-      obj.name === 'Pets' ||
-      obj.name === 'Transportation Fares' ||
-      obj.name === 'Life & Other Personal Insurance' ||
-      obj.name === 'Babysitting / Preschool / Eldercare'
+      obj.category === 'Groceries' ||
+      obj.category === 'Dining Out' ||
+      obj.category === 'Gasoline & EV-Charging' ||
+      obj.category === 'Fun & Leisure' ||
+      obj.category === 'Clothing & Jewelry' ||
+      obj.category === 'Medical Spending' ||
+      obj.category === 'Home Maintenance & Services' ||
+      obj.category === 'Medical Spending' ||
+      obj.category === 'Miscellaneous' ||
+      obj.category === 'Education' ||
+      obj.category === 'Vacation & Other Lodging' ||
+      obj.category === 'Car Maintenance' ||
+      obj.category === 'Personal Care Products and Services' ||
+      obj.category === 'Pets' ||
+      obj.category === 'Transportation Fares' ||
+      obj.category === 'Life & Other Personal Insurance' ||
+      obj.category === 'Babysitting / Preschool / Eldercare'
   );
 };
 
 export const filterSavings = (data) => {
-  return data.filter((obj) => obj.name === 'Amount to Savings Each Period');
+  return data.filter((obj) => obj.category === 'Amount to Savings Each Period');
+};
+
+export const filterCategory = (data) => {
+  return data.filter(
+    (obj) =>
+      obj.category === 'Groceries' ||
+      obj.category === 'Charitable Giving' ||
+      obj.category === 'Clothing & Jewelry' ||
+      obj.category === 'Education' ||
+      obj.category === 'Utilities - Power Bill' ||
+      obj.category === 'Fun & Leisure' ||
+      obj.category === 'Dining Out' ||
+      obj.category === 'Home Appliances & Furniture' ||
+      obj.category === 'Gasoline & EV-Charging' ||
+      obj.category === 'Health Insurance' ||
+      obj.category === 'Utilities - Other' ||
+      obj.category === 'Home Maintenance & Services' ||
+      obj.category === 'Life & Other Personal Insurance' ||
+      obj.category === 'Cable / Internet / Streaming' ||
+      obj.category === 'Medical Spending' ||
+      obj.category === 'Miscellaneous' ||
+      obj.category === 'Rent or Mortgage Payment' ||
+      obj.category === 'Other Debt Payments & Obligations' ||
+      obj.category === 'Vacation & Other Lodging' ||
+      obj.category === 'Personal Care Products and Services' ||
+      obj.category === 'Babysitting / Preschool / Eldercare' ||
+      obj.category === 'Pets' ||
+      obj.category === 'Transportation Fares' ||
+      obj.category === 'Amount to Savings Each Period' ||
+      obj.category === 'Phone Services' ||
+      obj.category === 'Car Insurance' ||
+      obj.category === 'Car Maintenance' ||
+      obj.category === 'Car Payments'
+  );
 };
 
 export const getTabData = (array1, array2) => {
@@ -70,3 +104,35 @@ export const getTabData = (array1, array2) => {
 
 export const sortdecending = (a, b) => b.value - a.value;
 export const sortAscending = (a, b) => a.value - b.value;
+
+export const getDiffrenceToPeers = (array) => {
+  const filteredData = array
+    .filter((obj) => obj.Amount - obj.value > 0)
+    .map((obj) => ({ ...obj, difference: obj.Amount - obj.value }));
+
+  return filteredData;
+};
+
+export const filterNeeds = (data) => {
+  return data.filter(
+    (obj) =>
+      obj.category === 'Rent or Mortgage Payment' ||
+      obj.category === 'Health Insurance' ||
+      obj.category === 'Car Payments' ||
+      obj.category === 'Other Debt Payments & Obligations' ||
+      obj.category === 'Charitable Giving' ||
+      obj.category === 'Utilities - Power Bill' ||
+      obj.category === 'Car Insurance' ||
+      obj.category === 'Utilities - Other' ||
+      obj.category === 'Cable / Internet / Streaming' ||
+      obj.category === 'Phone Services'
+  );
+};
+
+export const modalValue = (data) => {
+  const sum = data.reduce(
+    (accumulator, currentValue) => accumulator + currentValue.value,
+    0
+  );
+  return sum;
+};

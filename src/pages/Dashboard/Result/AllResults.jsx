@@ -45,17 +45,24 @@ const AllResult = () => {
   }, [resetFlag]);
 
   return (
+    // <>
+    //   {loadingScore ? (
+    //     <Loader />
+    //   ) : (
+    //     <>
+    //       <Header />
+    //       <Button clearInput={clearInput} />
+    //       <ResultPageInput tabs={inputFormTabs} />
+    //       {/* <ResultPageInput tabs={ChartTabs} /> */}
+    //     </>
+    //   )}
+    // </>
+
     <>
-      {loadingScore ? (
-        <Loader />
-      ) : (
-        <>
-          <Header />
-          <Button clearInput={clearInput} />
-          <ResultPageInput tabs={inputFormTabs} />
-          <ResultPageInput tabs={ChartTabs} />
-        </>
-      )}
+      <Header />
+      <Button clearInput={clearInput} />
+      <ResultPageInput tabs={inputFormTabs} />
+      <ResultPageInput tabs={ChartTabs} />
     </>
   );
 };

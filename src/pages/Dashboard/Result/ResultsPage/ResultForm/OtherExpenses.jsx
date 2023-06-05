@@ -127,8 +127,8 @@ const OtherExpenses = () => {
           sortedData.map((majorExpense, index) => (
             <Expense
               index={index}
-              key={majorExpense.name}
-              title={majorExpense.name}
+              key={majorExpense.category}
+              title={majorExpense.category}
               amount1={majorExpense.Amount}
               amount2={majorExpense.value}
               toggle_title="Fixed amount"
@@ -142,8 +142,8 @@ const OtherExpenses = () => {
           {removeCategory.map((removeCategory, index) => (
             <RemoveCategory
               index={index}
-              key={removeCategory.name}
-              title={removeCategory.name}
+              key={removeCategory.category}
+              title={removeCategory.category}
               amount1={removeCategory.Amount}
               amount2={removeCategory.value}
               onRestoreCategory={restoreCategoryHandler}

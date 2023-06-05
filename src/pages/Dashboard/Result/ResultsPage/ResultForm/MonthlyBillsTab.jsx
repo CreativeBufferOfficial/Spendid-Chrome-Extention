@@ -76,8 +76,8 @@ const MonthlyBills = () => {
         <Label />
         {sortedData.map((monthlybillExpense) => (
           <Expense
-            key={monthlybillExpense.name}
-            title={monthlybillExpense.name}
+            key={monthlybillExpense.category}
+            title={monthlybillExpense.category}
             amount1={monthlybillExpense.Amount}
             amount2={monthlybillExpense.value}
             toggle_title="Fixed amount"
@@ -89,8 +89,8 @@ const MonthlyBills = () => {
           {removeCategory.map((removeCategory, index) => (
             <RemoveCategory
               index={index}
-              key={removeCategory.name}
-              title={removeCategory.name}
+              key={removeCategory.category}
+              title={removeCategory.category}
               amount1={removeCategory.Amount}
               amount2={removeCategory.value}
               onRestoreCategory={restoreCategoryHandler}
