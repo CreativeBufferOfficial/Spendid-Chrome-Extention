@@ -12,8 +12,8 @@ const ProfileTab = () => {
   const dispatch = useDispatch();
   const {
     data,
-    updateState,
-    handleChange,
+    categoryInputHandler,
+    formDataHandlerChange,
     lendingPayload,
     demographicsPayload,
     budgetPayload,
@@ -29,7 +29,7 @@ const ProfileTab = () => {
   const [houseHold, setHouseHold] = useState(is_homeowner);
   const updateLabel = (event) => {
     setValue(event.target.value);
-    // handleChange(event, value)
+    // formDataHandlerChange(event, value)
   };
 
   // const apiHandler = () => {
@@ -78,12 +78,11 @@ const ProfileTab = () => {
         0
       )
     );
-    updateState('net_annual_income', sumWithInitial);
+    categoryInputHandler('net_annual_income', sumWithInitial);
   };
   const clickHandler = (item) => {
     setNetIncome([...netIncome, item]);
   };
-  console.log('is_homeowner>>>>>>>>>>>>', is_homeowner);
 
   return (
     <>
@@ -94,7 +93,7 @@ const ProfileTab = () => {
             type="number"
             name="zip"
             value={zip.toString().replace(/^0+/, '')}
-            onChange={handleChange}
+            onChange={formDataHandlerChange}
             className={classes.input_field}
           />
         </div>
@@ -112,7 +111,7 @@ const ProfileTab = () => {
             type="text"
             name="age"
             value={age.toString().replace(/^0+/, '')}
-            onChange={handleChange}
+            onChange={formDataHandlerChange}
             className={classes.input_field}
           />
         </div>
@@ -125,7 +124,7 @@ const ProfileTab = () => {
             max={5}
             step={1}
             name="household_members"
-            onClick={handleChange}
+            onClick={formDataHandlerChange}
             value={value}
             onChange={updateLabel}
           />
@@ -152,7 +151,7 @@ const ProfileTab = () => {
                 // value={is_homeowner === false ? 'false' : 'true'}
                 value="false"
                 checked={is_homeowner ? '' : 'checked'}
-                onChange={handleChange}
+                onChange={formDataHandlerChange}
                 className={classes.input_field}
               />
               <label>Renter</label>
@@ -163,7 +162,7 @@ const ProfileTab = () => {
                 name="is_homeowner"
                 value="true"
                 checked={is_homeowner ? 'checked' : ''}
-                onChange={handleChange}
+                onChange={formDataHandlerChange}
                 className={classes.input_field}
               />
               <label>Owner</label>

@@ -4,7 +4,7 @@ import classes from '../Form.module.css';
 import { selected } from '../../../../utlis/Imports';
 
 const Obligations = () => {
-  const { page, handleChange, globalSelectedIndex } = useFormContext();
+  const { page, formDataHandlerChange, globalSelectedIndex } = useFormContext();
   const options = [
     { name: 'A', value: 'Yes' },
     { name: 'B', value: 'No' },
@@ -33,7 +33,7 @@ const Obligations = () => {
                   ? '1px solid #31bfaa'
                   : ' 1px solid lightgrey',
             }}
-            onClick={(e) => handleChange(e, i)}
+            onClick={(e) => formDataHandlerChange(e, i)}
           >
             <p name={'isOtherDept'} value={item.value}>
               {item.name}

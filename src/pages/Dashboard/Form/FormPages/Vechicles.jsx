@@ -2,7 +2,8 @@ import React from 'react';
 import useFormContext from '../../../../hooks/useFormContext';
 import classes from '../Form.module.css';
 const Vechicles = () => {
-  const { data, handleChange, nextHandler, currentHandler } = useFormContext();
+  const { data, formDataHandlerChange, nextHandler, currentHandler } =
+    useFormContext();
 
   const { vehicle_purchase_and_lease } = data.apiReq.budget;
   const vehicle_input = vehicle_purchase_and_lease.toString().length > 0;
@@ -21,7 +22,7 @@ const Vechicles = () => {
           placeholder="Type your answer here..."
           name="vehicle_purchase_and_lease"
           value={vehicle_purchase_and_lease.toString().replace(/^0+/, '')}
-          onChange={handleChange}
+          onChange={formDataHandlerChange}
         />
       </div>
       <div className={classes.text_btn}>

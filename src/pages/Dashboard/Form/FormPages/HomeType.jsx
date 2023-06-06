@@ -4,7 +4,7 @@ import classes from '../Form.module.css';
 import { selected } from '../../../../utlis/Imports';
 
 const HomeType = () => {
-  const { page, handleChange, globalSelectedIndex } = useFormContext();
+  const { page, formDataHandlerChange, globalSelectedIndex } = useFormContext();
 
   const options = [
     { name: 'A', value: false, text: 'Rent' },
@@ -22,7 +22,7 @@ const HomeType = () => {
           <div
             className={classes.option}
             key={i}
-            onClick={(e) => handleChange(e, i)}
+            onClick={(e) => formDataHandlerChange(e, i)}
             style={{
               border:
                 globalSelectedIndex[page] === i

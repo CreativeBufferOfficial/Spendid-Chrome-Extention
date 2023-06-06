@@ -3,7 +3,8 @@ import useFormContext from '../../../../hooks/useFormContext';
 import classes from '../Form.module.css';
 
 const Age = () => {
-  const { data, handleChange, nextHandler, currentHandler } = useFormContext();
+  const { data, formDataHandlerChange, nextHandler, currentHandler } =
+    useFormContext();
   const { age } = data.apiReq.demographics;
   const age_input = age.toString().length > 1 && age >= 18;
 
@@ -23,7 +24,7 @@ const Age = () => {
           maxLength="3"
           name="age"
           value={age.toString().replace(/^0+/, '')}
-          onChange={handleChange}
+          onChange={formDataHandlerChange}
           placeholder="Type your answer here..."
         />
       </div>

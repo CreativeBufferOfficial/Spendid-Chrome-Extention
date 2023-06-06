@@ -2,7 +2,8 @@ import React from 'react';
 import useFormContext from '../../../../hooks/useFormContext';
 import classes from '../Form.module.css';
 const HealthInsurance2 = () => {
-  const { data, handleChange, nextHandler, currentHandler } = useFormContext();
+  const { data, formDataHandlerChange, nextHandler, currentHandler } =
+    useFormContext();
   const { health_insurance } = data.apiReq.budget;
   const health_input = health_insurance.toString().length > 0;
   const content = (
@@ -19,7 +20,7 @@ const HealthInsurance2 = () => {
           placeholder="Type your answer here..."
           name="health_insurance"
           value={health_insurance.toString().replace(/^0+/, '')}
-          onChange={handleChange}
+          onChange={formDataHandlerChange}
         />
       </div>
       <div className={classes.text_btn}>

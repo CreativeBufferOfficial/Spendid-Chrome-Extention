@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import useFormContext from '../../../../hooks/useFormContext';
 import classes from '../Form.module.css';
 const Obligations2 = () => {
-  const { data, nextHandler, updateState } = useFormContext();
+  const { data, nextHandler, categoryInputHandler } = useFormContext();
 
   const [debt, setDebt] = useState({
     pastCreditCardDebt: '',
@@ -22,7 +22,7 @@ const Obligations2 = () => {
       return +accumulator + +value;
     }, 0);
 
-    updateState('other_debt_payments', totalDeptvalue);
+    categoryInputHandler('other_debt_payments', totalDeptvalue);
   };
 
   const content = (

@@ -2,7 +2,8 @@ import React from 'react';
 import useFormContext from '../../../../hooks/useFormContext';
 import classes from '../Form.module.css';
 const Zip = () => {
-  const { data, handleChange, nextHandler, currentHandler } = useFormContext();
+  const { data, formDataHandlerChange, nextHandler, currentHandler } =
+    useFormContext();
 
   const { zip } = data.apiReq.demographics;
   const zip_input = zip.toString().length > 4;
@@ -19,7 +20,7 @@ const Zip = () => {
           type="number"
           name="zip"
           value={zip.toString().replace(/^0+/, '')}
-          onChange={handleChange}
+          onChange={formDataHandlerChange}
           placeholder="Type your answer here..."
           pattern="\d{1,2}"
         />

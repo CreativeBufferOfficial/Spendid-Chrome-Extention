@@ -16,7 +16,7 @@ const TakeHome = () => {
 
   const {
     data,
-    updateState,
+    categoryInputHandler,
     lendingPayload,
     demographicsPayload,
     budgetPayload,
@@ -77,7 +77,7 @@ const TakeHome = () => {
         0
       )
     );
-    updateState('net_annual_income', sumWithInitial);
+    categoryInputHandler('net_annual_income', sumWithInitial);
   };
 
   // const sendBody = { ...data.apiReq };

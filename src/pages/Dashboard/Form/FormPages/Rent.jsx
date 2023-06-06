@@ -3,7 +3,8 @@ import useFormContext from '../../../../hooks/useFormContext';
 import classes from '../Form.module.css';
 
 const Rent = () => {
-  const { data, handleChange, nextHandler, currentHandler } = useFormContext();
+  const { data, formDataHandlerChange, nextHandler, currentHandler } =
+    useFormContext();
 
   const { mortgage_and_rent } = data.apiReq.budget;
   const rent_input = mortgage_and_rent.toString().length > 0;
@@ -26,7 +27,7 @@ const Rent = () => {
           maxLength="5"
           name="mortgage_and_rent"
           value={mortgage_and_rent.toString().replace(/^0+/, '')}
-          onChange={handleChange}
+          onChange={formDataHandlerChange}
           placeholder="Type your answer here..."
         />
       </div>

@@ -63,22 +63,23 @@ const AllResult = () => {
     if (resetFlag) {
       setResetFlag(false);
     }
-    const call = setTimeout(() => {
-      console.log('Inside TimeOut');
-      dispatch(LendingGenerate(lendingPayload));
-      dispatch(demographicsGenerate(demographicsPayload));
-      dispatch(budgetsGenerate(budgetPayload));
-      dispatch(scoresGenerate(scorePayload));
-    }, 2000);
-    return () => {
-      clearInterval(call);
-    };
+    // const call = setTimeout(() => {
+    //   console.log('Inside TimeOut');
+    //   dispatch(LendingGenerate(lendingPayload));
+    //   dispatch(demographicsGenerate(demographicsPayload));
+    //   dispatch(budgetsGenerate(budgetPayload));
+    //   dispatch(scoresGenerate(scorePayload));
+    // }, 2000);
+    // return () => {
+    //   clearInterval(call);
+    // };
   }, [
     resetFlag,
-    lendingPayload,
-    demographicsPayload,
-    budgetPayload,
-    scorePayload,
+    // dispatch,
+    // lendingPayload,
+    // demographicsPayload,
+    // budgetPayload,
+    // scorePayload,
   ]);
 
   return (

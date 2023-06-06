@@ -98,7 +98,7 @@ export const getTabData = (array1, array2) => {
   for (let i = 0; i < array1.length; i++) {
     let key = 'Amount';
     let value = array2[i].value;
-    array1[i][key] = Math.round(value / 12);
+    array1[i][key] = value;
   }
 };
 

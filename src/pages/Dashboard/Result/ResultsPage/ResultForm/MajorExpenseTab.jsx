@@ -30,7 +30,6 @@ const MajorExpense = () => {
     const demographicsObjects = getStructureObject(demographics);
     const budgetObjects = getStructureObject(budgets);
     const demographicsMajorExpensess = filterMajorExpenses(demographicsObjects);
-
     const budgetMajorExpensess = filterMajorExpenses(budgetObjects);
     getTabData(demographicsMajorExpensess, budgetMajorExpensess);
     setSortedData(demographicsMajorExpensess);

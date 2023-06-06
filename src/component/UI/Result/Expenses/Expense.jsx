@@ -24,9 +24,9 @@ const Expense = ({
 
   const {
     data,
-    handleChange,
-    strutureTransformData,
-    updateState,
+    formDataHandlerChange,
+    transformData,
+    categoryInputHandler,
     lendingPayload,
     demographicsPayload,
     budgetPayload,
@@ -35,7 +35,7 @@ const Expense = ({
   const [showAmount, setShowAmount] = useState(false);
   const [selectedOption, setSelectedOption] = useState('');
   const [amount, setAmount] = useState('');
-  const filter = strutureTransformData.filter((obj) => obj.name === title);
+  const filter = transformData.filter((obj) => obj.name === title);
   // console.log('filter', filter);
   const showAmountHandler = () => {
     setShowAmount((prev) => !prev);
@@ -43,7 +43,7 @@ const Expense = ({
   const handleClick = () => {
     setSelectedOption('default value');
   };
-  const selectHandleChange = (event) => {
+  const selectformDataHandlerChange = (event) => {
     setSelectedOption(event.target.value);
   };
   const clearAmountInput = () => {
@@ -70,9 +70,9 @@ const Expense = ({
 
       console.log('frequency', frequency, 'Value', value, 'name', name);
 
-      updateState(name, value);
+      categoryInputHandler(name, value);
     },
-    [lendingPayload, demographicsPayload, budgetPayload, scorePayload]
+    [categoryInputHandler]
   );
   // useEffect(() => {
   //   const call = setTimeout(() => {
@@ -105,10 +105,8 @@ const Expense = ({
 
   //   console.log('frequency', frequency, 'Value', value, 'name', name);
 
-  //   updateState(name, value);
+  //   categoryInputHandler(name, value);
   // };
-
-  console.log('DATA>>>>>>>>>>>>>>>>>>', data);
 
   return (
     <>
@@ -181,7 +179,7 @@ const Expense = ({
             <select
               className={classes.input_field}
               value={selectedOption}
-              onChange={selectHandleChange}
+              onChange={selectformDataHandlerChange}
             >
               <option>Monthly</option>
               <option>Weekly</option>

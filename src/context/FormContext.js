@@ -103,8 +103,8 @@ export const FormProvider = ({ children }) => {
     water_and_public_services: 'Utilities - Other',
   };
 
-  const strutureTransformData = getStructureTransform(transformerData);
-  // console.log('strutureTransformData', strutureTransformData);
+  const transformData = getStructureTransform(transformerData);
+  // console.log('transformData', transformData);
   const [netIncome, setNetIncome] = useState([{ frequency: '', amount: 0 }]);
 
   const [data, setData] = useState({
@@ -160,7 +160,7 @@ export const FormProvider = ({ children }) => {
   );
   const [page, setPage] = useState(0);
 
-  const updateState = (name, value) => {
+  const categoryInputHandler = (name, value) => {
     const keyname = name;
 
     switch (keyname) {
@@ -263,7 +263,7 @@ export const FormProvider = ({ children }) => {
         }));
         break;
 
-      case 'other_debt_payments':
+      // case 'other_debt_payments':
       case 'mortgage_and_rent':
       case 'vehicle_purchase_and_lease':
       case 'health_insurance':
@@ -305,7 +305,7 @@ export const FormProvider = ({ children }) => {
     }
   };
 
-  const handleChange = (e, i) => {
+  const formDataHandlerChange = (e, i) => {
     if (i !== -1) {
       globalSelectedIndex[page] = i;
       setGlobalSelectedIndex(globalSelectedIndex);
@@ -403,14 +403,14 @@ export const FormProvider = ({ children }) => {
         setPage,
         data,
         setData,
-        handleChange,
+        formDataHandlerChange,
         prevRedirectHome,
         nextHide,
         submitHide,
         nextHandler,
         prevHandler,
         currentHandler,
-        updateState,
+        categoryInputHandler,
         globalSelectedIndex,
         lendingPayload,
         budgetPayload,
@@ -418,7 +418,7 @@ export const FormProvider = ({ children }) => {
         scorePayload,
         netIncome,
         setNetIncome,
-        strutureTransformData,
+        transformData,
       }}
     >
       {children}
