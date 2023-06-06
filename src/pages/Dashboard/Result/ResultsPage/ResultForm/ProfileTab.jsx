@@ -32,16 +32,16 @@ const ProfileTab = () => {
     // handleChange(event, value)
   };
 
-  const apiHandler = () => {
-    // console.log("scorePayload api handlder >>", scorePayload)
-    dispatch(LendingGenerate(lendingPayload));
-    dispatch(demographicsGenerate(demographicsPayload));
-    dispatch(budgetsGenerate(budgetPayload));
-    // dispatch(scoresGenerate(scorePayload));
-  };
+  // const apiHandler = () => {
+  //   // console.log("scorePayload api handlder >>", scorePayload)
+  //   dispatch(LendingGenerate(lendingPayload));
+  //   dispatch(demographicsGenerate(demographicsPayload));
+  //   dispatch(budgetsGenerate(budgetPayload));
+  //   // dispatch(scoresGenerate(scorePayload));
+  // };
 
   useEffect(() => {
-    apiHandler();
+    // apiHandler();
   }, []);
 
   const sourceChangeHandle = (index, i) => (e) => {

@@ -136,3 +136,15 @@ export const modalValue = (data) => {
   );
   return sum;
 };
+
+export const getStructureTransform = (obj) => {
+  const result = [];
+  for (let key in obj) {
+    if (typeof obj[key] === 'object' && obj[key] !== null) {
+      result.push(...getStructureObject(obj[key])); // Recursively call the function for nested objects
+    } else {
+      result.push({ payloadName: key, name: obj[key] }); // Convert the key-value pair into an object and push it to the result array
+    }
+  }
+  return result;
+};

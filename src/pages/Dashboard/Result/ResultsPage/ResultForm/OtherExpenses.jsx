@@ -21,9 +21,20 @@ import {
   sortAscending,
   sortdecending,
 } from '../../../../../utlis/Helper';
+import {
+  LendingGenerate,
+  demographicsGenerate,
+  budgetsGenerate,
+  scoresGenerate,
+} from '../../../../../action/actions';
 import { useSelector } from 'react-redux';
-
+import useFormContext from '../../../../../hooks/useFormContext';
+import { useDispatch } from 'react-redux';
 const OtherExpenses = () => {
+  const dispatch = useDispatch();
+
+  const { lendingPayload, demographicsPayload, budgetPayload, scorePayload } =
+    useFormContext();
   const { loadingDemographics, demographics } = useSelector(
     (state) => state.demographics
   );
@@ -35,7 +46,7 @@ const OtherExpenses = () => {
     const demographicsOtherExpensesObject = getStructureObject(demographics);
     const budgetsOtherExpensesObject = getStructureObject(budgets);
 
-    //   console.log(demographicsOtherExpensesObject);
+    // console.log(demographicsOtherExpensesObject);
     //   console.log(budgetsOtherExpensesObject);
 
     const filterDemographicsOtherExpensesData = filterOtherExpenses(
@@ -56,8 +67,16 @@ const OtherExpenses = () => {
     );
     setSortedData(filterDemographicsOtherExpensesData);
   };
+
+  // const apiCall = () => {
+  //   dispatch(LendingGenerate(lendingPayload));
+  //   dispatch(demographicsGenerate(demographicsPayload));
+  //   dispatch(budgetsGenerate(budgetPayload));
+  //   dispatch(scoresGenerate(scorePayload));
+  // };
   useEffect(() => {
     init();
+    // apiCall();
   }, []);
 
   const ascendingHandler = () => {

@@ -8,19 +8,27 @@ import {
   EditIcon,
   ResultTitle,
 } from '../../../../../utlis/Imports';
-// import Expense from '../../../../../component/UI/Result/Expenses/Expense';
-// import RemoveIcon from '../../../../../assets/result/close.png';
-// import EditIcon from '../../../../../assets/result/edit_sm.png';
-// import Label from '../../../../../component/UI/Result/Labels/Label';
-// import RemoveCategory from '../../../../../component/UI/Result/RemoveCategory/RemoveCategory';
+import {
+  LendingGenerate,
+  demographicsGenerate,
+  budgetsGenerate,
+  scoresGenerate,
+} from '../../../../../action/actions';
+
 import { useSelector } from 'react-redux';
 import {
   getStructureObject,
   filterMonthlyBillExpenses,
   getTabData,
 } from '../../../../../utlis/Helper';
+import useFormContext from '../../../../../hooks/useFormContext';
+import { useDispatch } from 'react-redux';
 
 const MonthlyBills = () => {
+  const dispatch = useDispatch();
+
+  const { lendingPayload, demographicsPayload, budgetPayload, scorePayload } =
+    useFormContext();
   const { loadingDemographics, demographics } = useSelector(
     (state) => state.demographics
   );
@@ -44,9 +52,16 @@ const MonthlyBills = () => {
     getTabData(filterdemographicsMonthlyBill, filterBudgetMonthlyBill);
     setSortedData(filterdemographicsMonthlyBill);
   };
+  // const apiCall = () => {
+  //   dispatch(LendingGenerate(lendingPayload));
+  //   dispatch(demographicsGenerate(demographicsPayload));
+  //   dispatch(budgetsGenerate(budgetPayload));
+  //   dispatch(scoresGenerate(scorePayload));
+  // };
 
   useEffect(() => {
     init();
+    // apiCall();
   }, []);
 
   const removeCategoryHandler = (i) => {

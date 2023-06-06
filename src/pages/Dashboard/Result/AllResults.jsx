@@ -1,17 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../../../component/UI/MainHeader/Header';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../../../component/Loader/Loader';
 import ResultPageInput from './ResultsPage/ResultPageInput';
 import { inputFormTabs } from './ResultsPage/ResultForm/ResultTabsFormViews';
 import { ChartTabs } from './ResultsPage/ResultChart/ResultChartView';
 import Button from './Button';
 import useFormContext from '../../../hooks/useFormContext';
-import { useSearchParams } from 'react-router-dom';
+import {
+  LendingGenerate,
+  demographicsGenerate,
+  budgetsGenerate,
+  scoresGenerate,
+} from '../../../action/actions';
 
 const AllResult = () => {
-  const { loadingScore } = useSelector((state) => state.score);
-  const { data, setData } = useFormContext();
+  const dispatch = useDispatch();
+  // const { loadingScore } = useSelector((state) => state.score);
+  const {
+    data,
+    setData,
+    lendingPayload,
+    demographicsPayload,
+    budgetPayload,
+    scorePayload,
+  } = useFormContext();
   const [resetFlag, setResetFlag] = useState(false);
   console.log('data', data);
   const clearInput = () => {
@@ -38,11 +51,35 @@ const AllResult = () => {
     setResetFlag(true);
   };
 
+  // const callApi = () => {
+  //   dispatch(LendingGenerate(lendingPayload));
+  //   dispatch(demographicsGenerate(demographicsPayload));
+  //   dispatch(budgetsGenerate(budgetPayload));
+  //   dispatch(scoresGenerate(scorePayload));
+  // };
+
   useEffect(() => {
+    // callApi();
     if (resetFlag) {
       setResetFlag(false);
     }
-  }, [resetFlag]);
+    const call = setTimeout(() => {
+      console.log('Inside TimeOut');
+      dispatch(LendingGenerate(lendingPayload));
+      dispatch(demographicsGenerate(demographicsPayload));
+      dispatch(budgetsGenerate(budgetPayload));
+      dispatch(scoresGenerate(scorePayload));
+    }, 2000);
+    return () => {
+      clearInterval(call);
+    };
+  }, [
+    resetFlag,
+    lendingPayload,
+    demographicsPayload,
+    budgetPayload,
+    scorePayload,
+  ]);
 
   return (
     // <>

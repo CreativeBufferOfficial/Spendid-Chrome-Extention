@@ -1,6 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import classes from './Expense.module.css';
 import { edit, close } from '../../../../utlis/Imports';
+import useFormContext from '../../../../hooks/useFormContext';
+import { useDispatch } from 'react-redux';
+import {
+  LendingGenerate,
+  demographicsGenerate,
+  budgetsGenerate,
+  scoresGenerate,
+} from '../../../../action/actions';
 
 const Expense = ({
   index,
@@ -12,21 +20,95 @@ const Expense = ({
   isMajorExpensesTab,
   onRemoveCategory,
 }) => {
+  const dispatch = useDispatch();
+
+  const {
+    data,
+    handleChange,
+    strutureTransformData,
+    updateState,
+    lendingPayload,
+    demographicsPayload,
+    budgetPayload,
+    scorePayload,
+  } = useFormContext();
   const [showAmount, setShowAmount] = useState(false);
   const [selectedOption, setSelectedOption] = useState('');
   const [amount, setAmount] = useState('');
+  const filter = strutureTransformData.filter((obj) => obj.name === title);
+  // console.log('filter', filter);
   const showAmountHandler = () => {
     setShowAmount((prev) => !prev);
   };
   const handleClick = () => {
     setSelectedOption('default value');
   };
-  const handleChange = (event) => {
+  const selectHandleChange = (event) => {
     setSelectedOption(event.target.value);
   };
   const clearAmountInput = () => {
     setAmount(' ');
   };
+
+  const categoryAmountHandler = useCallback(
+    (e) => {
+      const name = e.target.getAttribute('name');
+      let value = e.target.value;
+      setAmount(value);
+      const frequency = e.target.getAttribute('frequency');
+      if (frequency === 'Weekly') {
+        value = value * 4;
+      } else if (frequency === 'Quarterly') {
+        value = value / 3;
+      } else if (frequency === 'Semi-Annually') {
+        value = value / 6;
+      } else if (frequency === 'Annually') {
+        value = value / 12;
+      } else {
+        value = value;
+      }
+
+      console.log('frequency', frequency, 'Value', value, 'name', name);
+
+      updateState(name, value);
+    },
+    [lendingPayload, demographicsPayload, budgetPayload, scorePayload]
+  );
+  // useEffect(() => {
+  //   const call = setTimeout(() => {
+  //     console.log('Inside TimeOut');
+  //     dispatch(LendingGenerate(lendingPayload));
+  //     dispatch(demographicsGenerate(demographicsPayload));
+  //     dispatch(budgetsGenerate(budgetPayload));
+  //     dispatch(scoresGenerate(scorePayload));
+  //   }, 2000);
+  //   return () => {
+  //     clearInterval(call);
+  //   };
+  // }, [amount]);
+
+  //   const categoryAmountHandler = (e) => {
+  //   const name = e.target.getAttribute('name');
+  //   let value = e.target.value;
+  //   const frequency = e.target.getAttribute('frequency');
+  //   if (frequency === 'Weekly') {
+  //     value = value * 4;
+  //   } else if (frequency === 'Quarterly') {
+  //     value = value / 3;
+  //   } else if (frequency === 'Semi-Annually') {
+  //     value = value / 6;
+  //   } else if (frequency === 'Annually') {
+  //     value = value / 12;
+  //   } else {
+  //     value = value;
+  //   }
+
+  //   console.log('frequency', frequency, 'Value', value, 'name', name);
+
+  //   updateState(name, value);
+  // };
+
+  console.log('DATA>>>>>>>>>>>>>>>>>>', data);
 
   return (
     <>
@@ -49,7 +131,7 @@ const Expense = ({
               gridView ? classes.payment_value_grid : classes.payment_value
             }
           >
-            <p>${amount1}</p>
+            <p>${amount ? (amount === ' ' ? amount1 : amount) : amount1}</p>
             <p>${amount2}</p>
           </div>
           <div className={classes.field_label}>
@@ -82,7 +164,9 @@ const Expense = ({
               type="text"
               className={classes.input_field}
               placeholder="Enter a Value"
-              onChange={(e) => setAmount(e.target.value)}
+              name={filter[0].payloadName}
+              frequency={selectedOption}
+              onChange={categoryAmountHandler}
               value={amount}
             />
           </div>
@@ -97,7 +181,7 @@ const Expense = ({
             <select
               className={classes.input_field}
               value={selectedOption}
-              onChange={handleChange}
+              onChange={selectHandleChange}
             >
               <option>Monthly</option>
               <option>Weekly</option>
