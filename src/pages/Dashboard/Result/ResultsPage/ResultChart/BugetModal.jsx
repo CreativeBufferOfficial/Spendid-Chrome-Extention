@@ -19,11 +19,13 @@ import useFormContext from '../../../../../hooks/useFormContext';
 // import DonutChart from './DonutChart/DonutChart'
 
 const BugetModal = ({ id }) => {
-  const { data } = useFormContext();
+  const { data, setData } = useFormContext();
   const { loadingDemographics, demographics } = useSelector(
     (state) => state.demographics
   );
   const { loadingBudgets, budgets } = useSelector((state) => state.budget);
+  console.log('demographics>>>>>>>', demographics);
+  console.log('budgets>>>>>>>>>>', budgets);
 
   const [ModalData, setModalData] = useState([]);
   const [peeersData, setPeersData] = useState([]);
@@ -42,6 +44,15 @@ const BugetModal = ({ id }) => {
     const peerNeeds = modalValue(peersNeedData);
     const peersWants = modalValue(peerWantData);
     const peersFinanical_Goals = totalBuget - (peerNeeds + peersWants);
+    console.log('peersNeedData', peersNeedData, 'peerWantData', peerWantData);
+    console.log(
+      'peerNeeds',
+      peerNeeds,
+      'peersWants',
+      peersWants,
+      'peersFinanical_Goals',
+      peersFinanical_Goals
+    );
 
     setPeersData([
       { category: 'Needs', value: peerNeeds },
@@ -51,15 +62,36 @@ const BugetModal = ({ id }) => {
     const budget = getStructureObject(budgets);
     const yourNeedData = filterNeeds(budget);
     const yourWantData = filterOtherExpenses(budget);
+
     const yourNeeds = modalValue(yourNeedData);
     const yourWants = modalValue(yourWantData);
     const yourFinanical_Goals = totalBuget - (yourNeeds + yourWants);
+    console.log('yourNeedData', yourNeedData, 'yourWantData', yourWantData);
+
+    console.log(
+      'yourNeeds',
+      yourNeeds,
+      'yourWants',
+      yourWants,
+      'yourFinanical_Goals',
+      yourFinanical_Goals
+    );
 
     setYourData([
       { category: 'Needs', value: yourNeeds },
       { category: 'Wants', value: yourWants },
       { category: 'Finanical Goals', value: yourFinanical_Goals },
     ]);
+
+    // setData((data) => ({
+    //   apiReq: {
+    //     ...data.apiReq,
+    //     budget: {
+    //       ...data.apiReq.budget,
+    //       savings: +yourFinanical_Goals,
+    //     },
+    //   },
+    // }));
   };
 
   console.log('peeersData>>>>>', peeersData);

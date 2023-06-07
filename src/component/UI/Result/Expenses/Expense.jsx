@@ -2,7 +2,6 @@ import React, { useState, useCallback, useEffect } from 'react';
 import classes from './Expense.module.css';
 import { edit, close } from '../../../../utlis/Imports';
 import useFormContext from '../../../../hooks/useFormContext';
-import { useDispatch } from 'react-redux';
 import {
   LendingGenerate,
   demographicsGenerate,
@@ -20,18 +19,7 @@ const Expense = ({
   isMajorExpensesTab,
   onRemoveCategory,
 }) => {
-  const dispatch = useDispatch();
-
-  const {
-    data,
-    formDataHandlerChange,
-    transformData,
-    categoryInputHandler,
-    lendingPayload,
-    demographicsPayload,
-    budgetPayload,
-    scorePayload,
-  } = useFormContext();
+  const { transformData, categoryInputHandler } = useFormContext();
   const [showAmount, setShowAmount] = useState(false);
   const [selectedOption, setSelectedOption] = useState('');
   const [amount, setAmount] = useState('');
@@ -74,39 +62,6 @@ const Expense = ({
     },
     [categoryInputHandler]
   );
-  // useEffect(() => {
-  //   const call = setTimeout(() => {
-  //     console.log('Inside TimeOut');
-  //     dispatch(LendingGenerate(lendingPayload));
-  //     dispatch(demographicsGenerate(demographicsPayload));
-  //     dispatch(budgetsGenerate(budgetPayload));
-  //     dispatch(scoresGenerate(scorePayload));
-  //   }, 2000);
-  //   return () => {
-  //     clearInterval(call);
-  //   };
-  // }, [amount]);
-
-  //   const categoryAmountHandler = (e) => {
-  //   const name = e.target.getAttribute('name');
-  //   let value = e.target.value;
-  //   const frequency = e.target.getAttribute('frequency');
-  //   if (frequency === 'Weekly') {
-  //     value = value * 4;
-  //   } else if (frequency === 'Quarterly') {
-  //     value = value / 3;
-  //   } else if (frequency === 'Semi-Annually') {
-  //     value = value / 6;
-  //   } else if (frequency === 'Annually') {
-  //     value = value / 12;
-  //   } else {
-  //     value = value;
-  //   }
-
-  //   console.log('frequency', frequency, 'Value', value, 'name', name);
-
-  //   categoryInputHandler(name, value);
-  // };
 
   return (
     <>

@@ -11,3 +11,9 @@
   padding: 10px 10px;
   margin-top: 10px;
 }
+
+.popup_trigger {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}

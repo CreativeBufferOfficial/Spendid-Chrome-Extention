@@ -1,118 +1,117 @@
 .content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 400px;
 }
 
 .designBox {
-    -webkit-clip-path: polygon(73% 0, 52% 49%, 100% 100%, 0 100%, 0% 50%, 0 0);
-    clip-path: polygon(73% 0, 52% 49%, 100% 100%, 0 100%, 0% 50%, 0 0);
-    background-color: #68aca5;
-    width: 40px;
-    height: 5vh;
+  -webkit-clip-path: polygon(73% 0, 52% 49%, 100% 100%, 0 100%, 0% 50%, 0 0);
+  clip-path: polygon(73% 0, 52% 49%, 100% 100%, 0 100%, 0% 50%, 0 0);
+  background-color: #68aca5;
+  width: 40px;
+  height: 5vh;
 }
 
 .headtitle {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: flex-start;
-    width: 350px;
-    margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 350px;
+  margin-top: 20px;
 }
 
-.saving>div {
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    justify-content: flex-start;
-    margin-top: 10px;
-    line-height: 15px;
+.saving > div {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: flex-start;
+  margin-top: 10px;
+  line-height: 15px;
 }
 
-.saving>div>p {
-    text-align: start;
-    font-weight: 600;
+.saving > div > p {
+  text-align: start;
+  font-weight: 600;
 }
 
 .amount_field {
-    padding: 12px 10px;
-    height: 40px;
-    width: 350px;
-    color: white;
-    border-radius: 5px;
-    background-color: #68aca5;
+  padding: 12px 10px;
+  height: 40px;
+  width: 350px;
+  color: white;
+  border-radius: 5px;
+  background-color: #68aca5;
 }
 
 .input_field {
-    width: 350px;
-    border-radius: 50px;
-    border: 2px solid #68aca5;
-    height: 35px;
-    padding: 0px 20px;
+  width: 350px;
+  border-radius: 50px;
+  border: 2px solid #68aca5;
+  height: 35px;
+  padding: 0px 20px;
 }
 
 .monthly_save {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .clear {
-    height: 30px;
-    width: auto;
-    color: white;
-    border-radius: 3px;
-    border: 1px solid #6C757D;
-    font-size: 12px;
-    background-color: #6C757D;
-    margin-top: 10px;
-    padding: 5px 10px;
+  height: 30px;
+  width: auto;
+  color: white;
+  border-radius: 3px;
+  border: 1px solid #6c757d;
+  font-size: 12px;
+  background-color: #6c757d;
+  margin-top: 10px;
+  padding: 5px 10px;
 }
 
 .save_report {
-    height: 30px;
-    width: auto;
-    color: white;
-    border-radius: 3px;
-    border: 1px solid #68aca5;
-    font-size: 12px;
-    background-color: #68aca5;
-    margin: 10px 0px;
-    padding: 5px 10px;
+  height: 30px;
+  width: auto;
+  color: white;
+  border-radius: 3px;
+  border: 1px solid #68aca5;
+  font-size: 12px;
+  background-color: #68aca5;
+  margin: 10px 0px;
+  padding: 5px 10px;
 }
 
 .chart_labels,
 .chart_label {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 10px;
 }
 
-.chart_label>img {
-    aspect-ratio: 3/2;
-    object-fit: contain;
+.chart_label > img {
+  aspect-ratio: 3/2;
+  object-fit: contain;
 }
 
-.chart_label>p {
-    margin: 0px 10px;
+.chart_label > p {
+  margin: 0px 10px;
 }
 
 .chart_header_label {
-    height: 40px;
-    width: 350px;
-    margin-top: 10px;
-    border-radius: 5px;
-    text-align: center;
-    background-color: #DDDDDD;
-    padding: 10px 10px;
-    font-weight: 600;
-
+  height: 40px;
+  width: 350px;
+  margin-top: 10px;
+  border-radius: 5px;
+  text-align: center;
+  background-color: #dddddd;
+  padding: 10px 10px;
+  font-weight: 600;
 }
 
-.headtitle>img {
-    margin-left: 40px;
+.headtitle > img {
+  margin-left: 40px;
 }

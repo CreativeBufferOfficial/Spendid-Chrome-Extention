@@ -26,23 +26,11 @@ const ProfileTab = () => {
   // const [netIncome, setNetIncome] = useState([{ frequency: '', amount: 0 }]);
 
   const [value, setValue] = useState(household_members);
-  const [houseHold, setHouseHold] = useState(is_homeowner);
+  // const [houseHold, setHouseHold] = useState(is_homeowner);
   const updateLabel = (event) => {
     setValue(event.target.value);
     // formDataHandlerChange(event, value)
   };
-
-  // const apiHandler = () => {
-  //   // console.log("scorePayload api handlder >>", scorePayload)
-  //   dispatch(LendingGenerate(lendingPayload));
-  //   dispatch(demographicsGenerate(demographicsPayload));
-  //   dispatch(budgetsGenerate(budgetPayload));
-  //   // dispatch(scoresGenerate(scorePayload));
-  // };
-
-  useEffect(() => {
-    // apiHandler();
-  }, []);
 
   const sourceChangeHandle = (index, i) => (e) => {
     const name = e.target.getAttribute('name');

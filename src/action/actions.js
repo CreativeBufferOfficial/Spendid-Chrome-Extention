@@ -47,9 +47,7 @@ export const LendingGenerate = (body) => async (dispatch) => {
       type: LENDING_REQUEST,
     });
 
-    const { data } = await callAPI(apiUrls.lending, 'post',
-      body,
-    );
+    const { data } = await callAPI(apiUrls.lending, 'post', body);
     // console.log("lending", data)
     dispatch({
       type: LENDING_SUCCESS,
@@ -70,10 +68,8 @@ export const demographicsGenerate = (body) => async (dispatch) => {
       type: DEMOGRAPHICS_REQUEST,
     });
 
-    const { data } = await callAPI(apiUrls.demographics, 'post',
-      body,
-    );
-    // console.log("demographics", data)
+    const { data } = await callAPI(apiUrls.demographics, 'post', body);
+    console.log('demographicsAPICALL>>>>>>>>>>>', data);
 
     dispatch({
       type: DEMOGRAPHICS_SUCCESS,
@@ -89,15 +85,14 @@ export const demographicsGenerate = (body) => async (dispatch) => {
 
 //Buget
 export const budgetsGenerate = (body) => async (dispatch) => {
-
   try {
     dispatch({
       type: BUDGET_GENERATE_REQUEST,
     });
 
-    const { data } = await callAPI(apiUrls.budget, 'post',
-      body,
-    );
+    const { data } = await callAPI(apiUrls.budget, 'post', body);
+    console.log('budgetAPICALL>>>>>>>>>>', data);
+
     dispatch({
       type: BUDGET_GENERATE_SUCCESS,
       payload: data,

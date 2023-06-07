@@ -23,6 +23,7 @@ import {
 } from '../../../../../utlis/Helper';
 import useFormContext from '../../../../../hooks/useFormContext';
 import { useDispatch } from 'react-redux';
+import Loader from '../../../../../component/Loader/Loader';
 
 const MonthlyBills = () => {
   const dispatch = useDispatch();
@@ -37,32 +38,27 @@ const MonthlyBills = () => {
   const [sortedData, setSortedData] = useState([]);
 
   const init = () => {
-    const demographicsMonthlyBillObject = getStructureObject(demographics);
-    const budgetsMonthlyBillObject = getStructureObject(budgets);
+    if (demographics && budgets) {
+      const demographicsMonthlyBillObject = getStructureObject(demographics);
+      const budgetsMonthlyBillObject = getStructureObject(budgets);
 
-    // console.log(demographicsMonthlyBillObject);
-    // console.log(budgetsMonthlyBillObject);
+      // console.log(demographicsMonthlyBillObject);
+      // console.log(budgetsMonthlyBillObject);
 
-    const filterdemographicsMonthlyBill = filterMonthlyBillExpenses(
-      demographicsMonthlyBillObject
-    );
-    const filterBudgetMonthlyBill = filterMonthlyBillExpenses(
-      budgetsMonthlyBillObject
-    );
-    getTabData(filterdemographicsMonthlyBill, filterBudgetMonthlyBill);
-    setSortedData(filterdemographicsMonthlyBill);
+      const filterdemographicsMonthlyBill = filterMonthlyBillExpenses(
+        demographicsMonthlyBillObject
+      );
+      const filterBudgetMonthlyBill = filterMonthlyBillExpenses(
+        budgetsMonthlyBillObject
+      );
+      getTabData(filterdemographicsMonthlyBill, filterBudgetMonthlyBill);
+      setSortedData(filterdemographicsMonthlyBill);
+    }
   };
-  // const apiCall = () => {
-  //   dispatch(LendingGenerate(lendingPayload));
-  //   dispatch(demographicsGenerate(demographicsPayload));
-  //   dispatch(budgetsGenerate(budgetPayload));
-  //   dispatch(scoresGenerate(scorePayload));
-  // };
 
   useEffect(() => {
     init();
-    // apiCall();
-  }, []);
+  }, [demographics, budgets]);
 
   const removeCategoryHandler = (i) => {
     const removeCategoryData = sortedData.splice(i, 1);
@@ -89,16 +85,21 @@ const MonthlyBills = () => {
           </div>
         </div>
         <Label />
-        {sortedData.map((monthlybillExpense) => (
-          <Expense
-            key={monthlybillExpense.category}
-            title={monthlybillExpense.category}
-            amount1={monthlybillExpense.Amount}
-            amount2={monthlybillExpense.value}
-            toggle_title="Fixed amount"
-            onRemoveCategory={removeCategoryHandler}
-          />
-        ))}
+        {loadingBudgets ? (
+          <Loader />
+        ) : (
+          sortedData.map((monthlybillExpense) => (
+            <Expense
+              key={monthlybillExpense.category}
+              title={monthlybillExpense.category}
+              amount1={monthlybillExpense.Amount}
+              amount2={monthlybillExpense.value}
+              toggle_title="Fixed amount"
+              onRemoveCategory={removeCategoryHandler}
+            />
+          ))
+        )}
+
         <div className={classes.remove_category}>
           <ResultTitle title="Removed Categories" />
           {removeCategory.map((removeCategory, index) => (

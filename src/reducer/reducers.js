@@ -18,7 +18,7 @@ import {
   SCORES_GENERATE_REQUEST,
   SCORES_GENERATE_SUCCESS,
   SCORES_GENERATE_FAIL,
-  CLEAR_ERRORS
+  CLEAR_ERRORS,
 } from '../constant/constants';
 
 export const userReducer = (state = { user: {} }, action) => {
@@ -98,8 +98,10 @@ export const lendingReducer = (state = { lendings: {} }, action) => {
   }
 };
 
-
-export const demographicsGenerateReducer = (state = { demographics: {} }, action) => {
+export const demographicsGenerateReducer = (
+  state = { demographics: {} },
+  action
+) => {
   switch (action.type) {
     case DEMOGRAPHICS_REQUEST:
       return {
@@ -107,6 +109,7 @@ export const demographicsGenerateReducer = (state = { demographics: {} }, action
         // isAuthenticated: false,
       };
     case DEMOGRAPHICS_SUCCESS:
+      console.log('demographics Reducer>>>>>>>', action.payload);
       return {
         ...state,
         loadingDemographics: false,
@@ -130,7 +133,6 @@ export const demographicsGenerateReducer = (state = { demographics: {} }, action
   }
 };
 
-
 export const budgetGenerateReducer = (state = { budgets: {} }, action) => {
   switch (action.type) {
     case BUDGET_GENERATE_REQUEST:
@@ -139,6 +141,8 @@ export const budgetGenerateReducer = (state = { budgets: {} }, action) => {
         // isAuthenticated: false,
       };
     case BUDGET_GENERATE_SUCCESS:
+      console.log('budget Reducer>>>>>>>', action.payload);
+
       return {
         ...state,
         loadingBudgets: false,
@@ -162,8 +166,6 @@ export const budgetGenerateReducer = (state = { budgets: {} }, action) => {
   }
 };
 
-
-
 export const scoresGenerateReducer = (state = { scores: null }, action) => {
   switch (action.type) {
     case SCORES_GENERATE_REQUEST:
@@ -172,7 +174,6 @@ export const scoresGenerateReducer = (state = { scores: null }, action) => {
         // isAuthenticated: false,
       };
     case SCORES_GENERATE_SUCCESS:
-
       return {
         ...state,
         loadingScore: false,

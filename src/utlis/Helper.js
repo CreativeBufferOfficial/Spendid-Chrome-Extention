@@ -105,6 +105,9 @@ export const getTabData = (array1, array2) => {
 export const sortdecending = (a, b) => b.value - a.value;
 export const sortAscending = (a, b) => a.value - b.value;
 
+export const sortdecendingAmount = (a, b) => b.Amount - a.Amount;
+export const sortAscendingAmount = (a, b) => a.Amount - b.Amount;
+
 export const getDiffrenceToPeers = (array) => {
   const filteredData = array
     .filter((obj) => obj.Amount - obj.value > 0)
@@ -147,4 +150,19 @@ export const getStructureTransform = (obj) => {
     }
   }
   return result;
+};
+
+export const copyAndMultiplyBudget = (obj) => {
+  // Create a deep copy of the object
+  const copiedObj = JSON.parse(JSON.stringify(obj));
+
+  // Multiply the budget values by 12
+  const budget = copiedObj.apiReq.budget;
+  for (const key in budget) {
+    if (typeof budget[key] === 'number') {
+      budget[key] *= 12;
+    }
+  }
+
+  return copiedObj;
 };

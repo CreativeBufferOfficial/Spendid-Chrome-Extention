@@ -30,7 +30,7 @@ const BarChart = ({ id }) => {
     const chart = am4core.create(id, am4charts.XYChart);
 
     // Add data
-    chart.data = difference;
+    chart.data = difference.splice(0, 5);
     // chart.data = [
     //   { category: 'Category 1', difference: 10 },
     //   { category: 'Category 2', difference: 20 },

@@ -166,7 +166,7 @@ input[type='radio'] {
   line-height: 1px;
 }
 
-.sort input {
+.sort select {
   width: 150px;
   border-radius: 50px;
   border: 2px solid #68aca5;

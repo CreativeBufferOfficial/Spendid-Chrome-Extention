@@ -10,7 +10,7 @@ import {
   healthcareIcon,
   incomeIcon,
 } from '../utlis/Imports';
-import { getStructureTransform } from '../utlis/Helper';
+import { getStructureTransform, copyAndMultiplyBudget } from '../utlis/Helper';
 
 const FormContext = createContext({});
 
@@ -114,45 +114,48 @@ export const FormProvider = ({ children }) => {
         age: 25,
         household_members: 1,
         is_homeowner: false,
-        net_annual_income: 10000,
+        net_annual_income: 120000,
       },
       budget: {
         savings: null,
-        other_debt_payments: 10,
-        mortgage_and_rent: 100,
-        vehicle_purchase_and_lease: 100,
-        health_insurance: 100,
+        other_debt_payments: 572,
+        mortgage_and_rent: 952,
+        vehicle_purchase_and_lease: 654,
+        health_insurance: 0,
       },
     },
   });
 
+  const inputData = copyAndMultiplyBudget(data);
+  console.log('multipliedObj', inputData);
+
   const lendingPayload = {
     budget: {
-      ...data.apiReq.budget,
-      education: 0,
-      life_and_personal_insurance: 0,
-      personal_services: 0,
-      public_and_other_transportation: 0,
+      ...inputData.apiReq.budget,
+      // education: 0,
+      // life_and_personal_insurance: 0,
+      // personal_services: 0,
+      // public_and_other_transportation: 0,
     },
-    demographics: { ...data.apiReq.demographics },
+    demographics: { ...inputData.apiReq.demographics },
   };
   const demographicsPayload = {
-    demographics: { ...data.apiReq.demographics },
+    demographics: { ...inputData.apiReq.demographics },
     transformer: {
       ...transformerData,
     },
   };
   const budgetPayload = {
-    budget: { ...data.apiReq.budget },
-    demographics: { ...data.apiReq.demographics },
+    budget: { ...inputData.apiReq.budget },
+    demographics: { ...inputData.apiReq.demographics },
     transformer: {
       ...transformerData,
     },
   };
 
   const scorePayload = {
-    demographics: { ...data.apiReq.demographics },
-    budget: { ...data.apiReq.budget },
+    demographics: { ...inputData.apiReq.demographics },
+    budget: { ...inputData.apiReq.budget },
   };
 
   const [globalSelectedIndex, setGlobalSelectedIndex] = useState(

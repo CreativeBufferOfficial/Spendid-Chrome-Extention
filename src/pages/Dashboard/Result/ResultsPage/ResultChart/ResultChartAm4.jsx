@@ -37,6 +37,14 @@ const Result = ({ id }) => {
     initial();
   }, []);
 
+  // const handleMouseEnter = (event) => {
+  //   event.target.classList.add('show');
+  // };
+
+  // const handleMouseLeave = (event) => {
+  //   event.target.classList.remove('show');
+  // };
+
   return (
     <>
       <div className={classes.content}>
@@ -44,9 +52,22 @@ const Result = ({ id }) => {
           <div className={classes.designBox}></div>
           <p>Your result</p>
         </div>
-        <ResultTitle title="SPENDiD Budget Health Score" />
+        <ResultTitle
+          title="SPENDiD Budget Health Score"
+          // handleMouseEnter={handleMouseEnter}
+          // handleMouseLeave={handleMouseLeave}
+        />
+        {/* <div className={classes.popup_overlay}></div>
+        <div className={classes.popup_content}>
+          <h3>Popup Content</h3>
+          <p>This is a popup view that appears on hover.</p>
+        </div> */}
         <GaugeChart scores={scores && scores} />
-        <ResultTitle title="Monthly Predicted Saving Ability" />
+        <ResultTitle
+          title="Monthly Predicted Saving Ability"
+          // handleMouseEnter={handleMouseEnter}
+          // handleMouseLeave={handleMouseLeave}
+        />
         <div className={classes.saving}>
           <div>
             <p>You</p>
@@ -61,13 +82,13 @@ const Result = ({ id }) => {
             </p>
           </div>
         </div>
-        <div className={classes.monthly_save}>
+        {/* <div className={classes.monthly_save}>
           <p>Enter a Monthly Amount to Save</p>
           <input type="text" className={classes.input_field} />
           <button className={classes.clear} type="button">
             Clear
           </button>
-        </div>
+        </div> */}
         <ResultTitle title="Budget By Category" />
         <DonutChart id={id} />
         <div>
