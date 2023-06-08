@@ -20,12 +20,14 @@ const ProfileTab = () => {
     scorePayload,
     netIncome,
     setNetIncome,
+    value,
+    setValue,
   } = useFormContext();
   const { zip, age, household_members, is_homeowner, net_annual_income } =
     data.apiReq.demographics;
   // const [netIncome, setNetIncome] = useState([{ frequency: '', amount: 0 }]);
 
-  const [value, setValue] = useState(household_members);
+  // const [value, setValue] = useState(household_members);
   // const [houseHold, setHouseHold] = useState(is_homeowner);
   const updateLabel = (event) => {
     setValue(event.target.value);

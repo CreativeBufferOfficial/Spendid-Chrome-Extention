@@ -128,6 +128,9 @@ export const FormProvider = ({ children }) => {
 
   const inputData = copyAndMultiplyBudget(data);
   console.log('multipliedObj', inputData);
+  const [value, setValue] = useState(
+    data.apiReq.demographics.household_members
+  );
 
   const lendingPayload = {
     budget: {
@@ -422,6 +425,8 @@ export const FormProvider = ({ children }) => {
         netIncome,
         setNetIncome,
         transformData,
+        value,
+        setValue,
       }}
     >
       {children}
