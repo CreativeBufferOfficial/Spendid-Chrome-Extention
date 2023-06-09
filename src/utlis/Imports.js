@@ -1,10 +1,16 @@
 //Component
-export { default as Expense } from '../component/UI/Result/Expenses/Expense';
-export { default as RemoveCategory } from '../component/UI/Result/RemoveCategory/RemoveCategory';
-export { default as Label } from '../component/UI/Result/Labels/Label';
-export { default as ResultTitle } from '../component/UI/Result/ResultTitle';
-export { default as Header } from '../component/UI/MainHeader/Header';
-export { default as FormHeader } from '../component/UI/Form/FormHeader';
+export { default as Expense } from '../component/BudgetReport/Expenses/Expense';
+export { default as RemoveCategory } from '../component/BudgetReport/RemoveCategory/RemoveCategory';
+export { default as Label } from '../component/BudgetReport/Labels/Label';
+export { default as ResultTitle } from '../component/BudgetReport/ResultTitle';
+export { default as Header } from '../component/MainHeader/Header';
+export { default as FormHeader } from '../component/FormHeader/FormHeader';
+export { default as Loader } from '../component/Loader/Loader';
+export { default as BarChart } from '../component/Charts/BarChart/BarChart';
+export { default as DonutChart } from '../component/Charts/DonutChart/DonutChart';
+export { default as GaugeChart } from '../component/Charts/GaugeChart/GaugeChart';
+export { default as BudgetChart } from '../component/Charts/BudgetModalChart/BudgetChart';
+export { default as Button } from '../component/Button/Button';
 
 //Images
 export { default as RemoveIcon } from '../assets/result/close.png';
@@ -40,3 +46,6 @@ export { default as incomeIcon } from '../assets/form/income.png';
 export { default as markPurpleIcon } from '../assets/result/Ellipse_purple.png';
 export { default as markRedIcon } from '../assets/result/Ellipse_red.png';
 export { default as markGreenIcon } from '../assets/result/Ellipse_green.png';
+export { default as iBtn } from '../assets/result/i_btn.png';
+export { default as openEye } from '../assets/login/eye.png';
+export { default as closeEye } from '../assets/login/close-eye.png';

@@ -41,14 +41,12 @@ export const login = (email, password) => async (dispatch) => {
 
 // Lending
 export const LendingGenerate = (body) => async (dispatch) => {
-  // console.log("body", body)
   try {
     dispatch({
       type: LENDING_REQUEST,
     });
 
     const { data } = await callAPI(apiUrls.lending, 'post', body);
-    // console.log("lending", data)
     dispatch({
       type: LENDING_SUCCESS,
       payload: data,
@@ -69,7 +67,6 @@ export const demographicsGenerate = (body) => async (dispatch) => {
     });
 
     const { data } = await callAPI(apiUrls.demographics, 'post', body);
-    console.log('demographicsAPICALL>>>>>>>>>>>', data);
 
     dispatch({
       type: DEMOGRAPHICS_SUCCESS,
@@ -91,7 +88,6 @@ export const budgetsGenerate = (body) => async (dispatch) => {
     });
 
     const { data } = await callAPI(apiUrls.budget, 'post', body);
-    console.log('budgetAPICALL>>>>>>>>>>', data);
 
     dispatch({
       type: BUDGET_GENERATE_SUCCESS,

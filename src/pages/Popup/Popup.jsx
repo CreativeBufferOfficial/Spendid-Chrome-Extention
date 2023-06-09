@@ -3,12 +3,12 @@ import React from 'react';
 // import Greetings from '../../containers/Greetings/Greetings';
 import { Routes, Route } from 'react-router-dom';
 import Login from '../Login/Login';
-import Dashboard from '../Dashboard/HomePage/Dashboard';
+// import Dashboard from '../Dashboard/HomePage/Dashboard';
 import classes from './Popup.module.css';
-import Form from '../Dashboard/Form/Form';
+import Form from '../Dashboard/OnBoardForm/Form';
 import { FormProvider } from '../../context/FormContext';
-import Result from '../Dashboard/Result/Result';
-import AllResult from '../Dashboard/Result/AllResults';
+// import Result from '../Dashboard/Result/Result';
+import AllResult from '../Dashboard/BudgetReport/AllResults';
 
 const Popup = () => {
   return (

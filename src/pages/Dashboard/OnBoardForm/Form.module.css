@@ -1,0 +1,237 @@
+.questions {
+  padding-top: 15px;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Poppins', sans-serif;
+}
+
+.question {
+  display: flex;
+  flex-direction: row;
+}
+
+.question > span {
+  font-weight: 600;
+  margin: 10px 10px 10px 30px;
+}
+
+.question > p {
+  margin: 10px 0px;
+  font-weight: 600;
+  font-family: 'poppin', sans-serif;
+  font-size: 16px;
+  text-align: start;
+  word-wrap: break-word;
+  width: 320px;
+}
+
+.input_field {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.input {
+  width: 300px;
+  height: 40px;
+  outline: none;
+  border: none;
+  border-bottom: 2px solid lightgray;
+}
+
+.input::-webkit-outer-spin-button,
+.input::-webkit-inner-spin-button {
+  display: none;
+}
+
+.btn,
+.next,
+.prev {
+  padding: 8px 5px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  color: white;
+  border-radius: 3px;
+  background-color: #31bfaa;
+  border: none;
+}
+
+.btn_disable,
+.next_disable,
+.prev_disable {
+  padding: 8px 5px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  color: white;
+  border-radius: 3px;
+  background-color: rgb(179, 176, 176);
+  border: none;
+}
+
+.btn,
+.btn_disable {
+  width: 50px;
+}
+
+.next,
+.next_disable,
+.prev,
+.prev_disable {
+  width: 40px;
+  margin: 20px 5px;
+}
+
+.button_group {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.text_btn {
+  margin: 10px 0px 0px 50px;
+  width: 300px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+/*************************** Question-2 ******************************/
+.description {
+  margin: -5px 0px 10px 50px;
+  font-weight: 600;
+  font-size: 12px;
+  text-align: left;
+  padding-right: 30px;
+}
+
+/*************************** Question-3 ******************************/
+.select_option {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.option {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: 300px;
+  height: 40px;
+  border: 1px solid lightgray;
+  margin-top: 5px;
+  border-radius: 5px;
+}
+
+.option > p {
+  height: 30px;
+  text-align: center;
+  padding-top: 3px;
+}
+
+.option > p:nth-child(1) {
+  margin: 4px 0px 0px 4px;
+  width: 40px;
+  border-radius: 5px;
+  background-color: lightgrey;
+}
+
+.option > p:nth-child(2) {
+  width: 250px;
+  margin: 4px 0px 0px 10px;
+  text-align: start;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.option > p:nth-child(2) > img {
+  margin-right: 10px;
+}
+
+.not_select {
+  display: none;
+}
+
+/*************************** Question-7A ******************************/
+.other_description {
+  text-align: justify;
+  padding: 0px 20px 0px 50px;
+}
+
+.other_description > label {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.input_field > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-top: 10px;
+}
+
+.input_field > div > label {
+  font-weight: 600;
+}
+
+.input_field > div > p {
+  font-weight: 600;
+  width: 300px;
+  border-bottom: 2px solid lightgray;
+  text-align: start;
+}
+
+/*************************** Question-9 ******************************/
+.add_source {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-top: 15px;
+}
+
+.source_feild {
+  margin-top: 12px;
+}
+
+.amount_text {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: start;
+}
+
+.amount_text > p {
+  width: 300px;
+}
+
+.amount_text > input {
+  width: 50px;
+  background: rgba(0, 0, 0, 0);
+  border: none;
+  outline: 0;
+  cursor: text;
+}
+.sourceIncome_label {
+  margin-left: 180px;
+  color: #ffffff;
+  font-size: 12px;
+  font-family: 'Poppins';
+  font-weight: 400;
+  border: 1px solid #eb493b;
+  background-color: #eb493b;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+/***************************Form Context ******************************/
+.hideButton {
+  display: none;
+}

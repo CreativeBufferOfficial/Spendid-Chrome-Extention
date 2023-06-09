@@ -1,3 +1,11 @@
+import {
+  majorExpenseCategories,
+  monthlyBillExpenseCategories,
+  otherExpenseCategories,
+  categories,
+  needsCategories,
+} from './HelperData';
+
 export const getStructureObject = (obj) => {
   const result = [];
   for (let key in obj) {
@@ -11,48 +19,17 @@ export const getStructureObject = (obj) => {
 };
 
 export const filterMajorExpenses = (data) => {
-  return data.filter(
-    (obj) =>
-      obj.category === 'Rent or Mortgage Payment' ||
-      obj.category === 'Health Insurance' ||
-      obj.category === 'Car Payments' ||
-      obj.category === 'Other Debt Payments & Obligations'
-  );
+  return data.filter((obj) => majorExpenseCategories.includes(obj.category));
 };
 
 export const filterMonthlyBillExpenses = (data) => {
-  return data.filter(
-    (obj) =>
-      obj.category === 'Charitable Giving' ||
-      obj.category === 'Utilities - Power Bill' ||
-      obj.category === 'Car Insurance' ||
-      obj.category === 'Utilities - Other' ||
-      obj.category === 'Cable / Internet / Streaming' ||
-      obj.category === 'Phone Services'
+  return data.filter((obj) =>
+    monthlyBillExpenseCategories.includes(obj.category)
   );
 };
 
 export const filterOtherExpenses = (data) => {
-  return data.filter(
-    (obj) =>
-      obj.category === 'Groceries' ||
-      obj.category === 'Dining Out' ||
-      obj.category === 'Gasoline & EV-Charging' ||
-      obj.category === 'Fun & Leisure' ||
-      obj.category === 'Clothing & Jewelry' ||
-      obj.category === 'Medical Spending' ||
-      obj.category === 'Home Maintenance & Services' ||
-      obj.category === 'Medical Spending' ||
-      obj.category === 'Miscellaneous' ||
-      obj.category === 'Education' ||
-      obj.category === 'Vacation & Other Lodging' ||
-      obj.category === 'Car Maintenance' ||
-      obj.category === 'Personal Care Products and Services' ||
-      obj.category === 'Pets' ||
-      obj.category === 'Transportation Fares' ||
-      obj.category === 'Life & Other Personal Insurance' ||
-      obj.category === 'Babysitting / Preschool / Eldercare'
-  );
+  return data.filter((obj) => otherExpenseCategories.includes(obj.category));
 };
 
 export const filterSavings = (data) => {
@@ -60,76 +37,51 @@ export const filterSavings = (data) => {
 };
 
 export const filterCategory = (data) => {
-  return data.filter(
-    (obj) =>
-      obj.category === 'Groceries' ||
-      obj.category === 'Charitable Giving' ||
-      obj.category === 'Clothing & Jewelry' ||
-      obj.category === 'Education' ||
-      obj.category === 'Utilities - Power Bill' ||
-      obj.category === 'Fun & Leisure' ||
-      obj.category === 'Dining Out' ||
-      obj.category === 'Home Appliances & Furniture' ||
-      obj.category === 'Gasoline & EV-Charging' ||
-      obj.category === 'Health Insurance' ||
-      obj.category === 'Utilities - Other' ||
-      obj.category === 'Home Maintenance & Services' ||
-      obj.category === 'Life & Other Personal Insurance' ||
-      obj.category === 'Cable / Internet / Streaming' ||
-      obj.category === 'Medical Spending' ||
-      obj.category === 'Miscellaneous' ||
-      obj.category === 'Rent or Mortgage Payment' ||
-      obj.category === 'Other Debt Payments & Obligations' ||
-      obj.category === 'Vacation & Other Lodging' ||
-      obj.category === 'Personal Care Products and Services' ||
-      obj.category === 'Babysitting / Preschool / Eldercare' ||
-      obj.category === 'Pets' ||
-      obj.category === 'Transportation Fares' ||
-      obj.category === 'Amount to Savings Each Period' ||
-      obj.category === 'Phone Services' ||
-      obj.category === 'Car Insurance' ||
-      obj.category === 'Car Maintenance' ||
-      obj.category === 'Car Payments'
-  );
+  return data.filter((obj) => categories.includes(obj.category));
 };
 
+// export const getTabData = (array1, array2) => {
+//   // Dynamically add a key-value pair to each object in the array
+//   for (let i = 0; i < array1.length; i++) {
+//     let key = 'Amount';
+//     let value = array2[i].value;
+//     array1[i][key] = value;
+//   }
+// };
+
 export const getTabData = (array1, array2) => {
-  // Dynamically add a key-value pair to each object in the array
   for (let i = 0; i < array1.length; i++) {
-    let key = 'Amount';
-    let value = array2[i].value;
-    array1[i][key] = value;
+    array1[i].Amount = array2[i].value;
   }
 };
 
-export const sortdecending = (a, b) => b.value - a.value;
+export const sortDescending = (a, b) => b.value - a.value;
 export const sortAscending = (a, b) => a.value - b.value;
 
-export const sortdecendingAmount = (a, b) => b.Amount - a.Amount;
+export const sortDescendingAmount = (a, b) => b.Amount - a.Amount;
 export const sortAscendingAmount = (a, b) => a.Amount - b.Amount;
 
-export const getDiffrenceToPeers = (array) => {
-  const filteredData = array
-    .filter((obj) => obj.Amount - obj.value > 0)
-    .map((obj) => ({ ...obj, difference: obj.Amount - obj.value }));
+// export const getDiffrenceToPeers = (array) => {
+//   const filteredData = array
+//     .filter((obj) => obj.Amount - obj.value > 0)
+//     .map((obj) => ({ ...obj, difference: obj.Amount - obj.value }));
 
+//   return filteredData;
+// };
+
+export const getDiffrenceToPeers = (array) => {
+  const filteredData = [];
+  for (let obj of array) {
+    const difference = obj.Amount - obj.value;
+    if (difference > 0) {
+      filteredData.push({ ...obj, difference });
+    }
+  }
   return filteredData;
 };
 
 export const filterNeeds = (data) => {
-  return data.filter(
-    (obj) =>
-      obj.category === 'Rent or Mortgage Payment' ||
-      obj.category === 'Health Insurance' ||
-      obj.category === 'Car Payments' ||
-      obj.category === 'Other Debt Payments & Obligations' ||
-      obj.category === 'Charitable Giving' ||
-      obj.category === 'Utilities - Power Bill' ||
-      obj.category === 'Car Insurance' ||
-      obj.category === 'Utilities - Other' ||
-      obj.category === 'Cable / Internet / Streaming' ||
-      obj.category === 'Phone Services'
-  );
+  return data.filter((obj) => needsCategories.includes(obj.category));
 };
 
 export const modalValue = (data) => {
@@ -140,22 +92,39 @@ export const modalValue = (data) => {
   return sum;
 };
 
+// export const getStructureTransform = (obj) => {
+//   const result = [];
+//   for (let key in obj) {
+//     if (typeof obj[key] === 'object' && obj[key] !== null) {
+//       result.push(...getStructureObject(obj[key])); // Recursively call the function for nested objects
+//     } else {
+//       result.push({ payloadName: key, name: obj[key] }); // Convert the key-value pair into an object and push it to the result array
+//     }
+//   }
+//   return result;
+// };
+
 export const getStructureTransform = (obj) => {
   const result = [];
-  for (let key in obj) {
-    if (typeof obj[key] === 'object' && obj[key] !== null) {
-      result.push(...getStructureObject(obj[key])); // Recursively call the function for nested objects
-    } else {
-      result.push({ payloadName: key, name: obj[key] }); // Convert the key-value pair into an object and push it to the result array
+
+  const traverseObject = (obj, prefix = '') => {
+    for (let key in obj) {
+      if (typeof obj[key] === 'object' && obj[key] !== null) {
+        traverseObject(obj[key], `${prefix}${key}`); // Recursively call the function for nested objects
+      } else {
+        result.push({ payloadName: `${prefix}${key}`, name: obj[key] }); // Convert the key-value pair into an object and push it to the result array
+      }
     }
-  }
+  };
+
+  traverseObject(obj);
+
   return result;
 };
 
 export const copyAndMultiplyBudget = (obj) => {
   // Create a deep copy of the object
   const copiedObj = JSON.parse(JSON.stringify(obj));
-
   // Multiply the budget values by 12
   const budget = copiedObj.apiReq.budget;
   for (const key in budget) {
@@ -163,6 +132,42 @@ export const copyAndMultiplyBudget = (obj) => {
       budget[key] *= 12;
     }
   }
-
   return copiedObj;
+};
+
+export const copyAndMultiplyDemographics = (obj) => {
+  // Create a deep copy of the object
+  const copiedObj = JSON.parse(JSON.stringify(obj));
+  // Multiply the demographics values by 12
+  const demographics = copiedObj.apiReq.demographics;
+  if (typeof demographics['net_annual_income'] === 'number') {
+    demographics['net_annual_income'] *= 12;
+  }
+  return copiedObj;
+};
+
+export const calcSourceIncome = (netIncome) => {
+  const calculateAmount = netIncome.map((item) => {
+    switch (item.frequency) {
+      case 'Weekly':
+        return item.amount * 4;
+      case 'Quarterly':
+        return item.amount / 3;
+      case 'Semi-Annually':
+        return item.amount / 6;
+      case 'Annually':
+        return item.amount / 12;
+      default:
+        return item.amount * 1;
+    }
+  });
+  return calculateAmount;
+};
+
+export const calcTotalSourceIncome = (IncomeSource) => {
+  const totalSourceIncome = IncomeSource.reduce(
+    (accumulator, currentValue) => accumulator + currentValue,
+    0
+  );
+  return Math.round(totalSourceIncome);
 };

@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import classes from './Login.module.css';
-import openEye from '../../assets/login/eye.png';
-import closeEye from '../../assets/login/close-eye.png';
 import { login } from '../../action/actions';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import Header from '../../component/UI/MainHeader/Header';
+import { Header, openEye, closeEye } from '../../utlis/Imports';
 import { setSession } from '../../utlis/auth';
 
 const Login = () => {
