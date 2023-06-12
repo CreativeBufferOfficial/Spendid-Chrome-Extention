@@ -6,6 +6,7 @@ import Login from '../Login/Login';
 // import Dashboard from '../Dashboard/HomePage/Dashboard';
 import classes from './Popup.module.css';
 import Form from '../Dashboard/OnBoardForm/Form';
+import Home from '../Dashboard/Home';
 import { FormProvider } from '../../context/FormContext';
 // import Result from '../Dashboard/Result/Result';
 import AllResult from '../Dashboard/BudgetReport/AllResults';
@@ -16,10 +17,10 @@ const Popup = () => {
       <FormProvider>
         <Routes>
           <Route path="/" element={<Login />} />
-          {/* <Route path="/dashboard" element={<Dashboard />} /> */}
+          <Route path="/dashboard" element={<Home />} />
           <Route path="/form" element={<Form />} />
-          <Route path="/dashboard" element={<AllResult />} />
-          {/* <Route path="/result" element={<AllResult />} /> */}
+          {/* <Route path="/dashboard" element={<AllResult />} /> */}
+          <Route path="/result" element={<AllResult />} />
         </Routes>
       </FormProvider>
     </div>

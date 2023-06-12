@@ -1,7 +1,11 @@
-import React from 'react'
-import classes from "./Result.module.css"
+import React from 'react';
+import classes from './Result.module.css';
 
-const Button = ({ clearInput }) => {
-    return <button className={classes.clearInput} type="reset" onClick={clearInput} >Clear Inputs</button>
-}
-export default Button
+const Button = ({ clearInput, text }) => {
+  return (
+    <button className={classes.clearInput} type="button" onClick={clearInput}>
+      {text}
+    </button>
+  );
+};
+export default Button;

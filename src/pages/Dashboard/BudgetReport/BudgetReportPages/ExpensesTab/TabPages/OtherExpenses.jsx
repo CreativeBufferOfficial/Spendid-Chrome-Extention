@@ -163,7 +163,9 @@ const OtherExpenses = () => {
         )}
 
         <div className={classes.remove_category}>
-          <ResultTitle title="Removed Categories" />
+          <div className={classes.removeCategoryTitle}>
+            <ResultTitle title="Removed Categories" />
+          </div>
           {removeCategory.map((removeCategory, index) => (
             <RemoveCategory
               index={index}

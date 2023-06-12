@@ -2,6 +2,7 @@ import {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
+  LOGOUT_REQUEST,
   LOGOUT_SUCCESS,
   LOGOUT_FAIL,
   LENDING_REQUEST,
@@ -18,12 +19,16 @@ import {
   SCORES_GENERATE_REQUEST,
   SCORES_GENERATE_SUCCESS,
   SCORES_GENERATE_FAIL,
+  SAVE_REPORT_REQUEST,
+  SAVE_REPORT_SUCCESS,
+  SAVE_REPORT_FAIL,
   CLEAR_ERRORS,
 } from '../constant/constants';
 
 export const userReducer = (state = { user: {} }, action) => {
   switch (action.type) {
     case LOGIN_REQUEST:
+    case LOGOUT_REQUEST:
       return {
         loading: true,
         // isAuthenticated: false,
@@ -185,6 +190,37 @@ export const scoresGenerateReducer = (state = { scores: null }, action) => {
         loadingScore: false,
         isAuthenticated: false,
         scores: null,
+        error: action.payload,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const saveReportReducer = (state = { report: null }, action) => {
+  switch (action.type) {
+    case SAVE_REPORT_REQUEST:
+      return {
+        loadingScore: true,
+        // isAuthenticated: false,
+      };
+    case SAVE_REPORT_SUCCESS:
+      return {
+        ...state,
+        loadingScore: false,
+        isAuthenticated: true,
+        report: action.payload,
+      };
+    case SAVE_REPORT_FAIL:
+      return {
+        loadingScore: false,
+        isAuthenticated: false,
+        report: null,
         error: action.payload,
       };
     case CLEAR_ERRORS:

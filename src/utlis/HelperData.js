@@ -16,7 +16,7 @@ export const title = [
     imageSrc: zipIcon,
   },
   {
-    1: 'Age ',
+    1: 'Age',
     imageSrc: ageIcon,
   },
   {
@@ -24,38 +24,39 @@ export const title = [
     imageSrc: HouseHoldIcon,
   },
   {
-    3: 'HomeType ',
+    3: 'HomeType',
     imageSrc: homeTypeIcon,
   },
   {
-    4: 'Rent ',
+    4: 'Rent',
     imageSrc: rentIcon,
   },
   {
-    5: 'Vechicles ',
+    5: 'Vechicles',
     imageSrc: vehicleIcon,
   },
   {
-    6: 'Obligations ',
+    6: 'Obligations',
     imageSrc: obligationIcon,
   },
   {
-    7: 'Obligations ',
+    7: 'Obligations',
     imageSrc: obligationIcon,
   },
   {
-    8: 'Health Insurance ',
+    8: 'Health Insurance',
     imageSrc: healthcareIcon,
   },
   {
-    9: 'Health Insurance ',
+    9: 'Health Insurance',
     imageSrc: healthcareIcon,
   },
   {
-    10: 'Take Home ',
+    10: 'Take Home',
     imageSrc: incomeIcon,
   },
 ];
+console.log('title>>>>>>>>>>>>>>>>>>>>>>>>>>>', title);
 
 export const transformerData = {
   alcoholic_beverages: 'Groceries',

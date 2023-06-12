@@ -11,9 +11,12 @@ import {
   budgetsGenerate,
   scoresGenerate,
 } from '../../../action/actions';
+import { removeAuth } from '../../../utlis/auth';
+import { useNavigate } from 'react-router-dom';
 
 const AllResult = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const {
     setData,
     setNetIncome,
@@ -24,25 +27,6 @@ const AllResult = () => {
     setValue,
   } = useFormContext();
   const [resetFlag, setResetFlag] = useState(false);
-  const clearInput = () => {
-    setData((prev) => ({
-      ...prev,
-      apiReq: {
-        ...prev.apiReq,
-        demographics: {
-          zip: '',
-          age: '',
-          household_members: 1,
-          is_homeowner: false,
-          net_annual_income: null,
-        },
-      },
-    }));
-
-    setNetIncome([{ frequency: '', amount: 0 }]);
-    setResetFlag(true);
-    setValue(1);
-  };
 
   useEffect(() => {
     if (resetFlag) {
@@ -66,6 +50,33 @@ const AllResult = () => {
     scorePayload,
   ]);
 
+  const clearInput = () => {
+    setData((prev) => ({
+      ...prev,
+      apiReq: {
+        ...prev.apiReq,
+        demographics: {
+          zip: '',
+          age: '',
+          household_members: 1,
+          is_homeowner: false,
+          net_annual_income: null,
+        },
+      },
+    }));
+
+    setNetIncome([{ frequency: '', amount: 0 }]);
+    setResetFlag(true);
+    setValue(1);
+  };
+
+  const logout = () => {
+    debugger;
+    navigate('/');
+    debugger;
+    removeAuth();
+  };
+
   return (
     // <>
     //   {loadingScore ? (
@@ -82,7 +93,8 @@ const AllResult = () => {
 
     <>
       <Header />
-      <Button clearInput={clearInput} />
+      <Button clearInput={clearInput} text="Clear Inputs" />
+      <Button clearInput={logout} text="Logout" />
       <Tab tabs={HomeTabsViews} />
       <Tab tabs={ChartTabs} />
     </>

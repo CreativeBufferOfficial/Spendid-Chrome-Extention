@@ -11,9 +11,13 @@ const Login = () => {
   const dispatch = useDispatch();
 
   const { error, user } = useSelector((state) => state.user);
-
+  console.log('user', user);
   const token = user?.access_token;
-  setSession(token);
+  const name = user?.name;
+  const email = user?.email;
+
+  console.log('Token', token);
+  setSession(token, name, email);
   //TODO:  Take it form api response on fail error and isAuthenticated
   // const error = 'error';
   // const isAuthenticated = 'false';
@@ -33,7 +37,7 @@ const Login = () => {
     if (isAuthenticated === 'true') {
       navigate('/dashboard');
     }
-  }, [navigate, error, isAuthenticated]);
+  }, [navigate, error, isAuthenticated, user]);
 
   const Eye = () => {
     if (loginPassword.length > 0) {

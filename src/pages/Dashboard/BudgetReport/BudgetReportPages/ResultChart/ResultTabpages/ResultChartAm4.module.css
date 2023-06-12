@@ -75,13 +75,21 @@
 .save_report {
   height: 30px;
   width: auto;
-  color: white;
   border-radius: 3px;
   border: 1px solid #68aca5;
   font-size: 12px;
   background-color: #68aca5;
-  margin: 10px 0px;
   padding: 5px 10px;
+  color: #ffffff;
+  text-decoration: none;
+}
+.save_report:link,
+.save_report :hover {
+  color: #ffffff;
+  text-decoration: none;
+}
+.btn_Report {
+  margin: 20px 0px;
 }
 
 .chart_labels,

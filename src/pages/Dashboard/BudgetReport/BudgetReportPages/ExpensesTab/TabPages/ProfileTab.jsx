@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import classes from '../TabViews/HomeTabsViews.module.css';
 import useFormContext from '../../../../../../hooks/useFormContext';
 import {
   calcSourceIncome,
   calcTotalSourceIncome,
 } from '../../../../../../utlis/Helper';
+import Pin from '../../../../../../utlis/Pin.json';
+
 const ProfileTab = () => {
+  // const [pinCode, setPinCode] = useState({ city: '', state: '' });
+  console.log('PIN', Pin);
   const {
     data,
     categoryInputHandler,
@@ -14,6 +18,7 @@ const ProfileTab = () => {
     setNetIncome,
     value,
     setValue,
+    // location,
   } = useFormContext();
   const { zip, age, household_members, is_homeowner, net_annual_income } =
     data.apiReq.demographics;
@@ -21,6 +26,7 @@ const ProfileTab = () => {
   const updateLabel = (event) => {
     setValue(event.target.value);
   };
+  const pinAddress = Pin.find(({ pin }) => pin === zip);
 
   const sourceChangeHandle = (index, i) => (e) => {
     const name = e.target.getAttribute('name');
@@ -60,11 +66,23 @@ const ProfileTab = () => {
         </div>
         <div className={classes.input_area}>
           <label>City</label>
-          <input type="text" readOnly className={classes.input_field} />
+          <input
+            type="text"
+            readOnly
+            value={pinAddress ? pinAddress.city : ''}
+            className={classes.input_field}
+            style={{ backgroundColor: '#E9ECEF' }}
+          />
         </div>
         <div className={classes.input_area}>
           <label>State</label>
-          <input type="text" readOnly className={classes.input_field} />
+          <input
+            type="text"
+            value={pinAddress ? pinAddress.state : ''}
+            readOnly
+            className={classes.input_field}
+            style={{ backgroundColor: '#E9ECEF' }}
+          />
         </div>
         <div className={classes.input_area}>
           <label>Age</label>

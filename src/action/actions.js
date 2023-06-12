@@ -2,8 +2,9 @@ import {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
-  // LOGOUT_SUCCESS,
-  // LOGOUT_FAIL,
+  LOGOUT_REQUEST,
+  LOGOUT_SUCCESS,
+  LOGOUT_FAIL,
   LENDING_REQUEST,
   LENDING_SUCCESS,
   LENDING_RESET,
@@ -18,10 +19,13 @@ import {
   SCORES_GENERATE_REQUEST,
   SCORES_GENERATE_SUCCESS,
   SCORES_GENERATE_FAIL,
+  SAVE_REPORT_REQUEST,
+  SAVE_REPORT_SUCCESS,
+  SAVE_REPORT_FAIL,
 
   // CLEAR_ERRORS,
 } from '../constant/constants';
-import { callAPI, callAPIWithoutAuth } from '../utlis/Apiutils';
+import { callAPI, callAPI2, callAPIWithoutAuth } from '../utlis/Apiutils';
 import { apiUrls } from '../utlis/ApiUrl';
 
 //Login
@@ -34,6 +38,7 @@ export const login = (email, password) => async (dispatch) => {
     });
 
     dispatch({ type: LOGIN_SUCCESS, payload: data.data });
+    // console.log('Login', data);
   } catch (error) {
     dispatch({ type: LOGIN_FAIL, payload: error.response.data.message });
   }
@@ -120,17 +125,40 @@ export const scoresGenerate = (body) => async (dispatch) => {
   }
 };
 
-//   //Logout User
-//   export const logout = () => async (dispatch) => {
-//     try {
-//       // const config = { headers: { 'Content-Type': 'application/json' } };
-//       await callAPI(apiUrls.logout, 'post');
-//       // await axios.post(`https://crm.creativebuffer.com/api/logout`, config);
-//       dispatch({ type: LOGOUT_SUCCESS });
-//     } catch (error) {
-//       dispatch({ type: LOGOUT_FAIL, payload: error });
-//     }
-//   };
+// Report
+export const saveReport = (body) => async (dispatch) => {
+  try {
+    dispatch({
+      type: SAVE_REPORT_REQUEST,
+    });
+    const { data } = await callAPI2(apiUrls.report, 'post', body);
+    dispatch({
+      type: SAVE_REPORT_SUCCESS,
+      payload: data,
+    });
+    console.log(data);
+  } catch (error) {
+    dispatch({
+      type: SAVE_REPORT_FAIL,
+      payload: error.response,
+    });
+    console.log(error.response);
+  }
+};
+
+//Logout User
+export const logout = () => async (dispatch) => {
+  try {
+    dispatch({ type: LOGOUT_REQUEST });
+
+    // const config = { headers: { 'Content-Type': 'application/json' } };
+    const data = await callAPI(apiUrls.logout, 'post', {});
+    // await axios.post(`https://crm.creativebuffer.com/api/logout`, config);
+    dispatch({ type: LOGOUT_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({ type: LOGOUT_FAIL, payload: error });
+  }
+};
 
 //   // Clearing Errors
 //   export const clearErrors = () => async (dispatch) => {

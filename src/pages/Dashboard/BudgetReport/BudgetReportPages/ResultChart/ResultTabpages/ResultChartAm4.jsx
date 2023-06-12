@@ -8,6 +8,7 @@ import {
   GaugeChart,
   ResultTitle,
 } from '../../../../../../utlis/Imports';
+import { saveReport } from '../../../../../../action/actions';
 import {
   filterSavings,
   getStructureObject,
@@ -15,13 +16,28 @@ import {
   filterCategory,
 } from '../../../../../../utlis/Helper';
 import useFormContext from '../../../../../../hooks/useFormContext';
+import { transformerData } from '../../../../../../utlis/HelperData';
+import { useDispatch } from 'react-redux';
+// import PDFGenerator from '../../../../Pdf/PDFGenerator';
+import {
+  Document,
+  Page,
+  View,
+  Text,
+  PDFDownloadLink,
+} from '@react-pdf/renderer';
+
 const Result = ({ id }) => {
+  const dispatch = useDispatch();
+  const { lendings } = useSelector((state) => state.lending);
   const { loadingDemographics, demographics } = useSelector(
     (state) => state.demographics
   );
+  console.log('demographics', demographics);
   const { loadingBudgets, budgets } = useSelector((state) => state.budget);
   const { loadingScore, scores } = useSelector((state) => state.score);
-  const { data } = useFormContext();
+  const { data, reportPayload, inputDemograpicData, inputBudgetData } =
+    useFormContext();
   const { net_annual_income } = data.apiReq.demographics;
   const [savingData, setSavingData] = useState([]);
   const [categoryData, setCategoryData] = useState([]);
@@ -51,6 +67,62 @@ const Result = ({ id }) => {
   // const handleMouseLeave = (event) => {
   //   event.target.classList.remove('show');
   // };
+  console.log('inputDemograpicData', inputDemograpicData);
+  console.log('inputBudgetData', inputBudgetData);
+
+  const generatePDF = () => {
+    // Create your PDF content
+    const MyDocument = (
+      <Document>
+        <Page>
+          <View>
+            <Text>This is a dynamically generated PDF!</Text>
+          </View>
+        </Page>
+      </Document>
+    );
+
+    return MyDocument;
+  };
+
+  const saveReportHandler = () => {
+    const reportPayload = {
+      userInfo: {
+        email: '',
+        name: '',
+        usecase: null,
+        edu: null,
+        key: 'hCqpmeIgXhrnRnMwAanDT2qqocZDUtQ1yTZHUkle',
+        reportId: '2006',
+      },
+      apiReq: {
+        demographics: {
+          ...inputDemograpicData.apiReq.demographics,
+        },
+        transformer: {
+          ...transformerData,
+        },
+        budget: {
+          ...inputBudgetData.apiReq.budget,
+        },
+      },
+      callDemographicsAPIRes: {
+        ...demographics,
+      },
+      callBudgetAPIRes: {
+        ...budgets,
+      },
+      callScoringAPIRes: {
+        ...scores,
+      },
+      callLendingScoreAPIRes: {
+        ...lendings,
+      },
+      eliminated: {},
+    };
+    console.log('reportPayload', reportPayload);
+    dispatch(saveReport(reportPayload));
+  };
 
   return (
     <>
@@ -108,10 +180,23 @@ const Result = ({ id }) => {
               netAnnualIncome={net_annual_income}
             />
 
-            <div>
-              <button className={classes.save_report}>
-                Save Report <img src={report} alt="report_icon" />
-              </button>
+            <div className={classes.btn_Report}>
+              <PDFDownloadLink
+                onClick={saveReportHandler}
+                className={classes.save_report}
+                document={generatePDF()}
+                fileName="generated_pdf.pdf"
+              >
+                {({ blob, url, loading, error }) =>
+                  loading ? 'Loading document...' : `Save Report`
+                }
+                Save Report
+                <img
+                  src={report}
+                  style={{ marginLeft: '10px' }}
+                  alt="report_icon"
+                />
+              </PDFDownloadLink>
             </div>
           </div>
         </>

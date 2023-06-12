@@ -18,7 +18,7 @@ import {
 import useFormContext from '../../../../../../hooks/useFormContext';
 
 const BugetModal = ({ id }) => {
-  const { data, setData } = useFormContext();
+  const { data, setData, categoryInputHandler } = useFormContext();
   const { loadingDemographics, demographics } = useSelector(
     (state) => state.demographics
   );
@@ -65,20 +65,22 @@ const BugetModal = ({ id }) => {
     const yourFinanical_Goals = totalBuget - (yourNeeds + yourWants);
     // console.log('yourNeedData', yourNeedData, 'yourWantData', yourWantData);
 
-    // console.log(
-    //   'yourNeeds',
-    //   yourNeeds,
-    //   'yourWants',
-    //   yourWants,
-    //   'yourFinanical_Goals',
-    //   yourFinanical_Goals
-    // );
+    console.log(
+      'yourNeeds',
+      yourNeeds,
+      'yourWants',
+      yourWants,
+      'yourFinanical_Goals',
+      yourFinanical_Goals
+    );
 
     setYourData([
       { category: 'Needs', value: yourNeeds },
       { category: 'Wants', value: yourWants },
       { category: 'Finanical Goals', value: yourFinanical_Goals },
     ]);
+
+    categoryInputHandler('savings', yourFinanical_Goals);
   };
   useEffect(() => {
     init();

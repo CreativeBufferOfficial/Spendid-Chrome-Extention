@@ -5,11 +5,69 @@ import {
   copyAndMultiplyDemographics,
 } from '../utlis/Helper';
 import { title, transformerData } from '../utlis/HelperData';
+import {
+  zipIcon,
+  ageIcon,
+  HouseHoldIcon,
+  homeTypeIcon,
+  rentIcon,
+  vehicleIcon,
+  obligationIcon,
+  healthcareIcon,
+  incomeIcon,
+} from '../utlis/Imports';
 const FormContext = createContext({});
 
 export const FormProvider = ({ children }) => {
   const transformData = getStructureTransform(transformerData);
   const [netIncome, setNetIncome] = useState([{ frequency: '', amount: '' }]);
+
+  const title = [
+    {
+      0: 'ZipCode',
+      imageSrc: zipIcon,
+    },
+    {
+      1: 'Age ',
+      imageSrc: ageIcon,
+    },
+    {
+      2: 'HouseHold',
+      imageSrc: HouseHoldIcon,
+    },
+    {
+      3: 'HomeType ',
+      imageSrc: homeTypeIcon,
+    },
+    {
+      4: 'Rent ',
+      imageSrc: rentIcon,
+    },
+    {
+      5: 'Vechicles ',
+      imageSrc: vehicleIcon,
+    },
+    {
+      6: 'Obligations ',
+      imageSrc: obligationIcon,
+    },
+    {
+      7: 'Obligations ',
+      imageSrc: obligationIcon,
+    },
+    {
+      8: 'Health Insurance ',
+      imageSrc: healthcareIcon,
+    },
+    {
+      9: 'Health Insurance ',
+      imageSrc: healthcareIcon,
+    },
+    {
+      10: 'Take Home ',
+      imageSrc: incomeIcon,
+    },
+  ];
 
   const [data, setData] = useState({
     apiReq: {
@@ -18,7 +76,7 @@ export const FormProvider = ({ children }) => {
         age: 25,
         household_members: 1,
         is_homeowner: false,
-        net_annual_income: 0,
+        net_annual_income: 10000,
       },
       budget: {
         savings: null,
@@ -64,10 +122,14 @@ export const FormProvider = ({ children }) => {
     budget: { ...inputBudgetData.apiReq.budget },
   };
 
+  // const reportPayload = {};
+
   const [globalSelectedIndex, setGlobalSelectedIndex] = useState(
     Array(10).fill(-1)
   );
   const [page, setPage] = useState(0);
+
+  // const [location, setLocation] = useState({ city: '', state: '' });
 
   // const categoryInputHandler = (name, value) => {
   //   const keyname = name;
@@ -225,6 +287,10 @@ export const FormProvider = ({ children }) => {
           break;
 
         case 'other_debt_payments':
+          apiReq.budget[name] = +value || null;
+          break;
+
+        case 'savings':
           apiReq.budget[name] = +value || null;
           break;
 
@@ -391,6 +457,9 @@ export const FormProvider = ({ children }) => {
 
         case 'household_members':
           apiReq.demographics[name] = +value;
+          setTimeout(() => {
+            setPage((prev) => prev + 1);
+          }, 300);
           break;
 
         case 'is_homeowner':
@@ -468,6 +537,9 @@ export const FormProvider = ({ children }) => {
         transformData,
         value,
         setValue,
+        // reportPayload,
+        inputDemograpicData,
+        inputBudgetData,
       }}
     >
       {children}

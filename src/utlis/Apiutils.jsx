@@ -2,7 +2,32 @@ import axios from 'axios';
 
 import { defaultConfig } from './config';
 // import axiosUtil from './axiosUtils';
+export const callAPIWithoutAuth = async (
+  path,
+  method,
+  data = null,
+  params,
+  options = {},
+  headersObj = {}
+) => {
+  const API_ROOT = defaultConfig.baseAPIUrl + 'api/';
+  const url = API_ROOT + path;
+  const headers = {
+    'Content-Type': 'application/json',
+    Accept: 'application/json',
+    ...headersObj,
+  };
 
+  return axios({
+    method,
+    url,
+    params,
+    // paramsSerializer: (paramObject) => Qs.stringify(paramObject, serializerConfig),
+    data,
+    headers,
+    ...options,
+  });
+};
 export const callAPI = async (
   path,
   method,
@@ -56,27 +81,27 @@ export const callAPI = async (
   // });
 };
 
-export const callAPIWithoutAuth = async (
+export const callAPI2 = async (
   path,
   method,
+  // params,
   data = null,
-  params,
   options = {},
   headersObj = {}
 ) => {
   const API_ROOT = defaultConfig.baseAPIUrl + 'api/';
   const url = API_ROOT + path;
+
   const headers = {
     'Content-Type': 'application/json',
     Accept: 'application/json',
+    Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
     ...headersObj,
   };
 
   return axios({
     method,
     url,
-    params,
-    // paramsSerializer: (paramObject) => Qs.stringify(paramObject, serializerConfig),
     data,
     headers,
     ...options,

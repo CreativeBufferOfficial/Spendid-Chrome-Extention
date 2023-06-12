@@ -1,11 +1,16 @@
-export const setSession = (accessToken) => {
+export const setSession = (accessToken, name, email) => {
   if (accessToken) {
+    console.log('Insidesession');
     localStorage.setItem('accessToken', accessToken);
+    localStorage.setItem('name', name);
+    localStorage.setItem('email', email);
     localStorage.setItem('isAuthenticated', 'true');
   }
 };
 
 export const removeAuth = () => {
-  window.localStorage.removeItem('isAuthenticated');
-  window.localStorage.removeItem('accessToken');
+  localStorage.removeItem('isAuthenticated');
+  localStorage.removeItem('accessToken');
+  localStorage.removeItem('name');
+  localStorage.removeItem('email');
 };

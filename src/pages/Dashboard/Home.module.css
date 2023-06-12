@@ -1,0 +1,35 @@
+.main_content {
+  min-width: 400px;
+  height: 10vh;
+  margin-top: 5vh;
+  font-family: 'Poppins', sans-serif;
+}
+
+.main_content > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 12px;
+}
+.main_content > div:nth-child(1) > p {
+  font-size: 16px;
+  font-weight: 600;
+}
+.main_content > div:nth-child(2) > p {
+  width: 300px;
+  font-size: 15px;
+  font-weight: 500;
+}
+.start,
+.byPass {
+  width: 100px;
+  padding: 10px 5px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  color: white;
+  border-radius: 3px;
+  background-color: #31bfaa;
+  border: none;
+}
