@@ -18,7 +18,7 @@ import {
 import useFormContext from '../../../../../../hooks/useFormContext';
 
 const BugetModal = ({ id }) => {
-  const { data, setData, categoryInputHandler } = useFormContext();
+  const { data, setData, categoryInputHandler, setChartSvg } = useFormContext();
   const { loadingDemographics, demographics } = useSelector(
     (state) => state.demographics
   );
@@ -111,15 +111,27 @@ const BugetModal = ({ id }) => {
 
         <div>
           <div className={classes.chart_header_label}>50-30-20 Model</div>
-          <BudgetChart data={ModalData} id={id ? id.chart1 : 'chartdiv1'} />
+          <BudgetChart
+            data={ModalData}
+            id={id ? id.chart1 : 'chartdiv1'}
+            setChartSvg={setChartSvg}
+          />
         </div>
         <div>
           <div className={classes.chart_header_label}>Your Peers</div>
-          <BudgetChart data={peeersData} id={id ? id.chart2 : 'chartdiv2'} />
+          <BudgetChart
+            data={peeersData}
+            id={id ? id.chart2 : 'chartdiv2'}
+            setChartSvg={setChartSvg}
+          />
         </div>
         <div>
           <div className={classes.chart_header_label}>You</div>
-          <BudgetChart data={yourData} id={id ? id.chart3 : 'chartdiv3'} />
+          <BudgetChart
+            data={yourData}
+            id={id ? id.chart3 : 'chartdiv3'}
+            setChartSvg={setChartSvg}
+          />
         </div>
       </div>
     </>

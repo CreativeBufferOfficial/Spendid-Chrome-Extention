@@ -49,3 +49,4 @@ export { default as markGreenIcon } from '../assets/result/Ellipse_green.png';
 export { default as iBtn } from '../assets/result/i_btn.png';
 export { default as openEye } from '../assets/login/eye.png';
 export { default as closeEye } from '../assets/login/close-eye.png';
+export { default as chart } from '../assets/Pdf/chart.png';

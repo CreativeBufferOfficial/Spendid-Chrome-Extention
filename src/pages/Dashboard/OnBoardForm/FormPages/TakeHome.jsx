@@ -74,12 +74,12 @@ const TakeHome = () => {
 
   // const sendBody = { ...data.apiReq };
   const formSubmitHandler = () => {
-    navigate('/result');
     // const body = JSON.parse(JSON.stringify(sendBody));
     dispatch(LendingGenerate(lendingPayload));
     dispatch(demographicsGenerate(demographicsPayload));
     dispatch(budgetsGenerate(budgetPayload));
     dispatch(scoresGenerate(scorePayload));
+    navigate('/result');
   };
 
   const content = (

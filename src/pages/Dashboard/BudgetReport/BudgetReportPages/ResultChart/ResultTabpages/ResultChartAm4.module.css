@@ -85,11 +85,13 @@
 }
 .save_report:link,
 .save_report :hover {
+  cursor: pointer;
   color: #ffffff;
   text-decoration: none;
 }
 .btn_Report {
   margin: 20px 0px;
+  cursor: pointer;
 }
 
 .chart_labels,

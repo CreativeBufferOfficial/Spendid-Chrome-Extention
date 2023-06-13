@@ -5,7 +5,7 @@ import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 
 am4core.useTheme(am4themes_animated);
 
-const DonutChart = ({ id, data }) => {
+const DonutChart = ({ id, data, setChartSvg }) => {
   useEffect(() => {
     // Create chart instance
     const chart = am4core.create(id, am4charts.PieChart);
@@ -49,7 +49,18 @@ const DonutChart = ({ id, data }) => {
     label.fontWeight = 'bold';
     label.horizontalCenter = 'middle';
     label.verticalCenter = 'middle';
-
+    // Export the chart as an SVG string
+    // const svgString = chart.exporting.getSVG();
+    // console.log('svgString', svgString);
+    // setChartSvg((prev) => {
+    //   if (id === 'chart1' || 'chartdiv1') {
+    //     prev.modalChart = svgString;
+    //   } else if (id === 'chart2' || 'chartdiv2') {
+    //     prev.modalChartYours = svgString;
+    //   } else if (id === 'chart3' || 'chartdiv3') {
+    //     prev.modalChartPeers = svgString;
+    //   }
+    // });
     // Clean up on unmount
     return () => {
       chart.dispose();

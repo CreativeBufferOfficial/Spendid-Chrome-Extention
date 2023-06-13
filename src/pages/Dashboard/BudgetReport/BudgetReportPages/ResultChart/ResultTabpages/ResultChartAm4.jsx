@@ -7,6 +7,8 @@ import {
   DonutChart,
   GaugeChart,
   ResultTitle,
+  Logo,
+  chart,
 } from '../../../../../../utlis/Imports';
 import { saveReport } from '../../../../../../action/actions';
 import {
@@ -18,13 +20,14 @@ import {
 import useFormContext from '../../../../../../hooks/useFormContext';
 import { transformerData } from '../../../../../../utlis/HelperData';
 import { useDispatch } from 'react-redux';
-// import PDFGenerator from '../../../../Pdf/PDFGenerator';
 import {
   Document,
   Page,
   View,
   Text,
+  StyleSheet,
   PDFDownloadLink,
+  Image,
 } from '@react-pdf/renderer';
 
 const Result = ({ id }) => {
@@ -36,8 +39,13 @@ const Result = ({ id }) => {
   console.log('demographics', demographics);
   const { loadingBudgets, budgets } = useSelector((state) => state.budget);
   const { loadingScore, scores } = useSelector((state) => state.score);
-  const { data, reportPayload, inputDemograpicData, inputBudgetData } =
-    useFormContext();
+  const {
+    data,
+    reportPayload,
+    inputDemograpicData,
+    inputBudgetData,
+    chartSvg,
+  } = useFormContext();
   const { net_annual_income } = data.apiReq.demographics;
   const [savingData, setSavingData] = useState([]);
   const [categoryData, setCategoryData] = useState([]);
@@ -70,13 +78,245 @@ const Result = ({ id }) => {
   console.log('inputDemograpicData', inputDemograpicData);
   console.log('inputBudgetData', inputBudgetData);
 
+  // Create styles
+  const styles = StyleSheet.create({
+    page: {
+      flexDirection: 'column',
+      backgroundColor: '#FFFFFF',
+    },
+    section: {
+      margin: 10,
+      padding: 10,
+      // flexGrow: 1,
+      // flex: 1,
+      display: 'flex',
+      // justifyContent: 'center',
+      alignItems: 'center',
+    },
+    image: {
+      width: '200px',
+      height: '100px',
+      marginTop: 15,
+      marginBottom: 15,
+    },
+    text: {
+      textAlign: 'center',
+      fontSize: 18,
+      marginTop: 20,
+    },
+    tableText: {
+      fontSize: 18,
+      color: '#30BDA9',
+      textAlign: 'center',
+      fontWeight: 900,
+      marginTop: 15,
+    },
+    colorText: {
+      fontSize: 15,
+      marginTop: 3,
+      color: '#30BDA9',
+    },
+    dateText: {
+      fontSize: 12,
+    },
+    table: {
+      marginTop: 10,
+    },
+    tableRowHeader: {
+      flexDirection: 'row',
+      backgroundColor: '#2980ba',
+      color: '#FFFFFF',
+    },
+    tableRowData: {
+      flexDirection: 'row',
+      backgroundColor: '#D3D3D3',
+      color: '#454545',
+    },
+    tableCellName: {
+      width: '40%',
+      fontSize: 12,
+      padding: 5,
+    },
+    tableCell: {
+      width: '20%',
+      fontSize: 12,
+      padding: 5,
+      // borderStyle: 'solid',
+      // borderWidth: 1,
+      // borderColor: '#000000',
+      // padding: 5,
+    },
+    tableCellYourAmount: {
+      width: '50%',
+      fontSize: 12,
+      padding: 5,
+      marginTop: 15,
+    },
+    result: {
+      width: '90%',
+      display: 'flex',
+      flexDirection: 'row',
+    },
+    imageChart: {
+      width: '200px',
+      height: '200px',
+    },
+    resultContent: {
+      display: 'flex',
+      flexDirection: 'column',
+      width: '60%',
+      marginTop: 15,
+    },
+    resultContentTitle: {
+      fontSize: 14,
+    },
+    resultText: {
+      fontSize: 12,
+      marginTop: 20,
+      textAlign: 'center',
+    },
+  });
+
   const generatePDF = () => {
     // Create your PDF content
     const MyDocument = (
       <Document>
-        <Page>
-          <View>
-            <Text>This is a dynamically generated PDF!</Text>
+        <Page size="A4" style={styles.page}>
+          <View style={styles.section}>
+            <Image src={Logo} style={styles.image} />
+            <Text style={styles.colorText}>Report Date</Text>
+            <Text style={styles.dateText}>13-06-2023</Text>
+          </View>
+
+          <View style={styles.section}>
+            <Text style={styles.text}>All Amounts Are Monthly</Text>
+
+            <Text style={styles.colorText}>About You</Text>
+
+            <View style={styles.table}>
+              <View style={styles.tableRowData}>
+                <View style={styles.tableCellYourAmount}>
+                  <Text>Net Take Home Pay</Text>
+                </View>
+                <View style={styles.tableCellYourAmount}>
+                  <Text>$ 10000</Text>
+                </View>
+              </View>
+              <View style={styles.tableRowData}>
+                <View style={styles.tableCellYourAmount}>
+                  <Text>5-Digit Zip Code</Text>
+                </View>
+                <View style={styles.tableCellYourAmount}>
+                  <Text>14001</Text>
+                </View>
+              </View>
+              <View style={styles.tableRowData}>
+                <View style={styles.tableCellYourAmount}>
+                  <Text>Age</Text>
+                </View>
+                <View style={styles.tableCellYourAmount}>
+                  <Text>25</Text>
+                </View>
+              </View>
+            </View>
+          </View>
+
+          <View style={styles.section}>
+            <Text style={styles.colorText}>Result</Text>
+            <View style={styles.result}>
+              <Image src={chart} style={styles.imageChart} />
+              <View style={styles.resultContent}>
+                <Text style={styles.resultContentTitle}>
+                  Predicted Saving Ability (PSA): $4,263
+                </Text>
+                <Text style={styles.resultText}>
+                  It looks like you're doing all the right things budget-wise.
+                  Do you have an active strategy for growing your savings, and
+                  investing for the future? Be sure to sweep at least $4,263
+                  into investments appropriate for your age and risk tolerance.
+                  Do this, and your financial future looks bright!
+                </Text>
+              </View>
+            </View>
+          </View>
+        </Page>
+        <Page size="A4" style={styles.page}>
+          <Text style={styles.tableText}>Your Opportunities</Text>
+          <Text style={styles.dateText}>Versus Your Peers</Text>
+          <View></View>
+          <Text style={styles.tableText}>
+            50-30-20 Budget Modeling for : Needs / Wants / Financial Goals
+          </Text>
+          {/* <Image src={chartSvg.modalChart} style={styles.imageChart} />
+          <Image src={chartSvg.modalChartYours} style={styles.imageChart} />
+          <Image src={chartSvg.modalChartPeers} style={styles.imageChart} /> */}
+          {/* <View></View> */}
+        </Page>
+        <Page size="A4" style={styles.page}>
+          {/* FIXME: HIGHLITER   Table 1  */}
+          <Text style={styles.tableText}>Major Expense Categories</Text>
+          <View style={styles.table}>
+            <View style={styles.tableRowHeader}>
+              <View style={styles.tableCellName}>
+                <Text>Name</Text>
+              </View>
+              <View style={styles.tableCell}>
+                <Text>Your Amount</Text>
+              </View>
+              <View style={styles.tableCell}>
+                <Text>Your Peers</Text>
+              </View>
+              <View style={styles.tableCell}>
+                <Text>Difference</Text>
+              </View>
+            </View>
+            <View style={styles.tableRowData}>
+              <View style={styles.tableCellName}>
+                <Text>Rent or Mortgage Payment</Text>
+              </View>
+              <View style={styles.tableCell}>
+                <Text>$ 952</Text>
+              </View>
+              <View style={styles.tableCell}>
+                <Text>$ 950</Text>
+              </View>
+              <View style={styles.tableCell}>
+                <Text>$ 2</Text>
+              </View>
+            </View>
+          </View>
+
+          {/* FIXME: HIGHLITER   Table 2  */}
+          <Text style={styles.tableText}>Other Expense categories</Text>
+          <View style={styles.table}>
+            <View style={styles.tableRowHeader}>
+              <View style={styles.tableCellName}>
+                <Text>Name</Text>
+              </View>
+              <View style={styles.tableCell}>
+                <Text>Your Amount</Text>
+              </View>
+              <View style={styles.tableCell}>
+                <Text>Your Peers</Text>
+              </View>
+              <View style={styles.tableCell}>
+                <Text>Difference</Text>
+              </View>
+            </View>
+            <View style={styles.tableRowData}>
+              <View style={styles.tableCellName}>
+                <Text>Groceries</Text>
+              </View>
+              <View style={styles.tableCell}>
+                <Text>$ 652</Text>
+              </View>
+              <View style={styles.tableCell}>
+                <Text>$ 652</Text>
+              </View>
+              <View style={styles.tableCell}>
+                <Text>$ 0</Text>
+              </View>
+            </View>
           </View>
         </Page>
       </Document>

@@ -128,153 +128,12 @@ export const FormProvider = ({ children }) => {
     Array(10).fill(-1)
   );
   const [page, setPage] = useState(0);
-
-  // const [location, setLocation] = useState({ city: '', state: '' });
-
-  // const categoryInputHandler = (name, value) => {
-  //   const keyname = name;
-
-  //   switch (keyname) {
-  //     case 'net_annual_income':
-  //       setData({
-  //         ...data,
-  //         apiReq: {
-  //           ...data.apiReq,
-  //           demographics: {
-  //             ...data.apiReq.demographics,
-  //             [keyname]: +value,
-  //           },
-  //         },
-  //       });
-
-  //       break;
-
-  //     case 'other_debt_payments':
-  //       setData({
-  //         ...data,
-  //         apiReq: {
-  //           ...data.apiReq,
-  //           budget: {
-  //             ...data.apiReq.budget,
-  //             [keyname]: +value || null,
-  //           },
-  //         },
-  //       });
-
-  //       break;
-
-  //     case 'alcoholic_beverages' || 'food_home':
-  //       setData((data) => ({
-  //         apiReq: {
-  //           ...data.apiReq,
-  //           budget: {
-  //             ...data.apiReq.budget,
-  //             alcoholic_beverages: Math.round(+value / 2),
-  //             food_home: Math.round(+value / 2),
-  //           },
-  //         },
-  //       }));
-  //       break;
-  //     case 'toys_and_hobbies' || 'fees_and_admissions':
-  //       setData((data) => ({
-  //         apiReq: {
-  //           ...data.apiReq,
-  //           budget: {
-  //             ...data.apiReq.budget,
-  //             toys_and_hobbies: Math.round(+value / 2),
-  //             fees_and_admissions: Math.round(+value / 2),
-  //           },
-  //         },
-  //       }));
-  //       break;
-
-  //     case 'home_maintenance_and_repairs' ||
-  //       'housekeeping_supplies' ||
-  //       'other_household_expenses':
-  //       setData((data) => ({
-  //         apiReq: {
-  //           ...data.apiReq,
-  //           budget: {
-  //             ...data.apiReq.budget,
-  //             home_maintenance_and_repairs: Math.round(+value / 3),
-  //             housekeeping_supplies: Math.round(+value / 3),
-  //             other_household_expenses: Math.round(+value / 3),
-  //           },
-  //         },
-  //       }));
-  //       break;
-
-  //     case 'water_and_public_services' ||
-  //       'natural_gas' ||
-  //       'heating_fuels_other':
-  //       setData((data) => ({
-  //         apiReq: {
-  //           ...data.apiReq,
-  //           budget: {
-  //             ...data.apiReq.budget,
-  //             water_and_public_services: Math.round(+value / 3),
-  //             natural_gas: Math.round(+value / 3),
-  //             heating_fuels_other: Math.round(+value / 3),
-  //           },
-  //         },
-  //       }));
-  //       break;
-
-  //     case 'medical_services' || 'medical_supplies' || 'prescription_drugs':
-  //       setData((data) => ({
-  //         apiReq: {
-  //           ...data.apiReq,
-  //           budget: {
-  //             ...data.apiReq.budget,
-  //             medical_services: Math.round(+value / 3),
-  //             medical_supplies: Math.round(+value / 3),
-  //             prescription_drugs: Math.round(+value / 3),
-  //           },
-  //         },
-  //       }));
-  //       break;
-
-  //     // case 'other_debt_payments':
-  //     case 'mortgage_and_rent':
-  //     case 'vehicle_purchase_and_lease':
-  //     case 'health_insurance':
-
-  //     case 'cash_contributions':
-  //     case 'clothing_items_and_services':
-  //     case 'education':
-  //     case 'electricity':
-  //     case 'food_out':
-  //     case 'furniture_and_appliances':
-  //     case 'gasoline':
-  //     case 'life_and_personal_insurance':
-  //     case 'media_hardware_and_services':
-  //     case 'miscellaneous':
-  //     case 'other_lodging':
-  //     case 'personal_care':
-  //     case 'personal_services':
-  //     case 'pets':
-  //     case 'public_and_other_transportation':
-  //     case 'reading':
-  //     case 'telephone_services':
-  //     case 'tobacco_and_smoking':
-  //     case 'vehicle_insurance':
-  //     case 'vehicle_maintenance_and_repairs':
-  //       // case 'savings'  :
-
-  //       setData((data) => ({
-  //         apiReq: {
-  //           ...data.apiReq,
-  //           budget: {
-  //             ...data.apiReq.budget,
-  //             [name]: +value,
-  //           },
-  //         },
-  //       }));
-  //       break;
-
-  //     default:
-  //   }
-  // };
+  const [chartSvg, setChartSvg] = useState({
+    scoreChart: '',
+    modalChart: '',
+    modalChartYours: '',
+    modalChartPeers: '',
+  });
 
   const categoryInputHandler = (name, value) => {
     setData((data) => {
@@ -339,89 +198,6 @@ export const FormProvider = ({ children }) => {
       return newData;
     });
   };
-
-  // const formDataHandlerChange = (e, i) => {
-  //   // console.log('index', i);
-  //   // console.log('globalSelectedIndex[page]', globalSelectedIndex[page]);
-  //   // console.log('globalSelectedIndex', globalSelectedIndex);
-  //   if (i !== -1) {
-  //     globalSelectedIndex[page] = i;
-  //     setGlobalSelectedIndex(globalSelectedIndex);
-  //   } else {
-  //     globalSelectedIndex[page] = 0;
-  //     setGlobalSelectedIndex(globalSelectedIndex);
-  //   }
-
-  //   const name = e.target.getAttribute('name');
-  //   let value =
-  //     e.target.value === undefined
-  //       ? e.target.getAttribute('value')
-  //       : e.target.value;
-
-  //   switch (name) {
-  //     case 'zip':
-  //     case 'age':
-  //     case 'net_annual_income':
-  //       setData((data) => ({
-  //         apiReq: {
-  //           ...data.apiReq,
-  //           demographics: {
-  //             ...data.apiReq.demographics,
-  //             [name]: +value,
-  //           },
-  //         },
-  //       }));
-
-  //       break;
-
-  //     case 'other_debt_payments':
-  //     case 'mortgage_and_rent':
-  //     case 'vehicle_purchase_and_lease':
-  //     case 'health_insurance':
-  //       // case 'savings'  :
-
-  //       setData((data) => ({
-  //         apiReq: {
-  //           ...data.apiReq,
-  //           budget: {
-  //             ...data.apiReq.budget,
-  //             [name]: +value,
-  //           },
-  //         },
-  //       }));
-  //       break;
-
-  //     case 'household_members':
-  //     case 'is_homeowner':
-  //       setData((data) => ({
-  //         apiReq: {
-  //           ...data.apiReq,
-  //           demographics: {
-  //             ...data.apiReq.demographics,
-  //             [name]: name === 'household_members' ? +value : JSON.parse(value),
-  //           },
-  //         },
-  //       }));
-  //       setTimeout(() => {
-  //         setPage((prev) => prev + 1);
-  //       }, 300);
-  //       break;
-
-  //     case 'isHealthInsured':
-  //     case 'isOtherDept':
-  //       if (value === 'Yes') {
-  //         setTimeout(() => {
-  //           setPage((prev) => prev + 1);
-  //         }, 300);
-  //       } else if (value === 'No') {
-  //         setTimeout(() => {
-  //           setPage((prev) => prev + 2);
-  //         }, 300);
-  //       }
-  //       break;
-  //     default:
-  //   }
-  // };
 
   const formDataHandlerChange = (e, i) => {
     if (i !== -1) {
@@ -540,6 +316,8 @@ export const FormProvider = ({ children }) => {
         // reportPayload,
         inputDemograpicData,
         inputBudgetData,
+        chartSvg,
+        setChartSvg,
       }}
     >
       {children}
