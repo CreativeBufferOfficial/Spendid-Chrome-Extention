@@ -70,6 +70,25 @@ const AllResult = () => {
     setValue(1);
   };
 
+  const startOver = () => {
+    setData((prev) => ({
+      ...prev,
+      apiReq: {
+        ...prev.apiReq,
+        demographics: {
+          zip: '',
+          age: '',
+          household_members: 1,
+          is_homeowner: false,
+          net_annual_income: null,
+        },
+      },
+    }));
+    localStorage.removeItem('zip');
+    localStorage.removeItem('age');
+    navigate('/dashboard');
+  };
+
   const logout = () => {
     debugger;
     navigate('/');
@@ -93,6 +112,7 @@ const AllResult = () => {
 
     <>
       <Header />
+      <Button clearInput={startOver} text="Start Over" />
       <Button clearInput={clearInput} text="Clear Inputs" />
       <Button clearInput={logout} text="Logout" />
       <Tab tabs={HomeTabsViews} />

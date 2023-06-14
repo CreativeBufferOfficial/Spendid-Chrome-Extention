@@ -1,30 +1,31 @@
 .tab_bar {
-    display: flex;
-    flex-direction: row;
-    margin: 15px 5px;
+  display: flex;
+  flex-direction: row;
+  margin: 15px 5px;
 }
 
 .tab {
-    height: 30px;
-    width: auto;
-    text-align: center;
-    padding: 0px 5px;
-    font-size: 12px;
-    font-weight: 600;
-    cursor: pointer;
+  height: 40px;
+  /* width: auto; */
+  width: 140px;
+  text-align: center;
+  padding: 0px 5px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
 }
 
 .active {
-    border-bottom: 3px solid #68aca5;
-    transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+  border-bottom: 3px solid #68aca5;
+  transition: cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .non_active {
-    border-bottom: 3px solid lightgray;
-    transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+  border-bottom: 3px solid lightgray;
+  transition: cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .tab_content {
-    height: auto;
-    width: 400px;
+  height: auto;
+  width: 400px;
 }

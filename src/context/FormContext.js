@@ -129,7 +129,7 @@ export const FormProvider = ({ children }) => {
   );
   const [page, setPage] = useState(0);
   const [chartSvg, setChartSvg] = useState({
-    scoreChart: '',
+    // scoreChart: '',
     modalChart: '',
     modalChartYours: '',
     modalChartPeers: '',
@@ -222,6 +222,7 @@ export const FormProvider = ({ children }) => {
         case 'age':
         case 'net_annual_income':
           apiReq.demographics[name] = +value;
+          localStorage.setItem([name], +value);
           break;
 
         case 'other_debt_payments':
@@ -240,6 +241,7 @@ export const FormProvider = ({ children }) => {
 
         case 'is_homeowner':
           apiReq.demographics[name] = JSON.parse(value);
+
           setTimeout(() => {
             setPage((prev) => prev + 1);
           }, 300);

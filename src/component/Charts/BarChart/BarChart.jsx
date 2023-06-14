@@ -48,9 +48,9 @@ const BarChart = ({ id }) => {
     categoryAxis.title.text = '';
     categoryAxis.renderer.grid.template.location = 0;
     categoryAxis.renderer.labels.template.location = 0.5;
-    categoryAxis.renderer.labels.template.dy = -10; // Adjust the vertical position of the label
+    categoryAxis.renderer.labels.template.dy = -60; // Adjust the vertical position of the label
     categoryAxis.renderer.labels.template.disabled = true; // Disable category labels
-    categoryAxis.renderer.minGridDistance = 5;
+    categoryAxis.renderer.minGridDistance = 1;
 
     // Adjust the renderer to increase the distance between categories
     categoryAxis.renderer.cellStartLocation = 0.4; // Change this value as needed
@@ -58,6 +58,7 @@ const BarChart = ({ id }) => {
 
     const valueAxis = chart.xAxes.push(new am4charts.ValueAxis());
     valueAxis.title.text = 'Difference';
+    valueAxis.renderer.labels.template.fontSize = 12;
 
     // Create series
     const series = chart.series.push(new am4charts.ColumnSeries());
@@ -65,9 +66,11 @@ const BarChart = ({ id }) => {
     series.dataFields.categoryY = 'category';
     series.name = 'difference';
     series.columns.template.tooltipText = '{name}: [bold]${valueX}[/]';
+    // Set the color of the columns
+    series.columns.template.fill = am4core.color('#0267e8');
 
     // Adjust column width to increase the distance between bars
-    series.columns.template.columnWidth = 40; // Change this value as needed
+    series.columns.template.columnWidth = 30; // Change this value as needed
 
     // Add label bullet
     const labelBullet1 = series.bullets.push(new am4charts.LabelBullet());

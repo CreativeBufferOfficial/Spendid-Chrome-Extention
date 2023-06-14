@@ -18,7 +18,8 @@ import {
 import useFormContext from '../../../../../../hooks/useFormContext';
 
 const BugetModal = ({ id }) => {
-  const { data, setData, categoryInputHandler, setChartSvg } = useFormContext();
+  const { data, setData, categoryInputHandler, chartSvg, setChartSvg } =
+    useFormContext();
   const { loadingDemographics, demographics } = useSelector(
     (state) => state.demographics
   );
@@ -27,6 +28,10 @@ const BugetModal = ({ id }) => {
   const [ModalData, setModalData] = useState([]);
   const [peeersData, setPeersData] = useState([]);
   const [yourData, setYourData] = useState([]);
+
+  // const [chart1,setChart1] =useState("")
+  // const [chart2,setChart2] =useState("")
+  // const [chart3,setChart3] =useState("")
 
   const init = () => {
     setModalData([
@@ -114,7 +119,9 @@ const BugetModal = ({ id }) => {
           <BudgetChart
             data={ModalData}
             id={id ? id.chart1 : 'chartdiv1'}
-            setChartSvg={setChartSvg}
+            // setChartSvg={setChartSvg}
+            // chartSvg={chartSvg}
+            // svg={svg}
           />
         </div>
         <div>
@@ -122,7 +129,9 @@ const BugetModal = ({ id }) => {
           <BudgetChart
             data={peeersData}
             id={id ? id.chart2 : 'chartdiv2'}
-            setChartSvg={setChartSvg}
+            // setChartSvg={setChartSvg}
+            // chartSvg={chartSvg}
+            // svg={svg}
           />
         </div>
         <div>
@@ -130,7 +139,9 @@ const BugetModal = ({ id }) => {
           <BudgetChart
             data={yourData}
             id={id ? id.chart3 : 'chartdiv3'}
-            setChartSvg={setChartSvg}
+            // setChartSvg={setChartSvg}
+            // chartSvg={chartSvg}
+            // svg={svg}
           />
         </div>
       </div>

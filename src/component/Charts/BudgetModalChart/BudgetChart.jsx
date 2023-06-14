@@ -2,10 +2,12 @@ import React, { useEffect } from 'react';
 import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
-
+import useFormContext from '../../../hooks/useFormContext';
 am4core.useTheme(am4themes_animated);
 
-const DonutChart = ({ id, data, setChartSvg }) => {
+const DonutChart = ({ id, data }) => {
+  const { categoryInputHandler, chartSvg, setChartSvg } = useFormContext();
+  // const svg = [];
   useEffect(() => {
     // Create chart instance
     const chart = am4core.create(id, am4charts.PieChart);
@@ -49,18 +51,17 @@ const DonutChart = ({ id, data, setChartSvg }) => {
     label.fontWeight = 'bold';
     label.horizontalCenter = 'middle';
     label.verticalCenter = 'middle';
-    // Export the chart as an SVG string
-    // const svgString = chart.exporting.getSVG();
-    // console.log('svgString', svgString);
-    // setChartSvg((prev) => {
-    //   if (id === 'chart1' || 'chartdiv1') {
-    //     prev.modalChart = svgString;
-    //   } else if (id === 'chart2' || 'chartdiv2') {
-    //     prev.modalChartYours = svgString;
-    //   } else if (id === 'chart3' || 'chartdiv3') {
-    //     prev.modalChartPeers = svgString;
-    //   }
-    // });
+
+    // Attach the ready event handle
+    chart.events.once('ready', () => {
+      // Export the chart as an SVG string
+      const svgString1 = chart.exporting.getImage('svg');
+      svgString1.then((res) => {
+        console.log(res);
+        setChartSvg({ modalChart: res });
+      });
+    });
+
     // Clean up on unmount
     return () => {
       chart.dispose();

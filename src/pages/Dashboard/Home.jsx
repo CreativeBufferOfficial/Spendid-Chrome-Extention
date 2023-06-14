@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Header } from '../../utlis/Imports';
 import classes from './Home.module.css';
 import { useNavigate } from 'react-router-dom';
@@ -11,6 +11,14 @@ const Dashboard = () => {
   const FormByPassHandler = () => {
     navigate('/result');
   };
+
+  useEffect(() => {
+    if (localStorage.getItem('zip') || localStorage.getItem('age')) {
+      navigate('/result');
+    } else {
+      navigate('/dashboard');
+    }
+  }, [navigate]);
 
   return (
     <>

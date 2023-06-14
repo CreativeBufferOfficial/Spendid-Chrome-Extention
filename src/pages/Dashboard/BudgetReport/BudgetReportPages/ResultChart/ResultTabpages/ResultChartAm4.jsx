@@ -64,6 +64,7 @@ const Result = ({ id }) => {
       setCategoryData(category);
     }
   };
+  // console.log('chartSvg', chartSvg);
 
   useEffect(() => {
     initial();
@@ -178,6 +179,14 @@ const Result = ({ id }) => {
   });
 
   const generatePDF = () => {
+    console.log('chart', chartSvg);
+
+    const chart1 = chartSvg?.modalChart;
+    const chart2 = chartSvg?.modalChartYours;
+    const chart3 = chartSvg?.modalChartPeers;
+    console.log('chart', chart1);
+    console.log('chart', chart2);
+    console.log('chart', chart3);
     // Create your PDF content
     const MyDocument = (
       <Document>
@@ -243,13 +252,13 @@ const Result = ({ id }) => {
         <Page size="A4" style={styles.page}>
           <Text style={styles.tableText}>Your Opportunities</Text>
           <Text style={styles.dateText}>Versus Your Peers</Text>
-          <View></View>
+          <Image src={chart1} style={styles.imageChart} />
+          {/* <Image src={chart2} style={styles.imageChart} /> */}
+          {/* <Image src={chart3} style={styles.imageChart} /> */}
           <Text style={styles.tableText}>
             50-30-20 Budget Modeling for : Needs / Wants / Financial Goals
           </Text>
-          {/* <Image src={chartSvg.modalChart} style={styles.imageChart} />
-          <Image src={chartSvg.modalChartYours} style={styles.imageChart} />
-          <Image src={chartSvg.modalChartPeers} style={styles.imageChart} /> */}
+
           {/* <View></View> */}
         </Page>
         <Page size="A4" style={styles.page}>

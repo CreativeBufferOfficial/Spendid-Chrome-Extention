@@ -17,6 +17,7 @@ const Popup = () => {
       <FormProvider>
         <Routes>
           <Route path="/" element={<Login />} />
+
           <Route path="/dashboard" element={<Home />} />
           <Route path="/form" element={<Form />} />
           {/* <Route path="/dashboard" element={<AllResult />} /> */}

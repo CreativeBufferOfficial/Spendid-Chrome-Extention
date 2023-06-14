@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import useFormContext from '../../../../hooks/useFormContext';
 import classes from '../Form.module.css';
 import { selected, addIcon } from '../../../../utlis/Imports';
@@ -63,14 +63,13 @@ const TakeHome = () => {
     categoryInputHandler('net_annual_income', totalSourceIncome);
   };
 
-  // const removeSource = (index) => {
-
-  //   netIncome.splice(index, 1);
-  //   setNetIncome([...netIncome]);
-  //   const calcIncomeSource = calcSourceIncome(netIncome);
-  //   const totalSourceIncome = calcTotalSourceIncome(calcIncomeSource);
-  //   categoryInputHandler('net_annual_income', totalSourceIncome);
-  // };
+  const removeSource = (index) => {
+    netIncome.splice(index, 1);
+    setNetIncome([...netIncome]);
+    const calcIncomeSource = calcSourceIncome(netIncome);
+    const totalSourceIncome = calcTotalSourceIncome(calcIncomeSource);
+    categoryInputHandler('net_annual_income', totalSourceIncome);
+  };
 
   // const sendBody = { ...data.apiReq };
   const formSubmitHandler = () => {
@@ -95,7 +94,7 @@ const TakeHome = () => {
               <span>
                 Source #{index + 1} <br /> Frequency
               </span>
-              {/* {array.length > 1 ? (
+              {array.length > 1 ? (
                 <span
                   onClick={() => removeSource(index)}
                   className={classes.sourceIncome_label}
@@ -104,7 +103,7 @@ const TakeHome = () => {
                 </span>
               ) : (
                 ''
-              )} */}
+              )}
             </div>
             <div className={classes.select_option}>
               {options.map((option, i) => (
