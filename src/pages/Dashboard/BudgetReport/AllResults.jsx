@@ -90,9 +90,7 @@ const AllResult = () => {
   };
 
   const logout = () => {
-    debugger;
     navigate('/');
-    debugger;
     removeAuth();
   };
 

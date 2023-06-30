@@ -77,6 +77,18 @@ export const getDiffrenceToPeers = (array) => {
       filteredData.push({ ...obj, difference });
     }
   }
+
+  return filteredData;
+};
+export const getDiffrenceForTable = (array) => {
+  const filteredData = [];
+  for (let obj of array) {
+    const difference = obj.Amount - obj.value;
+    if (difference >= 0) {
+      filteredData.push({ ...obj, difference });
+    }
+  }
+
   return filteredData;
 };
 

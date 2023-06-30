@@ -72,7 +72,7 @@ export const demographicsGenerate = (body) => async (dispatch) => {
     });
 
     const { data } = await callAPI(apiUrls.demographics, 'post', body);
-
+    console.log('data>>>>', data);
     dispatch({
       type: DEMOGRAPHICS_SUCCESS,
       payload: data,
@@ -136,13 +136,13 @@ export const saveReport = (body) => async (dispatch) => {
       type: SAVE_REPORT_SUCCESS,
       payload: data,
     });
-    console.log(data);
+    // console.log(data);
   } catch (error) {
     dispatch({
       type: SAVE_REPORT_FAIL,
       payload: error.response,
     });
-    console.log(error.response);
+    // console.log(error.response);
   }
 };
 

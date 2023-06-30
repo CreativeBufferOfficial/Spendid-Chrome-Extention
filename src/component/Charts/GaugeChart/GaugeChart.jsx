@@ -5,8 +5,11 @@ import * as am4charts from '@amcharts/amcharts4/charts';
 import { iBtn } from '../../../utlis/Imports';
 import classes from './GaugeChart.module.css';
 import { useSelector } from 'react-redux';
+import useFormContext from '../../../hooks/useFormContext';
 
 function GaugeChart() {
+  const { setScoreChart } = useFormContext();
+
   const { scores } = useSelector((state) => state.score);
   const breakeven = scores && scores?.breakeven;
 
@@ -94,10 +97,19 @@ function GaugeChart() {
       hand.value = Math.round(+breakeven);
     }
 
+    // Attach the ready event handle
+    chart.events.once('ready', () => {
+      // Export the chart as an SVG string
+      const svgString1 = chart.exporting.getImage('svg');
+      svgString1.then((res) => {
+        setScoreChart({ modalChart: res });
+      });
+    });
+
     return () => {
       chart.dispose();
     };
-  }, [breakeven]);
+  }, [breakeven, setScoreChart]);
 
   return (
     <div className={classes.gauge_parent}>

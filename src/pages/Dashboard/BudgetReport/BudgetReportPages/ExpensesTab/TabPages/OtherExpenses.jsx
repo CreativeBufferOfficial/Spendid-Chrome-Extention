@@ -23,9 +23,12 @@ import {
   sortAscending,
   sortDescending,
   sortDescendingAmount,
+  getDiffrenceForTable,
 } from '../../../../../../utlis/Helper';
 import { useSelector } from 'react-redux';
+import useFormContext from '../../../../../../hooks/useFormContext';
 const OtherExpenses = () => {
+  const { setOtherExpensesTableData } = useFormContext();
   const { loadingDemographics, demographics } = useSelector(
     (state) => state.demographics
   );
@@ -49,6 +52,9 @@ const OtherExpenses = () => {
         filterBudgetOtherExpensesData
       );
       setSortedData(filterDemographicsOtherExpensesData);
+      // setOtherExpensesTableData(
+      //   getDiffrenceForTable(filterDemographicsOtherExpensesData)
+      // );
     }
   };
 

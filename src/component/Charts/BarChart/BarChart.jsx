@@ -9,10 +9,12 @@ import {
   getDiffrenceToPeers,
 } from '../../../utlis/Helper';
 import { useSelector } from 'react-redux';
+import useFormContext from '../../../hooks/useFormContext';
 // Apply the animated theme
 am4core.useTheme(am4themes_animated);
 
 const BarChart = ({ id }) => {
+  const { setBarChart } = useFormContext();
   const { loadingDemographics, demographics } = useSelector(
     (state) => state.demographics
   );
@@ -98,6 +100,15 @@ const BarChart = ({ id }) => {
     });
     series.columns.template.adapter.add('textY', (textY, target) => {
       return -series.columns.template.height / 2;
+    });
+
+    // Attach the ready event handle
+    chart.events.once('ready', () => {
+      // Export the chart as an SVG string
+      const svgString1 = chart.exporting.getImage('svg');
+      svgString1.then((res) => {
+        setBarChart({ modalChart: res });
+      });
     });
 
     // Cleanup on component unmount

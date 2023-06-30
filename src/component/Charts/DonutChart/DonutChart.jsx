@@ -17,7 +17,7 @@ const DonutChart = ({ id, data, netAnnualIncome }) => {
 
   // const { data } = useFormContext();
   // const { net_annual_income } = data.apiReq.demographics;
-  console.log('netAnnualIncome', netAnnualIncome);
+  // console.log('netAnnualIncome', netAnnualIncome);
 
   useEffect(() => {
     // const budgetObjects = getStructureObject(budgets);

@@ -9,7 +9,7 @@ import Pin from '../../../../../../utlis/Pin.json';
 
 const ProfileTab = () => {
   // const [pinCode, setPinCode] = useState({ city: '', state: '' });
-  console.log('PIN', Pin);
+  // console.log('PIN', Pin);
   const {
     data,
     categoryInputHandler,

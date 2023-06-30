@@ -6,7 +6,7 @@ import useFormContext from '../../../hooks/useFormContext';
 am4core.useTheme(am4themes_animated);
 
 const DonutChart = ({ id, data }) => {
-  const { categoryInputHandler, chartSvg, setChartSvg } = useFormContext();
+  const { setChartSvg } = useFormContext();
   // const svg = [];
   useEffect(() => {
     // Create chart instance
@@ -57,7 +57,6 @@ const DonutChart = ({ id, data }) => {
       // Export the chart as an SVG string
       const svgString1 = chart.exporting.getImage('svg');
       svgString1.then((res) => {
-        console.log(res);
         setChartSvg({ modalChart: res });
       });
     });

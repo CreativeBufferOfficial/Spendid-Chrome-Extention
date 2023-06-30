@@ -70,14 +70,14 @@ const BugetModal = ({ id }) => {
     const yourFinanical_Goals = totalBuget - (yourNeeds + yourWants);
     // console.log('yourNeedData', yourNeedData, 'yourWantData', yourWantData);
 
-    console.log(
-      'yourNeeds',
-      yourNeeds,
-      'yourWants',
-      yourWants,
-      'yourFinanical_Goals',
-      yourFinanical_Goals
-    );
+    // console.log(
+    //   'yourNeeds',
+    //   yourNeeds,
+    //   'yourWants',
+    //   yourWants,
+    //   'yourFinanical_Goals',
+    //   yourFinanical_Goals
+    // );
 
     setYourData([
       { category: 'Needs', value: yourNeeds },

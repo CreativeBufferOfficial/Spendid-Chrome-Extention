@@ -87,6 +87,7 @@ export const FormProvider = ({ children }) => {
       },
     },
   });
+  console.log('Data>>>>>>>', data);
   const inputDemograpicData = copyAndMultiplyDemographics(data);
   const inputBudgetData = copyAndMultiplyBudget(data);
   const [value, setValue] = useState(
@@ -134,6 +135,9 @@ export const FormProvider = ({ children }) => {
     modalChartYours: '',
     modalChartPeers: '',
   });
+
+  const [scoreChart, setScoreChart] = useState('');
+  const [barChart, setBarChart] = useState('');
 
   const categoryInputHandler = (name, value) => {
     setData((data) => {
@@ -278,6 +282,9 @@ export const FormProvider = ({ children }) => {
       return newData;
     });
   };
+  const [tableData, setTableData] = useState([]);
+  // console.log('tableData >> 58426++525  >>>', tableData);
+  // const [otherExpensesTableData, setOtherExpensesTableData] = useState([]);
 
   const prevRedirectHome = page === 0;
 
@@ -320,6 +327,14 @@ export const FormProvider = ({ children }) => {
         inputBudgetData,
         chartSvg,
         setChartSvg,
+        tableData,
+        setTableData,
+        scoreChart,
+        setScoreChart,
+        barChart,
+        setBarChart,
+        // otherExpensesTableData,
+        // setOtherExpensesTableData,
       }}
     >
       {children}

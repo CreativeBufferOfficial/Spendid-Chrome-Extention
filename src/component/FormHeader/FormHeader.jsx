@@ -6,7 +6,7 @@ import Progressbar from './Progress';
 const FormHeader = () => {
   const { page, title } = useFormContext();
   const now = page * 10;
-  console.log(title);
+  // console.log(title);
 
   return (
     <>

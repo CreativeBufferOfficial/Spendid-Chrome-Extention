@@ -8,7 +8,6 @@ import {
   GaugeChart,
   ResultTitle,
   Logo,
-  chart,
 } from '../../../../../../utlis/Imports';
 import { saveReport } from '../../../../../../action/actions';
 import {
@@ -33,22 +32,27 @@ import {
 const Result = ({ id }) => {
   const dispatch = useDispatch();
   const { lendings } = useSelector((state) => state.lending);
-  const { loadingDemographics, demographics } = useSelector(
-    (state) => state.demographics
-  );
-  console.log('demographics', demographics);
-  const { loadingBudgets, budgets } = useSelector((state) => state.budget);
+  const { demographics } = useSelector((state) => state.demographics);
+  // console.log('demographics', demographics);
+  const { budgets } = useSelector((state) => state.budget);
   const { loadingScore, scores } = useSelector((state) => state.score);
   const {
     data,
-    reportPayload,
+    // reportPayload,
     inputDemograpicData,
     inputBudgetData,
+    // majorExpensesTableData,
+    // setMajorExpensesTableData,
+    // otherExpensesTableData,
+    // setOtherExpensesTableData,
     chartSvg,
+    scoreChart,
+    barChart,
   } = useFormContext();
   const { net_annual_income } = data.apiReq.demographics;
   const [savingData, setSavingData] = useState([]);
   const [categoryData, setCategoryData] = useState([]);
+  // console.log('majorExpensesTableData', majorExpensesTableData);
 
   const initial = () => {
     if (demographics && budgets && scores) {
@@ -76,8 +80,8 @@ const Result = ({ id }) => {
   // const handleMouseLeave = (event) => {
   //   event.target.classList.remove('show');
   // };
-  console.log('inputDemograpicData', inputDemograpicData);
-  console.log('inputBudgetData', inputBudgetData);
+  // console.log('inputDemograpicData', inputDemograpicData);
+  // console.log('inputBudgetData', inputBudgetData);
 
   // Create styles
   const styles = StyleSheet.create({
@@ -159,8 +163,15 @@ const Result = ({ id }) => {
       flexDirection: 'row',
     },
     imageChart: {
+      width: '300px',
+      height: '200px',
+      marginBottom: 15,
+      marginRight: 30,
+    },
+    imageChartPageTwo: {
       width: '200px',
       height: '200px',
+      marginBottom: 10,
     },
     resultContent: {
       display: 'flex',
@@ -180,13 +191,17 @@ const Result = ({ id }) => {
 
   const generatePDF = () => {
     console.log('chart', chartSvg);
-
     const chart1 = chartSvg?.modalChart;
-    const chart2 = chartSvg?.modalChartYours;
-    const chart3 = chartSvg?.modalChartPeers;
-    console.log('chart', chart1);
-    console.log('chart', chart2);
-    console.log('chart', chart3);
+    console.log('scoreChart', scoreChart);
+    console.log('chart1', chart1);
+    const chartScore = scoreChart?.modalChart;
+    const chartBar = barChart?.modalChart;
+    // const chart2 = chartSvg?.modalChartYours;
+    // const chart3 = chartSvg?.modalChartPeers;
+    // console.log('chart', chart1);
+
+    // console.log('chart', chart2);
+    // console.log('chart', chart3);
     // Create your PDF content
     const MyDocument = (
       <Document>
@@ -233,7 +248,7 @@ const Result = ({ id }) => {
           <View style={styles.section}>
             <Text style={styles.colorText}>Result</Text>
             <View style={styles.result}>
-              <Image src={chart} style={styles.imageChart} />
+              <Image src={chartScore} style={styles.imageChart} />
               <View style={styles.resultContent}>
                 <Text style={styles.resultContentTitle}>
                   Predicted Saving Ability (PSA): $4,263
@@ -251,18 +266,19 @@ const Result = ({ id }) => {
         </Page>
         <Page size="A4" style={styles.page}>
           <Text style={styles.tableText}>Your Opportunities</Text>
+          chartBar
+          <Image src={chartBar} style={styles.imageChart} />
           <Text style={styles.dateText}>Versus Your Peers</Text>
-          <Image src={chart1} style={styles.imageChart} />
+          <Image src={chart1} style={styles.imageChartPageTwo} />
           {/* <Image src={chart2} style={styles.imageChart} /> */}
           {/* <Image src={chart3} style={styles.imageChart} /> */}
           <Text style={styles.tableText}>
             50-30-20 Budget Modeling for : Needs / Wants / Financial Goals
           </Text>
-
           {/* <View></View> */}
         </Page>
         <Page size="A4" style={styles.page}>
-          {/* FIXME: HIGHLITER   Table 1  */}
+          {/* FIXME: HIGHLIGTER   Table 1  */}
           <Text style={styles.tableText}>Major Expense Categories</Text>
           <View style={styles.table}>
             <View style={styles.tableRowHeader}>
@@ -279,20 +295,22 @@ const Result = ({ id }) => {
                 <Text>Difference</Text>
               </View>
             </View>
-            <View style={styles.tableRowData}>
-              <View style={styles.tableCellName}>
-                <Text>Rent or Mortgage Payment</Text>
+            {/* {majorExpensesTableData.map((data) => (
+              <View style={styles.tableRowData}>
+                <View style={styles.tableCellName}>
+                  <Text>{data.category}</Text>
+                </View>
+                <View style={styles.tableCell}>
+                  <Text>{`$ ${data.Amount}`}</Text>
+                </View>
+                <View style={styles.tableCell}>
+                  <Text>{`$ ${data.value}`}</Text>
+                </View>
+                <View style={styles.tableCell}>
+                  <Text>{`$ ${data.difference}`}</Text>
+                </View>
               </View>
-              <View style={styles.tableCell}>
-                <Text>$ 952</Text>
-              </View>
-              <View style={styles.tableCell}>
-                <Text>$ 950</Text>
-              </View>
-              <View style={styles.tableCell}>
-                <Text>$ 2</Text>
-              </View>
-            </View>
+            ))} */}
           </View>
 
           {/* FIXME: HIGHLITER   Table 2  */}
@@ -369,7 +387,7 @@ const Result = ({ id }) => {
       },
       eliminated: {},
     };
-    console.log('reportPayload', reportPayload);
+    // console.log('reportPayload', reportPayload);
     dispatch(saveReport(reportPayload));
   };
 

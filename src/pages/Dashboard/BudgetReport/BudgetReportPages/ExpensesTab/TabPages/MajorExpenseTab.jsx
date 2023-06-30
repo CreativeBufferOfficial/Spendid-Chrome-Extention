@@ -5,16 +5,21 @@ import {
   getStructureObject,
   filterMajorExpenses,
   getTabData,
+  getDiffrenceForTable,
 } from '../../../../../../utlis/Helper';
+import useFormContext from '../../../../../../hooks/useFormContext';
 
 const MajorExpense = () => {
-  const [isMajorExpensesTab, setIsMajorExpensesTab] = useState(true);
-  const [sortedData, setSortedData] = useState([]);
-  const { loadingDemographics, demographics } = useSelector(
-    (state) => state.demographics
-  );
-  const { loadingBudgets, budgets } = useSelector((state) => state.budget);
+  const { tableData, setTableData } = useFormContext();
+  const [majorExpensesTableData, setMajorExpensesTableData] = useState([]);
 
+  const [isMajorExpensesTab, setIsMajorExpensesTab] = useState(true);
+  const [majorExpensesSortedData, setMajorExpensesSortedData] = useState([]);
+  const { demographics } = useSelector((state) => state.demographics);
+
+  const { loadingBudgets, budgets } = useSelector((state) => state.budget);
+  // console.log('demographics>>>', demographics);
+  // console.log('budgets', budgets);
   const init = () => {
     if (demographics && budgets) {
       const demographicsObjects = getStructureObject(demographics);
@@ -23,20 +28,24 @@ const MajorExpense = () => {
         filterMajorExpenses(demographicsObjects);
       const budgetMajorExpensess = filterMajorExpenses(budgetObjects);
       getTabData(demographicsMajorExpensess, budgetMajorExpensess);
-      setSortedData(demographicsMajorExpensess);
+      setMajorExpensesSortedData(demographicsMajorExpensess);
+      // const difference = [...demographicsMajorExpensess];
+      // const d = getDiffrenceForTable(difference);
+      // debugger;
+      // setTableData(d);
+      // console.log('dddddddddddddddddddddd>>>>>>>>>>>>>>>>>>>>>', d);
     }
   };
-
   useEffect(() => {
     init();
   }, [demographics, budgets]);
-
+  // setTableData(majorExpensesSortedData);
   return (
     <>
       {loadingBudgets ? (
         <Loader />
       ) : (
-        sortedData.map((majorExpense) => (
+        majorExpensesSortedData.map((majorExpense) => (
           <Expense
             key={majorExpense.category}
             title={majorExpense.category}

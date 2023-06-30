@@ -56,7 +56,7 @@ export const title = [
     imageSrc: incomeIcon,
   },
 ];
-console.log('title>>>>>>>>>>>>>>>>>>>>>>>>>>>', title);
+// console.log('title>>>>>>>>>>>>>>>>>>>>>>>>>>>', title);
 
 export const transformerData = {
   alcoholic_beverages: 'Groceries',

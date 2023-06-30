@@ -1,6 +1,6 @@
 export const setSession = (accessToken, name, email) => {
   if (accessToken) {
-    console.log('Insidesession');
+    // console.log('Insidesession');
     localStorage.setItem('accessToken', accessToken);
     localStorage.setItem('name', name);
     localStorage.setItem('email', email);
