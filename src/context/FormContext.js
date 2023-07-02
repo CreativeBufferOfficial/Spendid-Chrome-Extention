@@ -87,7 +87,7 @@ export const FormProvider = ({ children }) => {
       },
     },
   });
-  console.log('Data>>>>>>>', data);
+  // console.log('Data>>>>>>>', data);
   const inputDemograpicData = copyAndMultiplyDemographics(data);
   const inputBudgetData = copyAndMultiplyBudget(data);
   const [value, setValue] = useState(
@@ -129,12 +129,8 @@ export const FormProvider = ({ children }) => {
     Array(10).fill(-1)
   );
   const [page, setPage] = useState(0);
-  const [chartSvg, setChartSvg] = useState({
-    // scoreChart: '',
-    modalChart: '',
-    modalChartYours: '',
-    modalChartPeers: '',
-  });
+  const [chartSvg, setChartSvg] = useState([]);
+  console.log('chartSvg', chartSvg);
 
   const [scoreChart, setScoreChart] = useState('');
   const [barChart, setBarChart] = useState('');
@@ -283,6 +279,7 @@ export const FormProvider = ({ children }) => {
     });
   };
   const [tableData, setTableData] = useState([]);
+  console.log('tableData', tableData);
   // console.log('tableData >> 58426++525  >>>', tableData);
   // const [otherExpensesTableData, setOtherExpensesTableData] = useState([]);
 
@@ -329,6 +326,7 @@ export const FormProvider = ({ children }) => {
         setChartSvg,
         tableData,
         setTableData,
+        // setTableData,
         scoreChart,
         setScoreChart,
         barChart,

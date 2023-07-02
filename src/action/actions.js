@@ -72,7 +72,7 @@ export const demographicsGenerate = (body) => async (dispatch) => {
     });
 
     const { data } = await callAPI(apiUrls.demographics, 'post', body);
-    console.log('data>>>>', data);
+    // console.log('data>>>>', data);
     dispatch({
       type: DEMOGRAPHICS_SUCCESS,
       payload: data,

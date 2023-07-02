@@ -57,7 +57,8 @@ const DonutChart = ({ id, data }) => {
       // Export the chart as an SVG string
       const svgString1 = chart.exporting.getImage('svg');
       svgString1.then((res) => {
-        setChartSvg({ modalChart: res });
+        console.log('res>>', res);
+        setChartSvg((prev) => [...prev, res]);
       });
     });
 

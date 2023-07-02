@@ -41,18 +41,14 @@ const Result = ({ id }) => {
     // reportPayload,
     inputDemograpicData,
     inputBudgetData,
-    // majorExpensesTableData,
-    // setMajorExpensesTableData,
-    // otherExpensesTableData,
-    // setOtherExpensesTableData,
     chartSvg,
     scoreChart,
     barChart,
+    tableData,
   } = useFormContext();
   const { net_annual_income } = data.apiReq.demographics;
   const [savingData, setSavingData] = useState([]);
   const [categoryData, setCategoryData] = useState([]);
-  // console.log('majorExpensesTableData', majorExpensesTableData);
 
   const initial = () => {
     if (demographics && budgets && scores) {
@@ -190,10 +186,10 @@ const Result = ({ id }) => {
   });
 
   const generatePDF = () => {
-    console.log('chart', chartSvg);
-    const chart1 = chartSvg?.modalChart;
-    console.log('scoreChart', scoreChart);
-    console.log('chart1', chart1);
+    // console.log('chart', chartSvg);
+
+    // console.log('scoreChart', scoreChart);
+    // console.log('chart1', chart1);
     const chartScore = scoreChart?.modalChart;
     const chartBar = barChart?.modalChart;
     // const chart2 = chartSvg?.modalChartYours;
@@ -269,9 +265,9 @@ const Result = ({ id }) => {
           chartBar
           <Image src={chartBar} style={styles.imageChart} />
           <Text style={styles.dateText}>Versus Your Peers</Text>
-          <Image src={chart1} style={styles.imageChartPageTwo} />
-          {/* <Image src={chart2} style={styles.imageChart} /> */}
-          {/* <Image src={chart3} style={styles.imageChart} /> */}
+          <Image src={chartSvg[0]} style={styles.imageChartPageTwo} />
+          <Image src={chartSvg[1]} style={styles.imageChart} />
+          <Image src={chartSvg[2]} style={styles.imageChart} />
           <Text style={styles.tableText}>
             50-30-20 Budget Modeling for : Needs / Wants / Financial Goals
           </Text>
@@ -295,7 +291,7 @@ const Result = ({ id }) => {
                 <Text>Difference</Text>
               </View>
             </View>
-            {/* {majorExpensesTableData.map((data) => (
+            {tableData.map((data) => (
               <View style={styles.tableRowData}>
                 <View style={styles.tableCellName}>
                   <Text>{data.category}</Text>
@@ -310,7 +306,7 @@ const Result = ({ id }) => {
                   <Text>{`$ ${data.difference}`}</Text>
                 </View>
               </View>
-            ))} */}
+            ))}
           </View>
 
           {/* FIXME: HIGHLITER   Table 2  */}
