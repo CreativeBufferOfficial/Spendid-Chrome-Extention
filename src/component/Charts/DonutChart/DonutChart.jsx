@@ -27,7 +27,7 @@ const DonutChart = ({ id, data, netAnnualIncome }) => {
     const chart = am4core.create(id, am4charts.PieChart);
     // Add data
     // console.log('DATACHART>>>>>>>>>> ', data);
-    chart.data = data ? data : '';
+    chart.data = data;
     // chart.data = [
     //   { name: 'category1', value: 1 },
     //   { name: 'category12', value: 10 },
@@ -84,6 +84,8 @@ const DonutChart = ({ id, data, netAnnualIncome }) => {
     label.horizontalCenter = 'middle';
     label.verticalCenter = 'middle';
 
+    // Disable watermark
+    chart.logo.disabled = true;
     // Clean up on unmount
     return () => {
       chart.dispose();

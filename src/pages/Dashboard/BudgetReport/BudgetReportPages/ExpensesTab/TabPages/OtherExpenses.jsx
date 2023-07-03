@@ -28,13 +28,18 @@ import {
 import { useSelector } from 'react-redux';
 import useFormContext from '../../../../../../hooks/useFormContext';
 const OtherExpenses = () => {
-  const { setOtherExpensesTableData } = useFormContext();
+  const {
+    removeCategoryTableData,
+    setRemoveCategoryTableData,
+    otherExpensesSortedData,
+    setOtherExpensesSortedData,
+  } = useFormContext();
   const { loadingDemographics, demographics } = useSelector(
     (state) => state.demographics
   );
   const { loadingBudgets, budgets } = useSelector((state) => state.budget);
   const [gridView, setGridView] = useState(false);
-  const [sortedData, setSortedData] = useState([]);
+  // const [sortedData, setSortedData] = useState([]);
   const [removeCategory, setRemoveCategory] = useState([]);
 
   const init = () => {
@@ -51,10 +56,7 @@ const OtherExpenses = () => {
         filterDemographicsOtherExpensesData,
         filterBudgetOtherExpensesData
       );
-      setSortedData(filterDemographicsOtherExpensesData);
-      // setOtherExpensesTableData(
-      //   getDiffrenceForTable(filterDemographicsOtherExpensesData)
-      // );
+      setOtherExpensesSortedData(filterDemographicsOtherExpensesData);
     }
   };
 
@@ -62,38 +64,45 @@ const OtherExpenses = () => {
     init();
   }, [demographics, budgets]);
 
-  // console.log('budgetPayload', budgetPayload);
-
   const ascendingHandler = () => {
-    const ascending = sortedData.sort(sortAscending);
-    setSortedData([...ascending]);
+    const ascending = otherExpensesSortedData.sort(sortAscending);
+    otherExpensesSortedData([...ascending]);
   };
   const decendingHandler = () => {
-    const decending = sortedData.sort(sortDescending);
-    setSortedData([...decending]);
+    const decending = otherExpensesSortedData.sort(sortDescending);
+    otherExpensesSortedData([...decending]);
   };
 
   const removeCategoryHandler = (i) => {
-    const removeCategoryData = sortedData.splice(i, 1);
+    const removeCategoryData = otherExpensesSortedData.splice(i, 1);
     setRemoveCategory([...removeCategory, ...removeCategoryData]);
+    setRemoveCategoryTableData((prev) => [...prev, ...removeCategoryData]);
   };
 
   const restoreCategoryHandler = (i) => {
     const restoreCategoryData = removeCategory.splice(i, 1);
-    setSortedData([...sortedData, ...restoreCategoryData]);
+    otherExpensesSortedData([
+      ...otherExpensesSortedData,
+      ...restoreCategoryData,
+    ]);
+    const restore = removeCategoryTableData.filter(
+      (category) => category.category !== restoreCategoryData[0].category
+    );
+    setRemoveCategoryTableData([...restore]);
   };
   const changeViewHandler = () => {
     setGridView((prev) => !prev);
   };
   const selectformDataHandlerChange = (event) => {
     const option = event.target.value;
-    // console.log('option', option);
     if (option === 'Your Amount') {
-      setSortedData([...sortedData.sort(sortDescendingAmount)]);
-      // console.log('sortedDataYourAmount', sortedData);
+      otherExpensesSortedData([
+        ...otherExpensesSortedData.sort(sortDescendingAmount),
+      ]);
     } else if (option === 'Your Peers') {
-      setSortedData([...sortedData.sort(sortDescending)]);
-      // console.log('sortedDataInPeers', sortedData);
+      otherExpensesSortedData([
+        ...otherExpensesSortedData.sort(sortDescending),
+      ]);
     }
   };
   return (
@@ -153,8 +162,8 @@ const OtherExpenses = () => {
         {loadingBudgets ? (
           <Loader />
         ) : (
-          sortedData &&
-          sortedData.map((majorExpense, index) => (
+          otherExpensesSortedData &&
+          otherExpensesSortedData.map((majorExpense, index) => (
             <Expense
               index={index}
               key={majorExpense.category}

@@ -88,6 +88,12 @@ function GaugeChart() {
     scoreLabel.valign = 'bottom';
     scoreLabel.dy = -20;
 
+    // Disable watermark
+    chart.logo.disabled = true;
+
+    // Adjust hiddenState properties for visibility
+    chart.hiddenState.properties.opacity = 1;
+    chart.hiddenState.properties.visible = true;
     if (breakeven >= 100) {
       hand.value = 100;
       scoreLabel.text = `${100}+`;
@@ -100,9 +106,9 @@ function GaugeChart() {
     // Attach the ready event handle
     chart.events.once('ready', () => {
       // Export the chart as an SVG string
-      const svgString1 = chart.exporting.getImage('svg');
+      const svgString1 = chart.exporting.getImage('png');
       svgString1.then((res) => {
-        setScoreChart({ modalChart: res });
+        setScoreChart(res);
       });
     });
 

@@ -5,20 +5,18 @@ import {
   getStructureObject,
   filterMajorExpenses,
   getTabData,
-  getDiffrenceForTable,
 } from '../../../../../../utlis/Helper';
-// import useFormContext from '../../../../../../hooks/useFormContext';
+import useFormContext from '../../../../../../hooks/useFormContext';
 
 const MajorExpense = () => {
-  // let { tableData, setTableData } = useFormContext();
-  console.log('call');
-  // const [majorExpensesTableData, setMajorExpensesTableData] = useState([]);
-
-  const [isMajorExpensesTab, setIsMajorExpensesTab] = useState(true);
-  const [majorExpensesSortedData, setMajorExpensesSortedData] = useState([]);
+  let { majorExpensesSortedData, setMajorExpensesSortedData } =
+    useFormContext();
   const { demographics } = useSelector((state) => state.demographics);
-
   const { loadingBudgets, budgets } = useSelector((state) => state.budget);
+  console.log('call');
+  const [isMajorExpensesTab, setIsMajorExpensesTab] = useState(true);
+  // const [majorExpensesSortedData, setMajorExpensesSortedData] = useState([]);
+
   // console.log('demographics>>>', demographics);
   // console.log('budgets', budgets);
   const init = () => {
@@ -30,14 +28,12 @@ const MajorExpense = () => {
       const budgetMajorExpensess = filterMajorExpenses(budgetObjects);
       getTabData(demographicsMajorExpensess, budgetMajorExpensess);
       setMajorExpensesSortedData(demographicsMajorExpensess);
-      // const differenceData = getDiffrenceForTable(demographicsMajorExpensess);
-      // setTableData(differenceData);
-      // console.log('differenceData>>>>>>>>>>>>>>', differenceData);
     }
   };
+
   useEffect(() => {
-    // init();
-  }, []);
+    init();
+  }, [demographics, budgets]);
   // setTableData(majorExpensesSortedData);
   return (
     <>

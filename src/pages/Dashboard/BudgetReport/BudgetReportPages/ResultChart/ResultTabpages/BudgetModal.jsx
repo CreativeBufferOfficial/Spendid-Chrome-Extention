@@ -18,8 +18,7 @@ import {
 import useFormContext from '../../../../../../hooks/useFormContext';
 
 const BugetModal = ({ id }) => {
-  const { data, setData, categoryInputHandler, chartSvg, setChartSvg } =
-    useFormContext();
+  const { data, setData, categoryInputHandler } = useFormContext();
   const { loadingDemographics, demographics } = useSelector(
     (state) => state.demographics
   );
@@ -39,13 +38,18 @@ const BugetModal = ({ id }) => {
       { category: 'Wants', value: 30 },
       { category: 'Finanical Goals', value: 20 },
     ]);
-    const totalBuget = data.apiReq.demographics.net_annual_income;
+    // const totalBuget = data.apiReq.demographics.net_annual_income;
     const demoghrapic = getStructureObject(demographics);
     const peersNeedData = filterNeeds(demoghrapic);
     const peerWantData = filterOtherExpenses(demoghrapic);
     const peerNeeds = modalValue(peersNeedData);
     const peersWants = modalValue(peerWantData);
-    const peersFinanical_Goals = totalBuget - (peerNeeds + peersWants);
+    const peersFinanical = demoghrapic.find(
+      (category) => category.category === 'Amount to Savings Each Period'
+    );
+    console.log('peersFinanical>>>>>>>>', peersFinanical);
+
+    const peersFinanical_Goals = peersFinanical?.value;
     // console.log('peersNeedData', peersNeedData, 'peerWantData', peerWantData);
     // console.log(
     //   'peerNeeds',
@@ -64,20 +68,23 @@ const BugetModal = ({ id }) => {
     const budget = getStructureObject(budgets);
     const yourNeedData = filterNeeds(budget);
     const yourWantData = filterOtherExpenses(budget);
-
+    console.log('yourNeedData', yourNeedData, 'yourWantData', yourWantData);
     const yourNeeds = modalValue(yourNeedData);
     const yourWants = modalValue(yourWantData);
-    const yourFinanical_Goals = totalBuget - (yourNeeds + yourWants);
-    // console.log('yourNeedData', yourNeedData, 'yourWantData', yourWantData);
+    console.log('yourNeeds', yourNeeds, 'yourWants', yourWants);
+    const yourFinanical = budget.find(
+      (category) => category.category === 'Amount to Savings Each Period'
+    );
+    const yourFinanical_Goals = yourFinanical?.value;
 
-    // console.log(
-    //   'yourNeeds',
-    //   yourNeeds,
-    //   'yourWants',
-    //   yourWants,
-    //   'yourFinanical_Goals',
-    //   yourFinanical_Goals
-    // );
+    console.log(
+      'yourNeeds',
+      yourNeeds,
+      'yourWants',
+      yourWants,
+      'yourFinanical_Goals',
+      yourFinanical_Goals
+    );
 
     setYourData([
       { category: 'Needs', value: yourNeeds },
@@ -90,7 +97,7 @@ const BugetModal = ({ id }) => {
   useEffect(() => {
     init();
   }, []);
-
+  console.log('data>>>', data);
   return (
     <>
       <div className={classes.content}>
@@ -116,33 +123,15 @@ const BugetModal = ({ id }) => {
 
         <div>
           <div className={classes.chart_header_label}>50-30-20 Model</div>
-          <BudgetChart
-            data={ModalData}
-            id={id ? id.chart1 : 'chartdiv1'}
-            // setChartSvg={setChartSvg}
-            // chartSvg={chartSvg}
-            // svg={svg}
-          />
+          <BudgetChart data={ModalData} id={id ? id.chart1 : 'chartdiv1'} />
         </div>
         <div>
           <div className={classes.chart_header_label}>Your Peers</div>
-          <BudgetChart
-            data={peeersData}
-            id={id ? id.chart2 : 'chartdiv2'}
-            // setChartSvg={setChartSvg}
-            // chartSvg={chartSvg}
-            // svg={svg}
-          />
+          <BudgetChart data={peeersData} id={id ? id.chart2 : 'chartdiv2'} />
         </div>
         <div>
           <div className={classes.chart_header_label}>You</div>
-          <BudgetChart
-            data={yourData}
-            id={id ? id.chart3 : 'chartdiv3'}
-            // setChartSvg={setChartSvg}
-            // chartSvg={chartSvg}
-            // svg={svg}
-          />
+          <BudgetChart data={yourData} id={id ? id.chart3 : 'chartdiv3'} />
         </div>
       </div>
     </>

@@ -15,8 +15,11 @@ import {
   filterMonthlyBillExpenses,
   getTabData,
 } from '../../../../../../utlis/Helper';
+import useFormContext from '../../../../../../hooks/useFormContext';
 
 const MonthlyBills = () => {
+  const { removeCategoryTableData, setRemoveCategoryTableData } =
+    useFormContext();
   const { loadingDemographics, demographics } = useSelector(
     (state) => state.demographics
   );
@@ -47,12 +50,18 @@ const MonthlyBills = () => {
 
   const removeCategoryHandler = (i) => {
     const removeCategoryData = sortedData.splice(i, 1);
-    setRemoveCategory([...removeCategory, ...removeCategoryData]);
+    console.log(removeCategoryData);
+    setRemoveCategory((prev) => [...prev, ...removeCategoryData]);
+    setRemoveCategoryTableData((prev) => [...prev, ...removeCategoryData]);
   };
 
   const restoreCategoryHandler = (i) => {
     const restoreCategoryData = removeCategory.splice(i, 1);
     setSortedData([...sortedData, ...restoreCategoryData]);
+    const restore = removeCategoryTableData.filter(
+      (category) => category.category !== restoreCategoryData[0].category
+    );
+    setRemoveCategoryTableData([...restore]);
   };
 
   return (
@@ -73,8 +82,9 @@ const MonthlyBills = () => {
         {loadingBudgets ? (
           <Loader />
         ) : (
-          sortedData.map((monthlybillExpense) => (
+          sortedData.map((monthlybillExpense, index) => (
             <Expense
+              index={index}
               key={monthlybillExpense.category}
               title={monthlybillExpense.category}
               amount1={monthlybillExpense.Amount}

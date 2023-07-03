@@ -52,12 +52,24 @@ const DonutChart = ({ id, data }) => {
     label.horizontalCenter = 'middle';
     label.verticalCenter = 'middle';
 
+    // Disable watermark
+    chart.logo.disabled = true;
+
+    // Adjust animation duration
+    chart.responsive.enabled = true;
+    chart.responsive.useDefault = false;
+    chart.responsive.animationEasing = am4core.ease.sinOut;
+    chart.responsive.animationDuration = 0;
+
+    chart.hiddenState.properties.opacity = 1;
+    chart.hiddenState.properties.visible = true;
+
     // Attach the ready event handle
     chart.events.once('ready', () => {
       // Export the chart as an SVG string
       const svgString1 = chart.exporting.getImage('svg');
       svgString1.then((res) => {
-        console.log('res>>', res);
+        // console.log('res>>', res);
         setChartSvg((prev) => [...prev, res]);
       });
     });

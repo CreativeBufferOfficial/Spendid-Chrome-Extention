@@ -4,7 +4,7 @@ import {
   copyAndMultiplyBudget,
   copyAndMultiplyDemographics,
 } from '../utlis/Helper';
-import { title, transformerData } from '../utlis/HelperData';
+import { transformerData } from '../utlis/HelperData';
 import {
   zipIcon,
   ageIcon,
@@ -69,6 +69,23 @@ export const FormProvider = ({ children }) => {
     },
   ];
 
+  const [globalSelectedIndex, setGlobalSelectedIndex] = useState(
+    Array(10).fill(-1)
+  );
+  const [activeTab, setActiveTab] = useState(0);
+
+  const [page, setPage] = useState(0);
+
+  const [chartSvg, setChartSvg] = useState([]);
+  const [scoreChart, setScoreChart] = useState('');
+  const [barChart, setBarChart] = useState('');
+
+  const [removeCategoryTableData, setRemoveCategoryTableData] = useState([]);
+  console.log('removeCategoryTableData', removeCategoryTableData);
+
+  const [majorExpensesSortedData, setMajorExpensesSortedData] = useState([]);
+  const [otherExpensesSortedData, setOtherExpensesSortedData] = useState([]);
+
   const [data, setData] = useState({
     apiReq: {
       demographics: {
@@ -122,18 +139,6 @@ export const FormProvider = ({ children }) => {
     demographics: { ...inputDemograpicData.apiReq.demographics },
     budget: { ...inputBudgetData.apiReq.budget },
   };
-
-  // const reportPayload = {};
-
-  const [globalSelectedIndex, setGlobalSelectedIndex] = useState(
-    Array(10).fill(-1)
-  );
-  const [page, setPage] = useState(0);
-  const [chartSvg, setChartSvg] = useState([]);
-  console.log('chartSvg', chartSvg);
-
-  const [scoreChart, setScoreChart] = useState('');
-  const [barChart, setBarChart] = useState('');
 
   const categoryInputHandler = (name, value) => {
     setData((data) => {
@@ -198,6 +203,7 @@ export const FormProvider = ({ children }) => {
       return newData;
     });
   };
+  console.log('Data>>>>>>Context', data);
 
   const formDataHandlerChange = (e, i) => {
     if (i !== -1) {
@@ -278,10 +284,6 @@ export const FormProvider = ({ children }) => {
       return newData;
     });
   };
-  const [tableData, setTableData] = useState([]);
-  console.log('tableData', tableData);
-  // console.log('tableData >> 58426++525  >>>', tableData);
-  // const [otherExpensesTableData, setOtherExpensesTableData] = useState([]);
 
   const prevRedirectHome = page === 0;
 
@@ -319,20 +321,22 @@ export const FormProvider = ({ children }) => {
         transformData,
         value,
         setValue,
-        // reportPayload,
+        activeTab,
+        setActiveTab,
         inputDemograpicData,
         inputBudgetData,
         chartSvg,
         setChartSvg,
-        tableData,
-        setTableData,
-        // setTableData,
         scoreChart,
         setScoreChart,
         barChart,
         setBarChart,
-        // otherExpensesTableData,
-        // setOtherExpensesTableData,
+        removeCategoryTableData,
+        setRemoveCategoryTableData,
+        majorExpensesSortedData,
+        setMajorExpensesSortedData,
+        otherExpensesSortedData,
+        setOtherExpensesSortedData,
       }}
     >
       {children}

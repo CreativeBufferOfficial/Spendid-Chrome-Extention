@@ -101,16 +101,21 @@ const BarChart = ({ id }) => {
     series.columns.template.adapter.add('textY', (textY, target) => {
       return -series.columns.template.height / 2;
     });
+    // Disable watermark
+    chart.logo.disabled = true;
+
+    // Adjust hiddenState properties for visibility
+    chart.hiddenState.properties.opacity = 1;
+    chart.hiddenState.properties.visible = true;
 
     // Attach the ready event handle
     chart.events.once('ready', () => {
       // Export the chart as an SVG string
       const svgString1 = chart.exporting.getImage('svg');
       svgString1.then((res) => {
-        setBarChart({ modalChart: res });
+        setBarChart(res);
       });
     });
-
     // Cleanup on component unmount
     return () => {
       chart.dispose();

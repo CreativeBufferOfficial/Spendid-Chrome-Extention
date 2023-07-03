@@ -15,6 +15,7 @@ import {
   getStructureObject,
   getTabData,
   filterCategory,
+  getDiffrenceForTable,
 } from '../../../../../../utlis/Helper';
 import useFormContext from '../../../../../../hooks/useFormContext';
 import { transformerData } from '../../../../../../utlis/HelperData';
@@ -33,18 +34,18 @@ const Result = ({ id }) => {
   const dispatch = useDispatch();
   const { lendings } = useSelector((state) => state.lending);
   const { demographics } = useSelector((state) => state.demographics);
-  // console.log('demographics', demographics);
   const { budgets } = useSelector((state) => state.budget);
   const { loadingScore, scores } = useSelector((state) => state.score);
   const {
     data,
-    // reportPayload,
     inputDemograpicData,
     inputBudgetData,
     chartSvg,
     scoreChart,
     barChart,
-    tableData,
+    removeCategoryTableData,
+    majorExpensesSortedData,
+    otherExpensesSortedData,
   } = useFormContext();
   const { net_annual_income } = data.apiReq.demographics;
   const [savingData, setSavingData] = useState([]);
@@ -68,7 +69,7 @@ const Result = ({ id }) => {
 
   useEffect(() => {
     initial();
-  }, [demographics, budgets, scores]);
+  }, [demographics, budgets]);
 
   // const handleMouseEnter = (event) => {
   //   event.target.classList.add('show');
@@ -183,21 +184,26 @@ const Result = ({ id }) => {
       marginTop: 20,
       textAlign: 'center',
     },
+    ModalChartView: {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'space-evenly',
+    },
+    modalChartCol: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-around',
+      alignItems: 'center',
+    },
   });
 
   const generatePDF = () => {
-    // console.log('chart', chartSvg);
+    const removeCategory = getDiffrenceForTable(removeCategoryTableData);
+    const majorExpensetableData = getDiffrenceForTable(majorExpensesSortedData);
+    const otherExpensestableData = getDiffrenceForTable(
+      otherExpensesSortedData
+    );
 
-    // console.log('scoreChart', scoreChart);
-    // console.log('chart1', chart1);
-    const chartScore = scoreChart?.modalChart;
-    const chartBar = barChart?.modalChart;
-    // const chart2 = chartSvg?.modalChartYours;
-    // const chart3 = chartSvg?.modalChartPeers;
-    // console.log('chart', chart1);
-
-    // console.log('chart', chart2);
-    // console.log('chart', chart3);
     // Create your PDF content
     const MyDocument = (
       <Document>
@@ -244,7 +250,7 @@ const Result = ({ id }) => {
           <View style={styles.section}>
             <Text style={styles.colorText}>Result</Text>
             <View style={styles.result}>
-              <Image src={chartScore} style={styles.imageChart} />
+              <Image src={scoreChart} style={styles.imageChart} />
               <View style={styles.resultContent}>
                 <Text style={styles.resultContentTitle}>
                   Predicted Saving Ability (PSA): $4,263
@@ -262,15 +268,25 @@ const Result = ({ id }) => {
         </Page>
         <Page size="A4" style={styles.page}>
           <Text style={styles.tableText}>Your Opportunities</Text>
-          chartBar
-          <Image src={chartBar} style={styles.imageChart} />
           <Text style={styles.dateText}>Versus Your Peers</Text>
-          <Image src={chartSvg[0]} style={styles.imageChartPageTwo} />
-          <Image src={chartSvg[1]} style={styles.imageChart} />
-          <Image src={chartSvg[2]} style={styles.imageChart} />
+          <Image src={barChart} style={styles.imageChart} />
           <Text style={styles.tableText}>
             50-30-20 Budget Modeling for : Needs / Wants / Financial Goals
           </Text>
+          <View style={styles.ModalChartView}>
+            <View style={styles.modalChartCol}>
+              <Text style={styles.dateText}>50-30-20 Model</Text>
+              <Image src={chartSvg[2]} style={styles.imageChartPageTwo} />
+            </View>
+            <View style={styles.modalChartCol}>
+              <Text style={styles.dateText}>Your Peers</Text>
+              <Image src={chartSvg[1]} style={styles.imageChartPageTwo} />
+            </View>
+            <View style={styles.modalChartCol}>
+              <Text style={styles.dateText}>You</Text>
+              <Image src={chartSvg[0]} style={styles.imageChartPageTwo} />
+            </View>
+          </View>
           {/* <View></View> */}
         </Page>
         <Page size="A4" style={styles.page}>
@@ -291,7 +307,7 @@ const Result = ({ id }) => {
                 <Text>Difference</Text>
               </View>
             </View>
-            {tableData.map((data) => (
+            {majorExpensetableData.map((data) => (
               <View style={styles.tableRowData}>
                 <View style={styles.tableCellName}>
                   <Text>{data.category}</Text>
@@ -326,20 +342,56 @@ const Result = ({ id }) => {
                 <Text>Difference</Text>
               </View>
             </View>
-            <View style={styles.tableRowData}>
+            {otherExpensestableData.map((data) => (
+              <View style={styles.tableRowData}>
+                <View style={styles.tableCellName}>
+                  <Text>{data.category}</Text>
+                </View>
+                <View style={styles.tableCell}>
+                  <Text>{`$ ${data.Amount}`}</Text>
+                </View>
+                <View style={styles.tableCell}>
+                  <Text>{`$ ${data.value}`}</Text>
+                </View>
+                <View style={styles.tableCell}>
+                  <Text>{`$ ${data.difference}`}</Text>
+                </View>
+              </View>
+            ))}
+          </View>
+          <Text style={styles.tableText}>Remove categories</Text>
+          <View style={styles.table}>
+            <View style={styles.tableRowHeader}>
               <View style={styles.tableCellName}>
-                <Text>Groceries</Text>
+                <Text>Name</Text>
               </View>
               <View style={styles.tableCell}>
-                <Text>$ 652</Text>
+                <Text>Your Amount</Text>
               </View>
               <View style={styles.tableCell}>
-                <Text>$ 652</Text>
+                <Text>Your Peers</Text>
               </View>
               <View style={styles.tableCell}>
-                <Text>$ 0</Text>
+                <Text>Difference</Text>
               </View>
             </View>
+
+            {removeCategory.map((data) => (
+              <View style={styles.tableRowData}>
+                <View style={styles.tableCellName}>
+                  <Text>{data.category}</Text>
+                </View>
+                <View style={styles.tableCell}>
+                  <Text>{`$ ${data.Amount}`}</Text>
+                </View>
+                <View style={styles.tableCell}>
+                  <Text>{`$ ${data.value}`}</Text>
+                </View>
+                <View style={styles.tableCell}>
+                  <Text>{`$ ${data.difference}`}</Text>
+                </View>
+              </View>
+            ))}
           </View>
         </Page>
       </Document>
@@ -383,7 +435,7 @@ const Result = ({ id }) => {
       },
       eliminated: {},
     };
-    // console.log('reportPayload', reportPayload);
+    console.log('categoryData', categoryData);
     dispatch(saveReport(reportPayload));
   };
 
