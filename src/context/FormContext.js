@@ -16,6 +16,7 @@ import {
   healthcareIcon,
   incomeIcon,
 } from '../utlis/Imports';
+
 const FormContext = createContext({});
 
 export const FormProvider = ({ children }) => {
@@ -72,7 +73,8 @@ export const FormProvider = ({ children }) => {
   const [globalSelectedIndex, setGlobalSelectedIndex] = useState(
     Array(10).fill(-1)
   );
-  const [activeTab, setActiveTab] = useState(0);
+  const [activeTabNumber, setActiveTabNumber] = useState('');
+  // console.log('activeTabNumber', activeTabNumber);
 
   const [page, setPage] = useState(0);
 
@@ -81,9 +83,10 @@ export const FormProvider = ({ children }) => {
   const [barChart, setBarChart] = useState('');
 
   const [removeCategoryTableData, setRemoveCategoryTableData] = useState([]);
-  console.log('removeCategoryTableData', removeCategoryTableData);
+  // console.log('removeCategoryTableData', removeCategoryTableData);
 
   const [majorExpensesSortedData, setMajorExpensesSortedData] = useState([]);
+
   const [otherExpensesSortedData, setOtherExpensesSortedData] = useState([]);
 
   const [data, setData] = useState({
@@ -100,7 +103,7 @@ export const FormProvider = ({ children }) => {
         other_debt_payments: 572,
         mortgage_and_rent: 952,
         vehicle_purchase_and_lease: 654,
-        health_insurance: 0,
+        health_insurance: 10,
       },
     },
   });
@@ -321,8 +324,8 @@ export const FormProvider = ({ children }) => {
         transformData,
         value,
         setValue,
-        activeTab,
-        setActiveTab,
+        activeTabNumber,
+        setActiveTabNumber,
         inputDemograpicData,
         inputBudgetData,
         chartSvg,

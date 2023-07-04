@@ -47,7 +47,7 @@ const BugetModal = ({ id }) => {
     const peersFinanical = demoghrapic.find(
       (category) => category.category === 'Amount to Savings Each Period'
     );
-    console.log('peersFinanical>>>>>>>>', peersFinanical);
+    // console.log('peersFinanical>>>>>>>>', peersFinanical);
 
     const peersFinanical_Goals = peersFinanical?.value;
     // console.log('peersNeedData', peersNeedData, 'peerWantData', peerWantData);
@@ -68,23 +68,23 @@ const BugetModal = ({ id }) => {
     const budget = getStructureObject(budgets);
     const yourNeedData = filterNeeds(budget);
     const yourWantData = filterOtherExpenses(budget);
-    console.log('yourNeedData', yourNeedData, 'yourWantData', yourWantData);
+    // console.log('yourNeedData', yourNeedData, 'yourWantData', yourWantData);
     const yourNeeds = modalValue(yourNeedData);
     const yourWants = modalValue(yourWantData);
-    console.log('yourNeeds', yourNeeds, 'yourWants', yourWants);
+    // console.log('yourNeeds', yourNeeds, 'yourWants', yourWants);
     const yourFinanical = budget.find(
       (category) => category.category === 'Amount to Savings Each Period'
     );
     const yourFinanical_Goals = yourFinanical?.value;
 
-    console.log(
-      'yourNeeds',
-      yourNeeds,
-      'yourWants',
-      yourWants,
-      'yourFinanical_Goals',
-      yourFinanical_Goals
-    );
+    // console.log(
+    //   'yourNeeds',
+    //   yourNeeds,
+    //   'yourWants',
+    //   yourWants,
+    //   'yourFinanical_Goals',
+    //   yourFinanical_Goals
+    // );
 
     setYourData([
       { category: 'Needs', value: yourNeeds },
@@ -97,7 +97,7 @@ const BugetModal = ({ id }) => {
   useEffect(() => {
     init();
   }, []);
-  console.log('data>>>', data);
+  // console.log('data>>>', data);
   return (
     <>
       <div className={classes.content}>

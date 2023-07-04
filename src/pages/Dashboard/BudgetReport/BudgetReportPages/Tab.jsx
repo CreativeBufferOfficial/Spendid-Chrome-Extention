@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import classes from './Tab.module.css';
+import useFormContext from '../../../../hooks/useFormContext';
 
 const ResultPageInput = ({ tabs }) => {
+  const { activeTabNumber, setActiveTabNumber } = useFormContext();
   const [activeTab, setActiveTab] = useState(0);
 
   const handleTabClick = (index) => {
     setActiveTab(index);
+    setActiveTabNumber(index);
   };
 
   return (

@@ -7,8 +7,11 @@ import {
   getTabData,
 } from '../../../../../../utlis/Helper';
 import useFormContext from '../../../../../../hooks/useFormContext';
+// import { debounce } from 'lodash';
+// import { useDispatch } from 'react-redux';
 
 const MajorExpense = () => {
+  // const dispatch = useDispatch();
   let { majorExpensesSortedData, setMajorExpensesSortedData } =
     useFormContext();
   const { demographics } = useSelector((state) => state.demographics);
@@ -19,7 +22,21 @@ const MajorExpense = () => {
 
   // console.log('demographics>>>', demographics);
   // console.log('budgets', budgets);
-  const init = () => {
+  // const init = () => {
+  //   if (demographics && budgets) {
+  //     const demographicsObjects = getStructureObject(demographics);
+  //     const budgetObjects = getStructureObject(budgets);
+  //     const demographicsMajorExpensess =
+  //       filterMajorExpenses(demographicsObjects);
+  //     const budgetMajorExpensess = filterMajorExpenses(budgetObjects);
+  //     getTabData(demographicsMajorExpensess, budgetMajorExpensess);
+  //     console.log('inside init');
+  //     setMajorExpensesSortedData(demographicsMajorExpensess);
+  //     console.log('inside init if');
+  //   }
+  // };
+
+  useEffect(() => {
     if (demographics && budgets) {
       const demographicsObjects = getStructureObject(demographics);
       const budgetObjects = getStructureObject(budgets);
@@ -27,13 +44,12 @@ const MajorExpense = () => {
         filterMajorExpenses(demographicsObjects);
       const budgetMajorExpensess = filterMajorExpenses(budgetObjects);
       getTabData(demographicsMajorExpensess, budgetMajorExpensess);
+      console.log('inside init');
       setMajorExpensesSortedData(demographicsMajorExpensess);
+      console.log('inside init if');
     }
-  };
-
-  useEffect(() => {
-    init();
   }, [demographics, budgets]);
+
   // setTableData(majorExpensesSortedData);
   return (
     <>

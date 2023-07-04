@@ -5,6 +5,7 @@ import { HomeTabsViews } from './BudgetReportPages/ExpensesTab/TabViews/HomeTabs
 import { ChartTabs } from './BudgetReportPages/ResultChart/ResultTabChartView';
 import { Button, Header } from '../../../utlis/Imports';
 import useFormContext from '../../../hooks/useFormContext';
+// import { debounce } from 'lodash';
 import {
   LendingGenerate,
   demographicsGenerate,
@@ -25,6 +26,7 @@ const AllResult = () => {
     budgetPayload,
     scorePayload,
     setValue,
+    activeTabNumber,
   } = useFormContext();
   const [resetFlag, setResetFlag] = useState(false);
 
@@ -66,7 +68,7 @@ const AllResult = () => {
     }));
 
     setNetIncome([{ frequency: '', amount: 0 }]);
-    setResetFlag(true);
+    // setResetFlag(true);
     setValue(1);
   };
 
@@ -93,6 +95,7 @@ const AllResult = () => {
     navigate('/');
     removeAuth();
   };
+  console.log('ALLRESULT');
 
   return (
     // <>
@@ -114,7 +117,7 @@ const AllResult = () => {
       <Button clearInput={clearInput} text="Clear Inputs" />
       <Button clearInput={logout} text="Logout" />
       <Tab tabs={HomeTabsViews} />
-      <Tab tabs={ChartTabs} />
+      {activeTabNumber === 4 ? '' : <Tab tabs={ChartTabs} />}
     </>
   );
 };

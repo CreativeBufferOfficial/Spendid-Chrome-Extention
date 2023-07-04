@@ -50,7 +50,7 @@ const MonthlyBills = () => {
 
   const removeCategoryHandler = (i) => {
     const removeCategoryData = sortedData.splice(i, 1);
-    console.log(removeCategoryData);
+    // console.log(removeCategoryData);
     setRemoveCategory((prev) => [...prev, ...removeCategoryData]);
     setRemoveCategoryTableData((prev) => [...prev, ...removeCategoryData]);
   };

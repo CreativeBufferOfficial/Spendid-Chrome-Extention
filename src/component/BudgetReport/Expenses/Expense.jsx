@@ -1,14 +1,7 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import classes from './Expense.module.css';
 import { edit, close } from '../../../utlis/Imports';
 import useFormContext from '../../../hooks/useFormContext';
-
-import {
-  LendingGenerate,
-  demographicsGenerate,
-  budgetsGenerate,
-  scoresGenerate,
-} from '../../../action/actions';
 
 const Expense = ({
   index,
@@ -66,7 +59,7 @@ const Expense = ({
       <div className={classes.expenses}>
         <div className={classes.payment_view_field}>
           <div className={classes.title}>
-            <p>{title}</p>{' '}
+            <p>{title}</p>
             {isMajorExpensesTab ? (
               ''
             ) : (

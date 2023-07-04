@@ -50,6 +50,7 @@ const Result = ({ id }) => {
   const { net_annual_income } = data.apiReq.demographics;
   const [savingData, setSavingData] = useState([]);
   const [categoryData, setCategoryData] = useState([]);
+  const [savingPDFData, setSavingPDFData] = useState('');
 
   const initial = () => {
     if (demographics && budgets && scores) {
@@ -63,6 +64,10 @@ const Result = ({ id }) => {
 
       setSavingData(demographicsMajorExpensess);
       setCategoryData(category);
+      const savings = budgetObjects.find(
+        (category) => category.category === 'Amount to Savings Each Period'
+      );
+      setSavingPDFData(savings?.value);
     }
   };
   // console.log('chartSvg', chartSvg);
@@ -120,6 +125,17 @@ const Result = ({ id }) => {
     },
     dateText: {
       fontSize: 12,
+    },
+    chartText: {
+      textAlign: 'left',
+      fontSize: 18,
+      marginTop: 20,
+      marginLeft: 20,
+    },
+    chartText2: {
+      fontSize: 12,
+      marginTop: 10,
+      marginLeft: 20,
     },
     table: {
       marginTop: 10,
@@ -188,6 +204,7 @@ const Result = ({ id }) => {
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'space-evenly',
+      marginTop: 15,
     },
     modalChartCol: {
       display: 'flex',
@@ -203,6 +220,26 @@ const Result = ({ id }) => {
     const otherExpensestableData = getDiffrenceForTable(
       otherExpensesSortedData
     );
+    const today = new Date();
+    const day = String(today.getDate()).padStart(2, '0');
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const year = today.getFullYear();
+    const formattedDate = `${day}-${month}-${year}`;
+
+    const { zip, age, net_annual_income, is_homeowner, household_members } =
+      data?.apiReq?.demographics;
+
+    // console.log('zip', zip, 'age', age, 'net_annual_income', net_annual_income);
+    // console.log('savingPDFData', savingPDFData);
+    // console.log('formattedDate', formattedDate);
+    // console.log(
+    //   'chartSvg',
+    //   chartSvg,
+    //   'scoreChart',
+    //   scoreChart,
+    //   'barChart',
+    //   barChart
+    // );
 
     // Create your PDF content
     const MyDocument = (
@@ -211,7 +248,7 @@ const Result = ({ id }) => {
           <View style={styles.section}>
             <Image src={Logo} style={styles.image} />
             <Text style={styles.colorText}>Report Date</Text>
-            <Text style={styles.dateText}>13-06-2023</Text>
+            <Text style={styles.dateText}>{formattedDate}</Text>
           </View>
 
           <View style={styles.section}>
@@ -225,7 +262,7 @@ const Result = ({ id }) => {
                   <Text>Net Take Home Pay</Text>
                 </View>
                 <View style={styles.tableCellYourAmount}>
-                  <Text>$ 10000</Text>
+                  <Text>{`${net_annual_income}`}</Text>
                 </View>
               </View>
               <View style={styles.tableRowData}>
@@ -233,7 +270,7 @@ const Result = ({ id }) => {
                   <Text>5-Digit Zip Code</Text>
                 </View>
                 <View style={styles.tableCellYourAmount}>
-                  <Text>14001</Text>
+                  <Text>{zip}</Text>
                 </View>
               </View>
               <View style={styles.tableRowData}>
@@ -241,7 +278,23 @@ const Result = ({ id }) => {
                   <Text>Age</Text>
                 </View>
                 <View style={styles.tableCellYourAmount}>
-                  <Text>25</Text>
+                  <Text>{age}</Text>
+                </View>
+              </View>
+              <View style={styles.tableRowData}>
+                <View style={styles.tableCellYourAmount}>
+                  <Text>HouseHold</Text>
+                </View>
+                <View style={styles.tableCellYourAmount}>
+                  <Text>{household_members}</Text>
+                </View>
+              </View>
+              <View style={styles.tableRowData}>
+                <View style={styles.tableCellYourAmount}>
+                  <Text>HouseType</Text>
+                </View>
+                <View style={styles.tableCellYourAmount}>
+                  <Text>{is_homeowner ? 'Owner' : 'Renter'}</Text>
                 </View>
               </View>
             </View>
@@ -253,22 +306,22 @@ const Result = ({ id }) => {
               <Image src={scoreChart} style={styles.imageChart} />
               <View style={styles.resultContent}>
                 <Text style={styles.resultContentTitle}>
-                  Predicted Saving Ability (PSA): $4,263
+                  {`Predicted Saving Ability (PSA): $ ${savingPDFData}`}
                 </Text>
                 <Text style={styles.resultText}>
-                  It looks like you're doing all the right things budget-wise.
+                  {`It looks like you're doing all the right things budget-wise.
                   Do you have an active strategy for growing your savings, and
-                  investing for the future? Be sure to sweep at least $4,263
+                  investing for the future? Be sure to sweep at least $ ${savingPDFData}
                   into investments appropriate for your age and risk tolerance.
-                  Do this, and your financial future looks bright!
+                  Do this, and your financial future looks bright!`}
                 </Text>
               </View>
             </View>
           </View>
         </Page>
         <Page size="A4" style={styles.page}>
-          <Text style={styles.tableText}>Your Opportunities</Text>
-          <Text style={styles.dateText}>Versus Your Peers</Text>
+          <Text style={styles.chartText}>Your Opportunities</Text>
+          <Text style={styles.chartText2}>Versus Your Peers</Text>
           <Image src={barChart} style={styles.imageChart} />
           <Text style={styles.tableText}>
             50-30-20 Budget Modeling for : Needs / Wants / Financial Goals
@@ -276,18 +329,26 @@ const Result = ({ id }) => {
           <View style={styles.ModalChartView}>
             <View style={styles.modalChartCol}>
               <Text style={styles.dateText}>50-30-20 Model</Text>
-              <Image src={chartSvg[2]} style={styles.imageChartPageTwo} />
+              <Image
+                src={chartSvg[chartSvg.length - 1]}
+                style={styles.imageChartPageTwo}
+              />
             </View>
             <View style={styles.modalChartCol}>
               <Text style={styles.dateText}>Your Peers</Text>
-              <Image src={chartSvg[1]} style={styles.imageChartPageTwo} />
+              <Image
+                src={chartSvg[chartSvg.length - 2]}
+                style={styles.imageChartPageTwo}
+              />
             </View>
             <View style={styles.modalChartCol}>
               <Text style={styles.dateText}>You</Text>
-              <Image src={chartSvg[0]} style={styles.imageChartPageTwo} />
+              <Image
+                src={chartSvg[chartSvg.length - 3]}
+                style={styles.imageChartPageTwo}
+              />
             </View>
           </View>
-          {/* <View></View> */}
         </Page>
         <Page size="A4" style={styles.page}>
           {/* FIXME: HIGHLIGTER   Table 1  */}
@@ -435,7 +496,7 @@ const Result = ({ id }) => {
       },
       eliminated: {},
     };
-    console.log('categoryData', categoryData);
+    // console.log('categoryData', categoryData);
     dispatch(saveReport(reportPayload));
   };
 
