@@ -31,8 +31,7 @@ const MonthlyBills = () => {
     if (demographics && budgets) {
       const demographicsMonthlyBillObject = getStructureObject(demographics);
       const budgetsMonthlyBillObject = getStructureObject(budgets);
-      // console.log(demographicsMonthlyBillObject);
-      // console.log(budgetsMonthlyBillObject);
+
       const filterdemographicsMonthlyBill = filterMonthlyBillExpenses(
         demographicsMonthlyBillObject
       );

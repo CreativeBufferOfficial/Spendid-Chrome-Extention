@@ -11,9 +11,9 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import {
   getStructureObject,
-  filterOtherExpenses,
   filterNeeds,
-  modalValue,
+  filterWants,
+  modalBudgetSum,
 } from '../../../../../../utlis/Helper';
 import useFormContext from '../../../../../../hooks/useFormContext';
 
@@ -23,6 +23,8 @@ const BugetModal = ({ id }) => {
     (state) => state.demographics
   );
   const { loadingBudgets, budgets } = useSelector((state) => state.budget);
+  console.log('demographics', demographics);
+  console.log('budgets', budgets);
 
   const [ModalData, setModalData] = useState([]);
   const [peeersData, setPeersData] = useState([]);
@@ -41,9 +43,9 @@ const BugetModal = ({ id }) => {
     // const totalBuget = data.apiReq.demographics.net_annual_income;
     const demoghrapic = getStructureObject(demographics);
     const peersNeedData = filterNeeds(demoghrapic);
-    const peerWantData = filterOtherExpenses(demoghrapic);
-    const peerNeeds = modalValue(peersNeedData);
-    const peersWants = modalValue(peerWantData);
+    const peerWantData = filterWants(demoghrapic);
+    const peerNeeds = modalBudgetSum(peersNeedData);
+    const peersWants = modalBudgetSum(peerWantData);
     const peersFinanical = demoghrapic.find(
       (category) => category.category === 'Amount to Savings Each Period'
     );
@@ -67,10 +69,10 @@ const BugetModal = ({ id }) => {
     ]);
     const budget = getStructureObject(budgets);
     const yourNeedData = filterNeeds(budget);
-    const yourWantData = filterOtherExpenses(budget);
-    // console.log('yourNeedData', yourNeedData, 'yourWantData', yourWantData);
-    const yourNeeds = modalValue(yourNeedData);
-    const yourWants = modalValue(yourWantData);
+    const yourWantData = filterWants(budget);
+    console.log('yourNeedData', yourNeedData, 'yourWantData', yourWantData);
+    const yourNeeds = modalBudgetSum(yourNeedData);
+    const yourWants = modalBudgetSum(yourWantData);
     // console.log('yourNeeds', yourNeeds, 'yourWants', yourWants);
     const yourFinanical = budget.find(
       (category) => category.category === 'Amount to Savings Each Period'

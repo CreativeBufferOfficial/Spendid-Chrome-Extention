@@ -167,13 +167,35 @@ export const categories = [
 
 export const needsCategories = [
   'Rent or Mortgage Payment',
+  'Life & Other Personal Insurance',
+  'Medical Spending',
   'Health Insurance',
-  'Car Payments',
-  'Other Debt Payments & Obligations',
-  'Charitable Giving',
-  'Utilities - Power Bill',
+  'Transportation Fares',
   'Car Insurance',
+  'Car Maintenance',
+  'Gasoline & EV-Charging',
+  'Clothing & Jewelry',
+  'Home Appliances & Furniture',
+  'Home Maintenance & Services',
   'Utilities - Other',
-  'Cable / Internet / Streaming',
   'Phone Services',
+  'Babysitting / Preschool / Eldercare',
+  'Utilities - Power Bill',
+  'Groceries',
+];
+export const wantsCategories = [
+  'Charitable Giving',
+  'Education',
+  'Fun & Leisure',
+  'Dining Out',
+  'Cable / Internet / Streaming',
+  'Miscellaneous',
+  'Vacation & Other Lodging',
+  'Personal Care Products and Services',
+  'Pets',
+  'Car Payments',
+];
+export const savingCategories = [
+  'Other Debt Payments & Obligations',
+  'Amount to Savings Each Period',
 ];

@@ -7,7 +7,7 @@ import classes from './GaugeChart.module.css';
 import { useSelector } from 'react-redux';
 import useFormContext from '../../../hooks/useFormContext';
 
-function GaugeChart() {
+function GaugeChart({ id }) {
   const { setScoreChart } = useFormContext();
 
   const { scores } = useSelector((state) => state.score);
@@ -17,7 +17,7 @@ function GaugeChart() {
 
   useEffect(() => {
     // Create chart instance
-    const chart = am4core.create(chartRef.current, am4charts.GaugeChart);
+    const chart = am4core.create(id, am4charts.GaugeChart);
     chart.hiddenState.properties.opacity = 0; // this makes initial fade in effect
     chart.innerRadius = -50;
     let colorSet = new am4core.ColorSet();
@@ -119,7 +119,7 @@ function GaugeChart() {
 
   return (
     <div className={classes.gauge_parent}>
-      <div ref={chartRef} className={classes.gauge} />
+      <div ref={chartRef} id={id} className={classes.gauge} />
       <div>
         <img src={iBtn} alt="i_btn" />
       </div>

@@ -31,8 +31,8 @@ const OtherExpenses = () => {
   const {
     removeCategoryTableData,
     setRemoveCategoryTableData,
-    otherExpensesSortedData,
-    setOtherExpensesSortedData,
+    // otherExpensesSortedData,
+    // setOtherExpensesSortedData,
   } = useFormContext();
   const { loadingDemographics, demographics } = useSelector(
     (state) => state.demographics
@@ -41,6 +41,7 @@ const OtherExpenses = () => {
   const [gridView, setGridView] = useState(false);
   // const [sortedData, setSortedData] = useState([]);
   const [removeCategory, setRemoveCategory] = useState([]);
+  const [otherExpensesSortedData, setOtherExpensesSortedData] = useState([]);
 
   const init = () => {
     if (demographics && budgets) {

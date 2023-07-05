@@ -3,7 +3,7 @@ import classes from './Tab.module.css';
 import useFormContext from '../../../../hooks/useFormContext';
 
 const ResultPageInput = ({ tabs }) => {
-  const { activeTabNumber, setActiveTabNumber } = useFormContext();
+  const { setActiveTabNumber } = useFormContext();
   const [activeTab, setActiveTab] = useState(0);
 
   const handleTabClick = (index) => {

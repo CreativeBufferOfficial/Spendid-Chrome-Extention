@@ -85,9 +85,9 @@ export const FormProvider = ({ children }) => {
   const [removeCategoryTableData, setRemoveCategoryTableData] = useState([]);
   // console.log('removeCategoryTableData', removeCategoryTableData);
 
-  const [majorExpensesSortedData, setMajorExpensesSortedData] = useState([]);
+  // const [majorExpensesSortedData, setMajorExpensesSortedData] = useState([]);
 
-  const [otherExpensesSortedData, setOtherExpensesSortedData] = useState([]);
+  // const [otherExpensesSortedData, setOtherExpensesSortedData] = useState([]);
 
   const [data, setData] = useState({
     apiReq: {
@@ -336,10 +336,6 @@ export const FormProvider = ({ children }) => {
         setBarChart,
         removeCategoryTableData,
         setRemoveCategoryTableData,
-        majorExpensesSortedData,
-        setMajorExpensesSortedData,
-        otherExpensesSortedData,
-        setOtherExpensesSortedData,
       }}
     >
       {children}

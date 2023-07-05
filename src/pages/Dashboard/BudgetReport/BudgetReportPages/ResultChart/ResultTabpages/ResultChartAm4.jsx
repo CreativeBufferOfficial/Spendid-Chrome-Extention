@@ -16,6 +16,9 @@ import {
   getTabData,
   filterCategory,
   getDiffrenceForTable,
+  getPDfGenerateDate,
+  filterMajorExpenses,
+  filterOtherExpenses,
 } from '../../../../../../utlis/Helper';
 import useFormContext from '../../../../../../hooks/useFormContext';
 import { transformerData } from '../../../../../../utlis/HelperData';
@@ -30,11 +33,13 @@ import {
   Image,
 } from '@react-pdf/renderer';
 
-const Result = ({ id }) => {
+const Result = ({ id, id2 }) => {
   const dispatch = useDispatch();
   const { lendings } = useSelector((state) => state.lending);
-  const { demographics } = useSelector((state) => state.demographics);
-  const { budgets } = useSelector((state) => state.budget);
+  const { loadingDemographics, demographics } = useSelector(
+    (state) => state.demographics
+  );
+  const { loadingBudgets, budgets } = useSelector((state) => state.budget);
   const { loadingScore, scores } = useSelector((state) => state.score);
   const {
     data,
@@ -44,38 +49,89 @@ const Result = ({ id }) => {
     scoreChart,
     barChart,
     removeCategoryTableData,
-    majorExpensesSortedData,
-    otherExpensesSortedData,
   } = useFormContext();
   const { net_annual_income } = data.apiReq.demographics;
   const [savingData, setSavingData] = useState([]);
   const [categoryData, setCategoryData] = useState([]);
   const [savingPDFData, setSavingPDFData] = useState('');
+  const [majorExpTableData, setMajorExpTableData] = useState([]);
+  const [otherExpTableData, setOtherExpTableData] = useState([]);
 
-  const initial = () => {
-    if (demographics && budgets && scores) {
-      const demographicsObjects = getStructureObject(demographics);
-      const budgetObjects = getStructureObject(budgets);
-      const category = filterCategory(budgetObjects);
+  // const structureData = (demographics, budgets) => {
+  //   // debugger;
+  //   const mergeDemographics = getStructureObject(demographics);
+  //   const mergeBudget = getStructureObject(budgets);
+  //   return { mergeDemographics, mergeBudget };
+  // };
+  // const initial = () => {
+  // if (demographics && budgets) {
+  //   // const mergeDemographics = getStructureObject(demographics);
+  //   // const mergeBudget = getStructureObject(budgets);
 
-      const demographicsMajorExpensess = filterSavings(demographicsObjects);
-      const budgetMajorExpensess = filterSavings(budgetObjects);
-      getTabData(demographicsMajorExpensess, budgetMajorExpensess);
+  //   const { mergeDemographics, mergeBudget } = structureData(
+  //     demographics,
+  //     budgets
+  //   );
+  //   const category = filterCategory(mergeBudget);
+  //   const demographicsMajorExpensess = filterSavings(mergeDemographics);
+  //   const budgetMajorExpensess = filterSavings(mergeBudget);
+  //   getTabData(demographicsMajorExpensess, budgetMajorExpensess);
 
-      setSavingData(demographicsMajorExpensess);
-      setCategoryData(category);
-      const savings = budgetObjects.find(
-        (category) => category.category === 'Amount to Savings Each Period'
-      );
-      setSavingPDFData(savings?.value);
-    }
-  };
+  //   setSavingData(demographicsMajorExpensess);
+  //   setCategoryData(category);
+  //   const savings = mergeBudget.find(
+  //     (category) => category.category === 'Amount to Savings Each Period'
+  //   );
+  //   setSavingPDFData(savings?.value);
+  // }
+  // };
   // console.log('chartSvg', chartSvg);
 
   useEffect(() => {
-    initial();
-  }, [demographics, budgets]);
+    // initial();
+    if (demographics && budgets) {
+      const mergeDemographics = getStructureObject(demographics);
+      const mergeBudget = getStructureObject(budgets);
+      // debugger;
+      // const { mergeDemographics, mergeBudget } = structureData(
+      //   demographics,
+      //   budgets
+      // );
 
+      //Major Expenses Table Data
+      const demographicsMajorExp = filterMajorExpenses(mergeDemographics);
+      const budgetMajorExp = filterMajorExpenses(mergeBudget);
+      getTabData(demographicsMajorExp, budgetMajorExp);
+      const majorExpensetableData = getDiffrenceForTable(demographicsMajorExp);
+      setMajorExpTableData(majorExpensetableData);
+
+      // Other Expenses Table Data
+      const demographicsOtherExp = filterOtherExpenses(mergeDemographics);
+      const budgetOtherExp = filterOtherExpenses(mergeBudget);
+      getTabData(demographicsOtherExp, budgetOtherExp);
+      const otherExpensestableData = getDiffrenceForTable(demographicsOtherExp);
+      setOtherExpTableData(otherExpensestableData);
+
+      //Chart Category Data
+      const category = filterCategory(mergeBudget);
+      setCategoryData(category);
+
+      // Saving Data
+      const demographicsMajorExpensess = filterSavings(mergeDemographics);
+      const budgetMajorExpensess = filterSavings(mergeBudget);
+      getTabData(demographicsMajorExpensess, budgetMajorExpensess);
+      setSavingData(demographicsMajorExpensess);
+
+      //
+      const savings = mergeBudget.find(
+        (category) => category.category === 'Amount to Savings Each Period'
+      );
+      setSavingPDFData(savings?.value);
+      console.log('Saving>>>>>>>>>>>>>>', savingData);
+      console.log('savingPDFData>>>>>>>>>>>>>>>', savingPDFData);
+    }
+  }, [demographics, budgets]);
+  console.log('savingPDFData', savingPDFData);
   // const handleMouseEnter = (event) => {
   //   event.target.classList.add('show');
   // };
@@ -84,6 +140,7 @@ const Result = ({ id }) => {
   // };
   // console.log('inputDemograpicData', inputDemograpicData);
   // console.log('inputBudgetData', inputBudgetData);
+  // debugger;
 
   // Create styles
   const styles = StyleSheet.create({
@@ -215,31 +272,46 @@ const Result = ({ id }) => {
   });
 
   const generatePDF = () => {
+    // Remove Category Table Data
     const removeCategory = getDiffrenceForTable(removeCategoryTableData);
-    const majorExpensetableData = getDiffrenceForTable(majorExpensesSortedData);
-    const otherExpensestableData = getDiffrenceForTable(
-      otherExpensesSortedData
-    );
-    const today = new Date();
-    const day = String(today.getDate()).padStart(2, '0');
-    const month = String(today.getMonth() + 1).padStart(2, '0');
-    const year = today.getFullYear();
-    const formattedDate = `${day}-${month}-${year}`;
+
+    // const { mergeDemographics, mergeBudget } = structureData(
+    //   demographics,
+    //   budgets
+    // );
+
+    // const mergeDemographics = getStructureObject(demographics);
+    // const mergeBudget = getStructureObject(budgets);
+    // console.log(
+    //   'mergeDemographics',
+    //   mergeDemographics,
+    //   'mergeBudget',
+    //   mergeBudget
+    // );
+
+    // Major Expenses Table Data
+    // const demographicsMajorExpensess = filterMajorExpenses(mergeDemographics);
+    // const budgetMajorExpensess = filterMajorExpenses(mergeBudget);
+    // getTabData(demographicsMajorExpensess, budgetMajorExpensess);
+    // const majorExpensetableData = getDiffrenceForTable(
+    //   demographicsMajorExpensess
+    // );
+
+    // Other Expenses Table Data
+    // const filterDemographicsOtherExpensesData =
+    //   filterOtherExpenses(mergeDemographics);
+    // const filterBudgetOtherExpensesData = filterOtherExpenses(mergeBudget);
+    // getTabData(
+    //   filterDemographicsOtherExpensesData,
+    //   filterBudgetOtherExpensesData
+    // );
+    // const otherExpensestableData = getDiffrenceForTable(
+    //   filterDemographicsOtherExpensesData
+    // );
 
     const { zip, age, net_annual_income, is_homeowner, household_members } =
       data?.apiReq?.demographics;
-
-    // console.log('zip', zip, 'age', age, 'net_annual_income', net_annual_income);
-    // console.log('savingPDFData', savingPDFData);
-    // console.log('formattedDate', formattedDate);
-    // console.log(
-    //   'chartSvg',
-    //   chartSvg,
-    //   'scoreChart',
-    //   scoreChart,
-    //   'barChart',
-    //   barChart
-    // );
+    const date = getPDfGenerateDate();
 
     // Create your PDF content
     const MyDocument = (
@@ -248,7 +320,7 @@ const Result = ({ id }) => {
           <View style={styles.section}>
             <Image src={Logo} style={styles.image} />
             <Text style={styles.colorText}>Report Date</Text>
-            <Text style={styles.dateText}>{formattedDate}</Text>
+            <Text style={styles.dateText}>{date}</Text>
           </View>
 
           <View style={styles.section}>
@@ -368,7 +440,7 @@ const Result = ({ id }) => {
                 <Text>Difference</Text>
               </View>
             </View>
-            {majorExpensetableData.map((data) => (
+            {majorExpTableData.map((data) => (
               <View style={styles.tableRowData}>
                 <View style={styles.tableCellName}>
                   <Text>{data.category}</Text>
@@ -403,7 +475,7 @@ const Result = ({ id }) => {
                 <Text>Difference</Text>
               </View>
             </View>
-            {otherExpensestableData.map((data) => (
+            {otherExpTableData.map((data) => (
               <View style={styles.tableRowData}>
                 <View style={styles.tableCellName}>
                   <Text>{data.category}</Text>
@@ -496,13 +568,13 @@ const Result = ({ id }) => {
       },
       eliminated: {},
     };
-    // console.log('categoryData', categoryData);
     dispatch(saveReport(reportPayload));
   };
+  console.log('categoryData', categoryData);
 
   return (
     <>
-      {loadingScore ? (
+      {loadingScore && loadingBudgets && loadingDemographics ? (
         <Loader />
       ) : (
         <>
@@ -511,17 +583,17 @@ const Result = ({ id }) => {
               <div className={classes.designBox}></div>
               <p>Your result</p>
             </div>
-            <ResultTitle
+            {/* <ResultTitle
               title="SPENDiD Budget Health Score"
               // handleMouseEnter={handleMouseEnter}
               // handleMouseLeave={handleMouseLeave}
-            />
+            /> */}
             {/* <div className={classes.popup_overlay}></div>
         <div className={classes.popup_content}>
           <h3>Popup Content</h3>
           <p>This is a popup view that appears on hover.</p>
         </div> */}
-            <GaugeChart scores={scores && scores} />
+            <GaugeChart id={id2} />
             <ResultTitle
               title="Monthly Predicted Saving Ability"
               // handleMouseEnter={handleMouseEnter}
@@ -550,11 +622,13 @@ const Result = ({ id }) => {
         </div> */}
             <ResultTitle title="Budget By Category" />
 
-            <DonutChart
-              id={id}
-              data={categoryData}
-              netAnnualIncome={net_annual_income}
-            />
+            {categoryData && (
+              <DonutChart
+                id={id}
+                data={categoryData}
+                netAnnualIncome={net_annual_income}
+              />
+            )}
 
             <div className={classes.btn_Report}>
               <PDFDownloadLink

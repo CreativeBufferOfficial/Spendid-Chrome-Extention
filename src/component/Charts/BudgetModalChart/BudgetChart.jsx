@@ -13,7 +13,7 @@ const DonutChart = ({ id, data }) => {
     const chart = am4core.create(id, am4charts.PieChart);
     // console.log('data>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', data);
     // Add data
-    chart.data = data;
+    chart.data = data && data;
 
     // chart.data = [
     //     { category: "Category 1", value: 20 },

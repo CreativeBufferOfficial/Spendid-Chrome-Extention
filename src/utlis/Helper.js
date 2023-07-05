@@ -1,9 +1,12 @@
+import { saveReport } from '../action/actions';
 import {
   majorExpenseCategories,
   monthlyBillExpenseCategories,
   otherExpenseCategories,
   categories,
   needsCategories,
+  wantsCategories,
+  savingCategories,
 } from './HelperData';
 
 export const getStructureObject = (obj) => {
@@ -95,8 +98,14 @@ export const getDiffrenceForTable = (array) => {
 export const filterNeeds = (data) => {
   return data.filter((obj) => needsCategories.includes(obj.category));
 };
+export const filterWants = (data) => {
+  return data.filter((obj) => wantsCategories.includes(obj.category));
+};
+export const filterFinancialSavings = (data) => {
+  return data.filter((obj) => savingCategories.includes(obj.category));
+};
 
-export const modalValue = (data) => {
+export const modalBudgetSum = (data) => {
   const sum = data.reduce(
     (accumulator, currentValue) => accumulator + currentValue.value,
     0
@@ -163,6 +172,10 @@ export const calcSourceIncome = (netIncome) => {
     switch (item.frequency) {
       case 'Weekly':
         return item.amount * 4;
+      case 'Every 2 Weeks':
+        return item.amount * 2;
+      case 'Twice per Month':
+        return item.amount * 2;
       case 'Quarterly':
         return item.amount / 3;
       case 'Semi-Annually':
@@ -182,4 +195,13 @@ export const calcTotalSourceIncome = (IncomeSource) => {
     0
   );
   return Math.round(totalSourceIncome);
+};
+
+export const getPDfGenerateDate = () => {
+  const today = new Date();
+  const day = String(today.getDate()).padStart(2, '0');
+  const month = String(today.getMonth() + 1).padStart(2, '0');
+  const year = today.getFullYear();
+  const formattedDate = `${day}-${month}-${year}`;
+  return formattedDate;
 };
