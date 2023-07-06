@@ -31,9 +31,12 @@ const OtherExpenses = () => {
   const {
     removeCategoryTableData,
     setRemoveCategoryTableData,
+    // categoryInputHandler,
     // otherExpensesSortedData,
     // setOtherExpensesSortedData,
   } = useFormContext();
+  // const { lendings } = useSelector((state) => state.lending);
+
   const { loadingDemographics, demographics } = useSelector(
     (state) => state.demographics
   );
@@ -58,6 +61,8 @@ const OtherExpenses = () => {
         filterBudgetOtherExpensesData
       );
       setOtherExpensesSortedData(filterDemographicsOtherExpensesData);
+      // const savings = Math.round(lendings?.elements?.cash_excess / 12);
+      // categoryInputHandler('savings', savings);
     }
   };
 

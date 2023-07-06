@@ -18,11 +18,16 @@ import {
 import useFormContext from '../../../../../../hooks/useFormContext';
 
 const MonthlyBills = () => {
-  const { removeCategoryTableData, setRemoveCategoryTableData } =
-    useFormContext();
+  const {
+    removeCategoryTableData,
+    setRemoveCategoryTableData,
+    // categoryInputHandler,
+  } = useFormContext();
+  // const { lendings } = useSelector((state) => state.lending);
   const { loadingDemographics, demographics } = useSelector(
     (state) => state.demographics
   );
+
   const { loadingBudgets, budgets } = useSelector((state) => state.budget);
   const [removeCategory, setRemoveCategory] = useState([]);
   const [sortedData, setSortedData] = useState([]);
@@ -40,6 +45,8 @@ const MonthlyBills = () => {
       );
       getTabData(filterdemographicsMonthlyBill, filterBudgetMonthlyBill);
       setSortedData(filterdemographicsMonthlyBill);
+      // const savings = Math.round(lendings?.elements?.cash_excess / 12);
+      // categoryInputHandler('savings', savings);
     }
   };
 

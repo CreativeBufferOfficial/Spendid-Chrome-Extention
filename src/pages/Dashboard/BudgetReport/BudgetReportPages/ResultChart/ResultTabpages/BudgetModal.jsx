@@ -14,6 +14,7 @@ import {
   filterNeeds,
   filterWants,
   modalBudgetSum,
+  filterFinancialSavings,
 } from '../../../../../../utlis/Helper';
 import useFormContext from '../../../../../../hooks/useFormContext';
 
@@ -44,14 +45,16 @@ const BugetModal = ({ id }) => {
     const demoghrapic = getStructureObject(demographics);
     const peersNeedData = filterNeeds(demoghrapic);
     const peerWantData = filterWants(demoghrapic);
+    const peerFinanicalGoalData = filterFinancialSavings(demoghrapic);
     const peerNeeds = modalBudgetSum(peersNeedData);
     const peersWants = modalBudgetSum(peerWantData);
-    const peersFinanical = demoghrapic.find(
-      (category) => category.category === 'Amount to Savings Each Period'
-    );
+    const peerFinanicalGoal = modalBudgetSum(peerFinanicalGoalData);
+    // const peersFinanical = demoghrapic.find(
+    //   (category) => category.category === 'Amount to Savings Each Period'
+    // );
     // console.log('peersFinanical>>>>>>>>', peersFinanical);
 
-    const peersFinanical_Goals = peersFinanical?.value;
+    // const peersFinanical_Goals = peersFinanical?.value;
     // console.log('peersNeedData', peersNeedData, 'peerWantData', peerWantData);
     // console.log(
     //   'peerNeeds',
@@ -65,19 +68,22 @@ const BugetModal = ({ id }) => {
     setPeersData([
       { category: 'Needs', value: peerNeeds },
       { category: 'Wants', value: peersWants },
-      { category: 'Finanical Goals', value: peersFinanical_Goals },
+      { category: 'Finanical Goals', value: peerFinanicalGoal },
     ]);
     const budget = getStructureObject(budgets);
     const yourNeedData = filterNeeds(budget);
     const yourWantData = filterWants(budget);
+    const yourFinanicalGoalData = filterFinancialSavings(budget);
     console.log('yourNeedData', yourNeedData, 'yourWantData', yourWantData);
     const yourNeeds = modalBudgetSum(yourNeedData);
     const yourWants = modalBudgetSum(yourWantData);
+    const yourFinanicalGoal = modalBudgetSum(yourFinanicalGoalData);
+
     // console.log('yourNeeds', yourNeeds, 'yourWants', yourWants);
-    const yourFinanical = budget.find(
-      (category) => category.category === 'Amount to Savings Each Period'
-    );
-    const yourFinanical_Goals = yourFinanical?.value;
+    // const yourFinanical = budget.find(
+    //   (category) => category.category === 'Amount to Savings Each Period'
+    // );
+    // const yourFinanical_Goals = yourFinanical?.value;
 
     // console.log(
     //   'yourNeeds',
@@ -91,10 +97,8 @@ const BugetModal = ({ id }) => {
     setYourData([
       { category: 'Needs', value: yourNeeds },
       { category: 'Wants', value: yourWants },
-      { category: 'Finanical Goals', value: yourFinanical_Goals },
+      { category: 'Finanical Goals', value: yourFinanicalGoal },
     ]);
-
-    categoryInputHandler('savings', yourFinanical_Goals);
   };
   useEffect(() => {
     init();

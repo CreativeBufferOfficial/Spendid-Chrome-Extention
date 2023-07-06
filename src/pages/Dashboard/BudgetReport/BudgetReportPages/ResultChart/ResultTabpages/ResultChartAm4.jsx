@@ -49,6 +49,7 @@ const Result = ({ id, id2 }) => {
     scoreChart,
     barChart,
     removeCategoryTableData,
+    categoryInputHandler,
   } = useFormContext();
   const { net_annual_income } = data.apiReq.demographics;
   const [savingData, setSavingData] = useState([]);
@@ -123,15 +124,31 @@ const Result = ({ id, id2 }) => {
       setSavingData(demographicsMajorExpensess);
 
       //
-      const savings = mergeBudget.find(
-        (category) => category.category === 'Amount to Savings Each Period'
+      // const savings = mergeBudget.find(
+      //   (category) => category.category === 'Amount to Savings Each Period'
+      // );
+      // const monthlySavings = Math.round(lendings?.elements?.cash_excess / 12);
+
+      // setSavingPDFData(savingData.Amount);
+
+      // categoryInputHandler(
+      //   'savings',
+      //   Math.round(lendings?.elements?.cash_excess / 12)
+      // );
+      // console.log('Saving>>>>>>>>>>>>>>', savingData);
+      // console.log('savingPDFData>>>>>>>>>>>>>>>', savingPDFData)
+      console.log(
+        'chartSvg',
+        chartSvg,
+        'scoreChart',
+        scoreChart,
+        'barChart',
+        barChart
       );
-      setSavingPDFData(savings?.value);
-      console.log('Saving>>>>>>>>>>>>>>', savingData);
-      console.log('savingPDFData>>>>>>>>>>>>>>>', savingPDFData);
     }
   }, [demographics, budgets]);
-  console.log('savingPDFData', savingPDFData);
+  console.log('setSavingData', savingData);
+  console.log('savingPDFData', savingData[0]?.Amount);
   // const handleMouseEnter = (event) => {
   //   event.target.classList.add('show');
   // };
@@ -378,12 +395,12 @@ const Result = ({ id, id2 }) => {
               <Image src={scoreChart} style={styles.imageChart} />
               <View style={styles.resultContent}>
                 <Text style={styles.resultContentTitle}>
-                  {`Predicted Saving Ability (PSA): $ ${savingPDFData}`}
+                  {`Predicted Saving Ability (PSA): $ ${savingData[0]?.Amount}`}
                 </Text>
                 <Text style={styles.resultText}>
                   {`It looks like you're doing all the right things budget-wise.
                   Do you have an active strategy for growing your savings, and
-                  investing for the future? Be sure to sweep at least $ ${savingPDFData}
+                  investing for the future? Be sure to sweep at least $ ${savingData[0]?.Amount}
                   into investments appropriate for your age and risk tolerance.
                   Do this, and your financial future looks bright!`}
                 </Text>

@@ -52,6 +52,7 @@ export const LendingGenerate = (body) => async (dispatch) => {
     });
 
     const { data } = await callAPI(apiUrls.lending, 'post', body);
+
     dispatch({
       type: LENDING_SUCCESS,
       payload: data,

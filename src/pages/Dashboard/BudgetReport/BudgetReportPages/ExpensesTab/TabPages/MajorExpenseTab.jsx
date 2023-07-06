@@ -6,14 +6,14 @@ import {
   filterMajorExpenses,
   getTabData,
 } from '../../../../../../utlis/Helper';
-// import useFormContext from '../../../../../../hooks/useFormContext';
+import useFormContext from '../../../../../../hooks/useFormContext';
 // import { debounce } from 'lodash';
 // import { useDispatch } from 'react-redux';
 
 const MajorExpense = () => {
   // const dispatch = useDispatch();
-  // let { majorExpensesSortedData, setMajorExpensesSortedData } =
-  //   useFormContext();
+  let { categoryInputHandler } = useFormContext();
+  const { lendings } = useSelector((state) => state.lending);
   const { demographics } = useSelector((state) => state.demographics);
   const { loadingBudgets, budgets } = useSelector((state) => state.budget);
   console.log('call');
@@ -47,6 +47,9 @@ const MajorExpense = () => {
       const budgetMajorExpensess = filterMajorExpenses(budgetObjects);
       getTabData(demographicsMajorExpensess, budgetMajorExpensess);
       setMajorExpensesSortedData(demographicsMajorExpensess);
+      // const savings = Math.round(lendings?.elements?.cash_excess / 12);
+      // categoryInputHandler('savings', savings);
+      // console.log('savingssss', savings);
     }
   }, [demographics, budgets]);
 

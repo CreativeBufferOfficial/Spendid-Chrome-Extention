@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import classes from '../TabViews/HomeTabsViews.module.css';
 import useFormContext from '../../../../../../hooks/useFormContext';
 import {
@@ -6,8 +6,11 @@ import {
   calcTotalSourceIncome,
 } from '../../../../../../utlis/Helper';
 import Pin from '../../../../../../utlis/Pin.json';
+import { useSelector } from 'react-redux';
 
 const ProfileTab = () => {
+  const { lendings } = useSelector((state) => state.lending);
+
   // const [pinCode, setPinCode] = useState({ city: '', state: '' });
   // console.log('PIN', Pin);
   const {
@@ -26,7 +29,8 @@ const ProfileTab = () => {
   const updateLabel = (event) => {
     setValue(event.target.value);
   };
-  const pinAddress = Pin.find(({ pin }) => pin === zip);
+  const pinAddress = Pin.find(({ TEST }) => TEST === zip);
+  console.log('pinAddress', pinAddress);
 
   const sourceChangeHandle = (index, i) => (e) => {
     const name = e.target.getAttribute('name');
@@ -51,6 +55,13 @@ const ProfileTab = () => {
     categoryInputHandler('net_annual_income', totalSourceIncome);
   };
 
+  useEffect(() => {
+    categoryInputHandler(
+      'savings',
+      Math.round(lendings?.elements?.cash_excess / 12)
+    );
+  }, []);
+
   return (
     <>
       <div>
@@ -69,7 +80,7 @@ const ProfileTab = () => {
           <input
             type="text"
             readOnly
-            value={pinAddress ? pinAddress.city : ''}
+            value={pinAddress ? pinAddress.City : ''}
             className={classes.input_field}
             style={{ backgroundColor: '#E9ECEF' }}
           />
@@ -78,7 +89,7 @@ const ProfileTab = () => {
           <label>State</label>
           <input
             type="text"
-            value={pinAddress ? pinAddress.state : ''}
+            value={pinAddress ? pinAddress.State : ''}
             readOnly
             className={classes.input_field}
             style={{ backgroundColor: '#E9ECEF' }}

@@ -92,18 +92,18 @@ export const FormProvider = ({ children }) => {
   const [data, setData] = useState({
     apiReq: {
       demographics: {
-        zip: 14001,
-        age: 25,
+        zip: '',
+        age: '',
         household_members: 1,
         is_homeowner: false,
-        net_annual_income: 10000,
+        net_annual_income: '',
       },
       budget: {
         savings: null,
-        other_debt_payments: 572,
-        mortgage_and_rent: 952,
-        vehicle_purchase_and_lease: 654,
-        health_insurance: 10,
+        other_debt_payments: '',
+        mortgage_and_rent: '',
+        vehicle_purchase_and_lease: '',
+        health_insurance: '',
       },
     },
   });
@@ -117,10 +117,6 @@ export const FormProvider = ({ children }) => {
   const lendingPayload = {
     budget: {
       ...inputBudgetData.apiReq.budget,
-      // education: 0,
-      // life_and_personal_insurance: 0,
-      // personal_services: 0,
-      // public_and_other_transportation: 0,
     },
     demographics: { ...inputDemograpicData.apiReq.demographics },
   };
@@ -238,7 +234,7 @@ export const FormProvider = ({ children }) => {
         case 'mortgage_and_rent':
         case 'vehicle_purchase_and_lease':
         case 'health_insurance':
-          apiReq.budget[name] = +value;
+          apiReq.budget[name] = +value || null;
           break;
 
         case 'household_members':
