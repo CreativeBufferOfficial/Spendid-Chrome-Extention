@@ -70,7 +70,12 @@ const DonutChart = ({ id, data }) => {
       const svgString1 = chart.exporting.getImage('svg');
       svgString1.then((res) => {
         // console.log('res>>', res);
-        setChartSvg((prev) => [...prev, res]);
+        setChartSvg((prev) => {
+          if (prev.length > 2) {
+            prev = [];
+          }
+          return [...prev, res];
+        });
       });
     });
 

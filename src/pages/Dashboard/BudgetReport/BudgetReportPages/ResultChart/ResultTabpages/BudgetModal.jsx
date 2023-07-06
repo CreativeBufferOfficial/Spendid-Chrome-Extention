@@ -126,7 +126,6 @@ const BugetModal = ({ id }) => {
             <p>Financial Goals</p>
           </div>
         </div>
-
         <div>
           <div className={classes.chart_header_label}>50-30-20 Model</div>
           <BudgetChart data={ModalData} id={id ? id.chart1 : 'chartdiv1'} />

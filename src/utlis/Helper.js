@@ -152,6 +152,9 @@ export const copyAndMultiplyBudget = (obj) => {
     if (typeof budget[key] === 'number') {
       budget[key] *= 12;
     }
+    if (budget[key] === '' || budget[key] === ' ') {
+      budget[key] = null;
+    }
   }
   return copiedObj;
 };
@@ -163,6 +166,12 @@ export const copyAndMultiplyDemographics = (obj) => {
   const demographics = copiedObj.apiReq.demographics;
   if (typeof demographics['net_annual_income'] === 'number') {
     demographics['net_annual_income'] *= 12;
+  }
+  if (
+    demographics['net_annual_income'] === '' ||
+    demographics['net_annual_income'] === ' '
+  ) {
+    demographics['net_annual_income'] = null;
   }
   return copiedObj;
 };

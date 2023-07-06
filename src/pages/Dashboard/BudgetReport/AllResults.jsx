@@ -65,11 +65,11 @@ const AllResult = () => {
     // }
     // const savings = Math.round(lendings?.elements?.cash_excess / 12);
     // categoryInputHandler('savings', savings);
-    console.log('vvvvvv');
+
     const call = setTimeout(() => {
-      console.log('WWWWWW');
-      console.log('WWWWWW', lendings && lendings);
+      console.log('1');
       dispatch(LendingGenerate(lendingPayload));
+      console.log('5');
       // if (Object.keys(lendings).length > 0) {
       //   console.log('XXXXXX');
       dispatch(demographicsGenerate(demographicsPayload));
