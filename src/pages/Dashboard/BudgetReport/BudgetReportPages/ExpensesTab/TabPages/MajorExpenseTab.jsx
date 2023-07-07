@@ -17,6 +17,7 @@ const MajorExpense = () => {
   const { demographics } = useSelector((state) => state.demographics);
   const { loadingBudgets, budgets } = useSelector((state) => state.budget);
   console.log('call');
+  const [savingsSet, setSavingsSet] = useState(false);
   const [isMajorExpensesTab, setIsMajorExpensesTab] = useState(true);
   const [majorExpensesSortedData, setMajorExpensesSortedData] = useState([]);
 
@@ -37,6 +38,14 @@ const MajorExpense = () => {
   //     console.log('inside init if');
   //   }
   // };
+
+  useEffect(() => {
+    if (lendings && lendings.elements && !savingsSet) {
+      const savings = Math.round(lendings.elements.cash_excess / 12);
+      categoryInputHandler('savings', savings);
+      setSavingsSet(true);
+    }
+  }, [lendings, categoryInputHandler, savingsSet]);
 
   useEffect(() => {
     if (demographics && budgets) {

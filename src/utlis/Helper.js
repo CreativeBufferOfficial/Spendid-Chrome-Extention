@@ -75,7 +75,7 @@ export const sortAscendingAmount = (a, b) => a.Amount - b.Amount;
 export const getDiffrenceToPeers = (array) => {
   const filteredData = [];
   for (let obj of array) {
-    const difference = obj.Amount - obj.value;
+    const difference = obj.value - obj.Amount;
     if (difference > 0) {
       filteredData.push({ ...obj, difference });
     }
@@ -86,8 +86,11 @@ export const getDiffrenceToPeers = (array) => {
 export const getDiffrenceForTable = (array) => {
   const filteredData = [];
   for (let obj of array) {
-    const difference = obj.Amount - obj.value;
-    if (difference >= 0) {
+    const difference = obj.value - obj.Amount;
+
+    console.log('difference', difference);
+
+    if (difference || difference >= 0) {
       filteredData.push({ ...obj, difference });
     }
   }

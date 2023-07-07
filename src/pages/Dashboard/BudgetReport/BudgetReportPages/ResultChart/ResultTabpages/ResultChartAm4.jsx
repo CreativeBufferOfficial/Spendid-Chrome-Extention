@@ -103,8 +103,13 @@ const Result = ({ id, id2 }) => {
       const demographicsMajorExp = filterMajorExpenses(mergeDemographics);
       const budgetMajorExp = filterMajorExpenses(mergeBudget);
       getTabData(demographicsMajorExp, budgetMajorExp);
+      console.log('demographicsMajorExp', demographicsMajorExp);
+      // debugger;
       const majorExpensetableData = getDiffrenceForTable(demographicsMajorExp);
       setMajorExpTableData(majorExpensetableData);
+      console.log('majorExpensetableData', majorExpensetableData);
+      // debugger;
+      console.log('demographicsMajorExp2', demographicsMajorExp);
 
       // Other Expenses Table Data
       const demographicsOtherExp = filterOtherExpenses(mergeDemographics);

@@ -10,7 +10,7 @@ import { useSelector } from 'react-redux';
 
 const ProfileTab = () => {
   const { lendings } = useSelector((state) => state.lending);
-
+  const [savingsSet, setSavingsSet] = useState(false);
   // const [pinCode, setPinCode] = useState({ city: '', state: '' });
   // console.log('PIN', Pin);
   const {
@@ -56,11 +56,12 @@ const ProfileTab = () => {
   };
 
   useEffect(() => {
-    categoryInputHandler(
-      'savings',
-      Math.round(lendings?.elements?.cash_excess / 12)
-    );
-  }, []);
+    if (lendings && lendings.elements && !savingsSet) {
+      const savings = Math.round(lendings.elements.cash_excess / 12);
+      categoryInputHandler('savings', savings);
+      setSavingsSet(true);
+    }
+  }, [lendings, categoryInputHandler, savingsSet]);
 
   return (
     <>
