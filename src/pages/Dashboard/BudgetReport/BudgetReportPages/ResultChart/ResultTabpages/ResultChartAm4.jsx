@@ -624,13 +624,25 @@ const Result = ({ id, id2 }) => {
             <div className={classes.saving}>
               <div>
                 <p>You</p>
-                <p className={classes.amount_field}>
+                <p
+                  className={
+                    savingData && savingData[0]?.Amount > 0
+                      ? classes.amount_field
+                      : classes.less_Saving
+                  }
+                >
                   ${savingData && savingData[0]?.Amount}
                 </p>
               </div>
               <div>
                 <p>Peers</p>
-                <p className={classes.amount_field}>
+                <p
+                  className={
+                    savingData && savingData[0]?.value > 0
+                      ? classes.amount_field
+                      : classes.less_Saving
+                  }
+                >
                   ${savingData && savingData[0]?.value}
                 </p>
               </div>

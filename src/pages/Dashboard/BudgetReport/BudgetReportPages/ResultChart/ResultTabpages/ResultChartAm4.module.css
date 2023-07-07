@@ -45,6 +45,14 @@
   border-radius: 5px;
   background-color: #68aca5;
 }
+.less_Saving {
+  padding: 12px 10px;
+  height: 40px;
+  width: 350px;
+  color: black;
+  border-radius: 5px;
+  background-color: #ff0000;
+}
 
 .input_field {
   width: 350px;
