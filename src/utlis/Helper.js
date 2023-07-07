@@ -72,16 +72,19 @@ export const sortAscendingAmount = (a, b) => a.Amount - b.Amount;
 //   return filteredData;
 // };
 
-export const getDiffrenceToPeers = (array) => {
+export const getDifferenceToPeers = (array) => {
   const filteredData = [];
   for (let obj of array) {
     const difference = obj.value - obj.Amount;
-    if (difference > 0) {
-      filteredData.push({ ...obj, difference });
+    if (difference > 0 || difference < 0) {
+      filteredData.push({ ...obj, difference: Math.abs(difference) });
     }
   }
+  const filter = filteredData.filter(
+    (category) => category.category !== 'Amount to Savings Each Period'
+  );
 
-  return filteredData;
+  return filter;
 };
 export const getDiffrenceForTable = (array) => {
   const filteredData = [];
@@ -94,7 +97,6 @@ export const getDiffrenceForTable = (array) => {
       filteredData.push({ ...obj, difference });
     }
   }
-
   return filteredData;
 };
 

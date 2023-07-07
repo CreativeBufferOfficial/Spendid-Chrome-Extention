@@ -6,7 +6,7 @@ import {
   getStructureObject,
   filterCategory,
   getTabData,
-  getDiffrenceToPeers,
+  getDifferenceToPeers,
 } from '../../../utlis/Helper';
 import { useSelector } from 'react-redux';
 import useFormContext from '../../../hooks/useFormContext';
@@ -25,7 +25,8 @@ const BarChart = ({ id }) => {
     const demographicsCategory = filterCategory(demographicsObjects);
     const budgetCategory = filterCategory(budgetObjects);
     getTabData(demographicsCategory, budgetCategory);
-    const difference = getDiffrenceToPeers(demographicsCategory);
+    console.log(demographicsCategory);
+    const difference = getDifferenceToPeers(demographicsCategory);
     // console.log('difference', difference);
 
     // Create chart instance

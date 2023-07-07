@@ -6,7 +6,17 @@ const Vechicles = () => {
     useFormContext();
 
   const { vehicle_purchase_and_lease } = data.apiReq.budget;
-  const vehicle_input = vehicle_purchase_and_lease.toString().length > 0;
+  // const vehicle_input = vehicle_purchase_and_lease.toString().length > 0;
+  let vehicle_input;
+
+  if (
+    vehicle_purchase_and_lease &&
+    vehicle_purchase_and_lease.toString().length > 0
+  ) {
+    vehicle_input = true;
+  } else {
+    vehicle_input = false; // or any other value you want to assign when the input is empty
+  }
 
   const content = (
     <div className={classes.questions}>
@@ -21,7 +31,8 @@ const Vechicles = () => {
           maxLength="5"
           placeholder="Type your answer here..."
           name="vehicle_purchase_and_lease"
-          value={vehicle_purchase_and_lease.toString().replace(/^0+/, '')}
+          // value={vehicle_purchase_and_lease.toString().replace(/^0+/, '')}
+          value={vehicle_purchase_and_lease}
           onChange={formDataHandlerChange}
         />
       </div>

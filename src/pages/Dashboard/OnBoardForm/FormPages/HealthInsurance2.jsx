@@ -5,7 +5,15 @@ const HealthInsurance2 = () => {
   const { data, formDataHandlerChange, nextHandler, currentHandler } =
     useFormContext();
   const { health_insurance } = data.apiReq.budget;
-  const health_input = health_insurance.toString().length > 0;
+  // const health_input = health_insurance.toString().length > 0;
+  let health_input;
+
+  if (health_insurance && health_insurance.toString().length > 0) {
+    health_input = true;
+  } else {
+    health_input = false; // or any other value you want to assign when the input is empty
+  }
+
   const content = (
     <div className={classes.questions}>
       <div className={classes.question}>
@@ -19,7 +27,8 @@ const HealthInsurance2 = () => {
           maxLength="5"
           placeholder="Type your answer here..."
           name="health_insurance"
-          value={health_insurance.toString().replace(/^0+/, '')}
+          // value={health_insurance.toString().replace(/^0+/, '')}
+          value={health_insurance}
           onChange={formDataHandlerChange}
         />
       </div>

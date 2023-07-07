@@ -1,61 +1,61 @@
-import {
-  zipIcon,
-  ageIcon,
-  HouseHoldIcon,
-  homeTypeIcon,
-  rentIcon,
-  vehicleIcon,
-  obligationIcon,
-  healthcareIcon,
-  incomeIcon,
-} from '../utlis/Imports';
+// import {
+//   zipIcon,
+//   ageIcon,
+//   HouseHoldIcon,
+//   homeTypeIcon,
+//   rentIcon,
+//   vehicleIcon,
+//   obligationIcon,
+//   healthcareIcon,
+//   incomeIcon,
+// } from '../utlis/Imports';
 
-export const title = [
-  {
-    0: 'ZipCode',
-    imageSrc: zipIcon,
-  },
-  {
-    1: 'Age',
-    imageSrc: ageIcon,
-  },
-  {
-    2: 'HouseHold',
-    imageSrc: HouseHoldIcon,
-  },
-  {
-    3: 'HomeType',
-    imageSrc: homeTypeIcon,
-  },
-  {
-    4: 'Rent',
-    imageSrc: rentIcon,
-  },
-  {
-    5: 'Vechicles',
-    imageSrc: vehicleIcon,
-  },
-  {
-    6: 'Obligations',
-    imageSrc: obligationIcon,
-  },
-  {
-    7: 'Obligations',
-    imageSrc: obligationIcon,
-  },
-  {
-    8: 'Health Insurance',
-    imageSrc: healthcareIcon,
-  },
-  {
-    9: 'Health Insurance',
-    imageSrc: healthcareIcon,
-  },
-  {
-    10: 'Take Home',
-    imageSrc: incomeIcon,
-  },
-];
+// export const title = [
+//   {
+//     0: 'ZipCode',
+//     imageSrc: zipIcon,
+//   },
+//   {
+//     1: 'Age',
+//     imageSrc: ageIcon,
+//   },
+//   {
+//     2: 'HouseHold',
+//     imageSrc: HouseHoldIcon,
+//   },
+//   {
+//     3: 'HomeType',
+//     imageSrc: homeTypeIcon,
+//   },
+//   {
+//     4: 'Rent',
+//     imageSrc: rentIcon,
+//   },
+//   {
+//     5: 'Vechicles',
+//     imageSrc: vehicleIcon,
+//   },
+//   {
+//     6: 'Obligations',
+//     imageSrc: obligationIcon,
+//   },
+//   {
+//     7: 'Obligations',
+//     imageSrc: obligationIcon,
+//   },
+//   {
+//     8: 'Health Insurance',
+//     imageSrc: healthcareIcon,
+//   },
+//   {
+//     9: 'Health Insurance',
+//     imageSrc: healthcareIcon,
+//   },
+//   {
+//     10: 'Take Home',
+//     imageSrc: incomeIcon,
+//   },
+// ];
 // console.log('title>>>>>>>>>>>>>>>>>>>>>>>>>>>', title);
 
 export const transformerData = {
@@ -107,18 +107,19 @@ export const majorExpenseCategories = [
 ];
 
 export const monthlyBillExpenseCategories = [
-  'Charitable Giving',
   'Utilities - Power Bill',
   'Car Insurance',
   'Utilities - Other',
   'Cable / Internet / Streaming',
   'Phone Services',
+  'Life & Other Personal Insurance',
 ];
 export const otherExpenseCategories = [
   'Groceries',
   'Dining Out',
   'Gasoline & EV-Charging',
   'Fun & Leisure',
+  'Charitable Giving',
   'Clothing & Jewelry',
   'Medical Spending',
   'Home Maintenance & Services',
@@ -127,10 +128,10 @@ export const otherExpenseCategories = [
   'Education',
   'Vacation & Other Lodging',
   'Car Maintenance',
+  'Home Appliances & Furniture',
   'Personal Care Products and Services',
   'Pets',
   'Transportation Fares',
-  'Life & Other Personal Insurance',
   'Babysitting / Preschool / Eldercare',
 ];
 

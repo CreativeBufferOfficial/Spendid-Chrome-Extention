@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import classes from '../TabViews/HomeTabsViews.module.css';
-
 import {
   Expense,
   Label,
@@ -78,11 +77,11 @@ const OtherExpenses = () => {
 
   const ascendingHandler = () => {
     const ascending = otherExpensesSortedData.sort(sortAscending);
-    otherExpensesSortedData([...ascending]);
+    setOtherExpensesSortedData([...ascending]);
   };
   const decendingHandler = () => {
     const decending = otherExpensesSortedData.sort(sortDescending);
-    otherExpensesSortedData([...decending]);
+    setOtherExpensesSortedData([...decending]);
   };
 
   const removeCategoryHandler = (i) => {
@@ -108,11 +107,11 @@ const OtherExpenses = () => {
   const selectformDataHandlerChange = (event) => {
     const option = event.target.value;
     if (option === 'Your Amount') {
-      otherExpensesSortedData([
+      setOtherExpensesSortedData([
         ...otherExpensesSortedData.sort(sortDescendingAmount),
       ]);
     } else if (option === 'Your Peers') {
-      otherExpensesSortedData([
+      setOtherExpensesSortedData([
         ...otherExpensesSortedData.sort(sortDescending),
       ]);
     }

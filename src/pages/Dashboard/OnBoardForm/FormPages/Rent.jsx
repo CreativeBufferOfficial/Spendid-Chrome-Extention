@@ -7,7 +7,14 @@ const Rent = () => {
     useFormContext();
 
   const { mortgage_and_rent } = data.apiReq.budget;
-  const rent_input = mortgage_and_rent.toString().length > 0;
+  let rent_input;
+  // = mortgage_and_rent.toString().length > 0;
+
+  if (mortgage_and_rent && mortgage_and_rent.toString().length > 0) {
+    rent_input = true;
+  } else {
+    rent_input = false; // or any other value you want to assign when the input is empty
+  }
 
   const content = (
     <div className={classes.questions}>
@@ -26,7 +33,8 @@ const Rent = () => {
           type="number"
           maxLength="5"
           name="mortgage_and_rent"
-          value={mortgage_and_rent.toString().replace(/^0+/, '')}
+          // value={mortgage_and_rent.toString().replace(/^0+/, '')}
+          value={mortgage_and_rent}
           onChange={formDataHandlerChange}
           placeholder="Type your answer here..."
         />

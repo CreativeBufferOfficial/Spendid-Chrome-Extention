@@ -100,7 +100,7 @@ export const FormProvider = ({ children }) => {
       },
       budget: {
         savings: null,
-        other_debt_payments: 0,
+        other_debt_payments: '',
         mortgage_and_rent: '',
         vehicle_purchase_and_lease: '',
         health_insurance: '',
