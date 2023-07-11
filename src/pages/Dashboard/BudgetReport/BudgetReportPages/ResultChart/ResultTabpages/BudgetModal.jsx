@@ -24,6 +24,8 @@ const BugetModal = ({ id }) => {
     (state) => state.demographics
   );
   const { loadingBudgets, budgets } = useSelector((state) => state.budget);
+  const { lendings } = useSelector((state) => state.lending);
+  const [savingsSet, setSavingsSet] = useState(false);
   console.log('demographics', demographics);
   console.log('budgets', budgets);
 
@@ -103,6 +105,14 @@ const BugetModal = ({ id }) => {
   useEffect(() => {
     init();
   }, []);
+
+  useEffect(() => {
+    if (lendings && lendings.elements && !savingsSet) {
+      const savings = Math.round(lendings.elements.cash_excess / 12);
+      categoryInputHandler('savings', savings);
+      setSavingsSet(true);
+    }
+  }, [lendings, categoryInputHandler, savingsSet]);
   // console.log('data>>>', data);
   return (
     <>

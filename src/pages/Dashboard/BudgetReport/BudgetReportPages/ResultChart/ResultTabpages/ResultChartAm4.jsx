@@ -54,9 +54,10 @@ const Result = ({ id, id2 }) => {
   const { net_annual_income } = data.apiReq.demographics;
   const [savingData, setSavingData] = useState([]);
   const [categoryData, setCategoryData] = useState([]);
-  const [savingPDFData, setSavingPDFData] = useState('');
+  // const [savingPDFData, setSavingPDFData] = useState('');
   const [majorExpTableData, setMajorExpTableData] = useState([]);
   const [otherExpTableData, setOtherExpTableData] = useState([]);
+  const [savingsSet, setSavingsSet] = useState(false);
 
   // const structureData = (demographics, budgets) => {
   //   // debugger;
@@ -142,18 +143,27 @@ const Result = ({ id, id2 }) => {
       // );
       // console.log('Saving>>>>>>>>>>>>>>', savingData);
       // console.log('savingPDFData>>>>>>>>>>>>>>>', savingPDFData)
-      console.log(
-        'chartSvg',
-        chartSvg,
-        'scoreChart',
-        scoreChart,
-        'barChart',
-        barChart
-      );
+      // console.log(
+      //   'chartSvg',
+      //   chartSvg,
+      //   'scoreChart',
+      //   scoreChart,
+      //   'barChart',
+      //   barChart
+      // );
     }
   }, [demographics, budgets]);
-  console.log('setSavingData', savingData);
-  console.log('savingPDFData', savingData[0]?.Amount);
+  // console.log('setSavingData', savingData);
+  // console.log('savingPDFData', savingData[0]?.Amount);
+
+  useEffect(() => {
+    if (lendings && lendings.elements && !savingsSet) {
+      const savings = Math.round(lendings.elements.cash_excess / 12);
+      categoryInputHandler('savings', savings);
+      setSavingsSet(true);
+    }
+  }, [lendings, categoryInputHandler, savingsSet]);
+
   // const handleMouseEnter = (event) => {
   //   event.target.classList.add('show');
   // };

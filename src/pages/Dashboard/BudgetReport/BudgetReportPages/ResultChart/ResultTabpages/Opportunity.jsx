@@ -1,7 +1,6 @@
 import React from 'react';
 import classes from './ResultChartAm4.module.css';
 import { BarChart, ResultTitle } from '../../../../../../utlis/Imports';
-
 const Opportunity = ({ id }) => {
   return (
     <>

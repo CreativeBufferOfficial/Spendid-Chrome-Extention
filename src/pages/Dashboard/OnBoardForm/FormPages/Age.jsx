@@ -6,7 +6,15 @@ const Age = () => {
   const { data, formDataHandlerChange, nextHandler, currentHandler } =
     useFormContext();
   const { age } = data.apiReq.demographics;
-  const age_input = age.toString().length > 1 && age >= 18;
+  // const age_input = age.toString().length > 1 && age >= 18;
+
+  let age_input;
+
+  if (age && age.toString().length > 1 && age >= 18) {
+    age_input = true;
+  } else {
+    age_input = false; // or any other value you want to assign when the input is empty
+  }
 
   const content = (
     <div className={classes.questions}>
@@ -24,6 +32,7 @@ const Age = () => {
           maxLength="3"
           name="age"
           value={age.toString().replace(/^0+/, '')}
+          // value={age}
           onChange={formDataHandlerChange}
           placeholder="Type your answer here..."
         />
