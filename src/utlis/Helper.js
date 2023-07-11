@@ -91,7 +91,7 @@ export const getDiffrenceForTable = (array) => {
   for (let obj of array) {
     const difference = obj.value - obj.Amount;
 
-    console.log('difference', difference);
+    // console.log('difference', difference);
 
     if (difference || difference >= 0) {
       filteredData.push({ ...obj, difference });
@@ -174,9 +174,16 @@ export const copyAndMultiplyDemographics = (obj) => {
   }
   if (
     demographics['net_annual_income'] === '' ||
-    demographics['net_annual_income'] === ' '
+    demographics['net_annual_income'] === ' ' ||
+    demographics['net_annual_income'] === null
   ) {
-    demographics['net_annual_income'] = null;
+    demographics['net_annual_income'] = 60000;
+  }
+  if (demographics['age'] === '' || demographics['age'] === ' ') {
+    demographics['age'] = 35;
+  }
+  if (demographics['zip'] === '' || demographics['zip'] === ' ') {
+    demographics['zip'] = '35210';
   }
   return copiedObj;
 };
@@ -218,4 +225,12 @@ export const getPDfGenerateDate = () => {
   const year = today.getFullYear();
   const formattedDate = `${day}-${month}-${year}`;
   return formattedDate;
+};
+
+export const formatAmountValue = (value) => {
+  // Remove non-digit characters
+  const numericValue = value.replace(/\D/g, '');
+  // Format the number with commas
+  const formattedValue = Number(numericValue).toLocaleString('en-US');
+  return `$ ${formattedValue}`;
 };

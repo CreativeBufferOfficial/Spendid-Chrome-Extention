@@ -52,13 +52,17 @@ const Result = ({ id, id2 }) => {
     categoryInputHandler,
   } = useFormContext();
   const { net_annual_income } = data.apiReq.demographics;
+  const [savingsSet, setSavingsSet] = useState(false);
   const [savingData, setSavingData] = useState([]);
   const [categoryData, setCategoryData] = useState([]);
   // const [savingPDFData, setSavingPDFData] = useState('');
   const [majorExpTableData, setMajorExpTableData] = useState([]);
   const [otherExpTableData, setOtherExpTableData] = useState([]);
-  const [savingsSet, setSavingsSet] = useState(false);
-
+  const [save, setSave] = useState('');
+  console.log(
+    'lendings?.elements?.cash_excess',
+    lendings?.elements?.cash_excess
+  );
   // const structureData = (demographics, budgets) => {
   //   // debugger;
   //   const mergeDemographics = getStructureObject(demographics);
@@ -104,13 +108,13 @@ const Result = ({ id, id2 }) => {
       const demographicsMajorExp = filterMajorExpenses(mergeDemographics);
       const budgetMajorExp = filterMajorExpenses(mergeBudget);
       getTabData(demographicsMajorExp, budgetMajorExp);
-      console.log('demographicsMajorExp', demographicsMajorExp);
+      // console.log('demographicsMajorExp', demographicsMajorExp);
       // debugger;
       const majorExpensetableData = getDiffrenceForTable(demographicsMajorExp);
       setMajorExpTableData(majorExpensetableData);
-      console.log('majorExpensetableData', majorExpensetableData);
+      // console.log('majorExpensetableData', majorExpensetableData);
       // debugger;
-      console.log('demographicsMajorExp2', demographicsMajorExp);
+      // console.log('demographicsMajorExp2', demographicsMajorExp);
 
       // Other Expenses Table Data
       const demographicsOtherExp = filterOtherExpenses(mergeDemographics);
@@ -156,14 +160,6 @@ const Result = ({ id, id2 }) => {
   // console.log('setSavingData', savingData);
   // console.log('savingPDFData', savingData[0]?.Amount);
 
-  useEffect(() => {
-    if (lendings && lendings.elements && !savingsSet) {
-      const savings = Math.round(lendings.elements.cash_excess / 12);
-      categoryInputHandler('savings', savings);
-      setSavingsSet(true);
-    }
-  }, [lendings, categoryInputHandler, savingsSet]);
-
   // const handleMouseEnter = (event) => {
   //   event.target.classList.add('show');
   // };
@@ -174,6 +170,22 @@ const Result = ({ id, id2 }) => {
   // console.log('inputBudgetData', inputBudgetData);
   // debugger;
 
+  useEffect(() => {
+    console.log(
+      'lendings?.elements?.cash_excess>>>>>>>>>>>>>>>>>>>>>>>>>>',
+      lendings?.elements?.cash_excess
+    );
+    console.log('savingsSet', savingsSet);
+    if (lendings && lendings.elements && !savingsSet) {
+      const savings = Math.round(lendings?.elements?.cash_excess / 12);
+      // setSave(savings);
+      // categoryInputHandler('savings', save);
+      setSavingsSet(true);
+      categoryInputHandler('savings', savings);
+    }
+  }, [lendings, categoryInputHandler, savingsSet]);
+  console.log('save>>>>', save);
+  // console.log('SavingData>>>>>>>>>>>>', savingData);
   // Create styles
   const styles = StyleSheet.create({
     page: {
@@ -183,10 +195,7 @@ const Result = ({ id, id2 }) => {
     section: {
       margin: 10,
       padding: 10,
-      // flexGrow: 1,
-      // flex: 1,
       display: 'flex',
-      // justifyContent: 'center',
       alignItems: 'center',
     },
     image: {
@@ -602,7 +611,7 @@ const Result = ({ id, id2 }) => {
     };
     dispatch(saveReport(reportPayload));
   };
-  console.log('categoryData', categoryData);
+  // console.log('categoryData', categoryData);
 
   return (
     <>

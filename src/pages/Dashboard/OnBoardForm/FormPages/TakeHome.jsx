@@ -13,10 +13,14 @@ import {
 import {
   calcSourceIncome,
   calcTotalSourceIncome,
+  formatAmountValue,
 } from '../../../../utlis/Helper';
 const TakeHome = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [focused, setFocused] = useState(false);
+  const onFocus = () => setFocused(true);
+  const onBlur = () => setFocused(false);
 
   const {
     data,
@@ -143,9 +147,18 @@ const TakeHome = () => {
                 <label>Amount</label>
                 <input
                   className={classes.input}
-                  type="number"
+                  type="text"
                   maxLength="5"
                   name="amount"
+                  value={
+                    focused
+                      ? item.amount
+                      : item.amount.length > 0
+                      ? formatAmountValue(item.amount)
+                      : ''
+                  }
+                  onFocus={onFocus}
+                  onBlur={onBlur}
                   onChange={sourceChangeHandle(index)}
                   placeholder="Type your amount here"
                 />

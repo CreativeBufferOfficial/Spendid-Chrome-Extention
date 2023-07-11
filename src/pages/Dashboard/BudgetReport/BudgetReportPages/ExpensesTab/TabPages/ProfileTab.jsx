@@ -4,6 +4,7 @@ import useFormContext from '../../../../../../hooks/useFormContext';
 import {
   calcSourceIncome,
   calcTotalSourceIncome,
+  formatAmountValue,
 } from '../../../../../../utlis/Helper';
 import Pin from '../../../../../../utlis/Pin.json';
 import { useSelector } from 'react-redux';
@@ -13,6 +14,11 @@ const ProfileTab = () => {
   const [savingsSet, setSavingsSet] = useState(false);
   // const [pinCode, setPinCode] = useState({ city: '', state: '' });
   // console.log('PIN', Pin);
+
+  const [focused, setFocused] = useState(false);
+  const onFocus = () => setFocused(true);
+  const onBlur = () => setFocused(false);
+
   const {
     data,
     categoryInputHandler,
@@ -47,6 +53,7 @@ const ProfileTab = () => {
   const clickHandler = (item) => {
     setNetIncome([...netIncome, item]);
   };
+
   const removeSource = (index) => {
     netIncome.splice(index, 1);
     setNetIncome([...netIncome]);
@@ -72,6 +79,7 @@ const ProfileTab = () => {
             type="number"
             name="zip"
             value={zip.toString().replace(/^0+/, '')}
+            onWheel={(e) => e.target.blur()}
             onChange={formDataHandlerChange}
             className={classes.input_field}
           />
@@ -165,7 +173,7 @@ const ProfileTab = () => {
             <div key={index}>
               <div className={classes.input_area}>
                 <div>
-                  <label>Net Take Home Pay - Source {index + 1}</label>{' '}
+                  <label>Net Take Home Pay - Source {index + 1}</label>
                   {array.length > 1 ? (
                     <label
                       className={classes.input_area_delete_label}
@@ -181,7 +189,15 @@ const ProfileTab = () => {
                   type="text"
                   className={classes.input_field}
                   name="amount"
-                  value={item.amount}
+                  value={
+                    focused
+                      ? item.amount
+                      : item.amount.length > 0
+                      ? formatAmountValue(item.amount)
+                      : ''
+                  }
+                  onFocus={onFocus}
+                  onBlur={onBlur}
                   onChange={sourceChangeHandle(index)}
                   placeholder="Enter a value"
                 />

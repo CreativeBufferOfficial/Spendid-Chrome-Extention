@@ -117,7 +117,7 @@ const AllResult = () => {
       },
     }));
 
-    setNetIncome([{ frequency: '', amount: 0 }]);
+    setNetIncome([{ frequency: '', amount: '' }]);
     setResetFlag(true);
     setValue(1);
   };
