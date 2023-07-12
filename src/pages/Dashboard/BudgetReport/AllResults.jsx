@@ -23,6 +23,7 @@ const AllResult = () => {
   const {
     data,
     setData,
+    netIncome,
     setNetIncome,
     lendingPayload,
     demographicsPayload,
@@ -174,7 +175,7 @@ const AllResult = () => {
       <Button clearInput={clearInput} text="Clear Inputs" />
       <Button clearInput={logout} text="Logout" />
       <Tab tabs={HomeTabsViews} />
-      {activeTabNumber === 4 ? '' : <Tab tabs={ChartTabs} />}
+      {activeTabNumber === 4 ? ' ' : <Tab tabs={ChartTabs} />}
       {/* <Tab tabs={ChartTabs} /> */}
     </>
   );

@@ -63,38 +63,26 @@ const Result = ({ id, id2 }) => {
     'lendings?.elements?.cash_excess',
     lendings?.elements?.cash_excess
   );
-  // const structureData = (demographics, budgets) => {
-  //   // debugger;
-  //   const mergeDemographics = getStructureObject(demographics);
-  //   const mergeBudget = getStructureObject(budgets);
-  //   return { mergeDemographics, mergeBudget };
-  // };
-  // const initial = () => {
-  // if (demographics && budgets) {
-  //   // const mergeDemographics = getStructureObject(demographics);
-  //   // const mergeBudget = getStructureObject(budgets);
 
-  //   const { mergeDemographics, mergeBudget } = structureData(
-  //     demographics,
-  //     budgets
-  //   );
-  //   const category = filterCategory(mergeBudget);
-  //   const demographicsMajorExpensess = filterSavings(mergeDemographics);
-  //   const budgetMajorExpensess = filterSavings(mergeBudget);
-  //   getTabData(demographicsMajorExpensess, budgetMajorExpensess);
-
-  //   setSavingData(demographicsMajorExpensess);
-  //   setCategoryData(category);
-  //   const savings = mergeBudget.find(
-  //     (category) => category.category === 'Amount to Savings Each Period'
-  //   );
-  //   setSavingPDFData(savings?.value);
-  // }
-  // };
-  // console.log('chartSvg', chartSvg);
+  const lendingData = () => {
+    const savings = Math.round(lendings?.elements?.cash_excess / 12);
+    console.log(
+      'SAVINGS>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>',
+      savings
+    );
+    console.log('NAN', isNaN(savings));
+    console.log('!NAN', !isNaN(savings));
+    console.log('savings !== save>>>>>>>>', savings !== save);
+    if (!isNaN(savings) && savings !== save) {
+      console.log('savings!==save');
+      setSavingsSet(false);
+    }
+    setSave(savings);
+  };
 
   useEffect(() => {
     // initial();
+    lendingData();
     if (demographics && budgets) {
       const mergeDemographics = getStructureObject(demographics);
       const mergeBudget = getStructureObject(budgets);
@@ -132,60 +120,36 @@ const Result = ({ id, id2 }) => {
       const budgetMajorExpensess = filterSavings(mergeBudget);
       getTabData(demographicsMajorExpensess, budgetMajorExpensess);
       setSavingData(demographicsMajorExpensess);
-
-      //
-      // const savings = mergeBudget.find(
-      //   (category) => category.category === 'Amount to Savings Each Period'
-      // );
-      // const monthlySavings = Math.round(lendings?.elements?.cash_excess / 12);
-
-      // setSavingPDFData(savingData.Amount);
-
-      // categoryInputHandler(
-      //   'savings',
-      //   Math.round(lendings?.elements?.cash_excess / 12)
-      // );
-      // console.log('Saving>>>>>>>>>>>>>>', savingData);
-      // console.log('savingPDFData>>>>>>>>>>>>>>>', savingPDFData)
-      // console.log(
-      //   'chartSvg',
-      //   chartSvg,
-      //   'scoreChart',
-      //   scoreChart,
-      //   'barChart',
-      //   barChart
-      // );
     }
   }, [demographics, budgets]);
-  // console.log('setSavingData', savingData);
-  // console.log('savingPDFData', savingData[0]?.Amount);
-
-  // const handleMouseEnter = (event) => {
-  //   event.target.classList.add('show');
-  // };
-  // const handleMouseLeave = (event) => {
-  //   event.target.classList.remove('show');
-  // };
-  // console.log('inputDemograpicData', inputDemograpicData);
-  // console.log('inputBudgetData', inputBudgetData);
-  // debugger;
 
   useEffect(() => {
-    console.log(
-      'lendings?.elements?.cash_excess>>>>>>>>>>>>>>>>>>>>>>>>>>',
-      lendings?.elements?.cash_excess
-    );
-    console.log('savingsSet', savingsSet);
+    // console.log(
+    //   'lendings?.elements?.cash_excess>>>>>>>>>>>>>>>>>>>>>>>>>>inside Effect',
+    //   lendings?.elements?.cash_excess
+    // );
+    // console.log('savingsSet', savingsSet);
+    // console.log(
+    //   'lendings && lendings.elements && !savingsSet>>>>>>>>>>>condition',
+    //   lendings && lendings.elements && !savingsSet
+    // );
+    // console.log(lendings, lendings?.elements, !savingsSet, 'sasas');
+    // lendingData();
+    // setSavingsSet(false);
     if (lendings && lendings.elements && !savingsSet) {
-      const savings = Math.round(lendings?.elements?.cash_excess / 12);
+      console.log(
+        'lendings?.elements?.cash_excess<<<<<<<<<<<<<<<<<<<<<<<<<<<<< inside IF Condition',
+        lendings?.elements?.cash_excess
+      );
+      // const savings = Math.round(lendings?.elements?.cash_excess / 12);
       // setSave(savings);
-      // categoryInputHandler('savings', save);
+
+      categoryInputHandler('savings', save);
+      // categoryInputHandler('savings', savings);
       setSavingsSet(true);
-      categoryInputHandler('savings', savings);
     }
-  }, [lendings, categoryInputHandler, savingsSet]);
-  console.log('save>>>>', save);
-  // console.log('SavingData>>>>>>>>>>>>', savingData);
+  }, [categoryInputHandler, save]);
+
   // Create styles
   const styles = StyleSheet.create({
     page: {
@@ -257,10 +221,6 @@ const Result = ({ id, id2 }) => {
       width: '20%',
       fontSize: 12,
       padding: 5,
-      // borderStyle: 'solid',
-      // borderWidth: 1,
-      // borderColor: '#000000',
-      // padding: 5,
     },
     tableCellYourAmount: {
       width: '50%',
@@ -315,41 +275,6 @@ const Result = ({ id, id2 }) => {
   const generatePDF = () => {
     // Remove Category Table Data
     const removeCategory = getDiffrenceForTable(removeCategoryTableData);
-
-    // const { mergeDemographics, mergeBudget } = structureData(
-    //   demographics,
-    //   budgets
-    // );
-
-    // const mergeDemographics = getStructureObject(demographics);
-    // const mergeBudget = getStructureObject(budgets);
-    // console.log(
-    //   'mergeDemographics',
-    //   mergeDemographics,
-    //   'mergeBudget',
-    //   mergeBudget
-    // );
-
-    // Major Expenses Table Data
-    // const demographicsMajorExpensess = filterMajorExpenses(mergeDemographics);
-    // const budgetMajorExpensess = filterMajorExpenses(mergeBudget);
-    // getTabData(demographicsMajorExpensess, budgetMajorExpensess);
-    // const majorExpensetableData = getDiffrenceForTable(
-    //   demographicsMajorExpensess
-    // );
-
-    // Other Expenses Table Data
-    // const filterDemographicsOtherExpensesData =
-    //   filterOtherExpenses(mergeDemographics);
-    // const filterBudgetOtherExpensesData = filterOtherExpenses(mergeBudget);
-    // getTabData(
-    //   filterDemographicsOtherExpensesData,
-    //   filterBudgetOtherExpensesData
-    // );
-    // const otherExpensestableData = getDiffrenceForTable(
-    //   filterDemographicsOtherExpensesData
-    // );
-
     const { zip, age, net_annual_income, is_homeowner, household_members } =
       data?.apiReq?.demographics;
     const date = getPDfGenerateDate();
