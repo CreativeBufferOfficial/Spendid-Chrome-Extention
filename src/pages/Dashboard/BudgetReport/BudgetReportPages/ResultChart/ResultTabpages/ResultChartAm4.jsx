@@ -64,25 +64,25 @@ const Result = ({ id, id2 }) => {
     lendings?.elements?.cash_excess
   );
 
-  const lendingData = () => {
-    const savings = Math.round(lendings?.elements?.cash_excess / 12);
-    console.log(
-      'SAVINGS>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>',
-      savings
-    );
-    console.log('NAN', isNaN(savings));
-    console.log('!NAN', !isNaN(savings));
-    console.log('savings !== save>>>>>>>>', savings !== save);
-    if (!isNaN(savings) && savings !== save) {
-      console.log('savings!==save');
-      setSavingsSet(false);
-    }
-    setSave(savings);
-  };
+  // const lendingData = () => {
+  //   const savings = Math.round(lendings?.elements?.cash_excess / 12);
+  //   console.log(
+  //     'SAVINGS>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>',
+  //     savings
+  //   );
+  //   console.log('NAN', isNaN(savings));
+  //   console.log('!NAN', !isNaN(savings));
+  //   console.log('savings !== save>>>>>>>>', savings !== save);
+  //   if (!isNaN(savings) && savings !== save) {
+  //     console.log('savings!==save');
+  //     setSavingsSet(false);
+  //   }
+  //   setSave(savings);
+  // };
 
   useEffect(() => {
     // initial();
-    lendingData();
+    // lendingData();
     if (demographics && budgets) {
       const mergeDemographics = getStructureObject(demographics);
       const mergeBudget = getStructureObject(budgets);
@@ -135,6 +135,16 @@ const Result = ({ id, id2 }) => {
     // );
     // console.log(lendings, lendings?.elements, !savingsSet, 'sasas');
     // lendingData();
+    debugger;
+    const savings = Math.round(lendings?.elements?.cash_excess / 12);
+
+    if (!isNaN(savings) && save !== '') {
+      console.log('savings!==save');
+      setSavingsSet(false);
+      categoryInputHandler('savings', save);
+      setSave(savings);
+    }
+
     // setSavingsSet(false);
     if (lendings && lendings.elements && !savingsSet) {
       console.log(
@@ -144,7 +154,6 @@ const Result = ({ id, id2 }) => {
       // const savings = Math.round(lendings?.elements?.cash_excess / 12);
       // setSave(savings);
 
-      categoryInputHandler('savings', save);
       // categoryInputHandler('savings', savings);
       setSavingsSet(true);
     }
