@@ -36,7 +36,7 @@ const ProfileTab = () => {
     setValue(event.target.value);
   };
   const pinAddress = Pin.find(({ TEST }) => TEST === zip);
-  console.log('pinAddress', pinAddress);
+  // console.log('pinAddress', pinAddress);
 
   const sourceChangeHandle = (index, i) => (e) => {
     const name = e.target.getAttribute('name');

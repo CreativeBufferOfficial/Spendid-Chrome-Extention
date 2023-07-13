@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import classes from './ResultChartAm4.module.css';
 import {
@@ -9,7 +9,7 @@ import {
   ResultTitle,
   Logo,
 } from '../../../../../../utlis/Imports';
-import { saveReport } from '../../../../../../action/actions';
+import { LendingGenerate, saveReport } from '../../../../../../action/actions';
 import {
   filterSavings,
   getStructureObject,
@@ -35,7 +35,7 @@ import {
 
 const Result = ({ id, id2 }) => {
   const dispatch = useDispatch();
-  const { lendings } = useSelector((state) => state.lending);
+  const { loadingLendings, lendings } = useSelector((state) => state.lending);
   const { loadingDemographics, demographics } = useSelector(
     (state) => state.demographics
   );
@@ -50,6 +50,7 @@ const Result = ({ id, id2 }) => {
     barChart,
     removeCategoryTableData,
     categoryInputHandler,
+    lendingPayload,
   } = useFormContext();
   const { net_annual_income } = data.apiReq.demographics;
   const [savingsSet, setSavingsSet] = useState(false);
@@ -58,11 +59,24 @@ const Result = ({ id, id2 }) => {
   // const [savingPDFData, setSavingPDFData] = useState('');
   const [majorExpTableData, setMajorExpTableData] = useState([]);
   const [otherExpTableData, setOtherExpTableData] = useState([]);
-  const [save, setSave] = useState('');
+  const [save, setSave] = useState(0);
+
   console.log(
     'lendings?.elements?.cash_excess',
     lendings?.elements?.cash_excess
   );
+
+  const savings = useMemo(
+    (e) => {
+      return Math.round(lendings?.elements?.cash_excess / 12) &&
+        !isNaN(Math.round(lendings?.elements?.cash_excess / 12)) &&
+        typeof Math.round(lendings?.elements?.cash_excess / 12) != 'undefined'
+        ? Math.round(lendings?.elements?.cash_excess / 12)
+        : savings || 0;
+    },
+    [lendings?.elements?.cash_excess]
+  );
+  // const savings = Math.round(lendings?.elements?.cash_excess / 12);
 
   // const lendingData = () => {
   //   const savings = Math.round(lendings?.elements?.cash_excess / 12);
@@ -124,6 +138,13 @@ const Result = ({ id, id2 }) => {
   }, [demographics, budgets]);
 
   useEffect(() => {
+    setSavingsSet(false);
+    console.log(savings, '<<1');
+    if (savings) {
+      // setSave(savings);
+      categoryInputHandler('savings', savings);
+      setSavingsSet(true);
+    }
     // console.log(
     //   'lendings?.elements?.cash_excess>>>>>>>>>>>>>>>>>>>>>>>>>>inside Effect',
     //   lendings?.elements?.cash_excess
@@ -135,29 +156,32 @@ const Result = ({ id, id2 }) => {
     // );
     // console.log(lendings, lendings?.elements, !savingsSet, 'sasas');
     // lendingData();
-    debugger;
-    const savings = Math.round(lendings?.elements?.cash_excess / 12);
-
-    if (!isNaN(savings) && save !== '') {
-      console.log('savings!==save');
-      setSavingsSet(false);
-      categoryInputHandler('savings', save);
-      setSave(savings);
-    }
-
-    // setSavingsSet(false);
-    if (lendings && lendings.elements && !savingsSet) {
-      console.log(
-        'lendings?.elements?.cash_excess<<<<<<<<<<<<<<<<<<<<<<<<<<<<< inside IF Condition',
-        lendings?.elements?.cash_excess
-      );
-      // const savings = Math.round(lendings?.elements?.cash_excess / 12);
-      // setSave(savings);
-
-      // categoryInputHandler('savings', savings);
-      setSavingsSet(true);
-    }
-  }, [categoryInputHandler, save]);
+    // debugger;
+    // // const savings = Math.round(lendings?.elements?.cash_excess / 12);
+    // // if (lendings) {
+    // console.log('!isNaN(savings)', !isNaN(savings));
+    // console.log('save > 0', save > 0);
+    // console.log('save !== savings', save !== savings);
+    // setSave(savings);
+    // if (loadingLendings && !isNaN(savings) && save >= 0 && save !== savings) {
+    //   setSavingsSet(false);
+    //   console.log('savings!==save');
+    // }
+    // // }
+    // // setSavingsSet(false);
+    // if (savings) {
+    //   console.log(
+    //     'lendings?.elements?.cash_excess<<<<<<<<<<<<<<<<<<<<<<<<<<<<< inside IF Condition',
+    //     lendings?.elements?.cash_excess
+    //   );
+    // setSave(savings);
+    // setSavingsSet(true);
+    // categoryInputHandler('savings', savings);
+    // const savings = Math.round(lendings?.elements?.cash_excess / 12);
+    //   // categoryInputHandler('savings', save);
+    // }
+  }, [savings]);
+  console.log('SAVINGS>>>>>>', savings);
 
   // Create styles
   const styles = StyleSheet.create({

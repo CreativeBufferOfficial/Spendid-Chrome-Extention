@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
@@ -14,20 +14,29 @@ import useFormContext from '../../../hooks/useFormContext';
 am4core.useTheme(am4themes_animated);
 
 const BarChart = ({ id }) => {
-  const { setBarChart } = useFormContext();
+  const { setBarChart, categoryInputHandler } = useFormContext();
   const { loadingDemographics, demographics } = useSelector(
     (state) => state.demographics
   );
   const { loadingBudgets, budgets } = useSelector((state) => state.budget);
-  useEffect(() => {
+  const { lendings } = useSelector((state) => state.lending);
+  const [savingsSet, setSavingsSet] = useState(false);
+  const [difference, setDifference] = useState([]);
+
+  const init = () => {
     const demographicsObjects = getStructureObject(demographics);
     const budgetObjects = getStructureObject(budgets);
     const demographicsCategory = filterCategory(demographicsObjects);
     const budgetCategory = filterCategory(budgetObjects);
     getTabData(demographicsCategory, budgetCategory);
     console.log(demographicsCategory);
-    const difference = getDifferenceToPeers(demographicsCategory);
+    const diff = getDifferenceToPeers(demographicsCategory);
     // console.log('difference', difference);
+    setDifference(diff);
+  };
+
+  useEffect(() => {
+    init();
 
     // Create chart instance
     const chart = am4core.create(id, am4charts.XYChart);
@@ -122,6 +131,14 @@ const BarChart = ({ id }) => {
       chart.dispose();
     };
   }, []);
+
+  useEffect(() => {
+    if (lendings && lendings.elements && !savingsSet) {
+      const savings = Math.round(lendings.elements.cash_excess / 12);
+      categoryInputHandler('savings', savings);
+      setSavingsSet(true);
+    }
+  }, [lendings, categoryInputHandler, savingsSet]);
 
   return <div id={id} style={{ width: '100%', height: '350px' }}></div>;
 };

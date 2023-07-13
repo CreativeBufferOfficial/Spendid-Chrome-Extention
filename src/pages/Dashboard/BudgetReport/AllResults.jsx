@@ -13,12 +13,12 @@ import {
 } from '../../../action/actions';
 import { removeAuth } from '../../../utlis/auth';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 
 const AllResult = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { lendings } = useSelector((state) => state.lending);
+  // const { lendings } = useSelector((state) => state.lending);
 
   const {
     data,
@@ -59,6 +59,18 @@ const AllResult = () => {
   //   // budgetPayload,
   //   // scorePayload,
   // ]);
+  // const generateLending = async (lendingPayload) => {
+  //   try {
+  //     const response = await dispatch(LendingGenerate(lendingPayload));
+  //     // Handle successful dispatch
+  //     console.log(response);
+  //     return response;
+  //   } catch (error) {
+  //     // Handle dispatch error
+  //     console.error(error);
+  //     throw error;
+  //   }
+  // };
 
   useEffect(() => {
     // if (resetFlag) {
@@ -69,11 +81,23 @@ const AllResult = () => {
 
     const call = setTimeout(() => {
       console.log('1');
-      dispatch(LendingGenerate(lendingPayload));
+      LendingGenerate(lendingPayload, dispatch);
+      // (async () => {
+      //   try {
+      //     const response = await generateLending(lendingPayload);
+      //     // Handle successful promise resolution
+      //     console.log(response);
+      //   }catch (error) {
+      //     // Handle promise rejection or dispatch error
+      //     console.error(error);
+      //   }
+      // })();
       console.log('5');
       // if (Object.keys(lendings).length > 0) {
       //   console.log('XXXXXX');
       dispatch(demographicsGenerate(demographicsPayload));
+      console.log('9');
+
       dispatch(budgetsGenerate(budgetPayload));
       dispatch(scoresGenerate(scorePayload));
       // }

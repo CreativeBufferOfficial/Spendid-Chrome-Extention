@@ -44,27 +44,57 @@ export const login = (email, password) => async (dispatch) => {
   }
 };
 
-// Lending
-export const LendingGenerate = (body) => async (dispatch) => {
-  try {
-    dispatch({
-      type: LENDING_REQUEST,
-    });
-    console.log('2');
-    const { data } = await callAPI(apiUrls.lending, 'post', body);
-    console.log('3');
+// // Lending
+// export const LendingGenerate = (body) => async (dispatch) => {
+//   try {
+//     dispatch({
+//       type: LENDING_REQUEST,
+//     });
+//     console.log('2');
+//     const { data } = await callAPI(apiUrls.lending, 'post', body);
+//     console.log('data>>>>>', data);
+//     console.log('3');
 
-    dispatch({
-      type: LENDING_SUCCESS,
-      payload: data,
-    });
-    console.log('4');
-  } catch (error) {
-    dispatch({
-      type: LENDING_RESET,
-      payload: error.response,
-    });
-  }
+//     dispatch({
+//       type: LENDING_SUCCESS,
+//       payload: data,
+//     });
+//     console.log('4');
+//   } catch (error) {
+//     dispatch({
+//       type: LENDING_RESET,
+//       payload: error.response,
+//     });
+//   }
+// };
+
+export const LendingGenerate = (body, dispatch) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      dispatch({
+        type: LENDING_REQUEST,
+      });
+      console.log('2');
+      const { data } = await callAPI(apiUrls.lending, 'post', body);
+      console.log('data>>>>>', data);
+      console.log('3');
+
+      dispatch({
+        type: LENDING_SUCCESS,
+        payload: data,
+      });
+      console.log('4');
+
+      resolve(data);
+    } catch (error) {
+      dispatch({
+        type: LENDING_RESET,
+        payload: error.response,
+      });
+
+      reject(error);
+    }
+  });
 };
 
 // Demographics
@@ -73,13 +103,15 @@ export const demographicsGenerate = (body) => async (dispatch) => {
     dispatch({
       type: DEMOGRAPHICS_REQUEST,
     });
-
+    console.log('6');
     const { data } = await callAPI(apiUrls.demographics, 'post', body);
+    console.log('7');
     // console.log('data>>>>', data);
     dispatch({
       type: DEMOGRAPHICS_SUCCESS,
       payload: data,
     });
+    console.log('8');
   } catch (error) {
     dispatch({
       type: DEMOGRAPHICS_FAIL,
