@@ -16,10 +16,17 @@ import {
   healthcareIcon,
   incomeIcon,
 } from '../utlis/Imports';
+import { useDispatch } from 'react-redux';
+import {
+  LendingGenerate,
+  demographicsGenerate,
+  scoresGenerate,
+  budgetsGenerate,
+} from '../action/actions';
 
 const FormContext = createContext({});
-
 export const FormProvider = ({ children }) => {
+  // const dispatch = useDispatch();
   const transformData = getStructureTransform(transformerData);
   const [netIncome, setNetIncome] = useState([{ frequency: '', amount: '' }]);
 
@@ -198,9 +205,19 @@ export const FormProvider = ({ children }) => {
           apiReq.budget[name] = +value;
           break;
       }
-
+      console.log('NEWDATA>>>>>>', newData);
+      // console.log('BugetData>>>>>', budgetPayload);
       return newData;
     });
+
+    // Promise.all([
+    //   LendingGenerate(lendingPayload, dispatch),
+    //   dispatch(demographicsGenerate(demographicsPayload)),
+    //   dispatch(scoresGenerate(scorePayload)),
+    // ]).then((data) => {
+    //   // setLoading(true);
+    //   dispatch(budgetsGenerate(budgetPayload));
+    // });
   };
   console.log('Data>>>>>>Context', data);
 
@@ -315,6 +332,8 @@ export const FormProvider = ({ children }) => {
         budgetPayload,
         demographicsPayload,
         scorePayload,
+        inputDemograpicData,
+        inputBudgetData,
         netIncome,
         setNetIncome,
         transformData,
@@ -322,8 +341,6 @@ export const FormProvider = ({ children }) => {
         setValue,
         activeTabNumber,
         setActiveTabNumber,
-        inputDemograpicData,
-        inputBudgetData,
         chartSvg,
         setChartSvg,
         scoreChart,

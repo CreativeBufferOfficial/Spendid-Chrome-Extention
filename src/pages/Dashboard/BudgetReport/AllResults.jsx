@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import Tab from './BudgetReportPages/Tab';
 import { HomeTabsViews } from './BudgetReportPages/ExpensesTab/TabViews/HomeTabsViews';
@@ -13,6 +13,11 @@ import {
 } from '../../../action/actions';
 import { removeAuth } from '../../../utlis/auth';
 import { useNavigate } from 'react-router-dom';
+import {
+  copyAndMultiplyBudget,
+  copyAndMultiplyDemographics,
+} from '../../../utlis/Helper';
+import { transformerData } from '../../../utlis/HelperData';
 // import { useSelector } from 'react-redux';
 
 const AllResult = () => {
@@ -32,9 +37,54 @@ const AllResult = () => {
     setValue,
     activeTabNumber,
     categoryInputHandler,
+    inputDemograpicData,
+    inputBudgetData,
   } = useFormContext();
   const [resetFlag, setResetFlag] = useState(false);
+  const [loading, setLoading] = useState(false);
 
+  // const inputDemograpicData = copyAndMultiplyDemographics(data);
+  // const inputBudgetData = copyAndMultiplyBudget(data);
+
+  // const lendingPayload = useMemo(() => {
+  //   return {
+  //     budget: {
+  //       ...inputBudgetData.apiReq.budget,
+  //     },
+  //     demographics: { ...inputDemographicData.apiReq.demographics },
+  //   };
+  // }, [...inputDemograpicData ,inputBudgetData.apiReq.demographics]);
+
+  // const demographicsPayload = useMemo(() => {
+  //   return {
+  //     demographics: { ...inputDemographicData.apiReq.demographics },
+  //     transformer: {
+  //       ...transformerData,
+  //     },
+  //   };
+  // }, []);
+
+  // const budgetPayload = useMemo(() => {
+  //   return {
+  //     budget: { ...inputBudgetData.apiReq.budget },
+  //     demographics: { ...inputDemographicData.apiReq.demographics },
+  //     transformer: {
+  //       ...transformerData,
+  //     },
+  //   };
+  // }, []);
+
+  // const scorePayload = {
+  //   demographics: { ...inputDemograpicData.apiReq.demographics },
+  //   budget: { ...inputBudgetData.apiReq.budget },
+  // };
+
+  // const scorePayload = useMemo(( ) => {
+  //   return {
+  //     demographics: { ...inputDemographicData.apiReq.demographics },
+  //     budget: { ...inputBudgetData.apiReq.budget },
+  //   };
+  // }, []);
   // useEffect(() => {
   //   if (resetFlag) {
   //     setResetFlag(false);
@@ -80,8 +130,8 @@ const AllResult = () => {
     // categoryInputHandler('savings', savings);
 
     const call = setTimeout(() => {
-      console.log('1');
-      LendingGenerate(lendingPayload, dispatch);
+      // console.log('1');
+      // LendingGenerate(lendingPayload, dispatch);
       // (async () => {
       //   try {
       //     const response = await generateLending(lendingPayload);
@@ -92,19 +142,28 @@ const AllResult = () => {
       //     console.error(error);
       //   }
       // })();
-      console.log('5');
-      // if (Object.keys(lendings).length > 0) {
-      //   console.log('XXXXXX');
-      dispatch(demographicsGenerate(demographicsPayload));
-      console.log('9');
 
-      dispatch(budgetsGenerate(budgetPayload));
-      dispatch(scoresGenerate(scorePayload));
+      Promise.all([
+        LendingGenerate(lendingPayload, dispatch),
+        dispatch(demographicsGenerate(demographicsPayload)),
+      ]).then((data) => {
+        console.log('DAAAAAAAAAAAAAAAAAAATAAAAAAAAAAAAAAAAAAAAAAAAAAA');
+        setLoading(true);
+        dispatch(budgetsGenerate(budgetPayload));
+        dispatch(scoresGenerate(scorePayload));
+      });
+
+      // console.log('5');
+      // // if (Object.keys(lendings).length > 0) {
+      // //   console.log('XXXXXX');
+      // dispatch(demographicsGenerate(demographicsPayload));
+      // console.log('9');
+      // dispatch(budgetsGenerate(budgetPayload));
       // }
     }, 2000);
 
     return () => {
-      clearInterval(call);
+      clearTimeout(call);
     };
   }, [
     // resetFlag,
@@ -199,7 +258,7 @@ const AllResult = () => {
       <Button clearInput={clearInput} text="Clear Inputs" />
       <Button clearInput={logout} text="Logout" />
       <Tab tabs={HomeTabsViews} />
-      {activeTabNumber === 4 ? ' ' : <Tab tabs={ChartTabs} />}
+      {activeTabNumber === 4 ? ' ' : loading && <Tab tabs={ChartTabs} />}
       {/* <Tab tabs={ChartTabs} /> */}
     </>
   );

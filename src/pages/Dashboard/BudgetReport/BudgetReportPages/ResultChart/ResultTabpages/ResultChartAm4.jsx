@@ -139,8 +139,8 @@ const Result = ({ id, id2 }) => {
 
   useEffect(() => {
     setSavingsSet(false);
-    console.log(savings, '<<1');
-    if (savings) {
+    if (savings > 0) {
+      console.log(savings, '<<1');
       // setSave(savings);
       categoryInputHandler('savings', savings);
       setSavingsSet(true);
@@ -169,6 +169,7 @@ const Result = ({ id, id2 }) => {
     // }
     // // }
     // // setSavingsSet(false);
+
     // if (savings) {
     //   console.log(
     //     'lendings?.elements?.cash_excess<<<<<<<<<<<<<<<<<<<<<<<<<<<<< inside IF Condition',
