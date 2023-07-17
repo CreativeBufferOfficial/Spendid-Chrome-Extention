@@ -35,9 +35,7 @@ const OtherExpenses = () => {
   } = useFormContext();
   const { lendings } = useSelector((state) => state.lending);
   const [savingsSet, setSavingsSet] = useState(false);
-  const { loadingDemographics, demographics } = useSelector(
-    (state) => state.demographics
-  );
+  const { demographics } = useSelector((state) => state.demographics);
   const { loadingBudgets, budgets } = useSelector((state) => state.budget);
   const [gridView, setGridView] = useState(false);
   // const [sortedData, setSortedData] = useState([]);
@@ -45,8 +43,6 @@ const OtherExpenses = () => {
   const [otherExpensesSortedData, setOtherExpensesSortedData] = useState([]);
 
   const init = () => {
-    // const savings = Math.round(lendings?.elements?.cash_excess / 12);
-    // categoryInputHandler('savings', savings);
     if (demographics && budgets) {
       const demographicsOtherExpensesObject = getStructureObject(demographics);
       const budgetsOtherExpensesObject = getStructureObject(budgets);

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import classes from '../TabViews/HomeTabsViews.module.css';
 import useFormContext from '../../../../../../hooks/useFormContext';
 import {
@@ -7,14 +7,8 @@ import {
   formatAmountValue,
 } from '../../../../../../utlis/Helper';
 import Pin from '../../../../../../utlis/Pin.json';
-import { useSelector } from 'react-redux';
 
 const ProfileTab = () => {
-  const { lendings } = useSelector((state) => state.lending);
-  const [savingsSet, setSavingsSet] = useState(false);
-  // const [pinCode, setPinCode] = useState({ city: '', state: '' });
-  // console.log('PIN', Pin);
-
   const [focused, setFocused] = useState(false);
   const onFocus = () => setFocused(true);
   const onBlur = () => setFocused(false);
@@ -29,14 +23,12 @@ const ProfileTab = () => {
     setValue,
     // location,
   } = useFormContext();
-  const { zip, age, household_members, is_homeowner, net_annual_income } =
-    data.apiReq.demographics;
+  const { zip, age, is_homeowner } = data.apiReq.demographics;
 
   const updateLabel = (event) => {
     setValue(event.target.value);
   };
   const pinAddress = Pin.find(({ TEST }) => TEST === zip);
-  // console.log('pinAddress', pinAddress);
 
   const sourceChangeHandle = (index, i) => (e) => {
     const name = e.target.getAttribute('name');
@@ -61,14 +53,6 @@ const ProfileTab = () => {
     const totalSourceIncome = calcTotalSourceIncome(calcIncomeSource);
     categoryInputHandler('net_annual_income', totalSourceIncome);
   };
-
-  // useEffect(() => {
-  //   if (lendings && lendings.elements && !savingsSet) {
-  //     const savings = Math.round(lendings.elements.cash_excess / 12);
-  //     categoryInputHandler('savings', savings);
-  //     setSavingsSet(true);
-  //   }
-  // }, [lendings, categoryInputHandler, savingsSet]);
 
   return (
     <>

@@ -24,17 +24,13 @@ const MonthlyBills = () => {
     categoryInputHandler,
   } = useFormContext();
   const { lendings } = useSelector((state) => state.lending);
-  const { loadingDemographics, demographics } = useSelector(
-    (state) => state.demographics
-  );
+  const { demographics } = useSelector((state) => state.demographics);
   const [savingsSet, setSavingsSet] = useState(false);
   const { loadingBudgets, budgets } = useSelector((state) => state.budget);
   const [removeCategory, setRemoveCategory] = useState([]);
   const [sortedData, setSortedData] = useState([]);
 
   const init = () => {
-    // const savings = Math.round(lendings?.elements?.cash_excess / 12);
-    // categoryInputHandler('savings', savings);
     if (demographics && budgets) {
       const demographicsMonthlyBillObject = getStructureObject(demographics);
       const budgetsMonthlyBillObject = getStructureObject(budgets);
@@ -47,9 +43,6 @@ const MonthlyBills = () => {
       );
       getTabData(filterdemographicsMonthlyBill, filterBudgetMonthlyBill);
       setSortedData(filterdemographicsMonthlyBill);
-
-      // const savings = Math.round(lendings?.elements?.cash_excess / 12);
-      // categoryInputHandler('savings', savings);
     }
   };
 

@@ -16,6 +16,14 @@ const Rent = () => {
     rent_input = false; // or any other value you want to assign when the input is empty
   }
 
+  const handleKeyDown = (event) => {
+    const keyPressed = event.key;
+
+    if (keyPressed === 'Enter' && rent_input) {
+      nextHandler();
+    }
+  };
+
   const content = (
     <div className={classes.questions}>
       <div className={classes.question}>
@@ -37,6 +45,7 @@ const Rent = () => {
           value={mortgage_and_rent}
           onChange={formDataHandlerChange}
           placeholder="Type your answer here..."
+          onKeyDown={handleKeyDown}
         />
       </div>
       <div className={classes.text_btn}>

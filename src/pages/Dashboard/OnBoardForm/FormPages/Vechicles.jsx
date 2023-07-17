@@ -18,6 +18,14 @@ const Vechicles = () => {
     vehicle_input = false; // or any other value you want to assign when the input is empty
   }
 
+  const handleKeyDown = (event) => {
+    const keyPressed = event.key;
+
+    if (keyPressed === 'Enter' && vehicle_input) {
+      nextHandler();
+    }
+  };
+
   const content = (
     <div className={classes.questions}>
       <div className={classes.question}>
@@ -34,6 +42,7 @@ const Vechicles = () => {
           // value={vehicle_purchase_and_lease.toString().replace(/^0+/, '')}
           value={vehicle_purchase_and_lease}
           onChange={formDataHandlerChange}
+          onKeyDown={handleKeyDown}
         />
       </div>
       <div className={classes.text_btn}>

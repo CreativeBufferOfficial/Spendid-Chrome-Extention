@@ -14,6 +14,14 @@ const HealthInsurance2 = () => {
     health_input = false; // or any other value you want to assign when the input is empty
   }
 
+  const handleKeyDown = (event) => {
+    const keyPressed = event.key;
+
+    if (keyPressed === 'Enter' && health_input) {
+      nextHandler();
+    }
+  };
+
   const content = (
     <div className={classes.questions}>
       <div className={classes.question}>
@@ -30,6 +38,7 @@ const HealthInsurance2 = () => {
           // value={health_insurance.toString().replace(/^0+/, '')}
           value={health_insurance}
           onChange={formDataHandlerChange}
+          onKeyDown={handleKeyDown}
         />
       </div>
       <div className={classes.text_btn}>

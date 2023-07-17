@@ -8,6 +8,14 @@ const Zip = () => {
   const { zip } = data.apiReq.demographics;
   const zip_input = zip.toString().length > 4;
 
+  const handleKeyDown = (event) => {
+    const keyPressed = event.key;
+
+    if (keyPressed === 'Enter' && zip_input) {
+      nextHandler();
+    }
+  };
+
   const content = (
     <div className={classes.questions}>
       <div className={classes.question}>
@@ -19,10 +27,11 @@ const Zip = () => {
           className={classes.input}
           type="number"
           name="zip"
-          value={zip.toString().replace(/^0+/, '')}
+          value={zip.toString().replace(/^0+/, '').slice(0, 5)}
           onChange={formDataHandlerChange}
           placeholder="Type your answer here..."
           pattern="\d{1,2}"
+          onKeyDown={handleKeyDown}
         />
       </div>
       <div className={classes.text_btn}>

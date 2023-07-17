@@ -78,10 +78,10 @@
   color: #fff;
 }
 
-.payment_value > p:first-child,
+/* .payment_value > p:first-child,
 .payment_value_grid_edit :first-child {
   background-color: #0267e8;
-}
+} */
 
 .payment_value > p:first-child,
 .payment_value_grid :first-child {
@@ -91,6 +91,13 @@
 .payment_value > p:last-child,
 .payment_value_grid :last-child {
   background-color: #68aca5;
+}
+
+.IsEditInput {
+  background-color: #180f4f;
+}
+.editInput {
+  background-color: #0267e8;
 }
 
 .Toggle_input_field {

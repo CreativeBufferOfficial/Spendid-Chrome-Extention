@@ -12,11 +12,31 @@ const Expense = ({
   gridView,
   isMajorExpensesTab,
   onRemoveCategory,
+  // handleKeyDown,
+  // bg,
 }) => {
   const { transformData, categoryInputHandler } = useFormContext();
   const [showAmount, setShowAmount] = useState(false);
   const [selectedOption, setSelectedOption] = useState('');
   const [amount, setAmount] = useState('');
+
+  // const keyPressed = event.key;
+
+  // // Change the background color based on the key pressed
+  // if (keyPressed === 'Enter') {
+  //   setBgColor('green');
+  // } else if (keyPressed === 'Escape') {
+  //   setBgColor('red');
+  // } else {
+  //   setBgColor('');
+  // }
+  // };
+  const [bgColor, setBgColor] = useState('');
+
+  const handleKeyDown = (event) => {
+    setBgColor('#0267e8');
+  };
+
   const filter = transformData.filter((obj) => obj.name === title);
   const showAmountHandler = () => {
     setShowAmount((prev) => !prev);
@@ -72,14 +92,12 @@ const Expense = ({
           </div>
           <div
             className={
-              gridView
-                ? amount.length > 0
-                  ? classes.payment_value_grid_edit
-                  : classes.payment_value_grid
-                : classes.payment_value
+              gridView ? classes.payment_value_grid : classes.payment_value
             }
           >
-            <p>${amount ? (amount === ' ' ? amount1 : amount) : amount1}</p>
+            <p style={{ backgroundColor: bgColor }}>
+              ${amount ? (amount === ' ' ? amount1 : amount) : amount1}
+            </p>
             <p>${amount2}</p>
           </div>
           <div className={classes.field_label}>
@@ -116,6 +134,7 @@ const Expense = ({
               frequency={selectedOption}
               onChange={categoryAmountHandler}
               value={amount}
+              onKeyDown={handleKeyDown}
             />
           </div>
           <div className={classes.input_area}>

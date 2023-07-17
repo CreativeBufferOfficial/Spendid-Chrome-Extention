@@ -16,6 +16,14 @@ const Age = () => {
     age_input = false; // or any other value you want to assign when the input is empty
   }
 
+  const handleKeyDown = (event) => {
+    const keyPressed = event.key;
+
+    if (keyPressed === 'Enter' && age_input) {
+      nextHandler();
+    }
+  };
+
   const content = (
     <div className={classes.questions}>
       <div className={classes.question}>
@@ -31,10 +39,11 @@ const Age = () => {
           type="number"
           maxLength="3"
           name="age"
-          value={age.toString().replace(/^0+/, '')}
+          value={age.toString().replace(/^0+/, '').slice(0, 2)}
           // value={age}
           onChange={formDataHandlerChange}
           placeholder="Type your answer here..."
+          onKeyDown={handleKeyDown}
         />
       </div>
       <div className={classes.text_btn}>

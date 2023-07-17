@@ -272,7 +272,15 @@ export const FormProvider = ({ children }) => {
 
       switch (name) {
         case 'zip':
+          apiReq.demographics[name] = +value.slice(0, 5);
+          localStorage.setItem([name], +value.slice(0, 5));
+          break;
+
         case 'age':
+          apiReq.demographics[name] = +value.slice(0, 2);
+          localStorage.setItem([name], +value.slice(0, 2));
+          break;
+
         case 'net_annual_income':
           apiReq.demographics[name] = +value;
           localStorage.setItem([name], +value);

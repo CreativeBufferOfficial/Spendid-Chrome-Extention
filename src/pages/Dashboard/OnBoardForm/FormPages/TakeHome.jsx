@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import useFormContext from '../../../../hooks/useFormContext';
 import classes from '../Form.module.css';
 import { selected, addIcon } from '../../../../utlis/Imports';
@@ -94,6 +94,13 @@ const TakeHome = () => {
     navigate('/result');
   };
 
+  const handleKeyDown = (event) => {
+    const keyPressed = event.key;
+    if (keyPressed === 'Enter') {
+      formSubmitHandler();
+    }
+  };
+
   const content = (
     <div className={classes.questions}>
       <div className={classes.question}>
@@ -170,6 +177,7 @@ const TakeHome = () => {
                   onBlur={onBlur}
                   onChange={sourceChangeHandle(index)}
                   placeholder="Type your amount here"
+                  onKeyDown={handleKeyDown}
                 />
               </div>
             </div>

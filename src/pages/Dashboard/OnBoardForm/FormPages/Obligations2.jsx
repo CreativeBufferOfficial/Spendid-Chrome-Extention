@@ -25,6 +25,14 @@ const Obligations2 = () => {
     categoryInputHandler('other_debt_payments', totalDeptvalue);
   };
 
+  const handleKeyDown = (event) => {
+    const keyPressed = event.key;
+
+    if (keyPressed === 'Enter') {
+      nextHandler();
+    }
+  };
+
   const content = (
     <div className={classes.questions}>
       <div className={classes.question}>
@@ -53,6 +61,7 @@ const Obligations2 = () => {
             placeholder="$ 0"
             value={debt.pastCreditCardDebt}
             onChange={deptHandler}
+            onKeyDown={handleKeyDown}
           />
         </div>
         <div>
@@ -65,6 +74,7 @@ const Obligations2 = () => {
             name="studentLoans"
             value={debt.studentLoans}
             onChange={deptHandler}
+            onKeyDown={handleKeyDown}
           />
         </div>
         <div>
@@ -77,6 +87,7 @@ const Obligations2 = () => {
             name="homeEquityLineCredit"
             value={debt.homeEquityLineCredit}
             onChange={deptHandler}
+            onKeyDown={handleKeyDown}
           />
         </div>
         <div>
@@ -89,6 +100,7 @@ const Obligations2 = () => {
             name="Alimony"
             value={debt.Alimony}
             onChange={deptHandler}
+            onKeyDown={handleKeyDown}
           />
         </div>
 
@@ -102,6 +114,7 @@ const Obligations2 = () => {
             name="childSupport"
             value={debt.childSupport}
             onChange={deptHandler}
+            onKeyDown={handleKeyDown}
           />
         </div>
 
@@ -115,6 +128,7 @@ const Obligations2 = () => {
             name="otherDebt"
             value={debt.otherDebt}
             onChange={deptHandler}
+            onKeyDown={handleKeyDown}
           />
         </div>
 
