@@ -79,8 +79,13 @@
 }
 
 .payment_value > p:first-child,
-.payment_value_grid :first-child {
+.payment_value_grid_edit :first-child {
   background-color: #0267e8;
+}
+
+.payment_value > p:first-child,
+.payment_value_grid :first-child {
+  background-color: #180f4f;
 }
 
 .payment_value > p:last-child,

@@ -72,7 +72,11 @@ const Expense = ({
           </div>
           <div
             className={
-              gridView ? classes.payment_value_grid : classes.payment_value
+              gridView
+                ? amount.length > 0
+                  ? classes.payment_value_grid_edit
+                  : classes.payment_value_grid
+                : classes.payment_value
             }
           >
             <p>${amount ? (amount === ' ' ? amount1 : amount) : amount1}</p>
