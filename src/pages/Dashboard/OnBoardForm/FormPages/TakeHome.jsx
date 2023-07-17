@@ -5,7 +5,7 @@ import { selected, addIcon } from '../../../../utlis/Imports';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import {
-  LendingGenerate,
+  lendingGenerate,
   demographicsGenerate,
   budgetsGenerate,
   scoresGenerate,
@@ -78,10 +78,19 @@ const TakeHome = () => {
   // const sendBody = { ...data.apiReq };
   const formSubmitHandler = () => {
     // const body = JSON.parse(JSON.stringify(sendBody));
-    dispatch(LendingGenerate(lendingPayload));
-    dispatch(demographicsGenerate(demographicsPayload));
-    dispatch(budgetsGenerate(budgetPayload));
-    dispatch(scoresGenerate(scorePayload));
+    Promise.all([lendingGenerate(lendingPayload, dispatch)]).then((data) => {
+      const copyBudget = JSON.parse(JSON.stringify(budgetPayload));
+      copyBudget.budget.savings = Math.round(data[0]?.elements?.cash_excess);
+      console.log('5.1');
+      const copyScore = JSON.parse(JSON.stringify(scorePayload));
+      copyScore.budget.savings = Math.round(data[0]?.elements?.cash_excess);
+
+      dispatch(demographicsGenerate(demographicsPayload));
+      console.log('9');
+      console.log('copyBudgetcopyBudget>>>>>>>>>>>>>>>>>>>>', copyBudget);
+      dispatch(budgetsGenerate(copyBudget));
+      dispatch(scoresGenerate(copyScore));
+    });
     navigate('/result');
   };
 

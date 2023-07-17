@@ -43,6 +43,7 @@ const Result = ({ id, id2 }) => {
   const { loadingScore, scores } = useSelector((state) => state.score);
   const {
     data,
+    setData,
     inputDemograpicData,
     inputBudgetData,
     chartSvg,
@@ -134,17 +135,34 @@ const Result = ({ id, id2 }) => {
       const budgetMajorExpensess = filterSavings(mergeBudget);
       getTabData(demographicsMajorExpensess, budgetMajorExpensess);
       setSavingData(demographicsMajorExpensess);
+      console.log(
+        'demographicsMajorExpensess<<<<<<<<<<<<<<<<<<<<<',
+        demographicsMajorExpensess
+      );
     }
+    setSavingsSet(false);
   }, [demographics, budgets]);
 
   useEffect(() => {
-    setSavingsSet(false);
-    if (savings > 0) {
+    if (savings) {
       console.log(savings, '<<1');
-      // setSave(savings);
-      categoryInputHandler('savings', savings);
-      setSavingsSet(true);
+      setSave(savings);
+      // categoryInputHandler('savings', savings);
+
+      // setData((prev) => ({
+      //   ...prev,
+      //   apiReq: {
+      //     ...prev.apiReq,
+
+      //     budget: {
+      //       savings: savings,
+      //     },
+      //   },
+      // }));
+
+      // setSavingsSet(true);
     }
+
     // console.log(
     //   'lendings?.elements?.cash_excess>>>>>>>>>>>>>>>>>>>>>>>>>>inside Effect',
     //   lendings?.elements?.cash_excess
@@ -182,6 +200,7 @@ const Result = ({ id, id2 }) => {
     //   // categoryInputHandler('savings', save);
     // }
   }, [savings]);
+
   console.log('SAVINGS>>>>>>', savings);
 
   // Create styles

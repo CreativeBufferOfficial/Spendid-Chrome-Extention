@@ -62,13 +62,13 @@ const ProfileTab = () => {
     categoryInputHandler('net_annual_income', totalSourceIncome);
   };
 
-  useEffect(() => {
-    if (lendings && lendings.elements && !savingsSet) {
-      const savings = Math.round(lendings.elements.cash_excess / 12);
-      categoryInputHandler('savings', savings);
-      setSavingsSet(true);
-    }
-  }, [lendings, categoryInputHandler, savingsSet]);
+  // useEffect(() => {
+  //   if (lendings && lendings.elements && !savingsSet) {
+  //     const savings = Math.round(lendings.elements.cash_excess / 12);
+  //     categoryInputHandler('savings', savings);
+  //     setSavingsSet(true);
+  //   }
+  // }, [lendings, categoryInputHandler, savingsSet]);
 
   return (
     <>

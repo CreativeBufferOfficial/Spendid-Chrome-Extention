@@ -145,6 +145,37 @@ export const FormProvider = ({ children }) => {
     demographics: { ...inputDemograpicData.apiReq.demographics },
     budget: { ...inputBudgetData.apiReq.budget },
   };
+  console.log('DAAATTAAA>>><<<<', data);
+
+  // const [lendingPayload, setLendingPayload] = useState({
+  //   budget: {
+  //     ...inputBudgetData.apiReq.budget,
+  //   },
+  //   demographics: { ...inputDemograpicData.apiReq.demographics },
+  // });
+
+  // const [demographicsPayload, setDemographicsPayload] = useState({
+  //   demographics: { ...inputDemograpicData.apiReq.demographics },
+  //   transformer: {
+  //     ...transformerData,
+  //   },
+  // });
+
+  // const [budgetPayload, setBudgetPayload] = useState({
+  //   budget: { ...inputBudgetData.apiReq.budget },
+  //   demographics: { ...inputDemograpicData.apiReq.demographics },
+  //   transformer: { ...transformerData },
+  // });
+
+  // const [scorePayload, setScorePayload] = useState({
+  //   demographics: { ...inputDemograpicData.apiReq.demographics },
+  //   budget: { ...inputBudgetData.apiReq.budget },
+  // });
+
+  console.log('lendingPayload>>><<<<', lendingPayload);
+  console.log('demographicsPayload>>><<<<', demographicsPayload);
+  console.log('budgetPayload>>><<<<', budgetPayload);
+  console.log('scorePayload>>><<<<', scorePayload);
 
   const categoryInputHandler = (name, value) => {
     setData((data) => {
@@ -328,10 +359,12 @@ export const FormProvider = ({ children }) => {
         currentHandler,
         categoryInputHandler,
         globalSelectedIndex,
+
         lendingPayload,
         budgetPayload,
         demographicsPayload,
         scorePayload,
+
         inputDemograpicData,
         inputBudgetData,
         netIncome,
@@ -349,6 +382,18 @@ export const FormProvider = ({ children }) => {
         setBarChart,
         removeCategoryTableData,
         setRemoveCategoryTableData,
+
+        // lendingPayload,
+        // setLendingPayload,
+
+        // demographicsPayload,
+        // setDemographicsPayload,
+
+        // budgetPayload,
+        // setBudgetPayload,
+
+        // scorePayload,
+        // setScorePayload,
       }}
     >
       {children}

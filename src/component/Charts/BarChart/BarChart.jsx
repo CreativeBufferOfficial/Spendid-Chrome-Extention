@@ -23,26 +23,34 @@ const BarChart = ({ id }) => {
   const [savingsSet, setSavingsSet] = useState(false);
   const [difference, setDifference] = useState([]);
 
-  const init = () => {
+  // const init = () => {
+  //   const demographicsObjects = getStructureObject(demographics);
+  //   const budgetObjects = getStructureObject(budgets);
+  //   const demographicsCategory = filterCategory(demographicsObjects);
+  //   const budgetCategory = filterCategory(budgetObjects);
+  //   getTabData(demographicsCategory, budgetCategory);
+  //   // console.log(demographicsCategory);
+  //   const diff = getDifferenceToPeers(demographicsCategory);
+  //   console.log('difference', diff);
+  //   setDifference(diff);
+  // };
+
+  useEffect(() => {
+    // init();
     const demographicsObjects = getStructureObject(demographics);
     const budgetObjects = getStructureObject(budgets);
     const demographicsCategory = filterCategory(demographicsObjects);
     const budgetCategory = filterCategory(budgetObjects);
     getTabData(demographicsCategory, budgetCategory);
-    console.log(demographicsCategory);
+    // console.log(demographicsCategory);
     const diff = getDifferenceToPeers(demographicsCategory);
-    // console.log('difference', difference);
-    setDifference(diff);
-  };
-
-  useEffect(() => {
-    init();
+    console.log('difference', diff);
 
     // Create chart instance
     const chart = am4core.create(id, am4charts.XYChart);
 
     // Add data
-    chart.data = difference.splice(0, 5);
+    chart.data = diff.splice(0, 5);
     // chart.data = [
     //   { category: 'Category 1', difference: 10 },
     //   { category: 'Category 2', difference: 20 },

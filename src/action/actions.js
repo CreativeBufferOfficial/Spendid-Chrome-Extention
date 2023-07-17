@@ -68,7 +68,7 @@ export const login = (email, password) => async (dispatch) => {
 //   }
 // };
 
-export const LendingGenerate = (body, dispatch) => {
+export const lendingGenerate = (body, dispatch) => {
   return new Promise(async (resolve, reject) => {
     try {
       dispatch({

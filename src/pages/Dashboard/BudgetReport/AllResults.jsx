@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import Tab from './BudgetReportPages/Tab';
 import { HomeTabsViews } from './BudgetReportPages/ExpensesTab/TabViews/HomeTabsViews';
@@ -6,7 +6,7 @@ import { ChartTabs } from './BudgetReportPages/ResultChart/ResultTabChartView';
 import { Button, Header } from '../../../utlis/Imports';
 import useFormContext from '../../../hooks/useFormContext';
 import {
-  LendingGenerate,
+  lendingGenerate,
   demographicsGenerate,
   budgetsGenerate,
   scoresGenerate,
@@ -39,6 +39,8 @@ const AllResult = () => {
     categoryInputHandler,
     inputDemograpicData,
     inputBudgetData,
+    setBudgetPayload,
+    setScorePayload,
   } = useFormContext();
   const [resetFlag, setResetFlag] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -85,52 +87,26 @@ const AllResult = () => {
   //     budget: { ...inputBudgetData.apiReq.budget },
   //   };
   // }, []);
-  // useEffect(() => {
-  //   if (resetFlag) {
-  //     setResetFlag(false);
-  //   }
-  //   const call = setTimeout(() => {
-  //     dispatch(LendingGenerate(lendingPayload));
-  //     // if (Object.keys(lendings).length > 0) {
-  //     //   dispatch(demographicsGenerate(demographicsPayload));
-  //     //   dispatch(budgetsGenerate(budgetPayload));
-  //     //   dispatch(scoresGenerate(scorePayload));
-  //     // }
-  //   }, 2000);
 
-  //   return () => {
-  //     clearInterval(call);
-  //   };
-  // }, [
-  //   resetFlag,
-  //   dispatch,
-  //   lendingPayload,
-  //   // demographicsPayload,
-  //   // budgetPayload,
-  //   // scorePayload,
-  // ]);
-  // const generateLending = async (lendingPayload) => {
-  //   try {
-  //     const response = await dispatch(LendingGenerate(lendingPayload));
-  //     // Handle successful dispatch
-  //     console.log(response);
-  //     return response;
-  //   } catch (error) {
-  //     // Handle dispatch error
-  //     console.error(error);
-  //     throw error;
-  //   }
-  // };
-
+  const dependencies = [
+    dispatch,
+    // useCallback(() => lendingPayload, [lendingPayload]),
+    // useCallback(() => demographicsPayload, [demographicsPayload]),
+    // useCallback(() => budgetPayload, [budgetPayload]),
+    // useCallback(() => scorePayload, [scorePayload]),
+    // lendingPayload,
+    // demographicsPayload,
+    // budgetPayload,
+    // scorePayload,
+    // useCallback(() => data, [data]),
+  ];
   useEffect(() => {
     // if (resetFlag) {
     //   setResetFlag(false);
     // }
-    // const savings = Math.round(lendings?.elements?.cash_excess / 12);
-    // categoryInputHandler('savings', savings);
 
     const call = setTimeout(() => {
-      // console.log('1');
+      console.log('1');
       // LendingGenerate(lendingPayload, dispatch);
       // (async () => {
       //   try {
@@ -143,41 +119,47 @@ const AllResult = () => {
       //   }
       // })();
 
-      Promise.all([
-        LendingGenerate(lendingPayload, dispatch),
-        dispatch(demographicsGenerate(demographicsPayload)),
-      ]).then((data) => {
-        console.log('DAAAAAAAAAAAAAAAAAAATAAAAAAAAAAAAAAAAAAAAAAAAAAA');
-        setLoading(true);
-        dispatch(budgetsGenerate(budgetPayload));
-        dispatch(scoresGenerate(scorePayload));
-      });
+      Promise.all([lendingGenerate(lendingPayload, dispatch)]).then((data) => {
+        // categoryInputHandler(
+        //   'savings',
+        //   Math.round(data[0]?.elements?.cash_excess / 12)
+        // );
+        console.log('5');
+        // setData((prevData) => ({
+        //   ...prevData,
+        //   apiReq: {
+        //     ...prevData.apiReq,
+        //     budget: {
+        //       ...prevData.apiReq.budget,
+        //       savings: Math.round(data[0]?.elements?.cash_excess / 12),
+        //     },
+        //   },
+        // }));
+        const copyBudget = JSON.parse(JSON.stringify(budgetPayload));
+        copyBudget.budget.savings = Math.round(data[0]?.elements?.cash_excess);
+        console.log('5.1');
+        const copyScore = JSON.parse(JSON.stringify(scorePayload));
+        copyScore.budget.savings = Math.round(data[0]?.elements?.cash_excess);
 
-      // console.log('5');
-      // // if (Object.keys(lendings).length > 0) {
-      // //   console.log('XXXXXX');
-      // dispatch(demographicsGenerate(demographicsPayload));
-      // console.log('9');
-      // dispatch(budgetsGenerate(budgetPayload));
-      // }
+        dispatch(demographicsGenerate(demographicsPayload));
+        console.log('9');
+        console.log('copyBudgetcopyBudget>>>>>>>>>>>>>>>>>>>>', copyBudget);
+        dispatch(budgetsGenerate(copyBudget));
+        dispatch(scoresGenerate(copyScore));
+        setLoading(true);
+      });
     }, 2000);
 
     return () => {
       clearTimeout(call);
     };
   }, [
-    // resetFlag,
     dispatch,
     lendingPayload,
     demographicsPayload,
     budgetPayload,
     scorePayload,
   ]);
-
-  // categoryInputHandler(
-  //   'savings',
-  //   Math.round(lendings?.elements?.cash_excess / 12)
-  // );
 
   const clearInput = () => {
     setData((prev) => ({
@@ -206,19 +188,6 @@ const AllResult = () => {
     setValue(1);
   };
 
-  // function abc() {
-  //   setData((prev) => ({
-  //     ...prev,
-  //     apiReq: {
-  //       ...prev.apiReq,
-  //       budget: {
-  //         savings: lendings?.elements?.cash_excess,
-  //       },
-  //     },
-  //   }));
-  // }
-  // abc();
-
   const startOver = () => {
     setData((prev) => ({
       ...prev,
@@ -240,6 +209,8 @@ const AllResult = () => {
         },
       },
     }));
+    setNetIncome([{ frequency: '', amount: '' }]);
+    setValue(1);
     localStorage.removeItem('zip');
     localStorage.removeItem('age');
     navigate('/dashboard');
