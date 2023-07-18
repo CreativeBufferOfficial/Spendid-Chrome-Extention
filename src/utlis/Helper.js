@@ -234,3 +234,26 @@ export const formatAmountValue = (value) => {
   const formattedValue = Number(numericValue).toLocaleString('en-US');
   return `$ ${formattedValue}`;
 };
+
+export const getGrade = (breakeven) => {
+  let grade = '';
+
+  if (breakeven === 0 || breakeven < 0) {
+    grade = '';
+  } else if (breakeven <= 59 && breakeven > 0) {
+    grade = '';
+  } else if (breakeven > 59 && breakeven < 70) {
+    grade = '';
+  } else if (breakeven >= 70 && breakeven < 80) {
+    grade = '';
+  } else if (breakeven >= 80 && breakeven < 85) {
+    grade = 'B';
+  } else if (breakeven >= 85 && breakeven < 90) {
+    grade = 'B +';
+  } else if (breakeven >= 90 && breakeven <= 99) {
+    grade = 'A ';
+  } else if (breakeven > 99) {
+    grade = 'A +';
+  }
+  return grade;
+};

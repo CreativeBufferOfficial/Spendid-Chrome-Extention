@@ -6,6 +6,7 @@ import { iBtn } from '../../../utlis/Imports';
 import classes from './GaugeChart.module.css';
 import { useSelector } from 'react-redux';
 import useFormContext from '../../../hooks/useFormContext';
+import { getGrade } from '../../../utlis/Helper';
 
 function GaugeChart({ id }) {
   const { setScoreChart } = useFormContext();
@@ -119,6 +120,9 @@ function GaugeChart({ id }) {
 
   return (
     <div className={classes.gauge_parent}>
+      <p style={{ fontSize: '30px', fontWeight: 700, marginBottom: 5 }}>
+        {getGrade(breakeven)}
+      </p>
       <div ref={chartRef} id={id} className={classes.gauge} />
       <div>
         <img src={iBtn} alt="i_btn" />

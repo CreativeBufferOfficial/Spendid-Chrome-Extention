@@ -19,6 +19,7 @@ import {
   getPDfGenerateDate,
   filterMajorExpenses,
   filterOtherExpenses,
+  getGrade,
 } from '../../../../../../utlis/Helper';
 import useFormContext from '../../../../../../hooks/useFormContext';
 import { transformerData } from '../../../../../../utlis/HelperData';
@@ -41,6 +42,8 @@ const Result = ({ id, id2 }) => {
   );
   const { loadingBudgets, budgets } = useSelector((state) => state.budget);
   const { loadingScore, scores } = useSelector((state) => state.score);
+
+  const breakeven = scores && scores?.breakeven;
   const {
     data,
     setData,
@@ -286,10 +289,27 @@ const Result = ({ id, id2 }) => {
       display: 'flex',
       flexDirection: 'row',
     },
+
+    resultChart: {
+      width: '50%',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
     imageChart: {
-      width: '300px',
+      width: '250px',
       height: '200px',
       marginBottom: 15,
+      marginRight: 60,
+    },
+    imageBarChart: {
+      width: '400px',
+      height: '250px',
+      marginBottom: 15,
+      marginRight: 30,
+    },
+    grade: {
       marginRight: 30,
     },
     imageChartPageTwo: {
@@ -309,7 +329,7 @@ const Result = ({ id, id2 }) => {
     resultText: {
       fontSize: 12,
       marginTop: 20,
-      textAlign: 'center',
+      textAlign: 'left',
     },
     ModalChartView: {
       display: 'flex',
@@ -394,7 +414,10 @@ const Result = ({ id, id2 }) => {
           <View style={styles.section}>
             <Text style={styles.colorText}>Result</Text>
             <View style={styles.result}>
-              <Image src={scoreChart} style={styles.imageChart} />
+              <View style={styles.resultChart}>
+                <Text style={styles.grade}>{getGrade(breakeven)}</Text>
+                <Image src={scoreChart} style={styles.imageChart} />
+              </View>
               <View style={styles.resultContent}>
                 <Text style={styles.resultContentTitle}>
                   {`Predicted Saving Ability (PSA): $ ${savingData[0]?.Amount}`}
@@ -413,7 +436,7 @@ const Result = ({ id, id2 }) => {
         <Page size="A4" style={styles.page}>
           <Text style={styles.chartText}>Your Opportunities</Text>
           <Text style={styles.chartText2}>Versus Your Peers</Text>
-          <Image src={barChart} style={styles.imageChart} />
+          <Image src={barChart} style={styles.imageBarChart} />
           <Text style={styles.tableText}>
             50-30-20 Budget Modeling for : Needs / Wants / Financial Goals
           </Text>
