@@ -14,6 +14,7 @@ const Vechicles = () => {
     vehicle_purchase_and_lease.toString().length > 0
   ) {
     vehicle_input = true;
+    localStorage.setItem('Car Payments', 'Car Payments');
   } else {
     vehicle_input = false; // or any other value you want to assign when the input is empty
   }

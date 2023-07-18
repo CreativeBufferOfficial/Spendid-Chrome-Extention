@@ -10,6 +10,7 @@ const HealthInsurance2 = () => {
 
   if (health_insurance && health_insurance.toString().length > 0) {
     health_input = true;
+    localStorage.setItem('Health Insurance', 'Health Insurance');
   } else {
     health_input = false; // or any other value you want to assign when the input is empty
   }

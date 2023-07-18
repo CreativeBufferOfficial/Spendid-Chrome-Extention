@@ -89,7 +89,17 @@ const ProfileTab = () => {
           />
         </div>
         <div className={classes.input_area}>
-          <label>Age</label>
+          <div>
+            <label>Age</label>
+            {age > 18 ? (
+              ' '
+            ) : (
+              <label style={{ color: 'red', fontSize: '600' }}>
+                (Your age must be 18+.)
+              </label>
+            )}
+          </div>
+
           <input
             type="text"
             name="age"

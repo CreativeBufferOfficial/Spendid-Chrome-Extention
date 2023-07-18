@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import useFormContext from '../../../../hooks/useFormContext';
 import classes from '../Form.module.css';
 const Obligations2 = () => {
@@ -21,6 +21,10 @@ const Obligations2 = () => {
     const totalDeptvalue = values.reduce((accumulator, value) => {
       return +accumulator + +value;
     }, 0);
+    localStorage.setItem(
+      'Other Debt Payments & Obligations',
+      'Other Debt Payments & Obligations'
+    );
 
     categoryInputHandler('other_debt_payments', totalDeptvalue);
   };

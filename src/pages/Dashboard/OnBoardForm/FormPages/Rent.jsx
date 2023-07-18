@@ -12,6 +12,10 @@ const Rent = () => {
 
   if (mortgage_and_rent && mortgage_and_rent.toString().length > 0) {
     rent_input = true;
+    localStorage.setItem(
+      'Rent or Mortgage Payment',
+      'Rent or Mortgage Payment'
+    );
   } else {
     rent_input = false; // or any other value you want to assign when the input is empty
   }
