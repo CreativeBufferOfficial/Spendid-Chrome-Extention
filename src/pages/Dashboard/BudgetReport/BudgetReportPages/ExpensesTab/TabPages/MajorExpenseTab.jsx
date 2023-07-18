@@ -18,6 +18,8 @@ const MajorExpense = () => {
   const [isMajorExpensesTab, setIsMajorExpensesTab] = useState(true);
   const [majorExpensesSortedData, setMajorExpensesSortedData] = useState([]);
 
+  const [bgColor, setBgColor] = useState([]);
+
   useEffect(() => {
     if (lendings && lendings.elements && !savingsSet) {
       const savings = Math.round(lendings.elements.cash_excess / 12);
@@ -49,6 +51,8 @@ const MajorExpense = () => {
           amount2={majorExpense.value}
           toggle_title="Fixed amount"
           isMajorExpensesTab={isMajorExpensesTab}
+          bgColor={bgColor}
+          setBgColor={setBgColor}
         />
       ))}
     </>

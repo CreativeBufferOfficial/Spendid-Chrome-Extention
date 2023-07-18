@@ -141,7 +141,7 @@ const Obligations2 = () => {
         <button onClick={nextHandler} className={classes.btn}>
           Ok
         </button>
-        <p>Press Enter </p>
+        <p>Press Enter ↵</p>
       </div>
     </div>
   );

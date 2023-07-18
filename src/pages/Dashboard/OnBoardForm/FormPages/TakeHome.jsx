@@ -24,6 +24,7 @@ const TakeHome = () => {
 
   const {
     data,
+    setPage,
     categoryInputHandler,
     lendingPayload,
     demographicsPayload,
@@ -92,6 +93,7 @@ const TakeHome = () => {
       dispatch(scoresGenerate(copyScore));
     });
     navigate('/result');
+    setPage(0);
   };
 
   const handleKeyDown = (event) => {
@@ -211,7 +213,7 @@ const TakeHome = () => {
         >
           Ok
         </button>
-        <p>Press Enter </p>
+        <p>Press Enter ↵</p>
       </div>
     </div>
   );

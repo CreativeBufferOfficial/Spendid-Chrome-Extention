@@ -5,6 +5,7 @@ import useFormContext from '../../../hooks/useFormContext';
 import FormInput from './FormPagesList';
 const Form = () => {
   const {
+    data,
     page,
     disablePrev,
     nextHide,
@@ -15,6 +16,7 @@ const Form = () => {
   } = useFormContext();
 
   const isValid = globalSelectedIndex[page] !== -1;
+
   return (
     <>
       <Header />

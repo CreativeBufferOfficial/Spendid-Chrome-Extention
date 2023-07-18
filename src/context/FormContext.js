@@ -145,37 +145,6 @@ export const FormProvider = ({ children }) => {
     demographics: { ...inputDemograpicData.apiReq.demographics },
     budget: { ...inputBudgetData.apiReq.budget },
   };
-  console.log('DAAATTAAA>>><<<<', data);
-
-  // const [lendingPayload, setLendingPayload] = useState({
-  //   budget: {
-  //     ...inputBudgetData.apiReq.budget,
-  //   },
-  //   demographics: { ...inputDemograpicData.apiReq.demographics },
-  // });
-
-  // const [demographicsPayload, setDemographicsPayload] = useState({
-  //   demographics: { ...inputDemograpicData.apiReq.demographics },
-  //   transformer: {
-  //     ...transformerData,
-  //   },
-  // });
-
-  // const [budgetPayload, setBudgetPayload] = useState({
-  //   budget: { ...inputBudgetData.apiReq.budget },
-  //   demographics: { ...inputDemograpicData.apiReq.demographics },
-  //   transformer: { ...transformerData },
-  // });
-
-  // const [scorePayload, setScorePayload] = useState({
-  //   demographics: { ...inputDemograpicData.apiReq.demographics },
-  //   budget: { ...inputBudgetData.apiReq.budget },
-  // });
-
-  console.log('lendingPayload>>><<<<', lendingPayload);
-  console.log('demographicsPayload>>><<<<', demographicsPayload);
-  console.log('budgetPayload>>><<<<', budgetPayload);
-  console.log('scorePayload>>><<<<', scorePayload);
 
   const categoryInputHandler = (name, value) => {
     setData((data) => {
@@ -236,21 +205,9 @@ export const FormProvider = ({ children }) => {
           apiReq.budget[name] = +value;
           break;
       }
-      console.log('NEWDATA>>>>>>', newData);
-      // console.log('BugetData>>>>>', budgetPayload);
       return newData;
     });
-
-    // Promise.all([
-    //   LendingGenerate(lendingPayload, dispatch),
-    //   dispatch(demographicsGenerate(demographicsPayload)),
-    //   dispatch(scoresGenerate(scorePayload)),
-    // ]).then((data) => {
-    //   // setLoading(true);
-    //   dispatch(budgetsGenerate(budgetPayload));
-    // });
   };
-  console.log('Data>>>>>>Context', data);
 
   const formDataHandlerChange = (e, i) => {
     if (i !== -1) {
@@ -367,7 +324,7 @@ export const FormProvider = ({ children }) => {
         currentHandler,
         categoryInputHandler,
         globalSelectedIndex,
-
+        setGlobalSelectedIndex,
         lendingPayload,
         budgetPayload,
         demographicsPayload,

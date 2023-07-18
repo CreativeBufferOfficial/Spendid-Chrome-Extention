@@ -48,7 +48,7 @@ const HealthInsurance2 = () => {
         >
           Ok
         </button>
-        <p>Press Enter </p>
+        <p>Press Enter ↵</p>
       </div>
     </div>
   );

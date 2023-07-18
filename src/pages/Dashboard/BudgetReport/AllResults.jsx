@@ -17,7 +17,7 @@ const AllResult = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   // const { lendings } = useSelector((state) => state.lending);
-
+  var fieldsToKeep = ['isAuthenticated', 'email', 'name'];
   const {
     setData,
     setNetIncome,
@@ -86,6 +86,12 @@ const AllResult = () => {
     setNetIncome([{ frequency: '', amount: '' }]);
     setResetFlag(true);
     setValue(1);
+    var keys = Object.keys(localStorage);
+    keys.forEach(function (key) {
+      if (!fieldsToKeep.includes(key)) {
+        localStorage.removeItem(key);
+      }
+    });
   };
 
   const startOver = () => {
@@ -109,11 +115,17 @@ const AllResult = () => {
         },
       },
     }));
-    // setGlobalSelectedIndex(Array(10).fill(-1));
     setNetIncome([{ frequency: '', amount: '' }]);
     setValue(1);
-    localStorage.removeItem('zip');
-    localStorage.removeItem('age');
+    var keys = Object.keys(localStorage);
+    keys.forEach(function (key) {
+      if (!fieldsToKeep.includes(key)) {
+        localStorage.removeItem(key);
+      }
+    });
+    // localStorage.removeItem('zip');
+    // localStorage.removeItem('age');
+    setGlobalSelectedIndex(Array(10).fill(-1));
     navigate('/dashboard');
   };
 
@@ -121,7 +133,6 @@ const AllResult = () => {
     navigate('/');
     removeAuth();
   };
-  console.log('ALLRESULT');
 
   return (
     <>

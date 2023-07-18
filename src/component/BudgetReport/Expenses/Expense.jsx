@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import classes from './Expense.module.css';
 import { edit, close } from '../../../utlis/Imports';
 import useFormContext from '../../../hooks/useFormContext';
@@ -13,29 +13,35 @@ const Expense = ({
   isMajorExpensesTab,
   onRemoveCategory,
   // handleKeyDown,
-  // bg,
+  bgColor,
+  setBgColor,
 }) => {
   const { transformData, categoryInputHandler } = useFormContext();
   const [showAmount, setShowAmount] = useState(false);
   const [selectedOption, setSelectedOption] = useState('');
   const [amount, setAmount] = useState('');
-
-  // const keyPressed = event.key;
-
-  // // Change the background color based on the key pressed
-  // if (keyPressed === 'Enter') {
-  //   setBgColor('green');
-  // } else if (keyPressed === 'Escape') {
-  //   setBgColor('red');
-  // } else {
-  //   setBgColor('');
-  // }
-  // };
-  const [bgColor, setBgColor] = useState('');
+  // console.log('bgColor>>>>>>>>>>>>>>>>>', bgColor);
+  // const [bgColor, setBgColor] = useState([]);
 
   const handleKeyDown = (event) => {
-    setBgColor('#0267e8');
+    const newColor = '#0267e8';
+    setBgColor((prevBgColor) => {
+      const newBgColor = [...prevBgColor];
+      newBgColor[index] = newColor;
+      return newBgColor;
+    });
+    localStorage.setItem(title, title);
   };
+  console.log('LENGTH>>>>>>>>>>>>>>>>>', amount.length > 0);
+
+  // useEffect(() => {
+  //   const storedColor = localStorage.getItem('bgColor');
+  //   setBgColor((prevBgColor) => {
+  //     const newBgColor = [...prevBgColor];
+  //     newBgColor[index] = storedColor || '#180f4f';
+  //     return newBgColor;
+  //   });
+  // }, [index, setBgColor]);
 
   const filter = transformData.filter((obj) => obj.name === title);
   const showAmountHandler = () => {
@@ -50,7 +56,7 @@ const Expense = ({
   const clearAmountInput = () => {
     setAmount(' ');
   };
-
+  console.log('ABC', localStorage.getItem(title));
   const categoryAmountHandler = useCallback(
     (e) => {
       const name = e.target.getAttribute('name');
@@ -95,7 +101,13 @@ const Expense = ({
               gridView ? classes.payment_value_grid : classes.payment_value
             }
           >
-            <p style={{ backgroundColor: bgColor }}>
+            <p
+              style={{
+                backgroundColor:
+                  title === localStorage.getItem(title) ? '#0267e8' : '#180f4f',
+                // amount.length > 0 ? classes.editInput : classes.IsEditInput,
+              }}
+            >
               ${amount ? (amount === ' ' ? amount1 : amount) : amount1}
             </p>
             <p>${amount2}</p>
@@ -157,6 +169,13 @@ const Expense = ({
               <option>Annually</option>
             </select>
           </div>
+          <button
+            className={classes.close_btn}
+            type="button"
+            onClick={showAmountHandler}
+          >
+            Close
+          </button>
         </div>
       </div>
     </>

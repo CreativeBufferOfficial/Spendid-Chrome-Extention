@@ -55,7 +55,7 @@ const Rent = () => {
         >
           Ok
         </button>
-        <p>Press Enter </p>
+        <p>Press Enter ↵</p>
       </div>
     </div>
   );

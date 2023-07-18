@@ -94,12 +94,23 @@
 }
 
 .IsEditInput {
-  background-color: #180f4f;
+  background-color: #180f4f !important;
 }
 .editInput {
-  background-color: #0267e8;
+  background-color: #0267e8 !important;
 }
-
+.close_btn {
+  color: rgb(255, 255, 255);
+  background-color: rgb(108, 117, 125);
+  height: 25px;
+  width: auto;
+  color: white;
+  border-radius: 5px;
+  border: none;
+  font-size: 12px;
+  margin-right: 140px;
+  padding: 0px 10px;
+}
 .Toggle_input_field {
   border: 2px solid #dee2e6;
   padding: 10px 10px;

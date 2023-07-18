@@ -29,6 +29,7 @@ const MonthlyBills = () => {
   const { loadingBudgets, budgets } = useSelector((state) => state.budget);
   const [removeCategory, setRemoveCategory] = useState([]);
   const [sortedData, setSortedData] = useState([]);
+  const [bgColor, setBgColor] = useState([]);
 
   const init = () => {
     if (demographics && budgets) {
@@ -89,21 +90,19 @@ const MonthlyBills = () => {
           </div>
         </div>
         <Label />
-        {loadingBudgets ? (
-          <Loader />
-        ) : (
-          sortedData.map((monthlybillExpense, index) => (
-            <Expense
-              index={index}
-              key={monthlybillExpense.category}
-              title={monthlybillExpense.category}
-              amount1={monthlybillExpense.Amount}
-              amount2={monthlybillExpense.value}
-              toggle_title="Fixed amount"
-              onRemoveCategory={removeCategoryHandler}
-            />
-          ))
-        )}
+        {sortedData.map((monthlybillExpense, index) => (
+          <Expense
+            index={index}
+            key={monthlybillExpense.category}
+            title={monthlybillExpense.category}
+            amount1={monthlybillExpense.Amount}
+            amount2={monthlybillExpense.value}
+            toggle_title="Fixed amount"
+            onRemoveCategory={removeCategoryHandler}
+            bgColor={bgColor}
+            setBgColor={setBgColor}
+          />
+        ))}
 
         <div className={classes.remove_category}>
           <div className={classes.removeCategoryTitle}>

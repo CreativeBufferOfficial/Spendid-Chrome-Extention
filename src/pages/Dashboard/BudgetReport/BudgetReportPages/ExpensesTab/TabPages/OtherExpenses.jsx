@@ -41,6 +41,7 @@ const OtherExpenses = () => {
   // const [sortedData, setSortedData] = useState([]);
   const [removeCategory, setRemoveCategory] = useState([]);
   const [otherExpensesSortedData, setOtherExpensesSortedData] = useState([]);
+  const [bgColor, setBgColor] = useState([]);
 
   const init = () => {
     if (demographics && budgets) {
@@ -166,10 +167,7 @@ const OtherExpenses = () => {
           />
         </div>
 
-        {loadingBudgets ? (
-          <Loader />
-        ) : (
-          otherExpensesSortedData &&
+        {otherExpensesSortedData &&
           otherExpensesSortedData.map((majorExpense, index) => (
             <Expense
               index={index}
@@ -180,9 +178,10 @@ const OtherExpenses = () => {
               toggle_title="Fixed amount"
               gridView={gridView}
               onRemoveCategory={removeCategoryHandler}
+              bgColor={bgColor}
+              setBgColor={setBgColor}
             />
-          ))
-        )}
+          ))}
 
         <div className={classes.remove_category}>
           <div className={classes.removeCategoryTitle}>
