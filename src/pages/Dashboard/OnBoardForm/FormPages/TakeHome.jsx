@@ -32,8 +32,10 @@ const TakeHome = () => {
     scorePayload,
     netIncome,
     setNetIncome,
+    netIncomeSelectedIndex,
+    setNetIncomeSelectedIndex,
   } = useFormContext();
-  const [selectedIndex, setSelectedIndex] = useState([-1]);
+  // const [netIncomeSelectedIndex, setNetIncomeSelectedIndex] = useState([-1]);
 
   const options = [
     { name: 'A', value: 'Weekly' },
@@ -46,7 +48,7 @@ const TakeHome = () => {
   ];
   const clickHandler = (item) => {
     setNetIncome([...netIncome, item]);
-    setSelectedIndex([...selectedIndex, -1]);
+    setNetIncomeSelectedIndex([...netIncomeSelectedIndex, -1]);
   };
 
   const sourceChangeHandle = (index, i) => (e) => {
@@ -60,8 +62,8 @@ const TakeHome = () => {
     setNetIncome(netIncome);
 
     if (i !== undefined) {
-      selectedIndex[index] = i;
-      setSelectedIndex(selectedIndex);
+      netIncomeSelectedIndex[index] = i;
+      setNetIncomeSelectedIndex(netIncomeSelectedIndex);
     }
     const calcIncomeSource = calcSourceIncome(netIncome);
     const totalSourceIncome = calcTotalSourceIncome(calcIncomeSource);
@@ -137,7 +139,7 @@ const TakeHome = () => {
                   onClick={sourceChangeHandle(index, i)}
                   style={{
                     border:
-                      selectedIndex[index] === i
+                      netIncomeSelectedIndex[index] === i
                         ? '1px solid #31bfaa'
                         : ' 1px solid lightgrey',
                   }}
@@ -152,7 +154,10 @@ const TakeHome = () => {
                       src={selected}
                       alt="selected"
                       style={{
-                        display: selectedIndex[index] === i ? 'block ' : 'none',
+                        display:
+                          netIncomeSelectedIndex[index] === i
+                            ? 'block '
+                            : 'none',
                       }}
                     />
                   </p>

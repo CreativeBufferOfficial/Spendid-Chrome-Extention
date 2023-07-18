@@ -29,6 +29,7 @@ export const FormProvider = ({ children }) => {
   // const dispatch = useDispatch();
   const transformData = getStructureTransform(transformerData);
   const [netIncome, setNetIncome] = useState([{ frequency: '', amount: '' }]);
+  const [netIncomeSelectedIndex, setNetIncomeSelectedIndex] = useState([-1]);
 
   const title = [
     {
@@ -81,20 +82,12 @@ export const FormProvider = ({ children }) => {
     Array(10).fill(-1)
   );
   const [activeTabNumber, setActiveTabNumber] = useState('');
-  // console.log('activeTabNumber', activeTabNumber);
 
   const [page, setPage] = useState(0);
-
   const [chartSvg, setChartSvg] = useState([]);
   const [scoreChart, setScoreChart] = useState('');
   const [barChart, setBarChart] = useState('');
-
   const [removeCategoryTableData, setRemoveCategoryTableData] = useState([]);
-  // console.log('removeCategoryTableData', removeCategoryTableData);
-
-  // const [majorExpensesSortedData, setMajorExpensesSortedData] = useState([]);
-
-  // const [otherExpensesSortedData, setOtherExpensesSortedData] = useState([]);
 
   const [data, setData] = useState({
     apiReq: {
@@ -114,7 +107,6 @@ export const FormProvider = ({ children }) => {
       },
     },
   });
-  // console.log('Data>>>>>>>', data);
   const inputDemograpicData = copyAndMultiplyDemographics(data);
   const inputBudgetData = copyAndMultiplyBudget(data);
   const [value, setValue] = useState(
@@ -157,6 +149,9 @@ export const FormProvider = ({ children }) => {
           break;
 
         case 'other_debt_payments':
+          if (+value > 0) {
+            globalSelectedIndex[page] = 7;
+          }
           apiReq.budget[name] = +value || null;
           break;
 
@@ -215,7 +210,6 @@ export const FormProvider = ({ children }) => {
     } else {
       globalSelectedIndex[page] = 0;
     }
-    setGlobalSelectedIndex(globalSelectedIndex);
 
     const name = e.target.getAttribute('name');
     let value =
@@ -229,13 +223,21 @@ export const FormProvider = ({ children }) => {
 
       switch (name) {
         case 'zip':
+          if (value.length !== 5) {
+            globalSelectedIndex[page] = -1;
+          }
+
           apiReq.demographics[name] = +value.slice(0, 5);
           localStorage.setItem([name], +value.slice(0, 5));
           break;
 
         case 'age':
+          if (+value < 18) {
+            globalSelectedIndex[page] = -1;
+          }
           apiReq.demographics[name] = +value.slice(0, 2);
           localStorage.setItem([name], +value.slice(0, 2));
+
           break;
 
         case 'net_annual_income':
@@ -247,6 +249,8 @@ export const FormProvider = ({ children }) => {
         case 'mortgage_and_rent':
         case 'vehicle_purchase_and_lease':
         case 'health_insurance':
+          console.log('value>>>>>>>>>>', value);
+
           apiReq.budget[name] = +value || null;
           break;
 
@@ -293,6 +297,7 @@ export const FormProvider = ({ children }) => {
           break;
       }
 
+      setGlobalSelectedIndex(globalSelectedIndex);
       return newData;
     });
   };
@@ -329,7 +334,6 @@ export const FormProvider = ({ children }) => {
         budgetPayload,
         demographicsPayload,
         scorePayload,
-
         inputDemograpicData,
         inputBudgetData,
         netIncome,
@@ -347,7 +351,8 @@ export const FormProvider = ({ children }) => {
         setBarChart,
         removeCategoryTableData,
         setRemoveCategoryTableData,
-
+        netIncomeSelectedIndex,
+        setNetIncomeSelectedIndex,
         // lendingPayload,
         // setLendingPayload,
 

@@ -19,11 +19,9 @@ import {
 import useFormContext from '../../../../../../hooks/useFormContext';
 
 const BugetModal = ({ id }) => {
-  const { data, setData, categoryInputHandler } = useFormContext();
-  const { loadingDemographics, demographics } = useSelector(
-    (state) => state.demographics
-  );
-  const { loadingBudgets, budgets } = useSelector((state) => state.budget);
+  const { categoryInputHandler } = useFormContext();
+  const { demographics } = useSelector((state) => state.demographics);
+  const { budgets } = useSelector((state) => state.budget);
   const { lendings } = useSelector((state) => state.lending);
   const [savingsSet, setSavingsSet] = useState(false);
   console.log('demographics', demographics);
@@ -33,17 +31,12 @@ const BugetModal = ({ id }) => {
   const [peeersData, setPeersData] = useState([]);
   const [yourData, setYourData] = useState([]);
 
-  // const [chart1,setChart1] =useState("")
-  // const [chart2,setChart2] =useState("")
-  // const [chart3,setChart3] =useState("")
-
   const init = () => {
     setModalData([
       { category: 'Needs', value: 50 },
       { category: 'Wants', value: 30 },
       { category: 'Finanical Goals', value: 20 },
     ]);
-    // const totalBuget = data.apiReq.demographics.net_annual_income;
     const demoghrapic = getStructureObject(demographics);
     const peersNeedData = filterNeeds(demoghrapic);
     const peerWantData = filterWants(demoghrapic);
@@ -51,21 +44,6 @@ const BugetModal = ({ id }) => {
     const peerNeeds = modalBudgetSum(peersNeedData);
     const peersWants = modalBudgetSum(peerWantData);
     const peerFinanicalGoal = modalBudgetSum(peerFinanicalGoalData);
-    // const peersFinanical = demoghrapic.find(
-    //   (category) => category.category === 'Amount to Savings Each Period'
-    // );
-    // console.log('peersFinanical>>>>>>>>', peersFinanical);
-
-    // const peersFinanical_Goals = peersFinanical?.value;
-    // console.log('peersNeedData', peersNeedData, 'peerWantData', peerWantData);
-    // console.log(
-    //   'peerNeeds',
-    //   peerNeeds,
-    //   'peersWants',
-    //   peersWants,
-    //   'peersFinanical_Goals',
-    //   peersFinanical_Goals
-    // );
 
     setPeersData([
       { category: 'Needs', value: peerNeeds },
@@ -80,21 +58,6 @@ const BugetModal = ({ id }) => {
     const yourNeeds = modalBudgetSum(yourNeedData);
     const yourWants = modalBudgetSum(yourWantData);
     const yourFinanicalGoal = modalBudgetSum(yourFinanicalGoalData);
-
-    // console.log('yourNeeds', yourNeeds, 'yourWants', yourWants);
-    // const yourFinanical = budget.find(
-    //   (category) => category.category === 'Amount to Savings Each Period'
-    // );
-    // const yourFinanical_Goals = yourFinanical?.value;
-
-    // console.log(
-    //   'yourNeeds',
-    //   yourNeeds,
-    //   'yourWants',
-    //   yourWants,
-    //   'yourFinanical_Goals',
-    //   yourFinanical_Goals
-    // );
 
     setYourData([
       { category: 'Needs', value: yourNeeds },

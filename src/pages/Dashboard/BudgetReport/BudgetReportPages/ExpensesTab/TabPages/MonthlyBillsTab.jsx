@@ -47,13 +47,13 @@ const MonthlyBills = () => {
     }
   };
 
-  useEffect(() => {
-    if (lendings && lendings.elements && !savingsSet) {
-      const savings = Math.round(lendings.elements.cash_excess / 12);
-      categoryInputHandler('savings', savings);
-      setSavingsSet(true);
-    }
-  }, [lendings, categoryInputHandler, savingsSet]);
+  // useEffect(() => {
+  //   if (lendings && lendings.elements && !savingsSet) {
+  //     const savings = Math.round(lendings.elements.cash_excess / 12);
+  //     categoryInputHandler('savings', savings);
+  //     setSavingsSet(true);
+  //   }
+  // }, [lendings, categoryInputHandler, savingsSet]);
 
   useEffect(() => {
     init();
@@ -63,16 +63,17 @@ const MonthlyBills = () => {
     const removeCategoryData = sortedData.splice(i, 1);
     // console.log(removeCategoryData);
     setRemoveCategory((prev) => [...prev, ...removeCategoryData]);
-    setRemoveCategoryTableData((prev) => [...prev, ...removeCategoryData]);
+    // setSortedData([...sortedData]);
+    // setRemoveCategoryTableData((prev) => [...prev, ...removeCategoryData]);
   };
 
   const restoreCategoryHandler = (i) => {
     const restoreCategoryData = removeCategory.splice(i, 1);
     setSortedData([...sortedData, ...restoreCategoryData]);
-    const restore = removeCategoryTableData.filter(
-      (category) => category.category !== restoreCategoryData[0].category
-    );
-    setRemoveCategoryTableData([...restore]);
+    // const restore = removeCategoryTableData.filter(
+    // (category) => category.category !== restoreCategoryData[0].category
+    // );
+    // setRemoveCategoryTableData([...restore]);
   };
 
   return (
