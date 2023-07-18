@@ -4,19 +4,34 @@ import classes from '../Form.module.css';
 const Obligations2 = () => {
   const { data, nextHandler, categoryInputHandler } = useFormContext();
 
-  const [debt, setDebt] = useState({
-    pastCreditCardDebt: '',
-    studentLoans: '',
-    homeEquityLineCredit: '',
-    Alimony: '',
-    childSupport: '',
-    otherDebt: '',
+  // const [debt, setDebt] = useState({
+  //   pastCreditCardDebt: '',
+  //   studentLoans: '',
+  //   homeEquityLineCredit: '',
+  //   Alimony: '',
+  //   childSupport: '',
+  //   otherDebt: '',
+  // });
+
+  const [debt, setDebt] = useState(() => {
+    const storedDebt = localStorage.getItem('debt');
+    return storedDebt
+      ? JSON.parse(storedDebt)
+      : {
+          pastCreditCardDebt: '',
+          studentLoans: '',
+          homeEquityLineCredit: '',
+          Alimony: '',
+          childSupport: '',
+          otherDebt: '',
+        };
   });
 
   const deptHandler = (e) => {
     const { name, value } = e.target;
     debt[name] = value;
     setDebt(debt);
+    localStorage.setItem('debt', JSON.stringify(debt));
     const values = Object.values(debt);
     const totalDeptvalue = values.reduce((accumulator, value) => {
       return +accumulator + +value;
