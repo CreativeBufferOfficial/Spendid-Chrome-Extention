@@ -65,6 +65,7 @@ const MonthlyBills = () => {
     setRemoveCategory((prev) => [...prev, ...removeCategoryData]);
     // setSortedData([...sortedData]);
     // setRemoveCategoryTableData((prev) => [...prev, ...removeCategoryData]);
+    localStorage.setItem('MonthlyExpensesRemove', removeCategory);
   };
 
   const restoreCategoryHandler = (i) => {
@@ -74,6 +75,7 @@ const MonthlyBills = () => {
     // (category) => category.category !== restoreCategoryData[0].category
     // );
     // setRemoveCategoryTableData([...restore]);
+    localStorage.setItem('MonthlyExpensesRemove', removeCategory);
   };
 
   return (

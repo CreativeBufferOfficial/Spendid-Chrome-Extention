@@ -84,7 +84,8 @@ const OtherExpenses = () => {
   const removeCategoryHandler = (i) => {
     const removeCategoryData = otherExpensesSortedData.splice(i, 1);
     setRemoveCategory([...removeCategory, ...removeCategoryData]);
-    setRemoveCategoryTableData((prev) => [...prev, ...removeCategoryData]);
+    // setRemoveCategoryTableData((prev) => [...prev, ...removeCategoryData]);
+    localStorage.setItem('otherExpensesRemove', removeCategory);
   };
 
   const restoreCategoryHandler = (i) => {
@@ -93,10 +94,12 @@ const OtherExpenses = () => {
       ...otherExpensesSortedData,
       ...restoreCategoryData,
     ]);
-    const restore = removeCategoryTableData.filter(
-      (category) => category.category !== restoreCategoryData[0].category
-    );
-    setRemoveCategoryTableData([...restore]);
+    localStorage.setItem('otherExpensesRemove', removeCategory);
+
+    // const restore = removeCategoryTableData.filter(
+    //   (category) => category.category !== restoreCategoryData[0].category
+    // );
+    // setRemoveCategoryTableData([...restore]);
   };
   const changeViewHandler = () => {
     setGridView((prev) => !prev);

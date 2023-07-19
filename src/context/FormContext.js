@@ -16,13 +16,6 @@ import {
   healthcareIcon,
   incomeIcon,
 } from '../utlis/Imports';
-import { useDispatch } from 'react-redux';
-import {
-  LendingGenerate,
-  demographicsGenerate,
-  scoresGenerate,
-  budgetsGenerate,
-} from '../action/actions';
 
 const FormContext = createContext({});
 export const FormProvider = ({ children }) => {
