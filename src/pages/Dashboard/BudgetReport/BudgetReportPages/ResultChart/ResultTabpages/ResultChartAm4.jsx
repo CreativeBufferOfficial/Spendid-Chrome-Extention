@@ -9,7 +9,7 @@ import {
   ResultTitle,
   Logo,
 } from '../../../../../../utlis/Imports';
-import { LendingGenerate, saveReport } from '../../../../../../action/actions';
+import { saveReport } from '../../../../../../action/actions';
 import {
   filterSavings,
   getStructureObject,
@@ -36,7 +36,7 @@ import {
 
 const Result = ({ id, id2 }) => {
   const dispatch = useDispatch();
-  const { loadingLendings, lendings } = useSelector((state) => state.lending);
+  const { lendings } = useSelector((state) => state.lending);
   const { loadingDemographics, demographics } = useSelector(
     (state) => state.demographics
   );
@@ -46,15 +46,11 @@ const Result = ({ id, id2 }) => {
   const breakeven = scores && scores?.breakeven;
   const {
     data,
-    setData,
     inputDemograpicData,
     inputBudgetData,
     chartSvg,
     scoreChart,
     barChart,
-    removeCategoryTableData,
-    categoryInputHandler,
-    lendingPayload,
   } = useFormContext();
   const { net_annual_income } = data.apiReq.demographics;
   const [savingsSet, setSavingsSet] = useState(false);
@@ -64,11 +60,6 @@ const Result = ({ id, id2 }) => {
   const [majorExpTableData, setMajorExpTableData] = useState([]);
   const [otherExpTableData, setOtherExpTableData] = useState([]);
   const [save, setSave] = useState(0);
-
-  console.log(
-    'lendings?.elements?.cash_excess',
-    lendings?.elements?.cash_excess
-  );
 
   const savings = useMemo(
     (e) => {
@@ -80,47 +71,19 @@ const Result = ({ id, id2 }) => {
     },
     [lendings?.elements?.cash_excess]
   );
-  // const savings = Math.round(lendings?.elements?.cash_excess / 12);
-
-  // const lendingData = () => {
-  //   const savings = Math.round(lendings?.elements?.cash_excess / 12);
-  //   console.log(
-  //     'SAVINGS>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>',
-  //     savings
-  //   );
-  //   console.log('NAN', isNaN(savings));
-  //   console.log('!NAN', !isNaN(savings));
-  //   console.log('savings !== save>>>>>>>>', savings !== save);
-  //   if (!isNaN(savings) && savings !== save) {
-  //     console.log('savings!==save');
-  //     setSavingsSet(false);
-  //   }
-  //   setSave(savings);
-  // };
 
   useEffect(() => {
-    // initial();
-    // lendingData();
     if (demographics && budgets) {
       const mergeDemographics = getStructureObject(demographics);
       const mergeBudget = getStructureObject(budgets);
-      // debugger;
-      // const { mergeDemographics, mergeBudget } = structureData(
-      //   demographics,
-      //   budgets
-      // );
 
       //Major Expenses Table Data
       const demographicsMajorExp = filterMajorExpenses(mergeDemographics);
       const budgetMajorExp = filterMajorExpenses(mergeBudget);
       getTabData(demographicsMajorExp, budgetMajorExp);
-      // console.log('demographicsMajorExp', demographicsMajorExp);
-      // debugger;
+
       const majorExpensetableData = getDiffrenceForTable(demographicsMajorExp);
       setMajorExpTableData(majorExpensetableData);
-      // console.log('majorExpensetableData', majorExpensetableData);
-      // debugger;
-      // console.log('demographicsMajorExp2', demographicsMajorExp);
 
       // Other Expenses Table Data
       const demographicsOtherExp = filterOtherExpenses(mergeDemographics);
@@ -138,73 +101,15 @@ const Result = ({ id, id2 }) => {
       const budgetMajorExpensess = filterSavings(mergeBudget);
       getTabData(demographicsMajorExpensess, budgetMajorExpensess);
       setSavingData(demographicsMajorExpensess);
-      console.log(
-        'demographicsMajorExpensess<<<<<<<<<<<<<<<<<<<<<',
-        demographicsMajorExpensess
-      );
     }
     setSavingsSet(false);
   }, [demographics, budgets]);
 
   useEffect(() => {
     if (savings) {
-      console.log(savings, '<<1');
       setSave(savings);
-      // categoryInputHandler('savings', savings);
-
-      // setData((prev) => ({
-      //   ...prev,
-      //   apiReq: {
-      //     ...prev.apiReq,
-
-      //     budget: {
-      //       savings: savings,
-      //     },
-      //   },
-      // }));
-
-      // setSavingsSet(true);
     }
-
-    // console.log(
-    //   'lendings?.elements?.cash_excess>>>>>>>>>>>>>>>>>>>>>>>>>>inside Effect',
-    //   lendings?.elements?.cash_excess
-    // );
-    // console.log('savingsSet', savingsSet);
-    // console.log(
-    //   'lendings && lendings.elements && !savingsSet>>>>>>>>>>>condition',
-    //   lendings && lendings.elements && !savingsSet
-    // );
-    // console.log(lendings, lendings?.elements, !savingsSet, 'sasas');
-    // lendingData();
-    // debugger;
-    // // const savings = Math.round(lendings?.elements?.cash_excess / 12);
-    // // if (lendings) {
-    // console.log('!isNaN(savings)', !isNaN(savings));
-    // console.log('save > 0', save > 0);
-    // console.log('save !== savings', save !== savings);
-    // setSave(savings);
-    // if (loadingLendings && !isNaN(savings) && save >= 0 && save !== savings) {
-    //   setSavingsSet(false);
-    //   console.log('savings!==save');
-    // }
-    // // }
-    // // setSavingsSet(false);
-
-    // if (savings) {
-    //   console.log(
-    //     'lendings?.elements?.cash_excess<<<<<<<<<<<<<<<<<<<<<<<<<<<<< inside IF Condition',
-    //     lendings?.elements?.cash_excess
-    //   );
-    // setSave(savings);
-    // setSavingsSet(true);
-    // categoryInputHandler('savings', savings);
-    // const savings = Math.round(lendings?.elements?.cash_excess / 12);
-    //   // categoryInputHandler('savings', save);
-    // }
   }, [savings]);
-
-  console.log('SAVINGS>>>>>>', savings);
 
   // Create styles
   const styles = StyleSheet.create({
@@ -346,8 +251,25 @@ const Result = ({ id, id2 }) => {
   });
 
   const generatePDF = () => {
-    // Remove Category Table Data
+    const otherExpensesRemove = localStorage.getItem('otherExpensesRemove')
+      ? JSON.parse(localStorage.getItem('otherExpensesRemove'))
+      : [];
+
+    const monthlyExpensesRemove = localStorage.getItem('monthlyExpensesRemove')
+      ? JSON.parse(localStorage.getItem('monthlyExpensesRemove'))
+      : [];
+
+    const removeCategoryTableData = [
+      ...otherExpensesRemove,
+      ...monthlyExpensesRemove,
+    ];
     const removeCategory = getDiffrenceForTable(removeCategoryTableData);
+
+    const otherExpTableDataUpdate = otherExpTableData.filter((category) => {
+      return removeCategory.some(
+        (filterItem) => filterItem.category !== category.category
+      );
+    });
     const { zip, age, net_annual_income, is_homeowner, household_members } =
       data?.apiReq?.demographics;
     const date = getPDfGenerateDate();
@@ -517,7 +439,7 @@ const Result = ({ id, id2 }) => {
                 <Text>Difference</Text>
               </View>
             </View>
-            {otherExpTableData.map((data) => (
+            {otherExpTableDataUpdate.map((data) => (
               <View style={styles.tableRowData}>
                 <View style={styles.tableCellName}>
                   <Text>{data.category}</Text>
@@ -612,7 +534,6 @@ const Result = ({ id, id2 }) => {
     };
     dispatch(saveReport(reportPayload));
   };
-  // console.log('categoryData', categoryData);
 
   return (
     <>

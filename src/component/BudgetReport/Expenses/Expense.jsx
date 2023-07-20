@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import classes from './Expense.module.css';
 import { edit, close } from '../../../utlis/Imports';
 import useFormContext from '../../../hooks/useFormContext';
@@ -12,7 +12,6 @@ const Expense = ({
   gridView,
   isMajorExpensesTab,
   onRemoveCategory,
-  // handleKeyDown,
   bgColor,
   setBgColor,
 }) => {
@@ -20,8 +19,6 @@ const Expense = ({
   const [showAmount, setShowAmount] = useState(false);
   const [selectedOption, setSelectedOption] = useState('');
   const [amount, setAmount] = useState('');
-  // console.log('bgColor>>>>>>>>>>>>>>>>>', bgColor);
-  // const [bgColor, setBgColor] = useState([]);
 
   const handleKeyDown = (event) => {
     const newColor = '#0267e8';
@@ -32,16 +29,6 @@ const Expense = ({
     });
     localStorage.setItem(title, title);
   };
-  console.log('LENGTH>>>>>>>>>>>>>>>>>', amount.length > 0);
-
-  // useEffect(() => {
-  //   const storedColor = localStorage.getItem('bgColor');
-  //   setBgColor((prevBgColor) => {
-  //     const newBgColor = [...prevBgColor];
-  //     newBgColor[index] = storedColor || '#180f4f';
-  //     return newBgColor;
-  //   });
-  // }, [index, setBgColor]);
 
   const filter = transformData.filter((obj) => obj.name === title);
   const showAmountHandler = () => {
@@ -56,7 +43,6 @@ const Expense = ({
   const clearAmountInput = () => {
     setAmount(' ');
   };
-  console.log('ABC', localStorage.getItem(title));
   const categoryAmountHandler = useCallback(
     (e) => {
       const name = e.target.getAttribute('name');
@@ -105,7 +91,6 @@ const Expense = ({
               style={{
                 backgroundColor:
                   title === localStorage.getItem(title) ? '#0267e8' : '#180f4f',
-                // amount.length > 0 ? classes.editInput : classes.IsEditInput,
               }}
             >
               ${amount ? (amount === ' ' ? amount1 : amount) : amount1}
@@ -156,7 +141,6 @@ const Expense = ({
                 Clear
               </button>
             </div>
-            {/* <input type="text" className={classes.input_field} /> */}
             <select
               className={classes.input_field}
               value={selectedOption}

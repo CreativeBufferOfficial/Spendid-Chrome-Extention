@@ -1,4 +1,3 @@
-import { saveReport } from '../action/actions';
 import {
   majorExpenseCategories,
   monthlyBillExpenseCategories,
@@ -90,8 +89,6 @@ export const getDiffrenceForTable = (array) => {
   const filteredData = [];
   for (let obj of array) {
     const difference = obj.value - obj.Amount;
-
-    // console.log('difference', difference);
 
     if (difference || difference >= 0) {
       filteredData.push({ ...obj, difference });

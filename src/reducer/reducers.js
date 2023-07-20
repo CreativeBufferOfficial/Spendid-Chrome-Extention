@@ -114,7 +114,6 @@ export const demographicsGenerateReducer = (
         // isAuthenticated: false,
       };
     case DEMOGRAPHICS_SUCCESS:
-      // console.log('demographics Reducer>>>>>>>', action.payload);
       return {
         ...state,
         loadingDemographics: false,
@@ -146,8 +145,6 @@ export const budgetGenerateReducer = (state = { budgets: {} }, action) => {
         // isAuthenticated: false,
       };
     case BUDGET_GENERATE_SUCCESS:
-      // console.log('budget Reducer>>>>>>>', action.payload);
-
       return {
         ...state,
         loadingBudgets: false,

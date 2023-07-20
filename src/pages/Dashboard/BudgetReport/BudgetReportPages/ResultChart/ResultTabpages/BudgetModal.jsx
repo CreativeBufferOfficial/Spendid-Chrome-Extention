@@ -24,8 +24,6 @@ const BugetModal = ({ id }) => {
   const { budgets } = useSelector((state) => state.budget);
   const { lendings } = useSelector((state) => state.lending);
   const [savingsSet, setSavingsSet] = useState(false);
-  console.log('demographics', demographics);
-  console.log('budgets', budgets);
 
   const [ModalData, setModalData] = useState([]);
   const [peeersData, setPeersData] = useState([]);
@@ -54,7 +52,6 @@ const BugetModal = ({ id }) => {
     const yourNeedData = filterNeeds(budget);
     const yourWantData = filterWants(budget);
     const yourFinanicalGoalData = filterFinancialSavings(budget);
-    console.log('yourNeedData', yourNeedData, 'yourWantData', yourWantData);
     const yourNeeds = modalBudgetSum(yourNeedData);
     const yourWants = modalBudgetSum(yourWantData);
     const yourFinanicalGoal = modalBudgetSum(yourFinanicalGoalData);
@@ -76,7 +73,6 @@ const BugetModal = ({ id }) => {
       setSavingsSet(true);
     }
   }, [lendings, categoryInputHandler, savingsSet]);
-  // console.log('data>>>', data);
   return (
     <>
       <div className={classes.content}>

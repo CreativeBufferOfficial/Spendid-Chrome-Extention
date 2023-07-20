@@ -7,19 +7,11 @@ am4core.useTheme(am4themes_animated);
 
 const DonutChart = ({ id, data }) => {
   const { setChartSvg } = useFormContext();
-  // const svg = [];
   useEffect(() => {
     // Create chart instance
     const chart = am4core.create(id, am4charts.PieChart);
-    // console.log('data>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', data);
     // Add data
     chart.data = data && data;
-
-    // chart.data = [
-    //     { category: "Category 1", value: 20 },
-    //     { category: "Category 2", value: 10 },
-    //     { category: "Category 3", value: 20 },
-    // ];
 
     // Set inner radius
     chart.innerRadius = am4core.percent(50);
@@ -69,7 +61,6 @@ const DonutChart = ({ id, data }) => {
       // Export the chart as an SVG string
       const svgString1 = chart.exporting.getImage('svg');
       svgString1.then((res) => {
-        // console.log('res>>', res);
         setChartSvg((prev) => {
           if (prev.length > 2) {
             prev = [];

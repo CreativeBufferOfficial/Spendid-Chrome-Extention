@@ -13,7 +13,6 @@ import {
   GridEnable,
   decIcon,
   aseIcon,
-  Loader,
 } from '../../../../../../utlis/Imports';
 import {
   getStructureObject,
@@ -22,21 +21,15 @@ import {
   sortAscending,
   sortDescending,
   sortDescendingAmount,
-  getDiffrenceForTable,
 } from '../../../../../../utlis/Helper';
 import { useSelector } from 'react-redux';
 import useFormContext from '../../../../../../hooks/useFormContext';
 const OtherExpenses = () => {
-  const {
-    removeCategoryTableData,
-    setRemoveCategoryTableData,
-
-    categoryInputHandler,
-  } = useFormContext();
+  const { categoryInputHandler } = useFormContext();
   const { lendings } = useSelector((state) => state.lending);
   const [savingsSet, setSavingsSet] = useState(false);
   const { demographics } = useSelector((state) => state.demographics);
-  const { loadingBudgets, budgets } = useSelector((state) => state.budget);
+  const { budgets } = useSelector((state) => state.budget);
   const [gridView, setGridView] = useState(false);
   // const [sortedData, setSortedData] = useState([]);
   const [removeCategory, setRemoveCategory] = useState([]);
@@ -84,8 +77,14 @@ const OtherExpenses = () => {
   const removeCategoryHandler = (i) => {
     const removeCategoryData = otherExpensesSortedData.splice(i, 1);
     setRemoveCategory([...removeCategory, ...removeCategoryData]);
-    // setRemoveCategoryTableData((prev) => [...prev, ...removeCategoryData]);
-    localStorage.setItem('otherExpensesRemove', removeCategory);
+    const prevRemoveData = localStorage.getItem('otherExpensesRemove')
+      ? JSON.parse(localStorage.getItem('otherExpensesRemove'))
+      : [];
+
+    localStorage.setItem(
+      'otherExpensesRemove',
+      JSON.stringify([...prevRemoveData, ...removeCategoryData])
+    );
   };
 
   const restoreCategoryHandler = (i) => {
@@ -94,12 +93,18 @@ const OtherExpenses = () => {
       ...otherExpensesSortedData,
       ...restoreCategoryData,
     ]);
-    localStorage.setItem('otherExpensesRemove', removeCategory);
+    const prevRemoveData = localStorage.getItem('otherExpensesRemove')
+      ? JSON.parse(localStorage.getItem('otherExpensesRemove'))
+      : [];
 
-    // const restore = removeCategoryTableData.filter(
-    //   (category) => category.category !== restoreCategoryData[0].category
-    // );
-    // setRemoveCategoryTableData([...restore]);
+    const updateRemoveCategory = prevRemoveData.filter(
+      (category) => category.category !== restoreCategoryData[0].category
+    );
+
+    localStorage.setItem(
+      'otherExpensesRemove',
+      JSON.stringify([...updateRemoveCategory])
+    );
   };
   const changeViewHandler = () => {
     setGridView((prev) => !prev);

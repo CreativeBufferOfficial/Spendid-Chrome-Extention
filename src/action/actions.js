@@ -8,10 +8,8 @@ import {
   LENDING_REQUEST,
   LENDING_SUCCESS,
   LENDING_RESET,
-  LENDING_FAIL,
   DEMOGRAPHICS_REQUEST,
   DEMOGRAPHICS_SUCCESS,
-  DEMOGRAPHICS_RESET,
   DEMOGRAPHICS_FAIL,
   BUDGET_GENERATE_REQUEST,
   BUDGET_GENERATE_SUCCESS,
@@ -38,7 +36,6 @@ export const login = (email, password) => async (dispatch) => {
     });
 
     dispatch({ type: LOGIN_SUCCESS, payload: data.data });
-    // console.log('Login', data);
   } catch (error) {
     dispatch({ type: LOGIN_FAIL, payload: error.response.data.message });
   }
@@ -50,16 +47,12 @@ export const login = (email, password) => async (dispatch) => {
 //     dispatch({
 //       type: LENDING_REQUEST,
 //     });
-//     console.log('2');
 //     const { data } = await callAPI(apiUrls.lending, 'post', body);
-//     console.log('data>>>>>', data);
-//     console.log('3');
 
 //     dispatch({
 //       type: LENDING_SUCCESS,
 //       payload: data,
 //     });
-//     console.log('4');
 //   } catch (error) {
 //     dispatch({
 //       type: LENDING_RESET,
@@ -74,16 +67,12 @@ export const lendingGenerate = (body, dispatch) => {
       dispatch({
         type: LENDING_REQUEST,
       });
-      console.log('2');
       const { data } = await callAPI(apiUrls.lending, 'post', body);
-      console.log('data>>>>>', data);
-      console.log('3');
 
       dispatch({
         type: LENDING_SUCCESS,
         payload: data,
       });
-      console.log('4');
 
       resolve(data);
     } catch (error) {
@@ -103,15 +92,11 @@ export const demographicsGenerate = (body) => async (dispatch) => {
     dispatch({
       type: DEMOGRAPHICS_REQUEST,
     });
-    console.log('6');
     const { data } = await callAPI(apiUrls.demographics, 'post', body);
-    console.log('7');
-    // console.log('data>>>>', data);
     dispatch({
       type: DEMOGRAPHICS_SUCCESS,
       payload: data,
     });
-    console.log('8');
   } catch (error) {
     dispatch({
       type: DEMOGRAPHICS_FAIL,
@@ -171,13 +156,11 @@ export const saveReport = (body) => async (dispatch) => {
       type: SAVE_REPORT_SUCCESS,
       payload: data,
     });
-    // console.log(data);
   } catch (error) {
     dispatch({
       type: SAVE_REPORT_FAIL,
       payload: error.response,
     });
-    // console.log(error.response);
   }
 };
 

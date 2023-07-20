@@ -1,39 +1,16 @@
 import React, { useEffect } from 'react';
 import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
-import {
-  filterSavings,
-  getStructureObject,
-  getTabData,
-  filterCategory,
-} from '../../../utlis/Helper';
-import useFormContext from '../../../context/FormContext';
+
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
-import { useSelector } from 'react-redux';
 am4core.useTheme(am4themes_animated);
 
 const DonutChart = ({ id, data, netAnnualIncome }) => {
-  const { loadingBudgets, budgets } = useSelector((state) => state.budget);
-
-  // const { data } = useFormContext();
-  // const { net_annual_income } = data.apiReq.demographics;
-  // console.log('netAnnualIncome', netAnnualIncome);
-
   useEffect(() => {
-    // const budgetObjects = getStructureObject(budgets);
-    // const category = filterCategory(budgetObjects);
-
     // Create chart instance
     const chart = am4core.create(id, am4charts.PieChart);
     // Add data
-    // console.log('DATACHART>>>>>>>>>> ', data);
     chart.data = data && data;
-    // chart.data = [
-    //   { name: 'category1', value: 1 },
-    //   { name: 'category12', value: 10 },
-    //   { name: 'category23', value: 25 },
-    // ];
-
     // Set inner radius
     chart.innerRadius = am4core.percent(50);
 

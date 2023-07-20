@@ -34,16 +34,12 @@ const AllResult = () => {
 
   useEffect(() => {
     const call = setTimeout(() => {
-      console.log('1');
       Promise.all([lendingGenerate(lendingPayload, dispatch)]).then((data) => {
-        console.log('5');
         const copyBudget = JSON.parse(JSON.stringify(budgetPayload));
         copyBudget.budget.savings = Math.round(data[0]?.elements?.cash_excess);
-        console.log('5.1');
         const copyScore = JSON.parse(JSON.stringify(scorePayload));
         copyScore.budget.savings = Math.round(data[0]?.elements?.cash_excess);
         dispatch(demographicsGenerate(demographicsPayload));
-        console.log('9');
         dispatch(budgetsGenerate(copyBudget));
         dispatch(scoresGenerate(copyScore));
         setLoading(true);

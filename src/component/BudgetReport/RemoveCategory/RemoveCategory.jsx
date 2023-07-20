@@ -20,7 +20,15 @@ const RemoveCategory = ({
           </button>
         </div>
         <div className={classes.amount_labels}>
-          <p>${amount1}</p> <p>${amount2}</p>
+          <p
+            style={{
+              backgroundColor:
+                title === localStorage.getItem(title) ? '#0267e8' : '#180f4f',
+            }}
+          >
+            ${amount1}
+          </p>{' '}
+          <p>${amount2}</p>
         </div>
       </div>
     </>

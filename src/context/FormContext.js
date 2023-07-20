@@ -19,7 +19,6 @@ import {
 
 const FormContext = createContext({});
 export const FormProvider = ({ children }) => {
-  // const dispatch = useDispatch();
   const transformData = getStructureTransform(transformerData);
   const [netIncome, setNetIncome] = useState([{ frequency: '', amount: '' }]);
   const [netIncomeSelectedIndex, setNetIncomeSelectedIndex] = useState([-1]);
@@ -80,7 +79,6 @@ export const FormProvider = ({ children }) => {
   const [chartSvg, setChartSvg] = useState([]);
   const [scoreChart, setScoreChart] = useState('');
   const [barChart, setBarChart] = useState('');
-  const [removeCategoryTableData, setRemoveCategoryTableData] = useState([]);
 
   const [data, setData] = useState({
     apiReq: {
@@ -242,8 +240,6 @@ export const FormProvider = ({ children }) => {
         case 'mortgage_and_rent':
         case 'vehicle_purchase_and_lease':
         case 'health_insurance':
-          console.log('value>>>>>>>>>>', value);
-
           apiReq.budget[name] = +value || null;
           break;
 
@@ -342,8 +338,7 @@ export const FormProvider = ({ children }) => {
         setScoreChart,
         barChart,
         setBarChart,
-        removeCategoryTableData,
-        setRemoveCategoryTableData,
+
         netIncomeSelectedIndex,
         setNetIncomeSelectedIndex,
         // lendingPayload,

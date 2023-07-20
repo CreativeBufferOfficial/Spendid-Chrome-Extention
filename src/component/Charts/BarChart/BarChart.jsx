@@ -31,9 +31,7 @@ const BarChart = ({ id }) => {
       const demographicsCategory = filterCategory(demographicsObjects);
       const budgetCategory = filterCategory(budgetObjects);
       getTabData(demographicsCategory, budgetCategory);
-      // console.log(demographicsCategory);
       diff = getDifferenceToPeers(demographicsCategory);
-      console.log('difference', diff);
     }
     // Create chart instance
     const chart = am4core.create(id, am4charts.XYChart);
@@ -64,7 +62,6 @@ const BarChart = ({ id }) => {
     const valueAxis = chart.xAxes.push(new am4charts.ValueAxis());
     valueAxis.title.text = 'Difference';
     valueAxis.renderer.labels.template.fontSize = 10;
-    // valueAxis.renderer.labels.template.wrap = true;
 
     // Create series
     const series = chart.series.push(new am4charts.ColumnSeries());

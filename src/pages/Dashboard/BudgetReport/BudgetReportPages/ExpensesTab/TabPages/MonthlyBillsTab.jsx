@@ -18,11 +18,7 @@ import {
 import useFormContext from '../../../../../../hooks/useFormContext';
 
 const MonthlyBills = () => {
-  const {
-    removeCategoryTableData,
-    setRemoveCategoryTableData,
-    categoryInputHandler,
-  } = useFormContext();
+  const { categoryInputHandler } = useFormContext();
   const { lendings } = useSelector((state) => state.lending);
   const { demographics } = useSelector((state) => state.demographics);
   const [savingsSet, setSavingsSet] = useState(false);
@@ -47,13 +43,13 @@ const MonthlyBills = () => {
     }
   };
 
-  // useEffect(() => {
-  //   if (lendings && lendings.elements && !savingsSet) {
-  //     const savings = Math.round(lendings.elements.cash_excess / 12);
-  //     categoryInputHandler('savings', savings);
-  //     setSavingsSet(true);
-  //   }
-  // }, [lendings, categoryInputHandler, savingsSet]);
+  useEffect(() => {
+    if (lendings && lendings.elements && !savingsSet) {
+      const savings = Math.round(lendings.elements.cash_excess / 12);
+      categoryInputHandler('savings', savings);
+      setSavingsSet(true);
+    }
+  }, [lendings, categoryInputHandler, savingsSet]);
 
   useEffect(() => {
     init();
@@ -61,21 +57,34 @@ const MonthlyBills = () => {
 
   const removeCategoryHandler = (i) => {
     const removeCategoryData = sortedData.splice(i, 1);
-    // console.log(removeCategoryData);
     setRemoveCategory((prev) => [...prev, ...removeCategoryData]);
-    // setSortedData([...sortedData]);
-    // setRemoveCategoryTableData((prev) => [...prev, ...removeCategoryData]);
-    localStorage.setItem('MonthlyExpensesRemove', removeCategory);
+
+    const prevRemoveData = localStorage.getItem('monthlyExpensesRemove')
+      ? JSON.parse(localStorage.getItem('monthlyExpensesRemove'))
+      : [];
+
+    localStorage.setItem(
+      'monthlyExpensesRemove',
+      JSON.stringify([...prevRemoveData, ...removeCategoryData])
+    );
   };
 
   const restoreCategoryHandler = (i) => {
     const restoreCategoryData = removeCategory.splice(i, 1);
     setSortedData([...sortedData, ...restoreCategoryData]);
-    // const restore = removeCategoryTableData.filter(
-    // (category) => category.category !== restoreCategoryData[0].category
-    // );
-    // setRemoveCategoryTableData([...restore]);
-    localStorage.setItem('MonthlyExpensesRemove', removeCategory);
+
+    const prevRemoveData = localStorage.getItem('monthlyExpensesRemove')
+      ? JSON.parse(localStorage.getItem('monthlyExpensesRemove'))
+      : [];
+
+    const updateRemoveCategory = prevRemoveData.filter(
+      (category) => category.category !== restoreCategoryData[0].category
+    );
+
+    localStorage.setItem(
+      'monthlyExpensesRemove',
+      JSON.stringify([...updateRemoveCategory])
+    );
   };
 
   return (

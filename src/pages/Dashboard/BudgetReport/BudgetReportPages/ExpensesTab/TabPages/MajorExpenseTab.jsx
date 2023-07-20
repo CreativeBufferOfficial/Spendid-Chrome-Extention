@@ -13,7 +13,6 @@ const MajorExpense = () => {
   const { lendings } = useSelector((state) => state.lending);
   const { demographics } = useSelector((state) => state.demographics);
   const { budgets } = useSelector((state) => state.budget);
-  console.log('call');
   const [savingsSet, setSavingsSet] = useState(false);
   const [isMajorExpensesTab, setIsMajorExpensesTab] = useState(true);
   const [majorExpensesSortedData, setMajorExpensesSortedData] = useState([]);

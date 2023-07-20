@@ -11,16 +11,11 @@ const Login = () => {
   const dispatch = useDispatch();
 
   const { error, user } = useSelector((state) => state.user);
-  // console.log('user', user);
   const token = user?.access_token;
   const name = user?.name;
   const email = user?.email;
 
-  // console.log('Token', token);
   setSession(token, name, email);
-  //TODO:  Take it form api response on fail error and isAuthenticated
-  // const error = 'error';
-  // const isAuthenticated = 'false';
 
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
