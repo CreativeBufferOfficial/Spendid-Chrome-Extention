@@ -13,11 +13,11 @@ import {
 } from '../../../action/actions';
 import { removeAuth } from '../../../utlis/auth';
 import { useNavigate } from 'react-router-dom';
+import { clearLocalStorage } from '../../../utlis/Helper';
 const AllResult = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const { lendings } = useSelector((state) => state.lending);
-  var fieldsToKeep = ['isAuthenticated', 'email', 'name'];
+  const fieldsToKeep = ['accessToken', 'isAuthenticated', 'email', 'name'];
   const {
     setData,
     setNetIncome,
@@ -29,7 +29,6 @@ const AllResult = () => {
     activeTabNumber,
     setGlobalSelectedIndex,
   } = useFormContext();
-  const [resetFlag, setResetFlag] = useState(false);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -57,7 +56,7 @@ const AllResult = () => {
     scorePayload,
   ]);
 
-  const clearInput = () => {
+  const reset = () => {
     setData((prev) => ({
       ...prev,
       apiReq: {
@@ -78,50 +77,19 @@ const AllResult = () => {
         },
       },
     }));
-
     setNetIncome([{ frequency: '', amount: '' }]);
-    setResetFlag(true);
     setValue(1);
-    var keys = Object.keys(localStorage);
-    keys.forEach(function (key) {
-      if (!fieldsToKeep.includes(key)) {
-        localStorage.removeItem(key);
-      }
-    });
+    clearLocalStorage(fieldsToKeep);
+    setGlobalSelectedIndex(Array(10).fill(-1));
+  };
+
+  const clearInput = () => {
+    reset();
+    setLoading(false);
   };
 
   const startOver = () => {
-    setData((prev) => ({
-      ...prev,
-      apiReq: {
-        ...prev.apiReq,
-        demographics: {
-          zip: '',
-          age: '',
-          household_members: 1,
-          is_homeowner: false,
-          net_annual_income: null,
-        },
-        budget: {
-          savings: null,
-          other_debt_payments: '',
-          mortgage_and_rent: '',
-          vehicle_purchase_and_lease: '',
-          health_insurance: '',
-        },
-      },
-    }));
-    setNetIncome([{ frequency: '', amount: '' }]);
-    setValue(1);
-    var keys = Object.keys(localStorage);
-    keys.forEach(function (key) {
-      if (!fieldsToKeep.includes(key)) {
-        localStorage.removeItem(key);
-      }
-    });
-    // localStorage.removeItem('zip');
-    // localStorage.removeItem('age');
-    setGlobalSelectedIndex(Array(10).fill(-1));
+    reset();
     navigate('/dashboard');
   };
 

@@ -254,3 +254,12 @@ export const getGrade = (breakeven) => {
   }
   return grade;
 };
+
+export const clearLocalStorage = (fieldsToKeep) => {
+  const keys = Object.keys(localStorage);
+  keys.forEach(function (key) {
+    if (!fieldsToKeep.includes(key)) {
+      localStorage.removeItem(key);
+    }
+  });
+};

@@ -111,7 +111,7 @@ const Result = ({ id, id2 }) => {
     }
   }, [savings]);
 
-  // Create styles
+  //  PDF style
   const styles = StyleSheet.create({
     page: {
       flexDirection: 'column',
@@ -209,7 +209,7 @@ const Result = ({ id, id2 }) => {
       marginRight: 60,
     },
     imageBarChart: {
-      width: '400px',
+      width: '350px',
       height: '250px',
       marginBottom: 15,
       marginRight: 30,
@@ -250,6 +250,7 @@ const Result = ({ id, id2 }) => {
     },
   });
 
+  // Generate PDF
   const generatePDF = () => {
     const otherExpensesRemove = localStorage.getItem('otherExpensesRemove')
       ? JSON.parse(localStorage.getItem('otherExpensesRemove'))
@@ -274,7 +275,7 @@ const Result = ({ id, id2 }) => {
       data?.apiReq?.demographics;
     const date = getPDfGenerateDate();
 
-    // Create your PDF content
+    // PDF Content
     const MyDocument = (
       <Document>
         <Page size="A4" style={styles.page}>
@@ -405,7 +406,7 @@ const Result = ({ id, id2 }) => {
               </View>
             </View>
             {majorExpTableData.map((data) => (
-              <View style={styles.tableRowData}>
+              <View key={data.category} style={styles.tableRowData}>
                 <View style={styles.tableCellName}>
                   <Text>{data.category}</Text>
                 </View>
@@ -439,8 +440,11 @@ const Result = ({ id, id2 }) => {
                 <Text>Difference</Text>
               </View>
             </View>
-            {otherExpTableDataUpdate.map((data) => (
-              <View style={styles.tableRowData}>
+            {(otherExpTableDataUpdate.length > 0
+              ? otherExpTableDataUpdate
+              : otherExpTableData
+            ).map((data) => (
+              <View key={data.category} style={styles.tableRowData}>
                 <View style={styles.tableCellName}>
                   <Text>{data.category}</Text>
                 </View>
@@ -474,7 +478,7 @@ const Result = ({ id, id2 }) => {
             </View>
 
             {removeCategory.map((data) => (
-              <View style={styles.tableRowData}>
+              <View key={data.category} style={styles.tableRowData}>
                 <View style={styles.tableCellName}>
                   <Text>{data.category}</Text>
                 </View>
@@ -546,16 +550,6 @@ const Result = ({ id, id2 }) => {
               <div className={classes.designBox}></div>
               <p>Your result</p>
             </div>
-            {/* <ResultTitle
-              title="SPENDiD Budget Health Score"
-              // handleMouseEnter={handleMouseEnter}
-              // handleMouseLeave={handleMouseLeave}
-            /> */}
-            {/* <div className={classes.popup_overlay}></div>
-        <div className={classes.popup_content}>
-          <h3>Popup Content</h3>
-          <p>This is a popup view that appears on hover.</p>
-        </div> */}
             <GaugeChart id={id2} />
             <ResultTitle
               title="Monthly Predicted Saving Ability"
@@ -588,13 +582,7 @@ const Result = ({ id, id2 }) => {
                 </p>
               </div>
             </div>
-            {/* <div className={classes.monthly_save}>
-          <p>Enter a Monthly Amount to Save</p>
-          <input type="text" className={classes.input_field} />
-          <button className={classes.clear} type="button">
-            Clear
-          </button>
-        </div> */}
+
             <ResultTitle title="Budget By Category" />
 
             {categoryData && (
