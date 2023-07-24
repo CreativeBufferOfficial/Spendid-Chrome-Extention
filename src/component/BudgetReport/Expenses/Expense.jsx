@@ -19,6 +19,7 @@ const Expense = ({
   const [showAmount, setShowAmount] = useState(false);
   const [selectedOption, setSelectedOption] = useState('');
   const [amount, setAmount] = useState('');
+  // const [categoryName, setCategoryName] = useState('');
 
   const handleKeyDown = (event) => {
     const newColor = '#0267e8';
@@ -46,6 +47,7 @@ const Expense = ({
   const categoryAmountHandler = useCallback(
     (e) => {
       const name = e.target.getAttribute('name');
+      // setCategoryName(name);
       let value = e.target.value;
       setAmount(value);
       const frequency = e.target.getAttribute('frequency');
@@ -76,9 +78,12 @@ const Expense = ({
               ''
             ) : (
               <img
+                name={filter[0].payloadName}
                 src={close}
                 alt="close"
-                onClick={() => onRemoveCategory(index)}
+                onClick={(e) =>
+                  onRemoveCategory(index, filter[0].payloadName, 0)
+                }
               />
             )}
           </div>

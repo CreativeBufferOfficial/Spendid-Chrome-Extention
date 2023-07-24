@@ -1,5 +1,7 @@
 import React from 'react';
 import classes from './RemoveCategory.module.css';
+import useFormContext from '../../../hooks/useFormContext';
+
 const RemoveCategory = ({
   index,
   title,
@@ -7,14 +9,17 @@ const RemoveCategory = ({
   amount2,
   onRestoreCategory,
 }) => {
+  const { transformData } = useFormContext();
+  const filter = transformData.filter((obj) => obj.name === title);
   return (
     <>
       <div className={classes.remove_category}>
         <div className={classes.title}>
           <p>{title}</p>
           <button
+            name={filter[0].payloadName}
             className={classes.restore_btn}
-            onClick={() => onRestoreCategory(index)}
+            onClick={() => onRestoreCategory(index, filter[0].payloadName)}
           >
             Restore
           </button>

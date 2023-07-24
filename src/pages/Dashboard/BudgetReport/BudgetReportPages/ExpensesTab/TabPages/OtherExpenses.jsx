@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import classes from '../TabViews/HomeTabsViews.module.css';
 import {
   Expense,
@@ -25,7 +25,7 @@ import {
 import { useSelector } from 'react-redux';
 import useFormContext from '../../../../../../hooks/useFormContext';
 const OtherExpenses = () => {
-  const { categoryInputHandler } = useFormContext();
+  const { categoryInputHandler, removeCategoryInputHandler } = useFormContext();
   const { lendings } = useSelector((state) => state.lending);
   const [savingsSet, setSavingsSet] = useState(false);
   const { demographics } = useSelector((state) => state.demographics);
@@ -74,38 +74,46 @@ const OtherExpenses = () => {
     setOtherExpensesSortedData([...decending]);
   };
 
-  const removeCategoryHandler = (i) => {
-    const removeCategoryData = otherExpensesSortedData.splice(i, 1);
-    setRemoveCategory([...removeCategory, ...removeCategoryData]);
-    const prevRemoveData = localStorage.getItem('otherExpensesRemove')
-      ? JSON.parse(localStorage.getItem('otherExpensesRemove'))
-      : [];
+  const removeCategoryHandler = useCallback(
+    (i, name, value = 0) => {
+      const removeCategoryData = otherExpensesSortedData.splice(i, 1);
+      setRemoveCategory([...removeCategory, ...removeCategoryData]);
+      const prevRemoveData = localStorage.getItem('otherExpensesRemove')
+        ? JSON.parse(localStorage.getItem('otherExpensesRemove'))
+        : [];
 
-    localStorage.setItem(
-      'otherExpensesRemove',
-      JSON.stringify([...prevRemoveData, ...removeCategoryData])
-    );
-  };
+      localStorage.setItem(
+        'otherExpensesRemove',
+        JSON.stringify([...prevRemoveData, ...removeCategoryData])
+      );
+      categoryInputHandler(name, value);
+    },
+    [categoryInputHandler, otherExpensesSortedData, removeCategory]
+  );
 
-  const restoreCategoryHandler = (i) => {
-    const restoreCategoryData = removeCategory.splice(i, 1);
-    otherExpensesSortedData([
-      ...otherExpensesSortedData,
-      ...restoreCategoryData,
-    ]);
-    const prevRemoveData = localStorage.getItem('otherExpensesRemove')
-      ? JSON.parse(localStorage.getItem('otherExpensesRemove'))
-      : [];
+  const restoreCategoryHandler = useCallback(
+    (i, name) => {
+      const restoreCategoryData = removeCategory.splice(i, 1);
+      otherExpensesSortedData([
+        ...otherExpensesSortedData,
+        ...restoreCategoryData,
+      ]);
+      const prevRemoveData = localStorage.getItem('otherExpensesRemove')
+        ? JSON.parse(localStorage.getItem('otherExpensesRemove'))
+        : [];
 
-    const updateRemoveCategory = prevRemoveData.filter(
-      (category) => category.category !== restoreCategoryData[0].category
-    );
+      const updateRemoveCategory = prevRemoveData.filter(
+        (category) => category.category !== restoreCategoryData[0].category
+      );
 
-    localStorage.setItem(
-      'otherExpensesRemove',
-      JSON.stringify([...updateRemoveCategory])
-    );
-  };
+      localStorage.setItem(
+        'otherExpensesRemove',
+        JSON.stringify([...updateRemoveCategory])
+      );
+      removeCategoryInputHandler(name);
+    },
+    [removeCategoryInputHandler, removeCategory, otherExpensesSortedData]
+  );
   const changeViewHandler = () => {
     setGridView((prev) => !prev);
   };

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import classes from '../TabViews/HomeTabsViews.module.css';
 import {
   Expense,
@@ -18,7 +18,7 @@ import {
 import useFormContext from '../../../../../../hooks/useFormContext';
 
 const MonthlyBills = () => {
-  const { categoryInputHandler } = useFormContext();
+  const { categoryInputHandler, removeCategoryInputHandler } = useFormContext();
   const { lendings } = useSelector((state) => state.lending);
   const { demographics } = useSelector((state) => state.demographics);
   const [savingsSet, setSavingsSet] = useState(false);
@@ -55,37 +55,45 @@ const MonthlyBills = () => {
     init();
   }, [demographics, budgets]);
 
-  const removeCategoryHandler = (i) => {
-    const removeCategoryData = sortedData.splice(i, 1);
-    setRemoveCategory((prev) => [...prev, ...removeCategoryData]);
+  const removeCategoryHandler = useCallback(
+    (i, name, value = 0) => {
+      const removeCategoryData = sortedData.splice(i, 1);
+      setRemoveCategory((prev) => [...prev, ...removeCategoryData]);
 
-    const prevRemoveData = localStorage.getItem('monthlyExpensesRemove')
-      ? JSON.parse(localStorage.getItem('monthlyExpensesRemove'))
-      : [];
+      const prevRemoveData = localStorage.getItem('monthlyExpensesRemove')
+        ? JSON.parse(localStorage.getItem('monthlyExpensesRemove'))
+        : [];
 
-    localStorage.setItem(
-      'monthlyExpensesRemove',
-      JSON.stringify([...prevRemoveData, ...removeCategoryData])
-    );
-  };
+      localStorage.setItem(
+        'monthlyExpensesRemove',
+        JSON.stringify([...prevRemoveData, ...removeCategoryData])
+      );
+      categoryInputHandler(name, value);
+    },
+    [categoryInputHandler, sortedData]
+  );
 
-  const restoreCategoryHandler = (i) => {
-    const restoreCategoryData = removeCategory.splice(i, 1);
-    setSortedData([...sortedData, ...restoreCategoryData]);
+  const restoreCategoryHandler = useCallback(
+    (i, name) => {
+      const restoreCategoryData = removeCategory.splice(i, 1);
+      setSortedData([...sortedData, ...restoreCategoryData]);
 
-    const prevRemoveData = localStorage.getItem('monthlyExpensesRemove')
-      ? JSON.parse(localStorage.getItem('monthlyExpensesRemove'))
-      : [];
+      const prevRemoveData = localStorage.getItem('monthlyExpensesRemove')
+        ? JSON.parse(localStorage.getItem('monthlyExpensesRemove'))
+        : [];
 
-    const updateRemoveCategory = prevRemoveData.filter(
-      (category) => category.category !== restoreCategoryData[0].category
-    );
+      const updateRemoveCategory = prevRemoveData.filter(
+        (category) => category.category !== restoreCategoryData[0].category
+      );
 
-    localStorage.setItem(
-      'monthlyExpensesRemove',
-      JSON.stringify([...updateRemoveCategory])
-    );
-  };
+      localStorage.setItem(
+        'monthlyExpensesRemove',
+        JSON.stringify([...updateRemoveCategory])
+      );
+      removeCategoryInputHandler(name);
+    },
+    [removeCategoryInputHandler, sortedData, removeCategory]
+  );
 
   return (
     <>

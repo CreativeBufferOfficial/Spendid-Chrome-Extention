@@ -195,6 +195,16 @@ export const FormProvider = ({ children }) => {
     });
   };
 
+  const removeCategoryInputHandler = (name) => {
+    setData((data) => {
+      const newData = { ...data };
+      const { apiReq } = newData;
+      // Remove the key completely
+      delete apiReq.budget[name];
+      return newData;
+    });
+  };
+
   const formDataHandlerChange = (e, i) => {
     if (i !== -1) {
       globalSelectedIndex[page] = i;
@@ -341,6 +351,7 @@ export const FormProvider = ({ children }) => {
 
         netIncomeSelectedIndex,
         setNetIncomeSelectedIndex,
+        removeCategoryInputHandler,
         // lendingPayload,
         // setLendingPayload,
 
