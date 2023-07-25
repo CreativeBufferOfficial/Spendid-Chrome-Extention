@@ -36,7 +36,6 @@ const Dashboard = () => {
             here
           </p>
           <button className={classes.byPass} onClick={FormByPassHandler}>
-            {' '}
             ByPass
           </button>
         </div>

@@ -31,7 +31,6 @@ const OtherExpenses = () => {
   const { demographics } = useSelector((state) => state.demographics);
   const { budgets } = useSelector((state) => state.budget);
   const [gridView, setGridView] = useState(false);
-  // const [sortedData, setSortedData] = useState([]);
   const [removeCategory, setRemoveCategory] = useState([]);
   const [otherExpensesSortedData, setOtherExpensesSortedData] = useState([]);
   const [bgColor, setBgColor] = useState([]);
@@ -50,7 +49,20 @@ const OtherExpenses = () => {
         filterDemographicsOtherExpensesData,
         filterBudgetOtherExpensesData
       );
-      setOtherExpensesSortedData(filterDemographicsOtherExpensesData);
+
+      const isInRemoveCategory = (obj) => {
+        return removeCategory.some((item) => item.value === obj.value);
+      };
+
+      const updatedTableData = filterDemographicsOtherExpensesData.filter(
+        (item) => !isInRemoveCategory(item)
+      );
+
+      setOtherExpensesSortedData(
+        updatedTableData.length > 0
+          ? updatedTableData
+          : filterDemographicsOtherExpensesData
+      );
     }
   };
   useEffect(() => {
@@ -94,7 +106,7 @@ const OtherExpenses = () => {
   const restoreCategoryHandler = useCallback(
     (i, name) => {
       const restoreCategoryData = removeCategory.splice(i, 1);
-      otherExpensesSortedData([
+      setOtherExpensesSortedData([
         ...otherExpensesSortedData,
         ...restoreCategoryData,
       ]);

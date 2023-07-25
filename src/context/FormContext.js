@@ -16,12 +16,14 @@ import {
   healthcareIcon,
   incomeIcon,
 } from '../utlis/Imports';
+import { useNavigate } from 'react-router-dom';
 
 const FormContext = createContext({});
 export const FormProvider = ({ children }) => {
   const transformData = getStructureTransform(transformerData);
   const [netIncome, setNetIncome] = useState([{ frequency: '', amount: '' }]);
   const [netIncomeSelectedIndex, setNetIncomeSelectedIndex] = useState([-1]);
+  const navigate = useNavigate();
 
   const title = [
     {
@@ -308,7 +310,13 @@ export const FormProvider = ({ children }) => {
   const submitHide = page !== title.length - 1;
 
   const nextHandler = () => setPage((prev) => prev + 1);
-  const prevHandler = () => setPage((prev) => prev - 1);
+  const prevHandler = () => {
+    if (page === 0) {
+      navigate('/dashboard');
+    } else {
+      setPage((prev) => prev - 1);
+    }
+  };
   const currentHandler = () => setPage((prev) => prev);
 
   return (

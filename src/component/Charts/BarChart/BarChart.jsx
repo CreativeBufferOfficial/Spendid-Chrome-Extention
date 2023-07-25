@@ -7,6 +7,7 @@ import {
   filterCategory,
   getTabData,
   getDifferenceToPeers,
+  getDiffrenceForTable,
 } from '../../../utlis/Helper';
 import { useSelector } from 'react-redux';
 import useFormContext from '../../../hooks/useFormContext';
@@ -24,20 +25,45 @@ const BarChart = ({ id }) => {
 
   useEffect(() => {
     // init();
-    let diff;
+    let otherExpTableDataUpdate;
     if (demographics && budgets) {
       const demographicsObjects = getStructureObject(demographics);
       const budgetObjects = getStructureObject(budgets);
       const demographicsCategory = filterCategory(demographicsObjects);
       const budgetCategory = filterCategory(budgetObjects);
       getTabData(demographicsCategory, budgetCategory);
-      diff = getDifferenceToPeers(demographicsCategory);
+
+      const otherExpensesRemove = localStorage.getItem('otherExpensesRemove')
+        ? JSON.parse(localStorage.getItem('otherExpensesRemove'))
+        : [];
+
+      const monthlyExpensesRemove = localStorage.getItem(
+        'monthlyExpensesRemove'
+      )
+        ? JSON.parse(localStorage.getItem('monthlyExpensesRemove'))
+        : [];
+
+      const removeCategoryTableData = [
+        ...otherExpensesRemove,
+        ...monthlyExpensesRemove,
+      ];
+
+      const diff = getDifferenceToPeers(demographicsCategory);
+      const removeCategory = getDiffrenceForTable(removeCategoryTableData);
+      const isInRemoveCategory = (obj) => {
+        return removeCategory.some((item) => item.value === obj.value);
+      };
+
+      otherExpTableDataUpdate = diff.filter(
+        (item) => !isInRemoveCategory(item)
+      );
     }
     // Create chart instance
     const chart = am4core.create(id, am4charts.XYChart);
 
     // Add data
-    chart.data = diff && diff.splice(0, 5);
+    chart.data =
+      otherExpTableDataUpdate && otherExpTableDataUpdate.splice(0, 5);
 
     // Create axes
     const categoryAxis = chart.yAxes.push(new am4charts.CategoryAxis());

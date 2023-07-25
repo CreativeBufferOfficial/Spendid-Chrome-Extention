@@ -39,7 +39,20 @@ const MonthlyBills = () => {
         budgetsMonthlyBillObject
       );
       getTabData(filterdemographicsMonthlyBill, filterBudgetMonthlyBill);
-      setSortedData(filterdemographicsMonthlyBill);
+
+      const isInRemoveCategory = (obj) => {
+        return removeCategory.some((item) => item.value === obj.value);
+      };
+
+      const updatedTableData = filterdemographicsMonthlyBill.filter(
+        (item) => !isInRemoveCategory(item)
+      );
+
+      setSortedData(
+        updatedTableData.length > 0
+          ? updatedTableData
+          : filterdemographicsMonthlyBill
+      );
     }
   };
 

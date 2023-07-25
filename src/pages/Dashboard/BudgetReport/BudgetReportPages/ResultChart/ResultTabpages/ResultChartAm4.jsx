@@ -266,11 +266,14 @@ const Result = ({ id, id2 }) => {
     ];
     const removeCategory = getDiffrenceForTable(removeCategoryTableData);
 
-    const otherExpTableDataUpdate = otherExpTableData.filter((category) => {
-      return removeCategory.some(
-        (filterItem) => filterItem.category !== category.category
-      );
-    });
+    const isInRemoveCategory = (obj) => {
+      return removeCategory.some((item) => item.value === obj.value);
+    };
+
+    const otherExpTableDataUpdate = otherExpTableData.filter(
+      (item) => !isInRemoveCategory(item)
+    );
+
     const { zip, age, net_annual_income, is_homeowner, household_members } =
       data?.apiReq?.demographics;
     const date = getPDfGenerateDate();
