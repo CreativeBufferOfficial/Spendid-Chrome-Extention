@@ -20,7 +20,6 @@ import {
   SAVE_REPORT_REQUEST,
   SAVE_REPORT_SUCCESS,
   SAVE_REPORT_FAIL,
-
   // CLEAR_ERRORS,
 } from '../constant/constants';
 import { callAPI, callAPI2, callAPIWithoutAuth } from '../utlis/Apiutils';

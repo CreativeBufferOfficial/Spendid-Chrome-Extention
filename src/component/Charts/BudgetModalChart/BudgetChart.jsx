@@ -59,7 +59,7 @@ const DonutChart = ({ id, data }) => {
     // Attach the ready event handle
     chart.events.once('ready', () => {
       // Export the chart as an SVG string
-      const svgString1 = chart.exporting.getImage('svg');
+      const svgString1 = chart.exporting.getImage('png');
       svgString1.then((res) => {
         setChartSvg((prev) => {
           if (prev.length > 2) {

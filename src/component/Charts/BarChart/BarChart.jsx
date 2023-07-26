@@ -16,10 +16,8 @@ am4core.useTheme(am4themes_animated);
 
 const BarChart = ({ id }) => {
   const { setBarChart, categoryInputHandler } = useFormContext();
-  const { loadingDemographics, demographics } = useSelector(
-    (state) => state.demographics
-  );
-  const { loadingBudgets, budgets } = useSelector((state) => state.budget);
+  const { demographics } = useSelector((state) => state.demographics);
+  const { budgets } = useSelector((state) => state.budget);
   const { lendings } = useSelector((state) => state.lending);
   const [savingsSet, setSavingsSet] = useState(false);
 
@@ -79,7 +77,6 @@ const BarChart = ({ id }) => {
     categoryAxis.renderer.labels.template.verticalTop = 'top';
     categoryAxis.renderer.labels.template.wrap = false;
     categoryAxis.renderer.labels.template.truncate = false;
-    // categoryAxis.renderer.labels.template.maxWidth = 120;
     categoryAxis.renderer.inside = true;
     categoryAxis.renderer.labels.template.valign = 'top';
     categoryAxis.renderer.labels.template.dy = -1;
@@ -123,7 +120,7 @@ const BarChart = ({ id }) => {
     // Attach the ready event handle
     chart.events.once('ready', () => {
       // Export the chart as an SVG string
-      const svgString1 = chart.exporting.getImage('svg');
+      const svgString1 = chart.exporting.getImage('png');
       svgString1.then((res) => {
         setBarChart(res);
       });

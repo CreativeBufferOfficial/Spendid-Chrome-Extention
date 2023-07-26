@@ -7,7 +7,6 @@ import {
   RemoveIcon,
   EditIcon,
   ResultTitle,
-  Loader,
 } from '../../../../../../utlis/Imports';
 import { useSelector } from 'react-redux';
 import {
@@ -22,7 +21,7 @@ const MonthlyBills = () => {
   const { lendings } = useSelector((state) => state.lending);
   const { demographics } = useSelector((state) => state.demographics);
   const [savingsSet, setSavingsSet] = useState(false);
-  const { loadingBudgets, budgets } = useSelector((state) => state.budget);
+  const { budgets } = useSelector((state) => state.budget);
   const [removeCategory, setRemoveCategory] = useState([]);
   const [sortedData, setSortedData] = useState([]);
   const [bgColor, setBgColor] = useState([]);

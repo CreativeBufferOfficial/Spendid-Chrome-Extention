@@ -42,15 +42,6 @@ export const filterCategory = (data) => {
   return data.filter((obj) => categories.includes(obj.category));
 };
 
-// export const getTabData = (array1, array2) => {
-//   // Dynamically add a key-value pair to each object in the array
-//   for (let i = 0; i < array1.length; i++) {
-//     let key = 'Amount';
-//     let value = array2[i].value;
-//     array1[i][key] = value;
-//   }
-// };
-
 export const getTabData = (array1, array2) => {
   for (let i = 0; i < array1.length; i++) {
     array1[i].Amount = array2[i].value;
@@ -62,14 +53,6 @@ export const sortAscending = (a, b) => a.value - b.value;
 
 export const sortDescendingAmount = (a, b) => b.Amount - a.Amount;
 export const sortAscendingAmount = (a, b) => a.Amount - b.Amount;
-
-// export const getDiffrenceToPeers = (array) => {
-//   const filteredData = array
-//     .filter((obj) => obj.Amount - obj.value > 0)
-//     .map((obj) => ({ ...obj, difference: obj.Amount - obj.value }));
-
-//   return filteredData;
-// };
 
 export const getDifferenceToPeers = (array) => {
   const filteredData = [];
@@ -114,18 +97,6 @@ export const modalBudgetSum = (data) => {
   );
   return sum;
 };
-
-// export const getStructureTransform = (obj) => {
-//   const result = [];
-//   for (let key in obj) {
-//     if (typeof obj[key] === 'object' && obj[key] !== null) {
-//       result.push(...getStructureObject(obj[key])); // Recursively call the function for nested objects
-//     } else {
-//       result.push({ payloadName: key, name: obj[key] }); // Convert the key-value pair into an object and push it to the result array
-//     }
-//   }
-//   return result;
-// };
 
 export const getStructureTransform = (obj) => {
   const result = [];

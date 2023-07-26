@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 import { defaultConfig } from './config';
-// import axiosUtil from './axiosUtils';
 export const callAPIWithoutAuth = async (
   path,
   method,
@@ -44,7 +43,6 @@ export const callAPI = async (
     Accept: '*/*',
     'x-api-key': 'HTDzMgEntXaBYVFZ6SSth2iosFRjVe7F8QtM4HBr',
     // Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-
     // AuthKey: await localStorage.getItem('authkey'),
     ...headersObj,
   };

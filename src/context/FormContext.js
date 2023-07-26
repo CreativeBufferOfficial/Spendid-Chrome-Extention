@@ -356,21 +356,9 @@ export const FormProvider = ({ children }) => {
         setScoreChart,
         barChart,
         setBarChart,
-
         netIncomeSelectedIndex,
         setNetIncomeSelectedIndex,
         removeCategoryInputHandler,
-        // lendingPayload,
-        // setLendingPayload,
-
-        // demographicsPayload,
-        // setDemographicsPayload,
-
-        // budgetPayload,
-        // setBudgetPayload,
-
-        // scorePayload,
-        // setScorePayload,
       }}
     >
       {children}

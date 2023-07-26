@@ -97,15 +97,21 @@ const BugetModal = ({ id }) => {
         </div>
         <div>
           <div className={classes.chart_header_label}>50-30-20 Model</div>
-          <BudgetChart data={ModalData} id={id ? id.chart1 : 'chartdiv1'} />
+          {ModalData && (
+            <BudgetChart data={ModalData} id={id ? id.chart1 : 'chartdiv1'} />
+          )}
         </div>
         <div>
           <div className={classes.chart_header_label}>Your Peers</div>
-          <BudgetChart data={peeersData} id={id ? id.chart2 : 'chartdiv2'} />
+          {peeersData && (
+            <BudgetChart data={peeersData} id={id ? id.chart2 : 'chartdiv2'} />
+          )}
         </div>
         <div>
           <div className={classes.chart_header_label}>You</div>
-          <BudgetChart data={yourData} id={id ? id.chart3 : 'chartdiv3'} />
+          {yourData && (
+            <BudgetChart data={yourData} id={id ? id.chart3 : 'chartdiv3'} />
+          )}
         </div>
       </div>
     </>
