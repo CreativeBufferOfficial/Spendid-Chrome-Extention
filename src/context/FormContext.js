@@ -17,6 +17,7 @@ import {
   incomeIcon,
 } from '../utlis/Imports';
 import { useNavigate } from 'react-router-dom';
+import { modalSvg, barChartSvg, scoreChartSvg } from '../utlis/HelperData';
 
 const FormContext = createContext({});
 export const FormProvider = ({ children }) => {
@@ -76,11 +77,10 @@ export const FormProvider = ({ children }) => {
     Array(10).fill(-1)
   );
   const [activeTabNumber, setActiveTabNumber] = useState('');
-
   const [page, setPage] = useState(0);
-  const [chartSvg, setChartSvg] = useState([]);
-  const [scoreChart, setScoreChart] = useState('');
-  const [barChart, setBarChart] = useState('');
+  const [chartSvg, setChartSvg] = useState(modalSvg);
+  const [scoreChart, setScoreChart] = useState(scoreChartSvg[0]);
+  const [barChart, setBarChart] = useState(barChartSvg[0]);
 
   const [data, setData] = useState({
     apiReq: {

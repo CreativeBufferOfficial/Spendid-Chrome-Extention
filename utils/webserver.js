@@ -40,7 +40,7 @@ var server = new WebpackDevServer(
       directory: path.join(__dirname, '../build'),
     },
     devMiddleware: {
-      publicPath: `ws://localhost:${env.PORT}/`,
+      publicPath: `wss://localhost:${env.PORT}/`,
       writeToDisk: true,
     },
     headers: {
