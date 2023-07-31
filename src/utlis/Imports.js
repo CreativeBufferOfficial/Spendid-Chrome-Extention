@@ -11,6 +11,7 @@ export { default as DonutChart } from '../component/Charts/DonutChart/DonutChart
 export { default as GaugeChart } from '../component/Charts/GaugeChart/GaugeChart';
 export { default as BudgetChart } from '../component/Charts/BudgetModalChart/BudgetChart';
 export { default as Button } from '../component/Button/Button';
+export { default as MyDocument } from '../component/pdf/PDFDocument';
 
 //Images
 export { default as RemoveIcon } from '../assets/result/close.png';
